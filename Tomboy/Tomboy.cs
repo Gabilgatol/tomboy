@@ -1,14 +1,14 @@
 
 using System;
 using System.IO;
-using Mono.Posix;
+using Mono.Unix;
+using Mono.Unix.Native;
 
 namespace Tomboy 
 {
 	public class Tomboy 
 	{
 		static Gnome.Program program;
-		static Syscall.sighandler_t sig_handler;
 		static NoteManager manager;
 		static Object dbus_connection;
 
@@ -62,7 +62,7 @@ namespace Tomboy
 		static void RegisterPanelAppletFactory ()
 		{
 			// This will block if there is no existing instance running
-			PanelApplet.AppletFactory.Register (typeof (TomboyApplet));
+			Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
 		}
 
 		static void RegisterRemoteControl (NoteManager manager)
@@ -87,12 +87,10 @@ namespace Tomboy
 
 		static void RegisterSignalHandlers ()
 		{
-			sig_handler = OnExitSignal;
-
 			// Connect to SIGTERM and SIGQUIT, so we don't lose
 			// unsaved notes on exit...
-			Syscall.signal ((int) Signals.SIGTERM, sig_handler);
-			Syscall.signal ((int) Signals.SIGQUIT, sig_handler);
+			Stdlib.signal (Signum.SIGTERM, OnExitSignal);
+			Stdlib.signal (Signum.SIGQUIT, OnExitSignal);
 		}
 
 		static void OnExitSignal (int signal)

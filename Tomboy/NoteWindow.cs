@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Tomboy
 {
@@ -117,10 +117,11 @@ namespace Tomboy
 				}
 
 				if (insert.Length > 0) {
-					Buffer.InsertWithTags (
-						Buffer.GetIterAtMark (Buffer.InsertMark),
-						insert.ToString (),
-						Buffer.TagTable.Lookup ("link:url"));
+					Gtk.TextIter iter = 
+						Buffer.GetIterAtMark (Buffer.InsertMark);
+					Buffer.InsertWithTags (ref iter,
+							       insert.ToString (),
+							       Buffer.TagTable.Lookup ("link:url"));
 				}
 
 				Gtk.Drag.Finish (context, insert.Length > 0, false, time);
@@ -707,7 +708,6 @@ namespace Tomboy
 
 	public class NoteTextMenu : Gtk.Menu
 	{
-		Gtk.AccelGroup accel_group;
 		NoteBuffer buffer;
 		UndoManager undo_manager;
 		bool event_freeze;
@@ -744,7 +744,6 @@ namespace Tomboy
 				     UndoManager    undo_manager) 
 			: base ()
 		{
-			this.accel_group = accel_group;
 			this.buffer = buffer;
 			this.undo_manager = undo_manager;
 

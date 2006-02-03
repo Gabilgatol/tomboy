@@ -28,7 +28,14 @@ namespace Tomboy
 			push_in = true;
 		}
 
-		static void DeactivateMenu (object sender, EventArgs args) 
+		public static void DetachMenu (Gtk.Widget attach, Gtk.Menu menu)
+		{
+			// Do nothing.  Callers can use this to work around a
+			// Gtk#2 binding bug requiring a non-null detach
+			// delegate when calling Gtk.Menu.AttachToWidget.
+		}
+
+		public static void DeactivateMenu (object sender, EventArgs args) 
 		{
 			Gtk.Menu menu = (Gtk.Menu) sender;
 			menu.Popdown ();
@@ -47,7 +54,6 @@ namespace Tomboy
 			menu.Popup (null, 
 				    null, 
 				    new Gtk.MenuPositionFunc (GetMenuPosition), 
-				    IntPtr.Zero, 
 				    (ev == null) ? 0 : ev.Button, 
 				    (ev == null) ? Gtk.Global.CurrentEventTime : ev.Time);
 
@@ -435,7 +441,9 @@ namespace Tomboy
 
 		public void Erase ()
 		{
-			buffer.Delete (Start, End);
+			Gtk.TextIter deleteStart = Start;
+			Gtk.TextIter deleteEnd = End;
+			buffer.Delete (ref deleteStart, ref deleteEnd);
 		}
 
 		public void Destroy ()
@@ -621,7 +629,7 @@ namespace Tomboy
 			this.is_important = false;
 
 			this.menu = menu;
-			this.menu.AttachToWidget (this, null);
+			this.menu.AttachToWidget (this, GuiUtils.DetachMenu);
 			this.menu.Deactivated += ReleaseButton;
 
 			this.image = image;

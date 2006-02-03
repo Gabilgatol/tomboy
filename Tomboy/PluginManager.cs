@@ -4,7 +4,8 @@ using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
 using System.IO;
-using Mono.Posix;
+using Mono.Unix;
+using Mono.Unix.Native;
 
 namespace Tomboy
 {

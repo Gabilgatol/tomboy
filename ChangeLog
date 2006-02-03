@@ -1,5 +1,59 @@
 2006-02-03  Alex Graveley  <alex@beatniksoftware.com>
 
+	Update to build against Gtk#2 and Mono 1.1.13...
+
+	- Switch Mono.Posix -> Mono.Unix everywhere.
+
+	- Ref all TextIter usage.
+
+	- Use GuiUtils.DetachMenu when calling Gtk.Menu.AttachToWidget,
+	since this can't be null for some reason.
+
+	- Remove Tomboy/panelapplet/*.
+
+	* data/Makefile.am: Install the tomboy.desktop file.
+	I believe the other non-RedHat desktops have caught up with
+	supporting OnlyShowIn=KDE.
+
+	* Tomboy/Plugins/Evolution.cs: Add using Mono.Posix.Native.
+
+	* Tomboy/Watchers.cs: Drop old gtkspell compatibility code.
+
+	* Tomboy/Utils.cs: Update for Gtk.Menu.Popup API change.
+
+	* Tomboy/Tomboy.cs: Add using Mono.Posix.Native.  Syscall.signal
+	-> Stdlib.signal.
+
+	* Tomboy/Search.cs: Gtk.Combo -> Gtk.ComboBoxEntry.  Keep previous
+	searches in an ArrayList.  Remove GLib.Markup.EscapeText bug
+	workaround.
+	
+	* Tomboy/RecentChanges.cs: Update for chaged SetSortFunc API.
+
+	* Tomboy/PluginManager.cs: Add using Mono.Posix.Native.
+
+	* Tomboy/NoteWindow.cs: In NoteTextMenu,
+	don't store accel_group.
+
+	* Tomboy/NoteTag.cs: XX_Large -> XXLarge.
+	
+	* Tomboy/Note.cs: Don't store tag table (hopefully not needed
+	anymore).
+
+	* Tomboy/Makefile.am: Don't build panelapplet/*.  Don't define
+	OLD_GTKSPELL_CSFLAGS.
+
+	* libtomboy/tomboyutil.c: Remove tomboy_widget_set_bg_pixmap.
+
+	* Tomboy/Applet.cs: Switch to using Gnome.PanelApplet.  Drop
+	stored reference (hopefully not needed anymore).  BackgroundType
+	-> PanelAppletBackgroundType.  Drop tomboy_widget_set_bg_pixmap.
+	
+	* configure.in: Bump version to 0.4.  Drop old gtkspell checks.
+	Switch to gtk-sharp-2.0, gnome-sharp-2.0, and gconf-sharp-2.0.
+
+2006-02-03  Alex Graveley  <alex@beatniksoftware.com>
+
 	* libtomboy/gtksourceprintjob.c: Fix warnings about char
 	signedness.
 	* libtomboy/gedit-print.c: Ditto.

@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using System.Text;
-using Mono.Posix;
+using Mono.Unix;
 using System.Runtime.InteropServices;
 
 namespace Tomboy
@@ -90,7 +90,7 @@ namespace Tomboy
 			Gtk.TextIter cursor = buffer.StartIter;
 			cursor.ForwardLines (1); // skip title
 
-			buffer.Insert (cursor, insert_text.ToString ());
+			buffer.Insert (ref cursor, insert_text.ToString ());
 
 			// Make the date string a small font...
 			cursor = buffer.StartIter;
@@ -134,7 +134,7 @@ namespace Tomboy
 		Gtk.Menu MakeRecentNotesMenu (Gtk.Widget parent) 
 		{
 			Gtk.Menu menu = new Gtk.Menu ();
-			menu.AttachToWidget (parent, null);
+			menu.AttachToWidget (parent, GuiUtils.DetachMenu);
 
 			bool enable_keybindings = (bool) 
 				Preferences.Get (Preferences.ENABLE_KEYBINDINGS);

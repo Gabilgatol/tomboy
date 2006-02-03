@@ -1,7 +1,7 @@
 
 using System;
-using Mono.Posix;
 using System.Text;
+using Mono.Unix;
 
 namespace Tomboy
 {
@@ -134,9 +134,7 @@ namespace Tomboy
 
 			store = new Gtk.ListStore (types);
 			store.SetSortFunc (2 /* change date */,
-					   new Gtk.TreeIterCompareFunc (CompareDates),
-					   IntPtr.Zero, 
-					   null);
+					   new Gtk.TreeIterCompareFunc (CompareDates));
 			store.SetSortColumnId (2 /* change date */, Gtk.SortType.Descending);
 
 			tree = new Gtk.TreeView (store);

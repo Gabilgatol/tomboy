@@ -23,9 +23,10 @@ namespace Tomboy
 		public TextRange AddChop (Gtk.TextIter start_iter, Gtk.TextIter end_iter)
 		{
 			int start, end;
+			Gtk.TextIter insertAt = EndIter;
 
 			start = EndIter.Offset;
-			InsertRange (EndIter, start_iter, end_iter);
+			InsertRange (ref insertAt, start_iter, end_iter);
 			end = EndIter.Offset;
 
 			return new TextRange (GetIterAtOffset (start), GetIterAtOffset (end));
@@ -53,17 +54,19 @@ namespace Tomboy
 
 		public void Undo (Gtk.TextBuffer buffer)
 		{
-			buffer.Delete (buffer.GetIterAtOffset (index),
-				       buffer.GetIterAtOffset (index + chop.Length));
-			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (index));
-			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
+			Gtk.TextIter deleteStart = buffer.GetIterAtOffset (index);
+			Gtk.TextIter deleteEnd = buffer.GetIterAtOffset (index + chop.Length);
+			buffer.Delete (ref deleteStart, ref deleteEnd);
+			buffer.MoveMark (buffer.InsertMark, deleteStart);
+			buffer.MoveMark (buffer.SelectionBound, deleteStart);
 		}
 
 		public void Redo (Gtk.TextBuffer buffer)
 		{
-			buffer.InsertRange (buffer.GetIterAtOffset (index), chop.Start, chop.End);
+			Gtk.TextIter insertAt = buffer.GetIterAtOffset (index);
+			buffer.InsertRange (ref insertAt, chop.Start, chop.End);
 
-			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
+			buffer.MoveMark (buffer.SelectionBound, insertAt);
 			buffer.MoveMark (buffer.InsertMark, 
 					 buffer.GetIterAtOffset (index + chop.Length));
 		}
@@ -134,8 +137,9 @@ namespace Tomboy
 
 		public void Undo (Gtk.TextBuffer buffer)
 		{
-			buffer.InsertRange (buffer.GetIterAtOffset (start), chop.Start, chop.End);
-					
+			Gtk.TextIter insertAt = buffer.GetIterAtOffset (start);
+			buffer.InsertRange (ref insertAt, chop.Start, chop.End);
+
 			buffer.MoveMark (buffer.InsertMark, 
 					 buffer.GetIterAtOffset (is_forward ? start : end));
 			buffer.MoveMark (buffer.SelectionBound, 
@@ -144,10 +148,12 @@ namespace Tomboy
 
 		public void Redo (Gtk.TextBuffer buffer)
 		{
-			buffer.Delete (buffer.GetIterAtOffset (start),
-				       buffer.GetIterAtOffset (end));
-			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (start));
-			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (start));
+			Gtk.TextIter deleteStart = buffer.GetIterAtOffset (start);
+			Gtk.TextIter deleteEnd = buffer.GetIterAtOffset (end);
+			
+			buffer.Delete (ref deleteStart, ref deleteEnd);
+			buffer.MoveMark (buffer.InsertMark, deleteStart);
+			buffer.MoveMark (buffer.SelectionBound, deleteStart);
 		}
 
 		public void Merge (EditAction action)
@@ -162,7 +168,8 @@ namespace Tomboy
 			} else {
 				start = erase.start;
 
-				chop.Buffer.InsertRange (chop.Start, 
+				Gtk.TextIter insertAt = chop.Start;
+				chop.Buffer.InsertRange (ref insertAt, 
 							 erase.chop.Start, 
 							 erase.chop.End);
 

@@ -8,7 +8,8 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
-using Mono.Posix;
+using Mono.Unix;
+using Mono.Unix.Native;
 
 using Tomboy;
 
@@ -440,9 +441,9 @@ public class EvolutionPlugin : NotePlugin
 				cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
 
 				if (cursor.LineOffset == 0) 
-					Buffer.Insert (cursor, "\n");
+					Buffer.Insert (ref cursor, "\n");
 				else
-					Buffer.Insert (cursor, ", ");
+					Buffer.Insert (ref cursor, ", ");
 			}
 
 			string launch_uri = (string) xuid_list [message_idx++];
@@ -453,7 +454,7 @@ public class EvolutionPlugin : NotePlugin
 
 			cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
 			start_offset = cursor.Offset;
-			Buffer.Insert (cursor, subject);
+			Buffer.Insert (ref cursor, subject);
 
 			Gtk.TextIter start = Buffer.GetIterAtOffset (start_offset);
 			Gtk.TextIter end = Buffer.GetIterAtMark (Buffer.InsertMark);
