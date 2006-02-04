@@ -1,3 +1,7 @@
+2006-02-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* tomboy.spec.in: Install tomboy.desktop.
+
 2006-02-03  Alex Graveley  <alex@beatniksoftware.com>
 
 	Update to build against Gtk#2 and Mono 1.1.13...
