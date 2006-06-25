@@ -250,8 +250,8 @@ namespace Tomboy
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
 		{
-			CloseWindowHandler (null, null);
-			return true;
+            CloseWindowHandler (null, null);
+            return true;
 		}
 
 		protected override void OnHidden ()
@@ -275,8 +275,8 @@ namespace Tomboy
 			// pseudo-maximized
 			if ((GdkWindow.State & Gdk.WindowState.Maximized) > 0)
 				Unmaximize ();
-
-			Hide ();
+                        
+            Hide ();
 		}
 
 		[DllImport("libtomboy")]
@@ -313,7 +313,8 @@ namespace Tomboy
 					Gtk.ButtonsType.None,
 					Catalog.GetString ("Really delete this note?"),
 					Catalog.GetString ("If you delete a note it is " +
-							   "permanently lost."));
+							   "permanently lost.") + 
+                                                           Catalog.GetString ("  THIS WILL CAUSE TOMBOY TO CRASH IN WINDOWS!"));
 
 			Gtk.Button button;
 

@@ -1,0 +1,29 @@
+
+Tomboy-Win32 README
+
+Please see the Tomboy README first for project descrption and
+copyright and licensing information.
+
+This experimental branch is currently maintained by Sandy
+Armstrong, and is based off of the work of Dmitry Kostenko.
+
+----
+
+Requirements
+     * Mono for Windows installed with GTK#. Tested with 1.1.15 and 1.1.13.8.
+     * Environment variables set properly.
+          %MONO% needs to point to where you installed mono (recommend "C:\Mono")
+          %PATH% needs to be modified to also point at the Mono bin directory (eg, "C:\Mono\bin")
+
+Building
+     * tomboy-win32 is currently built using a system of batch files.  Run the top-level "build.bat" to compile.
+     
+Running
+     * Run "bin\tomboy.bat" or "bin\tomboy.vbs".
+     
+Windows Installer
+     * An installer may or may not be available at <http://armstrong-clan.net/tomboy/>.
+     
+Bugs/Questions/Suggestions
+     * This experimental branch of Tomboy can be discussed at <tomboy-list@beatniksoftware.com>,
+     or you can email Sandy, the Win32 maintainer, at <sanfordarmstrong@gmail.com>.

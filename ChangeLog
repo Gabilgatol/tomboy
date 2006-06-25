@@ -1,3 +1,30 @@
+2006-06-25  Sandy Armstrong <sanfordarmstrong@gmail.com>
+
+     Inital check-in of tomboy-win32 code
+     
+     * build.bat: Added to many directories.  These batch files handle building Tomboy.
+     
+     * data/tomboy.bat: Batch file to make sure %HOME% is before running Tomboy
+     * data/konquerer.bat: Poses as konquerer, forwards arguments to explorer.exe.
+     * data/tomboy.vbs: VB script to call tomboy.bat
+
+     * win32/*: Added stub implementations of classes in Gnome, GConf, Mono, and Tomboy namespaces.
+     
+     * Tomboy/Applet.cs: Uncommenting use of SetupMenuFromFile since we are mocking the
+                         PanelApplet base class anyway.
+     * Tomboy/Defines.cs: Added, since this is not automatically generated.
+     * Tomboy/NoteWindow.cs: Warn user that deleting notes causes Tomboy to crash in Windows.
+     * Tomboy/PluginManager.cs: Put quotes around argument passed in to konquerer when opening Plugins Folder
+     * Tomboy/Preferences.cs: Default spell-checking pref to false, disable checkbox in GUI.
+     * Tomboy/Utils.cs: Commented out GuiUtils, using win32/GuiUtils_stub.cs instead.
+                        When libtomboy is not available, have ForcedPresentWindow.Present
+                        call Gtk.Window.Present.
+     
+     * Tomboy/Plugins/NoteOfTheDay.cs: Applied patch to add template note.
+     * Tomboy/Plugins/GalagoPresence.cs: Mono.Posix -> Mono.Unix.
+     * Tomboy/Plugins/build.bat: Support for building in Windows.
+     
+     
 2006-06-07  Sebastian Rittau  <srittau@jroger.in-berlin.de>
 
 	Added support for NUnit unit tests.
@@ -660,7 +687,7 @@
 	AttachWidget's allocation.  Cleanup ToolMenuButton, which is now a
 	nice generic button used for the Text and Plugins menus.
 
-2005-05-16  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+2005-05-16  Iï¿½aki Larraï¿½aga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
 

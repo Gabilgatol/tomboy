@@ -44,6 +44,7 @@ namespace Tomboy
 		{
 			switch (key) {
 			case ENABLE_SPELLCHECKING:
+                                return false;   // Spell-checking currently does not work on Win32
 			case ENABLE_CUSTOM_FONT:
 			case ENABLE_KEYBINDINGS:
 				return true;
@@ -182,6 +183,7 @@ namespace Tomboy
 			// Spellchecking...
 
 			check = MakeCheckButton (Catalog.GetString ("_Spellcheck While Typing"));
+                        check.Sensitive = false;        // disabling spell-check preference for now in Win32
 			options_list.PackStart (check, false, false, 0);
 
 			peditor = new PropertyEditorToggleButton (Preferences.ENABLE_SPELLCHECKING,

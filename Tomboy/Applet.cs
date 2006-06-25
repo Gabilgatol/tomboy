@@ -56,12 +56,13 @@ namespace Tomboy
 
 			// FIXME: Doesn't exist in Gtk#2, only SetupMenu.
 			// Have to resort to this for now
-			/*
+			
+                        // Win32: Need this for now
 			SetupMenuFromFile (Defines.DATADIR,
 					   "GNOME_TomboyApplet.xml",
 					   "Tomboy",
 					   menu_verbs);
-			*/
+			
 		}
 
 		void ShowPreferencesVerb ()

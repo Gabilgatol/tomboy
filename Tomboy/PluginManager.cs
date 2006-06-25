@@ -180,7 +180,7 @@ namespace Tomboy
 			     Environment.GetEnvironmentVariable ("KDEDIR") != null)) {
 				Console.WriteLine ("Starting Konqueror...");
 
-				Process.Start ("konqueror", plugins_dir);
+				Process.Start ("konqueror", "\"" + plugins_dir + "\"");
 			} else {
 				Console.WriteLine ("Starting Nautilus...");
 

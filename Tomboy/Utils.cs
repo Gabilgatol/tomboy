@@ -8,7 +8,7 @@ using System.IO;
 using System.Xml;
 
 namespace Tomboy
-{
+{/*
 	public class GuiUtils 
 	{
 		static void GetMenuPosition (Gtk.Menu menu, 
@@ -96,7 +96,7 @@ namespace Tomboy
 			return MakeImageButton (image, label);
 		}
 	}
-
+*/
 	public class GlobalKeybinder 
 	{
 		Gtk.AccelGroup accel_group;
@@ -588,7 +588,12 @@ namespace Tomboy
 
 		public new void Present ()
 		{
-			tomboy_window_present_hardcore (this.Handle);
+                        try{
+                                tomboy_window_present_hardcore (this.Handle);
+                        }
+                        catch{
+                                base.Present();
+                        }
 		}
 	}
 
