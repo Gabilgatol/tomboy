@@ -40,7 +40,6 @@ uninstall-hook:
 
 noinst_DATA = 			\
 	gnome-searchtool.png	\
-	stock_mail.png		\
-	tintin.png
+	stock_mail.png
 
 EXTRA_DIST = $(noinst_DATA) $(pixmap_DATA) $(tango_icons)

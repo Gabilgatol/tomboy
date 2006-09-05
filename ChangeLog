@@ -1,5 +1,11 @@
 2006-09-05  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Makefile.am: Remove all references to tintin.png.
+	* data/images/Makefile.am: Ditto.
+	* tomboy.spec.in: Ditto.
+
+2006-09-05  Alex Graveley  <alex@beatniksoftware.com>
+
 	* configure.in: Update version to 0.4.0.
 	* NEWS: Ditto.
 
