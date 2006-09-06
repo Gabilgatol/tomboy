@@ -1,6 +1,7 @@
 2006-09-06  Alex Graveley  <alex@beatniksoftware.com>
 
-	* configure.in: Bump version to 0.4.1.
+	* configure.in: Bump version to 0.4.1.  Require gtkspell >= 2.0.9
+	for spell-checking support to be enabled.
 
 	* Tomboy/Watchers.cs: In NoteLinkWatcher, highlight links at
 	sentence boundaries as well as word boundaries.  This fixes
