@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy 0.3.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-19 03:01+0900\n"
-"PO-Revision-Date: 2006-08-19 03:01+0900\n"
+"POT-Creation-Date: 2006-09-08 23:35+0900\n"
+"PO-Revision-Date: 2006-09-08 23:37+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist@gmail.com>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -37,20 +37,20 @@ msgid "Tomboy Applet Factory"
 msgstr "톰보이 애플릿 팩토리"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:37
+#: ../Tomboy/Applet.cs:147 ../Tomboy/Tray.cs:37
 msgid "Tomboy Notes"
 msgstr "톰보이 쪽지"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:179
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:190
 msgid "_About Tomboy"
 msgstr "정보(_A)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:174
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:185
 #: ../Tomboy/NoteWindow.cs:513
 msgid "_Open Plugins Folder"
 msgstr "플러그인 폴더 열기(_O)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:169
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:180
 msgid "_Preferences..."
 msgstr "기본 설정(_P)..."
 
@@ -134,26 +134,36 @@ msgstr ""
 "다. 그렇지 않으면 바탕화면 기본 글꼴로 쪽지를 보여줍니다."
 
 #: ../data/tomboy.schemas.in.h:14
+msgid ""
+"Indicates that the Sticky Note Importer plugin has not been run, so it "
+"should run automatically the next time Tomboy starts."
+msgstr "메모지에서 가져오는 플러그인이 한번이라도 실행했는지 나타냅니다. 한 번도 실행하지 않았으면 톰보이가 다음번에 실행할 때 그 플러그인을 실행합니다."
+
+#: ../data/tomboy.schemas.in.h:15
 msgid "Open Recent Changes"
 msgstr "마지막으로 바뀐 것 열기"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:16
 msgid "Open Search Dialog"
 msgstr "찾기 대화상자 열기"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:17
 msgid "Open Start Here"
 msgstr "'여기서 시작' 열기"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:18
 msgid "Set to TRUE to activate"
 msgstr "활성시키려면 참으로 설정"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:19
 msgid "Show applet menu"
 msgstr "애플릿 메뉴 보이기"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:20
+msgid "Sticky Note Importer First Run"
+msgstr "메모지 가져오기 처음 실행"
+
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -167,7 +177,7 @@ msgstr ""
 "\"&lt;Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라"
 "고 설정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -181,7 +191,7 @@ msgstr ""
 "Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라고 설"
 "정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -195,7 +205,7 @@ msgstr ""
 "\"&lt;Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라"
 "고 설정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -209,7 +219,7 @@ msgstr ""
 "\"&lt;Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라"
 "고 설정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -223,16 +233,16 @@ msgstr ""
 "\"&lt;Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라"
 "고 설정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
 msgid "The handler for \"note://\" URLs"
 msgstr "\"note://\" URL의 처리 프로그램"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr "HTML 내보내기 플러그인으로 쪽지는 내보낸 마지막 디렉토리."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -270,7 +280,7 @@ msgstr "%Q쪽중 %N쪽"
 msgid "%A %x, %X"
 msgstr "%x %A %X"
 
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:197
 msgid "_Quit"
 msgstr "끝내기(_Q)"
 
@@ -301,12 +311,12 @@ msgstr ""
 "쪽지를 정리하고 정리되지 않은 생각을 보관하는 시작페이지로 이 페이지를 쓰십시"
 "오."
 
-#: ../Tomboy/NoteManager.cs:200
+#: ../Tomboy/NoteManager.cs:203
 #, csharp-format
 msgid "New Note {0}"
 msgstr "새 쪽지 {0}"
 
-#: ../Tomboy/NoteManager.cs:246
+#: ../Tomboy/NoteManager.cs:249
 msgid "Describe your new note here."
 msgstr "새 쪽지를 적으십시오."
 
@@ -422,24 +432,24 @@ msgstr "크게(_L)"
 msgid "S_mall"
 msgstr "작게(_M)"
 
-#: ../Tomboy/Preferences.cs:120
+#: ../Tomboy/Preferences.cs:125
 msgid "Tomboy Preferences"
 msgstr "톰보이 기본 설정"
 
-#: ../Tomboy/Preferences.cs:134
+#: ../Tomboy/Preferences.cs:139
 msgid "Editing"
 msgstr "고치기"
 
-#: ../Tomboy/Preferences.cs:137
+#: ../Tomboy/Preferences.cs:142
 msgid "Hotkeys"
 msgstr "바로가기"
 
 #. Spell checking...
-#: ../Tomboy/Preferences.cs:177
+#: ../Tomboy/Preferences.cs:183
 msgid "_Spell check while typing"
 msgstr "입력할 때 맞춤법 검사(_S)"
 
-#: ../Tomboy/Preferences.cs:184
+#: ../Tomboy/Preferences.cs:190
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -448,11 +458,11 @@ msgstr ""
 "가 나옵니다."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:193
+#: ../Tomboy/Preferences.cs:200
 msgid "Highlight _WikiWords"
 msgstr "위키문법 강조(_W)"
 
-#: ../Tomboy/Preferences.cs:200
+#: ../Tomboy/Preferences.cs:207
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -461,16 +471,16 @@ msgstr ""
 "그 이름에 해당하는 쪽지를 만들어 줍니다."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:209
+#: ../Tomboy/Preferences.cs:216
 msgid "Use custom _font"
 msgstr "사용자 글꼴 쓰기(_F)"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:279
+#: ../Tomboy/Preferences.cs:286
 msgid "Listen for _Hotkeys"
 msgstr "바로가기 쓰기(_H)"
 
-#: ../Tomboy/Preferences.cs:287
+#: ../Tomboy/Preferences.cs:294
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -480,26 +490,26 @@ msgstr ""
 "바로가기: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:307
+#: ../Tomboy/Preferences.cs:314
 msgid "Show notes _menu"
 msgstr "쪽지 메뉴 보기(_M)"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:323
+#: ../Tomboy/Preferences.cs:330
 msgid "Open \"_Start Here\""
 msgstr "\"여기서 시작\" 열기(_S)"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:339
+#: ../Tomboy/Preferences.cs:346
 msgid "Create _new note"
 msgstr "새 쪽지 만들기(_N)"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:355
+#: ../Tomboy/Preferences.cs:362
 msgid "S_earch notes"
 msgstr "쪽지 찾기(_E)"
 
-#: ../Tomboy/Preferences.cs:417
+#: ../Tomboy/Preferences.cs:424
 msgid "Choose Note Font"
 msgstr "쪽지 글꼴 고르기"
 
@@ -707,15 +717,15 @@ msgstr ""
 msgid "Note title taken"
 msgstr "가져온 쪽지 제목"
 
-#: ../Tomboy/Watchers.cs:386
+#: ../Tomboy/Watchers.cs:388
 msgid "Cannot open location"
 msgstr "위치를 열 수 없음"
 
-#: ../Tomboy/Watchers.cs:480
+#: ../Tomboy/Watchers.cs:482
 msgid "_Copy Link Address"
 msgstr "연결 주소 복사(_C)"
 
-#: ../Tomboy/Watchers.cs:485
+#: ../Tomboy/Watchers.cs:487
 msgid "_Open Link"
 msgstr "연결 열기(_O)"
 
@@ -770,32 +780,32 @@ msgstr "약속"
 msgid "Create Note of the Day"
 msgstr "오늘의 쪽지 만들기"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:28
+#: ../Tomboy/Plugins/StickyNoteImport.cs:34
 msgid "Import from Sticky Notes"
 msgstr "메모지에서 가져오기"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:64
+#: ../Tomboy/Plugins/StickyNoteImport.cs:110
 msgid "No Sticky Notes found"
 msgstr "메모를 찾지 못했습니다"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:65
+#: ../Tomboy/Plugins/StickyNoteImport.cs:111
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "\"{0}\"에서 알맞는 메모지 파일을 찾지 못했습니다."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:74
+#: ../Tomboy/Plugins/StickyNoteImport.cs:120
 msgid "Sticky Notes import completed"
 msgstr "메모지에서 모두 가져왔습니다"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:75
+#: ../Tomboy/Plugins/StickyNoteImport.cs:121
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "<b>{1}</b>개중 <b>{0}</b>개의 메모지를 가져왔습니다."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:97
+#: ../Tomboy/Plugins/StickyNoteImport.cs:133
 msgid "Untitled"
 msgstr "제목 없음"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:125
+#: ../Tomboy/Plugins/StickyNoteImport.cs:161
 msgid "Sticky Note: "
 msgstr "메모지:"
