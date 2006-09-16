@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: tomboy GNOME 2.16\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-04 04:45+0200\n"
-"PO-Revision-Date: 2006-09-14 13:02+0300\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
+"PO-Revision-Date: 2006-09-14 23:05+0200\n"
+"Last-Translator: Priit Laes <plaes@plaes.org>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,7 +71,7 @@ msgstr "Uue märkme loomine"
 
 #: ../data/tomboy.schemas.in.h:2
 msgid "Custom Font Face"
-msgstr "Kohandatid kirjatüüp"
+msgstr "Kohandatud kirjatüüp"
 
 #: ../data/tomboy.schemas.in.h:3
 msgid "Enable WikiWord highlighting"
@@ -281,9 +281,7 @@ msgstr "Tere tulemast kasutama Tomboy'd!"
 msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
-msgstr ""
-"See leht võiks olla hea Algusleht sinu märkmete ja veel algusjärgus olevate "
-"ideede hoidmiseks."
+msgstr "See leht võiks olla hea Algusleht sinu märkmete ja veel algusjärgus olevate ideede hoidmiseks."
 
 #: ../Tomboy/NoteManager.cs:203
 #, csharp-format
@@ -427,9 +425,7 @@ msgstr "Õi_gekirjakontroll sisestamise ajal"
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
-msgstr ""
-"Õigekirjakontrolli poolt vääraks märgitud sõnad joonitakse punaselt alla ja "
-"õigekirjasoovitusi antakse hiire parema nupu klõpsamisel ilmuvast menüüst."
+msgstr "Õigekirjakontrolli poolt vääraks märgitud sõnad joonitakse punaselt alla ja õigekirjasoovitusi antakse hiire parema nupu klõpsamisel ilmuvast menüüst."
 
 #. WikiWords...
 #: ../Tomboy/Preferences.cs:198
@@ -440,10 +436,7 @@ msgstr "_WikiSõnade esiletõstmine"
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
-msgstr ""
-"Selle valiku lubamisega tõstetakse esile sõnad, "
-"<b>MisPaistavadNaguSeeSõna</b>. Sõnal klõpsamine loob uue märkme, mille "
-"nimeks saab see sõna."
+msgstr "Selle valiku lubamisega tõstetakse esile sõnad, <b>MisPaistavadNaguSeeSõna</b>. Sõnal klõpsamine loob uue märkme, mille nimeks saab see sõna."
 
 #. Custom font...
 #: ../Tomboy/Preferences.cs:214
@@ -460,10 +453,7 @@ msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
 "Alt&gt;N</b>"
-msgstr ""
-"Kiirklahvid võimaldavad Sul klahvivajutuse abil igast programmist märkmetele "
-"ligi pääseda . Näiteks võib kirjeldada kiirklahvi "
-"<b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+msgstr "Kiirklahvid võimaldavad Sul klahvivajutuse abil igast programmist märkmetele ligi pääseda . Näiteks võib kirjeldada kiirklahvi <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
 #: ../Tomboy/Preferences.cs:312
@@ -658,11 +648,11 @@ msgstr "Autoriõigused © 2004-2006 Alex Graveley"
 
 #: ../Tomboy/Tray.cs:327
 msgid "A simple and easy to use desktop note-taking application."
-msgstr ""
+msgstr "Lihtne ja kergestikasutatav märkmete tegemise programm."
 
 #: ../Tomboy/Tray.cs:330
 msgid "Homepage & Donations"
-msgstr ""
+msgstr "Koduleht ja annetused"
 
 #: ../Tomboy/Watchers.cs:137
 #, csharp-format
@@ -686,11 +676,11 @@ msgstr "Asukohta pole võimalik avada"
 
 #: ../Tomboy/Watchers.cs:480
 msgid "_Copy Link Address"
-msgstr ""
+msgstr "_Kopeeri viida aadress"
 
 #: ../Tomboy/Watchers.cs:485
 msgid "_Open Link"
-msgstr ""
+msgstr "_Ava viit"
 
 #: ../Tomboy/Plugins/Evolution.cs:264
 msgid "Cannot open email"
