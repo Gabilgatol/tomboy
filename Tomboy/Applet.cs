@@ -17,7 +17,8 @@ namespace Tomboy
 		TomboyTray tray;
 		TomboyGConfXKeybinder keybinder;
 
-		BonoboUIVerb [] menu_verbs;
+		// Keep referenced so our callbacks don't get reaped.
+		static BonoboUIVerb [] menu_verbs;
 
 		public TomboyApplet (IntPtr raw)
 			: base (raw)
@@ -48,15 +49,13 @@ namespace Tomboy
 			OnChangeSize (Size);
 			ShowAll ();
 
-			// Keep referenced so our callbacks don't get reaped.
-			menu_verbs = new BonoboUIVerb [] {
-				new BonoboUIVerb (
-					"Props", new ContextMenuItemCallback (ShowPreferencesVerb)),
-				new BonoboUIVerb (
-					"Plugins", new ContextMenuItemCallback (ShowPluginsVerb)),
-				new BonoboUIVerb (
-					"About", new ContextMenuItemCallback (ShowAboutVerb))
-			};
+			if (menu_verbs == null) {
+				menu_verbs = new BonoboUIVerb [] {
+					new BonoboUIVerb ("Props", ShowPreferencesVerb),
+					new BonoboUIVerb ("Plugins", ShowPluginsVerb),
+					new BonoboUIVerb ("About", ShowAboutVerb)
+				};
+			}
 
 			SetupMenuFromResource (null, "GNOME_TomboyApplet.xml", menu_verbs);
 		}
