@@ -608,8 +608,8 @@ msgstr "Otsing_utulemused:"
 #, csharp-format
 msgid "({0} match)"
 msgid_plural "({0} matches)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "({0} vastavus)"
+msgstr[1] "({0} vastavust)"
 
 #. title
 #: ../Tomboy/Search.cs:750
@@ -766,7 +766,7 @@ msgstr "_Määratud laiusega"
 #: ../Tomboy/Plugins/GalagoPresence.cs:235
 #, csharp-format
 msgid "Cannot contact '{0}'"
-msgstr ""
+msgstr "Kasutajaga '{0}' pole võimalik ühendust võtta"
 
 #: ../Tomboy/Plugins/GalagoPresence.cs:238
 #, csharp-format
