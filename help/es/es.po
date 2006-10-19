@@ -1,107 +1,869 @@
 # Jorge González <jorge.gonzalez.gonzalez@hispalinux.es>, 2006.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: tomboy.HEAD.es\n"
-"POT-Creation-Date: 2006-08-31 13:50+0200\n"
-"PO-Revision-Date: 2006-08-31 18:37+0200\n"
-"Last-Translator: Jorge González <jorge.gonzalez.gonzalez@hispalinux.es>\n"
-"Language-Team: Español <traductores@es.gnome.org>\n"
+"Project-Id-Version: pan2\n"
+"POT-Creation-Date: 2006-10-20 01:31+0200\n"
+"PO-Revision-Date: 2006-10-20 01:40+0200\n"
+"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
+"Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/legal.xml:2(para)
-msgid "Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License (GFDL), Version 1.1 or any later version published by the Free Software Foundation with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You can find a copy of the GFDL at this <ulink type=\"help\" url=\"ghelp:fdl\">link</ulink> or in the file COPYING-DOCS distributed with this manual."
-msgstr "Se concede permiso para copiar, distribuir o modificar este documento según las condiciones de la GNU Free Documentation License (GFDL), versión 1.1 o cualquier versión posterior publicada por la Free Software Foundation, sin Secciones invariantes, Textos de portada y Textos de contraportada. Encontrará una copia de la GFDL en este <ulink url=\"ghelp:fdl\" type=\"help\">enlace</ulink> o en el archivo COPYING-DOCS distribuido con este manual."
+#: ../C/legal.xml:2(para)
+msgid ""
+"Permission is granted to copy, distribute and/or modify this document under "
+"the terms of the GNU Free Documentation License (GFDL), Version 1.1 or any "
+"later version published by the Free Software Foundation with no Invariant "
+"Sections, no Front-Cover Texts, and no Back-Cover Texts. You can find a copy "
+"of the GFDL at this <ulink type=\"help\" url=\"ghelp:fdl\">link</ulink> or "
+"in the file COPYING-DOCS distributed with this manual."
+msgstr ""
+"Se concede permiso para copiar, distribuir o modificar este documento según "
+"las condiciones de la GNU Free Documentation License (GFDL), versión 1.1 o "
+"cualquier versión posterior publicada por la Free Software Foundation, sin "
+"Secciones invariantes, Textos de portada y Textos de contraportada. "
+"Encontrará una copia de la GFDL en este <ulink url=\"ghelp:fdl\" type=\"help"
+"\">enlace</ulink> o en el archivo COPYING-DOCS distribuido con este manual."
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/legal.xml:12(para)
-msgid "This manual is part of a collection of GNOME manuals distributed under the GFDL. If you want to distribute this manual separately from the collection, you can do so by adding a copy of the license to the manual, as described in section 6 of the license."
-msgstr "Este manual forma parte de una colección de documentos de GNOME distribuidos según la GFDL. Si desea distribuir este manual de forma independiente de la colección, puede hacerlo agregando una copia de la licencia al documento, según se describe en la sección 6 de la misma."
+#: ../C/legal.xml:12(para)
+msgid ""
+"This manual is part of a collection of GNOME manuals distributed under the "
+"GFDL. If you want to distribute this manual separately from the collection, "
+"you can do so by adding a copy of the license to the manual, as described in "
+"section 6 of the license."
+msgstr ""
+"Este manual forma parte de una colección de documentos de GNOME distribuidos "
+"según la GFDL. Si desea distribuir este manual de forma independiente de la "
+"colección, puede hacerlo agregando una copia de la licencia al documento, "
+"según se describe en la sección 6 de la misma."
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/legal.xml:19(para)
-msgid "Many of the names used by companies to distinguish their products and services are claimed as trademarks. Where those names appear in any GNOME documentation, and the members of the GNOME Documentation Project are made aware of those trademarks, then the names are in capital letters or initial capital letters."
-msgstr "Muchos de los nombres utilizados por las empresas para distinguir sus productos y servicios se consideran marcas comerciales. Cuando estos nombres aparezcan en la documentación de GNOME, y siempre que se haya informado a los miembros del Proyecto de documentación de GNOME de dichas marcas comerciales, los nombres aparecerán en mayúsculas o con las iniciales en mayúsculas."
+#: ../C/legal.xml:19(para)
+msgid ""
+"Many of the names used by companies to distinguish their products and "
+"services are claimed as trademarks. Where those names appear in any GNOME "
+"documentation, and the members of the GNOME Documentation Project are made "
+"aware of those trademarks, then the names are in capital letters or initial "
+"capital letters."
+msgstr ""
+"Muchos de los nombres utilizados por las empresas para distinguir sus "
+"productos y servicios se consideran marcas comerciales. Cuando estos nombres "
+"aparezcan en la documentación de GNOME, y siempre que se haya informado a "
+"los miembros del Proyecto de documentación de GNOME de dichas marcas "
+"comerciales, los nombres aparecerán en mayúsculas o con las iniciales en "
+"mayúsculas."
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/legal.xml:35(para)
-msgid "DOCUMENT IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS FREE OF DEFECTS MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE RISK AS TO THE QUALITY, ACCURACY, AND PERFORMANCE OF THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS WITH YOU. SHOULD ANY DOCUMENT OR MODIFIED VERSION PROVE DEFECTIVE IN ANY RESPECT, YOU (NOT THE INITIAL WRITER, AUTHOR OR ANY CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN ESSENTIAL PART OF THIS LICENSE. NO USE OF ANY DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS AUTHORIZED HEREUNDER EXCEPT UNDER THIS DISCLAIMER; AND UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL THEORY, WHETHER IN TORT (INCLUDING NEGLIGENCE), CONTRACT, OR OTHERWISE, SHALL THE AUTHOR, INITIAL WRITER, ANY CONTRIBUTOR, OR ANY DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT, OR ANY SUPPLIER OF ANY OF SUCH PARTIES, BE LIABLE TO ANY PERSON FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER DAMAGES OR LOSSES ARISING OUT OF OR RELATING TO USE OF THE DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT, EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGES."
-msgstr "EL DOCUMENTO SE OFRECE «TAL CUAL», SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO, PERO SIN LIMITARSE A ELLA, LA GARANTÍA DE QUE EL DOCUMENTO O LA VERSIÓN MODIFICADA DEL MISMO ESTÉ LIBRE DE DEFECTOS, GARANTÍA DE COMERCIALIZACIÓN, APTITUD PARA UN USO EN PARTICULAR O INCUMPLIMIENTO. TODOS LOS RIESGOS RELATIVOS A LA CALIDAD, EXACTITUD O RENDIMIENTO DEL DOCUMENTO O LA VERSIÓN MODIFICADA DEL MISMO SON ASUMIDOS POR VD. EN CASO DE QUE EL DOCUMENTO O LA VERSIÓN MODIFICADA SEAN DEFECTUOSOS, VD. (NO EL ESCRITOR ORIGINAL NI EL AUTOR NI NINGUNO DE LOS COLABORADORES) ASUMIRÁ EL COSTE DE CUALQUIER MANTENIMIENTO, REPARACIÓN O CORRECCIÓN QUE SEAN NECESARIOS. ESTA RENUNCIA DE GARANTÍA CONSTITUYE UNA PARTE ESENCIAL DE ESTA LICENCIA NO SE AUTORIZA EL USO DE NINGÚN DOCUMENTO NI VERSIÓN MODIFICADA DEL MISMO, SALVO EN LAS CONDICIONES ESPECIFICADAS EN ESTA RENUNCIA; Y BAJO NINGUNA CIRCUNSTANCIA NI SUPUESTO LEGAL, YA SEA POR AGRAVIO (INCLUIDA LA NEGLIGENCIA), CONTRATO U OTROS CASOS, SERÁN RESPONSABLES EL AUTOR, EL ESCRITOR ORIGINAL, CUALQUIERA DE LOS COLABORADORES O DISTRIBUIDORES DEL DOCUMENTO O UNA VERSIÓN MODIFICADA DEL MISMO NI CUALQUIER PROVEEDOR DE TALES PARTES ANTE UN TERCERO, POR CUALQUIER PERJUICIO DIRECTO, INDIRECTO, ESPECIAL, ACCIDENTAL O CONSECUTIVO DE CUALQUIER TIPO, INCLUYENDO SIN LIMITACIÓN LOS DAÑOS POR PÉRDIDA DE CLIENTES, INTERRUPCIONES DEL TRABAJO, FALLO DE SISTEMAS O MALFUNCIONAMIENTO, O CUALQUIER OTRO DAÑO O PÉRDIDA CAUSADA O RELACIONADA CON EL USO DEL DOCUMENTO Y LAS VERSIONES MODIFICADAS DEL MISMO, AUN CUANDO SE HAYA INFORMADO DE LA POSIBILIDAD DE DICHOS DAÑOS."
+#: ../C/legal.xml:35(para)
+msgid ""
+"DOCUMENT IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTY OF ANY KIND, "
+"EITHER EXPRESSED OR IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT "
+"THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS FREE OF DEFECTS "
+"MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE "
+"RISK AS TO THE QUALITY, ACCURACY, AND PERFORMANCE OF THE DOCUMENT OR "
+"MODIFIED VERSION OF THE DOCUMENT IS WITH YOU. SHOULD ANY DOCUMENT OR "
+"MODIFIED VERSION PROVE DEFECTIVE IN ANY RESPECT, YOU (NOT THE INITIAL "
+"WRITER, AUTHOR OR ANY CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY "
+"SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN "
+"ESSENTIAL PART OF THIS LICENSE. NO USE OF ANY DOCUMENT OR MODIFIED VERSION "
+"OF THE DOCUMENT IS AUTHORIZED HEREUNDER EXCEPT UNDER THIS DISCLAIMER; AND "
+"UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL THEORY, WHETHER IN TORT (INCLUDING "
+"NEGLIGENCE), CONTRACT, OR OTHERWISE, SHALL THE AUTHOR, INITIAL WRITER, ANY "
+"CONTRIBUTOR, OR ANY DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION OF THE "
+"DOCUMENT, OR ANY SUPPLIER OF ANY OF SUCH PARTIES, BE LIABLE TO ANY PERSON "
+"FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF "
+"ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, "
+"WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER DAMAGES "
+"OR LOSSES ARISING OUT OF OR RELATING TO USE OF THE DOCUMENT AND MODIFIED "
+"VERSIONS OF THE DOCUMENT, EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF THE "
+"POSSIBILITY OF SUCH DAMAGES."
+msgstr ""
+"EL DOCUMENTO SE OFRECE «TAL CUAL», SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O "
+"IMPLÍCITA, INCLUYENDO, PERO SIN LIMITARSE A ELLA, LA GARANTÍA DE QUE EL "
+"DOCUMENTO O LA VERSIÓN MODIFICADA DEL MISMO ESTÉ LIBRE DE DEFECTOS, GARANTÍA "
+"DE COMERCIALIZACIÓN, APTITUD PARA UN USO EN PARTICULAR O INCUMPLIMIENTO. "
+"TODOS LOS RIESGOS RELATIVOS A LA CALIDAD, EXACTITUD O RENDIMIENTO DEL "
+"DOCUMENTO O LA VERSIÓN MODIFICADA DEL MISMO SON ASUMIDOS POR VD. EN CASO DE "
+"QUE EL DOCUMENTO O LA VERSIÓN MODIFICADA SEAN DEFECTUOSOS, VD. (NO EL "
+"ESCRITOR ORIGINAL NI EL AUTOR NI NINGUNO DE LOS COLABORADORES) ASUMIRÁ EL "
+"COSTE DE CUALQUIER MANTENIMIENTO, REPARACIÓN O CORRECCIÓN QUE SEAN "
+"NECESARIOS. ESTA RENUNCIA DE GARANTÍA CONSTITUYE UNA PARTE ESENCIAL DE ESTA "
+"LICENCIA NO SE AUTORIZA EL USO DE NINGÚN DOCUMENTO NI VERSIÓN MODIFICADA DEL "
+"MISMO, SALVO EN LAS CONDICIONES ESPECIFICADAS EN ESTA RENUNCIA; Y BAJO "
+"NINGUNA CIRCUNSTANCIA NI SUPUESTO LEGAL, YA SEA POR AGRAVIO (INCLUIDA LA "
+"NEGLIGENCIA), CONTRATO U OTROS CASOS, SERÁN RESPONSABLES EL AUTOR, EL "
+"ESCRITOR ORIGINAL, CUALQUIERA DE LOS COLABORADORES O DISTRIBUIDORES DEL "
+"DOCUMENTO O UNA VERSIÓN MODIFICADA DEL MISMO NI CUALQUIER PROVEEDOR DE TALES "
+"PARTES ANTE UN TERCERO, POR CUALQUIER PERJUICIO DIRECTO, INDIRECTO, "
+"ESPECIAL, ACCIDENTAL O CONSECUTIVO DE CUALQUIER TIPO, INCLUYENDO SIN "
+"LIMITACIÓN LOS DAÑOS POR PÉRDIDA DE CLIENTES, INTERRUPCIONES DEL TRABAJO, "
+"FALLO DE SISTEMAS O MALFUNCIONAMIENTO, O CUALQUIER OTRO DAÑO O PÉRDIDA "
+"CAUSADA O RELACIONADA CON EL USO DEL DOCUMENTO Y LAS VERSIONES MODIFICADAS "
+"DEL MISMO, AUN CUANDO SE HAYA INFORMADO DE LA POSIBILIDAD DE DICHOS DAÑOS."
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/legal.xml:28(para)
-msgid "DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED UNDER THE TERMS OF THE GNU FREE DOCUMENTATION LICENSE WITH THE FURTHER UNDERSTANDING THAT: <placeholder-1/>"
-msgstr "ESTE DOCUMENTO Y LAS VERSIONES MODIFICADAS DEL MISMO SE OFRECEN SEGÚN LAS CONDICIONES ESTABLECIDAS EN LA LICENCIA DE DOCUMENTACIÓN LIBRE DE GNU (GFDL) Y TENIENDO EN CUENTA QUE: <placeholder-1/>"
+#: ../C/legal.xml:28(para)
+msgid ""
+"DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED UNDER THE TERMS "
+"OF THE GNU FREE DOCUMENTATION LICENSE WITH THE FURTHER UNDERSTANDING THAT: "
+"<placeholder-1/>"
+msgstr ""
+"ESTE DOCUMENTO Y LAS VERSIONES MODIFICADAS DEL MISMO SE OFRECEN SEGÚN LAS "
+"CONDICIONES ESTABLECIDAS EN LA LICENCIA DE DOCUMENTACIÓN LIBRE DE GNU (GFDL) "
+"Y TENIENDO EN CUENTA QUE: <placeholder-1/>"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:22(title)
-msgid "Tomboy Manual V1.0"
-msgstr "Manual de Tomboy V1.0"
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: ../C/tomboy.xml:160(None)
+msgid "@@image: 'figures/tomboy-panel.png'; md5=970af898f38cb99144a9b650dad8e95e"
+msgstr ""
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:24(year)
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: ../C/tomboy.xml:284(None)
+msgid "@@image: 'figures/tomboy-new-note.png'; md5=dd38f4b1dd402b32e300666a54823b49"
+msgstr ""
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: ../C/tomboy.xml:649(None)
+msgid ""
+"@@image: 'figures/tomboy-preferences-editing.png'; "
+"md5=8dafb008c0d290954603ea9407a29565"
+msgstr ""
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: ../C/tomboy.xml:708(None)
+msgid ""
+"@@image: 'figures/tomboy-preferences-hotkeys.png'; "
+"md5=b5a793cec76eb12439bc6342ef8e1e0f"
+msgstr ""
+
+#: ../C/tomboy.xml:23(title)
+msgid "Tomboy Notes Manual"
+msgstr "Manual de Tomboy Notas"
+
+#: ../C/tomboy.xml:26(para)
+msgid ""
+"Tomboy is a simple desktop note-taking application, with some powerful built-"
+"in features to help you organize your ideas."
+msgstr ""
+"Tomboy es una aplicación simple y fácil de usar "
+"para tomar notas en el escritorio, con algunas potentes características que "
+"le ayudan a organizar sus ideas."
+
+#: ../C/tomboy.xml:31(year) ../C/tomboy.xml:37(year) ../C/tomboy.xml:43(year)
 msgid "2006"
 msgstr "2006"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:25(holder) /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:75(para)
+#: ../C/tomboy.xml:33(holder)
 msgid "Alex Graveley"
 msgstr "Alex Graveley"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:36(publishername) /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:46(orgname) /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:76(para)
+#: ../C/tomboy.xml:39(holder) ../C/tomboy.xml:117(para)
+msgid "Brent Smith"
+msgstr "Brent Smith"
+
+#: ../C/tomboy.xml:45(holder)
+msgid "Free Software Foundation"
+msgstr "Free Software Foundation"
+
+#: ../C/tomboy.xml:56(publishername) ../C/tomboy.xml:72(orgname)
+#: ../C/tomboy.xml:84(orgname) ../C/tomboy.xml:119(para)
 msgid "GNOME Documentation Project"
 msgstr "Proyecto de documentación de GNOME"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:43(firstname)
+#: ../C/tomboy.xml:67(firstname)
 msgid "Alex"
 msgstr "Alex"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:44(surname)
+#: ../C/tomboy.xml:69(surname)
 msgid "Graveley"
 msgstr "Graveley"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:47(email)
+#: ../C/tomboy.xml:74(email)
 msgid "alex@beatniksoftware.com"
 msgstr "alex@beatniksoftware.com"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:72(revnumber)
-msgid "tomboy V1.0"
-msgstr "tomboy V1.0"
+#: ../C/tomboy.xml:79(firstname)
+msgid "Brent"
+msgstr "Brent"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:73(date)
-msgid "August 2006"
-msgstr "Agosto de 2006"
+#: ../C/tomboy.xml:81(surname)
+msgid "Smith"
+msgstr "Smith"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:80(releaseinfo)
-msgid "This manual describes version 0.4 of Tomboy."
-msgstr "Este manual describe la versión 0.4 de Tomboy."
+#: ../C/tomboy.xml:86(email)
+msgid "gnome@nextreality.net"
+msgstr "GNOME@nextreality.net"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:83(title)
+#: ../C/tomboy.xml:112(revnumber)
+msgid "Tomboy Manual 1.0"
+msgstr "Manual de Tomboy V1.0"
+
+#: ../C/tomboy.xml:114(date)
+msgid "2006-08-07"
+msgstr "07-08-2006"
+
+#: ../C/tomboy.xml:124(releaseinfo)
+msgid "This manual describes version 0.3.10 of Tomboy"
+msgstr "Este manual describe la versión 0.3.10 de Tomboy"
+
+#: ../C/tomboy.xml:127(title)
 msgid "Feedback"
 msgstr "Comentarios"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:84(para)
-msgid "To report a bug or make a suggestion regarding the <application>Tomboy</application> application or this manual, follow the directions in the <ulink url=\"ghelp:gnome-feedback\" type=\"help\">GNOME Feedback Page</ulink>."
-msgstr "Para informar de un fallo, o hacer alguna sugerencia concerniente a la aplicación <application>Tomboy</application> o este manual, siga las indicaciones en la <ulink url=\"ghelp:gnome-feedback\" type=\"help\">Página de sugerencias de Gnome</ulink>."
+#: ../C/tomboy.xml:129(para)
+msgid ""
+"To report a bug or make a suggestion regarding the Application Name "
+"application or this manual, follow the directions in the <ulink type=\"help"
+"\" url=\"ghelp:gnome-feedback\">GNOME Feedback Page</ulink>."
+msgstr ""
+"Para informar de un fallo, o hacer alguna sugerencia concerniente a la "
+"aplicación <application>Tomboy</application> o este manual, siga las "
+"indicaciones en la <ulink url=\"ghelp:GNOME-feedback\" type=\"help\">Página "
+"de sugerencias de GNOME</ulink>."
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:89(para)
-msgid "User manual for the Tomboy note-taking assistant."
-msgstr "Manual del usuario para el asistente del tomador de notas Tomboy."
+#: ../C/tomboy.xml:139(primary)
+msgid "Tomboy Notes"
+msgstr "Tomboy Notas"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:92(primary)
-msgid "tomboy"
-msgstr "tomboy"
+#: ../C/tomboy.xml:143(primary)
+msgid "Tomboy"
+msgstr "Tomboy"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:93(primary)
+#: ../C/tomboy.xml:147(primary)
 msgid "notes"
 msgstr "notas"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:98(title)
+#: ../C/tomboy.xml:153(title)
 msgid "Introduction"
 msgstr "Introducción"
 
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:99(para)
-msgid "<application>Tomboy</application> is a simple desktop note-taking application, with some powerful built-in features to help you organize your ideas."
-msgstr "<application>Tomboy</application> es una aplicación simple y fácil de usar para tomar notas en el escritorio, con algunas potentes características que le ayudan a organizar sus ideas."
+#: ../C/tomboy.xml:156(title)
+msgid "Notes Application"
+msgstr "Aplicación de notas"
+
+#: ../C/tomboy.xml:165(para)
+msgid ""
+"Tomboy is a desktop note-taking application for GNOME. It is simple and easy "
+"to use, and allows you to organize the ideas and information you deal with "
+"every day. Tomboy has some very useful editing features to help you "
+"customize your notes, including:"
+msgstr "Tomboy es una aplicación de anotaciones de escritorio para GNOME. Es simple y fácil de usar, y permite organizar las ideas e información con la que trata cada día. Tomboy tiene algunas características de edición muy útiles para ayudarle a personalizar sus notas, incluyendo:"
+
+#: ../C/tomboy.xml:172(para)
+msgid "Highlighting Search Text"
+msgstr "Resaltado del texto buscado"
+
+#: ../C/tomboy.xml:176(para)
+msgid "Inline Spell Checking"
+msgstr "Corrección ortográfica integrada"
+
+#: ../C/tomboy.xml:180(para)
+msgid "Auto-linking Web &amp; Email Addresses"
+msgstr "Autoenlazado de direcciones web y correo-e"
+
+#: ../C/tomboy.xml:184(para)
+msgid "Undo/Redo Support"
+msgstr "Hacer/Deshacer"
+
+#: ../C/tomboy.xml:188(para)
+msgid "Font Styling &amp; Sizing"
+msgstr "Estilo tipográfico y tamaño"
+
+#: ../C/tomboy.xml:192(para)
+msgid ""
+"Tomboy is accessed through the GNOME panel. To startup Tomboy automatically "
+"when you log into GNOME, see the section <xref linkend=\"add-to-panel\"/>."
+msgstr "Se accede a Tomboy a través del panel de GNOME. Para iniciar Tomboy automáticamente al entrar en GNOME, vea la sección <xref linkend=\"add-to-panel\"/>"
+
+#: ../C/tomboy.xml:200(title)
+msgid "Getting Started"
+msgstr "Inicio"
+
+#: ../C/tomboy.xml:203(title)
+msgid "Adding Tomboy to the Panel"
+msgstr "Añadir Tomboy al panel"
+
+#: ../C/tomboy.xml:205(para)
+msgid ""
+"To add Tomboy to a panel, right-click on the panel, then choose "
+"<menuchoice><guimenuitem>Add to Panel</guimenuitem></menuchoice>. Select "
+"Tomboy Notes in the Add to the panel dialog, then click "
+"<menuchoice><guibutton>Add</guibutton></menuchoice>. You should see a yellow "
+"note icon appear in the panel, representing Tomboy. The panel icon is "
+"illustrated in <xref linkend=\"tomboy-panel\"/>."
+msgstr ""
+
+#: ../C/tomboy.xml:217(title)
+msgid "Creating Notes"
+msgstr ""
+
+#: ../C/tomboy.xml:219(para)
+msgid ""
+"Once you have successfully added Tomboy to the Panel, you can create new "
+"notes using one of the following methods."
+msgstr ""
+
+#: ../C/tomboy.xml:222(para)
+msgid "To create a new note using the mouse:"
+msgstr ""
+
+#: ../C/tomboy.xml:226(para)
+msgid "Click on the Tomboy note icon present in the GNOME Panel. A menu will appear."
+msgstr ""
+
+#: ../C/tomboy.xml:231(para)
+msgid ""
+"Select the <menuchoice><guimenuitem>Create New Note</guimenuitem></"
+"menuchoice> option in the menu."
+msgstr ""
+
+#: ../C/tomboy.xml:237(para)
+msgid "To create a new note using the keyboard:"
+msgstr ""
+
+#: ../C/tomboy.xml:241(para)
+msgid ""
+"Open the Tomboy menu using the key combo <keycombo><keycap>Alt</"
+"keycap><keycap>F12</keycap></keycombo>."
+msgstr ""
+
+#: ../C/tomboy.xml:249(para)
+msgid ""
+"Use the <keycap>N</keycap> key to select the menu option "
+"<menuchoice><guimenuitem>Create New Note</guimenuitem></menuchoice>."
+msgstr ""
+
+#: ../C/tomboy.xml:258(title)
+msgid "Editing Notes"
+msgstr ""
+
+#: ../C/tomboy.xml:260(para)
+msgid ""
+"After creating a new note, a new window will appear with the title "
+"<literal>New Note <replaceable>N</replaceable></literal>. At the top of the "
+"note is a toolbar with several buttons and text. Directly below this toolbar "
+"is the content area of the note. This is illustrated in <xref linkend=\"new-"
+"note\"/>."
+msgstr ""
+
+#: ../C/tomboy.xml:266(para)
+msgid ""
+"The note can be editted by clicking in the content area and using the "
+"keyboard to add and remove content. The first line is considered the title "
+"of the note. By default this is populated with the text <quote><literal>New "
+"Note <replaceable>N</replaceable></literal></quote>. The title is changed by "
+"clicking in the content area on the first line and using the keyboard to "
+"change the title. By default, focus is given to the content area upon "
+"creation of a new note, so you can immediately start editing the note "
+"without the need to click on the content area with the mouse."
+msgstr ""
+
+#: ../C/tomboy.xml:276(para)
+msgid ""
+"Using the toolbar available on each note is discussed in the section <xref "
+"linkend=\"working-with-notes\"/>."
+msgstr ""
+
+#: ../C/tomboy.xml:280(title)
+msgid "The default window for a New Note"
+msgstr ""
+
+#: ../C/tomboy.xml:291(title)
+msgid "Table of Contents"
+msgstr ""
+
+#: ../C/tomboy.xml:293(para)
+msgid ""
+"To get an overview of all the notes managed by Tomboy, select the "
+"<menuchoice><guimenuitem>Table of Contents</guimenuitem></menuchoice> menu "
+"item from the panel menu. By default, the <interface>Table of Contents</"
+"interface> dialog will display the notes in the order that they were last "
+"modified. Click the <guilabel>Note</guilabel> or <guilabel>Last Changed</"
+"guilabel> column headings to change the sort order. Click the column heading "
+"a second time to toggle between ascending and descending order."
+msgstr ""
+
+#: ../C/tomboy.xml:308(title)
+msgid "Working With Notes"
+msgstr ""
+
+#: ../C/tomboy.xml:310(para)
+msgid ""
+"Notes are modified and editted through the main window for each note. The "
+"toolbar at the top of each note allows you to stylize the note and perform "
+"other note-related functions. We discuss the functions of each item on the "
+"toolbar in the following sections."
+msgstr ""
+
+#: ../C/tomboy.xml:316(title)
+msgid "Search"
+msgstr ""
+
+#: ../C/tomboy.xml:318(para)
+msgid ""
+"Clicking the <guibutton>Search</guibutton> button will open a new dialog "
+"titled <guilabel>Search Note</guilabel>. Enter the text to search for, "
+"within the current note. Occurrences of this text will be highlighted in the "
+"note to allow quick identification."
+msgstr ""
+
+#: ../C/tomboy.xml:323(para)
+msgid ""
+"Use the <guibutton>Find Next</guibutton> button to move focus to the next "
+"occurrence of the text within the current note. Similarly, you can use the "
+"<guibutton>Previous</guibutton> button to move focus to the previous "
+"occurrence of the text within the current note."
+msgstr ""
+
+#: ../C/tomboy.xml:328(para)
+msgid ""
+"There are also different options you can set when performing a search. Both "
+"options are explained next."
+msgstr ""
+
+#: ../C/tomboy.xml:332(title)
+msgid "Search Note Options"
+msgstr ""
+
+#: ../C/tomboy.xml:335(term)
+msgid "Case Sensitive"
+msgstr ""
+
+#: ../C/tomboy.xml:338(para)
+msgid ""
+"Select this checkbox to make the search distinguish between uppercase and "
+"lowercase characters."
+msgstr ""
+
+#: ../C/tomboy.xml:344(term)
+msgid "Search All Notes"
+msgstr ""
+
+#: ../C/tomboy.xml:347(para)
+msgid ""
+"This option expands the <guilabel>Search Note</guilabel> dialog, and will "
+"display a list of notes which contain the search text. The number of "
+"occurrences of the text is also displayed next to the note."
+msgstr ""
+
+#: ../C/tomboy.xml:357(title)
+msgid "Link"
+msgstr ""
+
+#: ../C/tomboy.xml:359(para)
+msgid ""
+"The <guibutton>Link</guibutton> button allows you to create a link to a new "
+"note from within the current note. For example, if your note contains the "
+"phrase <quote>FinalExam</quote>, you can select this text with the mouse and "
+"click the <guibutton>Link</guibutton> button to create a new note with the "
+"title <quote>FinalExam</quote>. A link will also be created in the current "
+"note that can be clicked to open the new <quote>FinalExam</quote> note."
+msgstr ""
+
+#: ../C/tomboy.xml:368(para)
+msgid ""
+"Changing the title of a note will update links present in other notes. This "
+"prevents broken links from occurring when a note is renamed."
+msgstr ""
+
+#: ../C/tomboy.xml:375(title)
+msgid "Text"
+msgstr ""
+
+#: ../C/tomboy.xml:377(para)
+msgid ""
+"Formatting text within your notes can be done using the <guibutton>Text</"
+"guibutton> button. The <guibutton>Text</guibutton> button will display a "
+"drop down menu with several options from which you can choose. Each menu "
+"item is explained next."
+msgstr ""
+
+#: ../C/tomboy.xml:384(term)
+msgid "Undo"
+msgstr ""
+
+#: ../C/tomboy.xml:387(para)
+msgid ""
+"Support for <quote>Undo</quote> is available in Tomboy through this menu "
+"item. The Undo function allows you to revert previous changes made to your "
+"note during the current session. To undo your last change using the "
+"keyboard, use the standard keybinding, <keycombo><keycap>Ctrl</"
+"keycap><keycap>Z</keycap></keycombo>."
+msgstr ""
+
+#: ../C/tomboy.xml:400(term)
+msgid "Redo"
+msgstr ""
+
+#: ../C/tomboy.xml:403(para)
+msgid ""
+"The <quote>Redo</quote> function is used to put back changes that were "
+"removed using the <quote>Undo</quote> feature. To redo your last change "
+"using the keyboard, use the standard keybinding, <keycombo><keycap>Shift</"
+"keycap><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo>."
+msgstr ""
+
+#: ../C/tomboy.xml:417(term)
+msgid "Bold"
+msgstr ""
+
+#: ../C/tomboy.xml:420(para)
+msgid ""
+"To make text within your note bold, first select the text you want to "
+"modify. Then select the <menuchoice><guimenuitem>Bold</guimenuitem></"
+"menuchoice> option from the <guibutton>Text</guibutton> dropdown menu. You "
+"may also use the keybinding <keycombo><keycap>Ctrl</keycap><keycap>B</"
+"keycap></keycombo> after selecting the text."
+msgstr ""
+
+#: ../C/tomboy.xml:433(term)
+msgid "Italic"
+msgstr ""
+
+#: ../C/tomboy.xml:436(para)
+msgid ""
+"To make text within your note italic, first select the text you want to "
+"modify. Then select the <menuchoice><guimenuitem>Italic</guimenuitem></"
+"menuchoice> option from the <guibutton>Text</guibutton> dropdown menu. You "
+"may also use the keybinding <keycombo><keycap>Ctrl</keycap><keycap>I</"
+"keycap></keycombo> after selecting the text."
+msgstr ""
+
+#: ../C/tomboy.xml:449(term)
+msgid "Strikeout"
+msgstr ""
+
+#: ../C/tomboy.xml:452(para)
+msgid ""
+"The strikeout style will put a line through the selected text. To add a "
+"strikeout, select the text and then select the "
+"<menuchoice><guimenuitem>Strikeout</guimenuitem></menuchoice> option from "
+"the <guibutton>Text</guibutton> dropdown menu. You may also use the "
+"keybinding <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo> "
+"after selecting the text."
+msgstr ""
+
+#: ../C/tomboy.xml:466(term)
+msgid "Highlight"
+msgstr ""
+
+#: ../C/tomboy.xml:469(para)
+msgid ""
+"The highlight style will put a yellow background around the selected text. "
+"To add a highlight, select the text and then select the "
+"<menuchoice><guimenuitem>Highlight</guimenuitem></menuchoice> option from "
+"the <guibutton>Text</guibutton> dropdown menu. You may also use the "
+"keybinding <keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo> "
+"after selecting the text."
+msgstr ""
+
+#: ../C/tomboy.xml:483(term)
+msgid "Font size"
+msgstr ""
+
+#: ../C/tomboy.xml:488(guilabel) ../C/tomboy.xml:498(guilabel)
+msgid "Small"
+msgstr ""
+
+#: ../C/tomboy.xml:490(guilabel) ../C/tomboy.xml:500(guilabel)
+msgid "Normal"
+msgstr ""
+
+#: ../C/tomboy.xml:492(guilabel) ../C/tomboy.xml:502(guilabel)
+msgid "Large"
+msgstr ""
+
+#: ../C/tomboy.xml:494(guilabel) ../C/tomboy.xml:504(guilabel)
+msgid "Huge"
+msgstr ""
+
+#: ../C/tomboy.xml:486(para)
+msgid ""
+"There are actually four options in this part of the menu: <placeholder-1/>. "
+"Each one of these options represents a font size to use for the selected "
+"text in the note. To modify the font size, select the text and then select "
+"one of <placeholder-2/> options from the <guibutton>Text</guibutton> "
+"dropdown menu."
+msgstr ""
+
+#: ../C/tomboy.xml:513(title)
+msgid "Tools (gear icon)"
+msgstr ""
+
+#: ../C/tomboy.xml:515(para)
+msgid ""
+"The <guibutton>Tools</guibutton> button is represented by the <inlinegraphic "
+"fileref=\"figures/tomboy-tools.png\"/> icon. When you click the "
+"<guiicon>Tools</guiicon> icon on the toolbar present on your note, a "
+"dropdown menu will appear with the following items:"
+msgstr ""
+
+#: ../C/tomboy.xml:522(term)
+msgid "Open Plugins Folder"
+msgstr ""
+
+#: ../C/tomboy.xml:525(para)
+msgid ""
+"This option will open the plugins folder for Tomboy in the File Browser "
+"application. For more information on plugins, see <xref linkend=\"plugins\"/"
+">."
+msgstr ""
+
+#: ../C/tomboy.xml:532(term) ../C/tomboy.xml:722(member)
+#: ../C/tomboy.xml:747(term)
+msgid "Export to HTML"
+msgstr ""
+
+#: ../C/tomboy.xml:535(para)
+msgid ""
+"You can create an <acronym>HTML</acronym> (Hypertext Markup Language) "
+"document from one or more notes by selecting this option. For more "
+"information, please see <xref linkend=\"plugins\"/>."
+msgstr ""
+
+#: ../C/tomboy.xml:543(term)
+msgid "Print"
+msgstr ""
+
+#: ../C/tomboy.xml:546(para) ../C/tomboy.xml:774(para)
+msgid ""
+"Select this option to print the current note. You will be presented with the "
+"standard GNOME print dialog."
+msgstr ""
+
+#: ../C/tomboy.xml:553(para)
+msgid ""
+"Depending on the plugins that you have installed for Tomboy, you may have "
+"more or less items available in the <guimenu>Tools</guimenu> menu."
+msgstr ""
+
+#: ../C/tomboy.xml:560(title)
+msgid "Delete"
+msgstr ""
+
+#: ../C/tomboy.xml:562(para)
+msgid ""
+"The <guibutton>Delete</guibutton> button will pop up a dialog box asking if "
+"you want to permanently delete the note and its contents. Click the "
+"<guibutton>Delete</guibutton> button to discard the note permanently, or "
+"<guibutton>Cancel</guibutton> to abort the process. Links to this note from "
+"other notes will still exist, but will re-create the note upon activation."
+msgstr ""
+
+#: ../C/tomboy.xml:572(title)
+msgid "Preferences"
+msgstr ""
+
+#: ../C/tomboy.xml:574(para)
+msgid ""
+"To set preferences for Tomboy, right-click on the icon in the panel, and "
+"select <menuchoice><guimenuitem>Preferences</guimenuitem></menuchoice> from "
+"the menu. You will see a dialog similar to the one displayed in <xref "
+"linkend=\"pref-editing\"/>. There are two categories of preferences, "
+"<guilabel>Editing</guilabel> and <guilabel>Hotkeys</guilabel>. Preferences "
+"for each section will be described below."
+msgstr ""
+
+#: ../C/tomboy.xml:584(title)
+msgid "Editing"
+msgstr ""
+
+#: ../C/tomboy.xml:586(para)
+msgid ""
+"The editing section will allow you to set preferences related to editing "
+"notes. There are three checkboxes on this tab, which can either be turned on "
+"or off."
+msgstr ""
+
+#: ../C/tomboy.xml:592(term)
+msgid "Spellcheck While Typing"
+msgstr ""
+
+#: ../C/tomboy.xml:595(para)
+msgid ""
+"Enable this checkbox to underline misspellings in red, and provide "
+"suggestions in the right click context menu. Enable or disable the checkbox "
+"using the mouse or the key combination <keycombo><keycap>Alt</"
+"keycap><keycap>S</keycap></keycombo>."
+msgstr ""
+
+#: ../C/tomboy.xml:605(para)
+msgid ""
+"The spellcheck option is only available if you have the "
+"<application>GtkSpell</application> package for your distribution installed."
+msgstr ""
+
+#: ../C/tomboy.xml:613(term)
+msgid "Highlight WikiWords"
+msgstr ""
+
+#: ../C/tomboy.xml:616(para)
+msgid ""
+"Enable this checkbox to create links for phrases <literal>ThatLookLikeThis</"
+"literal>. Clicking on the link will create a new note with the title "
+"corresponding to the link text. Enable or disable this checkbox using the "
+"mouse or the key combination <keycombo><keycap>Alt</keycap><keycap>W</"
+"keycap></keycombo>."
+msgstr ""
+
+#: ../C/tomboy.xml:629(term)
+msgid "Use Custom Font"
+msgstr ""
+
+#: ../C/tomboy.xml:632(para)
+msgid ""
+"Enable this checkbox to set a custom font to be used in your notes. If this "
+"option is disabled, the default system font will be used. Enable or disable "
+"this checkbox using the mouse or the key combination <keycombo><keycap>Alt</"
+"keycap><keycap>F</keycap></keycombo>."
+msgstr ""
+
+#: ../C/tomboy.xml:645(title)
+msgid "Tomboy Editing Preferences"
+msgstr ""
+
+#: ../C/tomboy.xml:656(title)
+msgid "Hotkeys"
+msgstr "Teclas de acceso"
+
+#: ../C/tomboy.xml:658(para)
+msgid ""
+"The hotkeys section allows you to set global key combinations to perform "
+"different functions in Tomboy. In order to set key combinations, you must "
+"have the <guibutton>Listen for Hotkeys</guibutton> checkbox enabled. Use "
+"<keycombo><keycap>Alt</keycap><keycap>H</keycap></keycombo> to toggle this "
+"option."
+msgstr "Las teclas de acceso le permiten establecer combinaciones de teclas globales para realizar diferentes funciones en Tomboy. Para establecer combinaciones de teclas, debe tener marcada la casilla <guibutton>Activar teclas de acceso</guibutton>. Use <keycombo><keycap>Alt</keycap><keycap>H</keycap></keycombo> para cambiar esta opción."
+
+#: ../C/tomboy.xml:669(term)
+msgid "Show notes menu"
+msgstr "Menú mostrar notas"
+
+#: ../C/tomboy.xml:672(para)
+msgid "Enter the key combination to open the notes menu."
+msgstr "Introduzca la combinación de teclas para abrir el menú de notas."
+
+#: ../C/tomboy.xml:677(term)
+msgid "Open \"Start Here\""
+msgstr ""
+
+#: ../C/tomboy.xml:680(para)
+msgid ""
+"Enter the key combination to open the <quote>Start Here</quote> note, which "
+"is preinstalled with Tomboy."
+msgstr ""
+
+#: ../C/tomboy.xml:686(term)
+msgid "Create new note"
+msgstr "Crear nota nueva"
+
+#: ../C/tomboy.xml:689(para)
+msgid "Enter the key combination to create a new note."
+msgstr ""
+
+#: ../C/tomboy.xml:694(term)
+msgid "Search notes"
+msgstr "Buscar notas"
+
+#: ../C/tomboy.xml:697(para)
+msgid ""
+"Enter the key combination to open the <guilabel>Search All Notes</guilabel> "
+"dialog."
+msgstr ""
+
+#: ../C/tomboy.xml:704(title)
+msgid "Tomboy Hotkey Preferences"
+msgstr ""
+
+#: ../C/tomboy.xml:716(title)
+msgid "Plugins"
+msgstr ""
+
+#: ../C/tomboy.xml:720(member) ../C/tomboy.xml:736(term)
+msgid "Evolution Mail Drop"
+msgstr ""
+
+#: ../C/tomboy.xml:724(member) ../C/tomboy.xml:767(term)
+#, fuzzy
+msgid "Print Notes"
+msgstr "notas"
+
+#: ../C/tomboy.xml:726(member)
+msgid "and Sticky Notes Import."
+msgstr ""
+
+#: ../C/tomboy.xml:718(para)
+msgid ""
+"By default, Tomboy comes with several pre-installed plugins: <placeholder-1/"
+"> Since these are preinstalled, they are ready to use and are automatically "
+"loaded into the Tomboy interface."
+msgstr ""
+
+#: ../C/tomboy.xml:731(para)
+msgid "Some plugins exist that are not installed by default."
+msgstr ""
+
+#: ../C/tomboy.xml:739(para)
+msgid ""
+"This plugin allows you to drag and drag an e-mail message from the "
+"<application>Evolution</application> mail application to one of your Tomboy "
+"notes. Clicking on the mail icon in the note will then open the "
+"corresponding e-mail message in Evolution."
+msgstr ""
+
+#: ../C/tomboy.xml:750(para)
+msgid ""
+"When this plugin is installed, the <link linkend=\"tools\">Tools</link> menu "
+"will have the <guimenuitem>Export to HTML</guimenuitem> option available."
+msgstr ""
+
+#: ../C/tomboy.xml:754(para)
+msgid ""
+"After selecting this option, you will be presented with a dialog that allows "
+"you to choose where to save the <acronym>HTML</acronym> file. Enter the "
+"destination filename and click <guibutton>OK</guibutton> to save the file, "
+"or <guibutton>Cancel</guibutton> to abort the operation."
+msgstr ""
+
+#: ../C/tomboy.xml:760(para)
+msgid ""
+"To export any notes for which a link exists in the current note, select the "
+"<guibutton>Export linked notes</guibutton> button."
+msgstr ""
+
+#: ../C/tomboy.xml:770(para)
+msgid ""
+"When this plugin is installed, the <link linkend=\"tools\">Tools</link> menu "
+"will have the <guimenuitem>Print</guimenuitem> option available."
+msgstr ""
+
+#: ../C/tomboy.xml:780(term)
+msgid "Sticky Notes Import"
+msgstr ""
+
+#: ../C/tomboy.xml:783(para)
+msgid ""
+"When this plugin is installed, the <link linkend=\"tools\">Tools</link> menu "
+"will have the <guimenuitem>Import from Sticky Notes</guimenuitem> option "
+"available."
+msgstr ""
+
+#: ../C/tomboy.xml:787(para)
+msgid ""
+"Use this option to import notes from the <application>Sticky Notes</"
+"application> application that is available in prior releases of GNOME. This "
+"option has been included in Tomboy to provide an upgrade path for users who "
+"would like to migrate from <application>Sticky Notes</application> to Tomboy "
+"for their note taking purposes."
+msgstr ""
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
-#: /tmp/doc-l10n/cvs/tomboy.HEAD/C/tomboy.xml:0(None)
+#: ../C/tomboy.xml:0(None)
 msgid "translator-credits"
 msgstr "Jorge González González <jorge.gonzalez.gonzalez@hispalinux.es>, 2006."
 
