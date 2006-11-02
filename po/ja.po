@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-31 22:50+0900\n"
-"PO-Revision-Date: 2006-08-31 22:51+0900\n"
+"POT-Creation-Date: 2006-11-03 02:08+0900\n"
+"PO-Revision-Date: 2006-11-03 02:09+0900\n"
 "Last-Translator: Satoru SATOH <ss@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -38,20 +38,20 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy アプレットのファクトリ"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:37
+#: ../Tomboy/Applet.cs:146 ../Tomboy/Tray.cs:37
 msgid "Tomboy Notes"
 msgstr "Tomboy メモ"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:179
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:189
 msgid "_About Tomboy"
 msgstr "Tomboy について(_A)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:174
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:184
 #: ../Tomboy/NoteWindow.cs:513
 msgid "_Open Plugins Folder"
 msgstr "プラグイン・フォルダを開く(_O)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:169
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:179
 msgid "_Preferences..."
 msgstr "設定(_P)..."
 
@@ -298,7 +298,7 @@ msgstr "%N / %Q ページ"
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:196
 msgid "_Quit"
 msgstr "終了(_Q)"
 
@@ -463,11 +463,11 @@ msgid "Hotkeys"
 msgstr "ホットキー"
 
 #. Spell checking...
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/Preferences.cs:183
 msgid "_Spell check while typing"
 msgstr "入力時にスペルチェックを行う(_S)"
 
-#: ../Tomboy/Preferences.cs:189
+#: ../Tomboy/Preferences.cs:190
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -476,11 +476,11 @@ msgstr ""
 "スペルを提示します。"
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:198
+#: ../Tomboy/Preferences.cs:200
 msgid "Highlight _WikiWords"
 msgstr "WikiWord を強調表示する(_W)"
 
-#: ../Tomboy/Preferences.cs:205
+#: ../Tomboy/Preferences.cs:207
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -489,16 +489,16 @@ msgstr ""
 "列をクリックすると、その名前をタイトルにした新しいメモを生成します。"
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:214
+#: ../Tomboy/Preferences.cs:216
 msgid "Use custom _font"
 msgstr "カスタムフォントを使う(_F)"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:284
+#: ../Tomboy/Preferences.cs:286
 msgid "Listen for _Hotkeys"
 msgstr "ホットキーを監視する(_H)"
 
-#: ../Tomboy/Preferences.cs:292
+#: ../Tomboy/Preferences.cs:294
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -509,26 +509,26 @@ msgstr ""
 "Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:312
+#: ../Tomboy/Preferences.cs:314
 msgid "Show notes _menu"
 msgstr "メニューの表示(_M)"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:328
+#: ../Tomboy/Preferences.cs:330
 msgid "Open \"_Start Here\""
 msgstr "\"ここから開始\" を開く(_S)"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:344
+#: ../Tomboy/Preferences.cs:346
 msgid "Create _new note"
 msgstr "新しいメモの生成(_N)"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:360
+#: ../Tomboy/Preferences.cs:362
 msgid "S_earch notes"
 msgstr "メモの検索(_E)"
 
-#: ../Tomboy/Preferences.cs:422
+#: ../Tomboy/Preferences.cs:424
 msgid "Choose Note Font"
 msgstr "フォントの選択"
 
@@ -557,7 +557,6 @@ msgstr "変更日時"
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "総計: {0} ノート"
-msgstr[1] "総計: {0} ノート"
 
 #: ../Tomboy/RecentChanges.cs:261
 #, csharp-format
@@ -615,7 +614,6 @@ msgstr "検索の結果(_R)"
 msgid "({0} match)"
 msgid_plural "({0} matches)"
 msgstr[0] "({0}個見つかりました)"
-msgstr[1] "({0}個見つかりました)"
 
 #. title
 #: ../Tomboy/Search.cs:750
@@ -741,15 +739,15 @@ msgstr ""
 msgid "Note title taken"
 msgstr "メモのタイトル"
 
-#: ../Tomboy/Watchers.cs:386
+#: ../Tomboy/Watchers.cs:388
 msgid "Cannot open location"
 msgstr "指定した場所を開けません"
 
-#: ../Tomboy/Watchers.cs:480
+#: ../Tomboy/Watchers.cs:482
 msgid "_Copy Link Address"
 msgstr "リンク先のアドレスのコピー(_C)"
 
-#: ../Tomboy/Watchers.cs:485
+#: ../Tomboy/Watchers.cs:487
 msgid "_Open Link"
 msgstr "リンクを開く(_O)"
 
