@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using Mono.Unix;
+using Tomboy.Sharing;
 
 namespace Tomboy
 {
@@ -256,6 +257,8 @@ namespace Tomboy
 		NoteTagTable tag_table;
 
 		InterruptableTimeout save_timeout;
+		
+		static SharingManager sharing_manager;
 
 		[System.Diagnostics.Conditional ("DEBUG_SAVE")]
 		static void DebugSave (string format, params object[] args)
@@ -270,6 +273,9 @@ namespace Tomboy
 			this.manager = manager;
 			save_timeout = new InterruptableTimeout ();
 			save_timeout.Timeout += SaveTimeout;
+			
+			if (sharing_manager == null)
+				sharing_manager = SharingManager.GetInstance ();
 		}
 
 		static string UrlFromPath (string filepath)
@@ -499,6 +505,18 @@ namespace Tomboy
 			get { return manager; }
 			set { manager = value; }
 		}
+		
+		public SharingManager SharingManager
+		{
+			get { return sharing_manager; }
+		}
+		
+		public bool Shared
+		{
+			get { return sharing_manager.IsSharedNote (this); }
+			set { sharing_manager.ShareNote (this, value); }
+		}
+				
 
 		public NoteTagTable TagTable
 		{

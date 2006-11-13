@@ -5,6 +5,8 @@ using System.Text;
 using Mono.Unix;
 using System.Runtime.InteropServices;
 
+using Tomboy.Sharing;
+
 namespace Tomboy
 {
 	public class NoteMenuItem : Gtk.ImageMenuItem
@@ -120,15 +122,18 @@ namespace Tomboy
 	public class TomboyTray : Gtk.EventBox
 	{
 		NoteManager manager;
+		SharingManager sharing_manager;
 		Gtk.Tooltips tips;
 		Gtk.Image image;
 		PreferencesDialog prefs_dlg;
+		SharingWindow sharing_window;
 		int icon_size_last = -1;
 
-		public TomboyTray (NoteManager manager) 
+		public TomboyTray (NoteManager manager, SharingManager sharing_manager) 
 			: base ()
 		{
 			this.manager = manager;
+			this.sharing_manager = sharing_manager;
 			this.image = new Gtk.Image ();
 
 			this.CanFocus = true;
@@ -296,6 +301,13 @@ namespace Tomboy
 			}
 
 			menu.Append (new Gtk.SeparatorMenuItem ());
+			
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("S_hared Notes"));
+			item.Image = new Gtk.Image (Gtk.Stock.Refresh, Gtk.IconSize.Menu);
+			item.Activated += OpenSharingWindow;
+			menu.Append (item);
+			
+			// FIXME: Should we add keybindings here for the Note Sharing Window?
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Table of Contents"));
 			item.Image = new Gtk.Image (Gtk.Stock.SortAscending, Gtk.IconSize.Menu);
@@ -345,6 +357,22 @@ namespace Tomboy
 			NoteFindDialog find_dialog = NoteFindDialog.GetInstance (manager);
 			find_dialog.Present ();
 		}
+		
+		void OpenSharingWindow (object sender, EventArgs args)
+		{
+			if (sharing_window == null) {
+				sharing_window = new SharingWindow (manager, sharing_manager);
+				sharing_window.Hidden += OnSharingWindowHidden;
+				sharing_window.Show ();
+			}
+			
+			sharing_window.Present ();
+		}
+		
+		void OnSharingWindowHidden (object sender, EventArgs args)
+		{
+			sharing_window = null;
+		}
 
 		void ViewRecentChanges (object sender, EventArgs args)
 		{
@@ -376,7 +404,7 @@ namespace Tomboy
 		public void ShowPreferences ()
 		{
 			if (prefs_dlg == null) {
-				prefs_dlg = new PreferencesDialog ();
+				prefs_dlg = new PreferencesDialog (manager);
 				prefs_dlg.Response += OnPreferencesResponse;
 			}
 			prefs_dlg.Present ();

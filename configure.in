@@ -109,9 +109,9 @@ fi
 AC_SUBST(DBUS_SOVERSION)
 
 #
-# Tomboy.exe needs Gtk# Gnome# GConf#
+# Tomboy.exe needs Gtk# Gnome# GConf# xsp (Mono.WebServer.dll)
 #
-PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 gnome-sharp-2.0 gconf-sharp-2.0)
+PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 gnome-sharp-2.0 gconf-sharp-2.0 xsp)
 AC_SUBST(TOMBOY_LIBS)
 
 #
@@ -160,6 +160,7 @@ help/Makefile
 libtomboy/Makefile
 Tomboy/Makefile
 Tomboy/Plugins/Makefile
+Tomboy/Sharing.WebService/Makefile
 test/Makefile
 po/Makefile.in
 ])

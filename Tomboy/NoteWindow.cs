@@ -3,6 +3,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using Mono.Unix;
+using Tomboy.Sharing;
 
 namespace Tomboy
 {
@@ -140,6 +141,7 @@ namespace Tomboy
 		Gtk.Widget link_button;
 		NoteTextMenu text_menu;
 		Gtk.Menu plugin_menu;
+		Gtk.CheckButton shared_check_button;
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
 
@@ -246,6 +248,17 @@ namespace Tomboy
 
 			this.Add (box);
 		}
+		
+		protected override void OnRealized ()
+		{
+			base.OnRealized ();
+			
+			note.SharingManager.SharingEnabled += SharingEnabled;
+			note.SharingManager.SharingDisabled += SharingDisabled;
+			note.SharingManager.SharingTypeChanged += SharingTypeChanged;
+			
+			Preferences.SettingChanged += NoteShareSettingChanged;
+		}
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
 		{
@@ -306,6 +319,53 @@ namespace Tomboy
 		{
 			// Prompt for note deletion
 			NoteUtils.ShowDeletionDialog (note, this);
+		}
+		
+		//
+		// Change the sharing status of this Note.
+		//
+		
+		void SharedCheckButtonClicked (object sender, EventArgs args)
+		{
+			note.Shared = shared_check_button.Active;
+		}
+		
+		void SharingEnabled (object sender, EventArgs args)
+		{
+			if (note.SharingManager.SharingType == SharingType.SelectedNotes)
+				shared_check_button.Sensitive = true;
+			else {
+				shared_check_button.Sensitive = false;
+				shared_check_button.Toggled -= SharedCheckButtonClicked;
+				shared_check_button.Active = note.Shared;
+				shared_check_button.Toggled += SharedCheckButtonClicked;
+			}
+		}
+		
+		void SharingDisabled (object sender, EventArgs args)
+		{
+			shared_check_button.Sensitive = false;
+		}
+		
+		void SharingTypeChanged (object sender, EventArgs args)
+		{
+			if (note.SharingManager.SharingType == SharingType.AllNotes)
+				shared_check_button.Sensitive = false;
+			else
+				shared_check_button.Sensitive = true;
+		}
+		
+		void NoteShareSettingChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			if (args.Key != Preferences.SHARING_SELECTED_NOTES)
+				return;
+			
+			bool shared = note.Shared;
+			if (shared_check_button.Active != shared) {
+				shared_check_button.Toggled -= SharedCheckButtonClicked;
+				shared_check_button.Active = shared;
+				shared_check_button.Toggled += SharedCheckButtonClicked;
+			}
 		}
 
 		//
@@ -499,6 +559,22 @@ namespace Tomboy
 			// Don't allow deleting the "Start Here" note...
 			if (note.IsSpecial)
 				delete.Sensitive = false;
+			
+			toolbar.AppendSpace ();
+			
+			// Note Sharing Options
+			shared_check_button = new Gtk.CheckButton (Catalog.GetString ("_Shared"));
+			shared_check_button.Toggled += SharedCheckButtonClicked;
+			shared_check_button.Show ();
+			toolbar.AppendWidget (
+				shared_check_button,
+				Catalog.GetString ("Share"),
+				Catalog.GetString ("Share this note"));
+			if (note.Shared)
+				shared_check_button.Active = true;
+			if (!note.SharingManager.IsSharingEnabled
+				|| note.SharingManager.SharingType == SharingType.AllNotes)
+				shared_check_button.Sensitive = false;
 
 			return toolbar;
 		}

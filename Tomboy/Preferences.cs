@@ -1,7 +1,9 @@
 
 using System;
+using System.Collections;
 using Mono.Unix;
 using GConf.PropertyEditors;
+using Gnome.Keyring;
 
 namespace Tomboy
 {
@@ -21,6 +23,14 @@ namespace Tomboy
 		public const string KEYBINDING_CREATE_NEW_NOTE = "/apps/tomboy/global_keybindings/create_new_note";
 		public const string KEYBINDING_OPEN_SEARCH = "/apps/tomboy/global_keybindings/open_search";
 		public const string KEYBINDING_OPEN_RECENT_CHANGES = "/apps/tomboy/global_keybindings/open_recent_changes";
+		
+		public const string SHARING_GUID = "/apps/tomboy/sharing/guid";
+		public const string SHARING_ENABLE_LOCAL_BROWSING = "/apps/tomboy/sharing/enable_local_browsing";
+		public const string SHARING_ENABLE_LOCAL_PUBLISHING = "/apps/tomboy/sharing/enable_local_publishing";
+		public const string SHARING_SELECTED_NOTES = "/apps/tomboy/sharing/selected_notes";
+		public const string SHARING_SHARED_NAME = "/apps/tomboy/sharing/shared_name";
+		public const string SHARING_PASSWORD_DOMAIN = "NoteSharingPassword";
+		public const string SYNCHRONIZING_PASSWORD_DOMAIN = "NoteSynchronizingPassword";
 
 		public const string EXPORTHTML_LAST_DIRECTORY = "/apps/tomboy/export_html/last_directory";
 		public const string EXPORTHTML_EXPORT_LINKED = "/apps/tomboy/export_html/export_linked";
@@ -74,6 +84,20 @@ namespace Tomboy
 			case KEYBINDING_OPEN_SEARCH:
 			case KEYBINDING_OPEN_RECENT_CHANGES:
 				return "disabled";
+			
+			case SHARING_GUID:
+				return Guid.NewGuid ().ToString ();
+				break;
+				
+			case SHARING_ENABLE_LOCAL_BROWSING:
+			case SHARING_ENABLE_LOCAL_PUBLISHING:
+				return false;
+			
+			case SHARING_SELECTED_NOTES:
+				return "";
+			
+			case SHARING_SHARED_NAME:
+				return string.Format (Catalog.GetString ("{0}-{1}'s Notes"), Environment.UserName, Environment.MachineName);
 
 			case EXPORTHTML_EXPORT_LINKED:
 				return true;
@@ -106,6 +130,115 @@ namespace Tomboy
 		{
 			Client.Set (key, value);
 		}
+		
+		public static void SetPassword (string password_domain, string password)
+		{
+			if (password_domain == null || password == null)
+				return;
+			
+			string keyring = Ring.GetDefaultKeyring ();
+			Hashtable attributes = new Hashtable ();
+			attributes ["name"] = password_domain;
+			
+			Ring.CreateItem (
+				keyring,
+				ItemType.GenericSecret,
+				password_domain,
+				attributes,
+				password,
+				true);
+			Logger.Log ("Stored password for \"{0}\"", password_domain);
+		}
+		
+		public static string GetPassword (string password_domain)
+		{
+			string password = null;
+			Hashtable attributes = new Hashtable ();
+			attributes ["name"] = password_domain;
+			try {
+				ItemData [] results = Ring.Find (ItemType.GenericSecret, attributes);
+				if (results != null && results.Length > 0) {
+					attributes = results [0].Attributes;
+					if (attributes != null) {
+						password = results [0].Secret;
+					}
+				}
+			} catch (Exception e) {
+				Logger.Log ("Error retrieving stored password for \"{0}\": {1}",
+					password_domain, e.Message);
+			}
+			
+			return password;
+		}
+		
+		public static void ClearPassword (string password_domain)
+		{
+			string keyring = Ring.GetDefaultKeyring ();
+			Hashtable attributes = new Hashtable ();
+			attributes ["name"] = password_domain;
+			try {
+				foreach (ItemData result in Ring.Find (ItemType.GenericSecret, attributes)) {
+					Ring.DeleteItem (keyring, result.ItemID);
+					Logger.Log ("Cleared stored password for \"{0}\"", password_domain);
+				}
+			} catch (Exception e) {
+				Logger.Log ("Error clearing stored password for \"{0}\": {1}",
+					password_domain, e.Message);
+			}
+		}
+		
+		public static void AddSharedNote (Note note)
+		{
+			string pref = Preferences.Get (Preferences.SHARING_SELECTED_NOTES) as string;
+			if (pref == null || pref.CompareTo ("ALL") == 0)
+				return;
+			
+			string [] selected_notes = pref.Split (new char [] {','});
+			
+			if (selected_notes == null || selected_notes.Length == 0)
+				selected_notes = new string [0];
+			
+			int idx = Array.IndexOf (selected_notes, note.Uri);
+			if (idx >= 0)
+				return; // The note is already selected
+			
+			string updated_pref;
+			if (pref == String.Empty)
+				updated_pref = note.Uri;
+			else
+				updated_pref = pref + "," + note.Uri;
+			Preferences.Set (Preferences.SHARING_SELECTED_NOTES, updated_pref);
+		}
+		
+		public static void RemoveSharedNote (Note note)
+		{
+			string pref = Preferences.Get (Preferences.SHARING_SELECTED_NOTES) as string;
+			if (pref == null || pref.CompareTo ("ALL") == 0)
+				return;
+			
+			string [] selected_notes = pref.Split (new char [] {','});
+			
+			if (selected_notes == null || selected_notes.Length == 0)
+				return;
+			
+			int idx = Array.IndexOf (selected_notes, note.Uri);
+			if (idx < 0)
+				return;
+			
+			// Update the list of selected notes manually
+			int j = 0;
+			string [] updated_notes = new string [selected_notes.Length - 1];
+			for (int i = 0; i < selected_notes.Length; i++) {
+				if (i == idx)
+					continue;
+				
+				updated_notes [j] = selected_notes [i];
+				j++;
+			}
+			
+			string updated_pref = String.Join (",", updated_notes);
+			Preferences.Set (Preferences.SHARING_SELECTED_NOTES, updated_pref);
+		}
 
 		public static event GConf.NotifyEventHandler SettingChanged;
 
@@ -119,13 +252,41 @@ namespace Tomboy
 
 	public class PreferencesDialog : Gtk.Dialog
 	{
+		NoteManager manager;
+
 		Gtk.Button font_button;
 		Gtk.Label font_face;
 		Gtk.Label font_size;
 
-		public PreferencesDialog ()
+		// Sharing
+		Gtk.CheckButton local_browsing_check;
+		Gtk.CheckButton local_publishing_check;
+		Gtk.RadioButton all_radio;
+		Gtk.RadioButton selected_radio;
+		Gtk.TreeView selected_tree;
+		Gtk.ListStore selected_store;
+		Gtk.CellRendererToggle toggle_renderer;
+		Gtk.Label local_shared_name_label;
+		Gtk.Entry local_shared_name;
+		Gtk.CheckButton require_password_check;
+		Gtk.Entry local_publishing_password;
+//		Gtk.CheckButton enable_sync_check;
+//		Gtk.Label sync_password_label;
+//		Gtk.Entry sync_password;
+		
+		static Type [] column_types =
+			new Type [] {
+				typeof (bool),		// selected
+				typeof (string),	// Note title
+				typeof (Note)
+			};
+		
+
+		public PreferencesDialog (NoteManager manager)
 			: base ()
 		{
+			this.manager = manager;
+
 			IconName = "tomboy";
 			HasSeparator = false;
 			BorderWidth = 5;
@@ -148,6 +309,9 @@ namespace Tomboy
 
 			notebook.AppendPage (MakeHotkeysPane (), 
 					     new Gtk.Label (Catalog.GetString ("Hotkeys")));
+			
+			notebook.AppendPage (MakeSharingPane (),
+					     new Gtk.Label (Catalog.GetString ("Sharing")));
 
 			VBox.PackStart (notebook, true, true, 0);
 
@@ -169,6 +333,11 @@ namespace Tomboy
 
 			AddActionWidget (button, Gtk.ResponseType.Close);
 			DefaultResponse = Gtk.ResponseType.Close;
+			
+			// Update on changes to notes
+			manager.NoteDeleted += OnNotesChanged;
+			manager.NoteAdded += OnNotesChanged;
+			manager.NoteRenamed += OnNoteRenamed;
 		}
 
 		// Page 1
@@ -386,6 +555,401 @@ namespace Tomboy
 
 			return hotkeys_list;
 		}
+		
+		// Page 3
+		// Sharing options
+		public Gtk.Widget MakeSharingPane ()
+		{
+			Gtk.Table table;
+			Gtk.HBox hbox;
+			Gtk.Label label;
+			PropertyEditor local_browsing_peditor, local_publishing_peditor, shared_name_peditor;
+			
+			table = new Gtk.Table (9, 2, false);
+			table.BorderWidth = 12;
+			table.Show ();
+
+			// Look for shared notes
+			local_browsing_check = MakeCheckButton (Catalog.GetString ("_Look for shared notes"));
+			table.Attach (local_browsing_check, 0, 2, 0, 1, Gtk.AttachOptions.Shrink | Gtk.AttachOptions.Fill, 0, 0, 0);
+			local_browsing_peditor =
+				new PropertyEditorToggleButton (Preferences.SHARING_ENABLE_LOCAL_BROWSING,
+						local_browsing_check);
+			SetupPropertyEditor (local_browsing_peditor);
+			
+			// Share my notes
+			local_publishing_check = MakeCheckButton (Catalog.GetString ("_Share my notes on my local network"));
+			table.Attach (local_publishing_check, 0, 2, 1, 2, Gtk.AttachOptions.Shrink | Gtk.AttachOptions.Fill, 0, 0, 0);
+			local_publishing_peditor =
+				new PropertyEditorToggleButton (Preferences.SHARING_ENABLE_LOCAL_PUBLISHING,
+						local_publishing_check);
+			SetupPropertyEditor (local_publishing_peditor);
+			
+			// SPACER
+			label = MakeLabel ("    ");
+			table.Attach (label, 0, 1, 2, 7);
+			
+			// Share all notes
+			all_radio = MakeRadioButton (null, Catalog.GetString ("Share _all notes"));
+			table.Attach (all_radio, 1, 2, 2, 3, Gtk.AttachOptions.Shrink | Gtk.AttachOptions.Fill, 0, 0, 0);
+			
+			// Share selected notes
+			selected_radio = MakeRadioButton (all_radio, Catalog.GetString ("Share s_elected notes"));
+			table.Attach (selected_radio, 1, 2, 3, 4, Gtk.AttachOptions.Shrink | Gtk.AttachOptions.Fill, 0, 0, 0);
+			
+			// Selected notes TreeView
+			Gtk.Widget tree = MakeSelectedTree ();
+			table.Attach (tree, 1, 2, 4, 5, Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill, 0, 0, 0);
+			
+			// Shared name
+			hbox = new Gtk.HBox (false, 0);
+			local_shared_name_label = MakeLabel (Catalog.GetString ("S_hared name:"));
+			hbox.PackStart (local_shared_name_label, false, false, 0);
+			local_shared_name = new Gtk.Entry ();
+			label.MnemonicWidget = local_shared_name;
+			local_shared_name.Show ();
+			hbox.PackStart (local_shared_name, true, true, 0);
+			hbox.Show ();
+			table.Attach (hbox, 1, 2, 5, 6, Gtk.AttachOptions.Shrink | Gtk.AttachOptions.Fill, 0, 0, 0);
+			shared_name_peditor = new PropertyEditorEntry (Preferences.SHARING_SHARED_NAME, 
+							   local_shared_name);
+			SetupPropertyEditor (shared_name_peditor);
+
+			// Require password
+			hbox = new Gtk.HBox (false, 0);
+			require_password_check = MakeCheckButton (Catalog.GetString ("_Require password:"));
+			hbox.PackStart (require_password_check, false, false, 0);
+			local_publishing_password = new Gtk.Entry ();
+			local_publishing_password.Visibility = false;
+			local_publishing_password.FocusOutEvent += OnLocalPasswordFocusOut;
+			local_publishing_password.Show ();
+			hbox.PackStart (local_publishing_password, true, true, 0);
+			hbox.Show ();
+			table.Attach (hbox, 1, 2, 6, 7, Gtk.AttachOptions.Shrink | Gtk.AttachOptions.Fill, 0, 0, 0);
+
+/*			
+			// Enable synchronization
+			enable_sync_check = MakeCheckButton (Catalog.GetString ("_Enable synchronization with my other computers"));
+			table.Attach (enable_sync_check, 0, 2, 7, 8, Gtk.AttachOptions.Shrink | Gtk.AttachOptions.Fill, 0, 0, 0);
+			
+			// Synchronization password
+			label = MakeLabel ("    "); // spacer
+			table.Attach (label, 0, 1, 8, 9);
+
+			hbox = new Gtk.HBox (false, 0);
+			sync_password_label = MakeLabel (Catalog.GetString ("Synchronization _password:"));
+			hbox.PackStart (sync_password_label, false, false, 0);
+			sync_password = new Gtk.Entry ();
+			label.MnemonicWidget = sync_password;
+			sync_password.Visibility = false;
+			sync_password.FocusOutEvent += OnSyncPasswordFocusOut;
+			sync_password.Show ();
+			hbox.PackStart (sync_password, true, true, 0);
+			hbox.Show ();
+			table.Attach (hbox, 1, 2, 8, 9, Gtk.AttachOptions.Shrink | Gtk.AttachOptions.Fill, 0, 0, 0);
+*/			
+			table.Realized += OnSharingPageRealizedEvent;
+			
+			return table;
+		}
+		
+		Gtk.Widget MakeSelectedTree ()
+		{
+			selected_tree = new Gtk.TreeView ();
+			selected_tree.HeadersVisible = false;
+			selected_tree.RulesHint = false;
+			selected_tree.EnableSearch = false;
+			
+			Gtk.CellRenderer renderer;
+			
+			Gtk.TreeViewColumn title = new Gtk.TreeViewColumn ();
+			title.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			title.Resizable = false;
+			
+			toggle_renderer = new Gtk.CellRendererToggle ();
+			toggle_renderer.Toggled += OnNoteSelected;
+			title.PackStart (toggle_renderer, false);
+			title.AddAttribute (toggle_renderer, "active", 0 /* selected */);
+			
+			renderer = new Gtk.CellRendererText ();
+			title.PackStart (renderer, true);
+			title.AddAttribute (renderer, "text", 1 /* title */);
+			title.SortColumnId = 1; /* title */
+			
+			selected_tree.AppendColumn (title);
+			selected_tree.Show ();
+			
+			Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
+			sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+			sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+			sw.ShadowType = Gtk.ShadowType.In;
+			sw.Add (selected_tree);
+			sw.Show ();
+			
+			return sw;
+		}
+		
+		void OnSharingPageRealizedEvent (object sender, EventArgs args)
+		{
+			Preferences.SettingChanged += OnSharingSettingChanged;
+
+			string password = Preferences.GetPassword (Preferences.SHARING_PASSWORD_DOMAIN);
+			if (password == null)
+				require_password_check.Active = false;
+			else {
+				require_password_check.Active = true;
+				local_publishing_password.Text = password;
+			}
+			
+/*
+			password = Preferences.GetPassword (Preferences.SYNCHRONIZING_PASSWORD_DOMAIN);
+			if (password == null) {
+				enable_sync_check.Active = false;
+			} else {
+				enable_sync_check.Active = true;
+				sync_password.Text = password;
+			}
+*/
+			UpdateSharingSelectedList ();
+			UpdateSharingSensitivity ();
+
+			all_radio.Toggled += OnLocalShareTypeChanged;
+			require_password_check.Toggled += OnRequirePasswordToggled;
+//			enable_sync_check.Toggled += OnEnableSyncToggled;
+		}
+		
+		void UpdateSharingSelectedList ()
+		{
+Logger.Debug ("UpdateSharingSelectedList ()");
+			string pref = Preferences.Get (Preferences.SHARING_SELECTED_NOTES) as string;
+
+			if (pref.CompareTo ("ALL") == 0)
+				all_radio.Active = true;
+			else
+				selected_radio.Active = true;
+			
+			selected_store = new Gtk.ListStore (column_types);
+			selected_store.SetSortFunc (1, new Gtk.TreeIterCompareFunc (CompareTitles));
+			
+			foreach (Note note in manager.Notes) {
+				// FIXME: Determine if the note is selected
+				if (pref.IndexOf (note.Uri) >= 0)
+					selected_store.AppendValues (true, note.Title, note);
+				else
+					selected_store.AppendValues (false, note.Title, note);
+			}
+			
+			selected_store.SetSortColumnId (1, Gtk.SortType.Ascending);
+			selected_tree.Model = selected_store;
+		}
+		
+		void UpdateSharingSensitivity ()
+		{
+			if (local_publishing_check.Active) {
+				all_radio.Sensitive = true;
+				selected_radio.Sensitive = true;
+				if (all_radio.Active) {
+					selected_tree.Sensitive = false;
+				} else {
+					selected_tree.Sensitive = true;
+				}
+				local_shared_name_label.Sensitive = true;
+				local_shared_name.Sensitive = true;
+				require_password_check.Sensitive = true;
+				
+				if (require_password_check.Active)
+					local_publishing_password.Sensitive = true;
+				else
+					local_publishing_password.Sensitive = false;
+			} else {
+				// Disable local sharing widgets
+				all_radio.Sensitive = false;
+				selected_radio.Sensitive = false;
+				selected_tree.Sensitive = false;
+				local_shared_name_label.Sensitive = false;
+				local_shared_name.Sensitive = false;
+				require_password_check.Sensitive = false;
+				local_publishing_password.Sensitive = false;
+			}
+			
+/*
+			if (enable_sync_check.Active) {
+				sync_password_label.Sensitive = true;
+				sync_password.Sensitive = true;
+			} else {
+				// Disable synchronization password
+				sync_password_label.Sensitive = false;
+				sync_password.Sensitive = false;
+			}
+*/
+		}
+		
+		void OnNotesChanged (object sender, Note changed)
+		{
+			UpdateSharingSelectedList ();
+		}
+		
+		void OnNoteRenamed (Note note, string old_title)
+		{
+			UpdateSharingSelectedList ();
+		}
+		
+		void OnSharingSettingChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			switch (args.Key) {
+			case Preferences.SHARING_ENABLE_LOCAL_PUBLISHING:
+				bool local_sharing_enabled = (bool) args.Value;
+Logger.Debug ("OnSharingSettingChanged: SHARING_ENABLE_LOCAL_PUBLISHING = {0}", local_sharing_enabled);
+				if (local_sharing_enabled) {
+					// FIXME: Tell mDNS to start publishing local notes
+				} else {
+					// FIXME: Tell mDNS to stop publishing local notes
+				}
+				
+				UpdateSharingSensitivity ();
+				break;
+//			case Preferences.SHARING_SELECTED_NOTES:
+//				UpdateSharingSelectedList ();
+//				break;
+			case Preferences.SHARING_SHARED_NAME:
+Logger.Debug ("OnSharingSettingChanged: SHARING_SHARED_NAME");
+				// FIXME: Re-publish shared name (may have to restart mDNS service)
+				break;
+			}
+		}
+		
+		void OnLocalShareTypeChanged (object sender, EventArgs args)
+		{
+			if (all_radio.Active) {
+				// Share ALL notes
+				Preferences.Set (Preferences.SHARING_SELECTED_NOTES, "ALL");
+				selected_tree.Sensitive = false;
+			} else {
+				// Share selected notes only
+				Preferences.Set (Preferences.SHARING_SELECTED_NOTES, "");
+				selected_tree.Sensitive = true;
+			}
+
+			UpdateSharingSelectedList ();
+		}
+		
+		void OnNoteSelected (object sender, Gtk.ToggledArgs args)
+		{
+			Gtk.TreeIter iter;
+			Gtk.TreePath path = new Gtk.TreePath (args.Path);
+			
+			if (!selected_store.GetIter (out iter, path))
+				return;
+			
+			Note note = selected_store.GetValue (iter, 2 /* note */) as Note;
+			if (note == null)
+				return;
+			
+			bool selected = (bool) selected_store.GetValue (iter, 0 /* selected */);
+			
+			if (selected) {
+				Preferences.RemoveSharedNote (note);
+			} else {
+				Preferences.AddSharedNote (note);
+			}
+			
+			selected_store.SetValue (iter, 0, !selected);
+		}
+		
+		void OnRequirePasswordToggled (object sender, EventArgs args)
+		{
+Logger.Debug ("OnRequirePasswordToggled");
+			if (require_password_check.Active) {
+				local_publishing_password.Sensitive = true;
+				local_publishing_password.GrabFocus ();
+			} else {
+				local_publishing_password.Sensitive = false;
+				local_publishing_password.Text = String.Empty;
+
+				// Clear the password from GNOME Keyring
+				Preferences.ClearPassword (Preferences.SHARING_PASSWORD_DOMAIN);
+			}
+		}
+
+		/// <summary>
+		/// If there's a password, save it in GnomeKeyring.  If there's not,
+		/// tell the user that a password was not set and local publishing
+		/// will not require a password.
+		/// </summary>		
+		void OnLocalPasswordFocusOut (object sender, Gtk.FocusOutEventArgs args)
+		{
+Logger.Debug ("OnLocalPasswordFocusOut");
+			string password = local_publishing_password.Text.Trim ();
+			if (password == String.Empty) {
+				// For now, do not prompt the user, just disable the password
+//				Gtk.MessageDialog md = new Gtk.MessageDialog (this,
+//					Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.Modal,
+//					Gtk.MessageType.Question,
+//					Gtk.ButtonsType.YesNo,
+//					Catalog.GetString ("Share your notes without a password?"));
+//				md.Modal = true;
+//				Gtk.ResponseType result = (Gtk.ResponseType) md.Run ();
+//				md.Destroy ();
+//				if (result == Gtk.ResponseType.Yes) {
+					require_password_check.Active = false;
+//				} else {
+//					local_publishing_password.GrabFocus ();
+//				}
+			} else {
+				Preferences.SetPassword (Preferences.SHARING_PASSWORD_DOMAIN, password);
+			}
+		}
+		
+/*
+		void OnEnableSyncToggled (object sender, EventArgs args)
+		{
+			if (enable_sync_check.Active) {
+				sync_password_label.Sensitive = true;
+				sync_password.Sensitive = true;
+				sync_password.GrabFocus ();
+			} else {
+				sync_password_label.Sensitive = false;
+				sync_password.Sensitive = false;
+				sync_password.Text = String.Empty;
+
+				// Clear the password from GNOME Keyring
+				Preferences.ClearPassword (Preferences.SYNCHRONIZING_PASSWORD_DOMAIN);
+			}
+		}
+		void OnSyncPasswordFocusOut (object sender, Gtk.FocusOutEventArgs args)
+		{
+			string password = sync_password.Text.Trim ();
+			if (password == String.Empty) {
+				// For now, do not prompt the user, just disable synchronization
+//				Gtk.MessageDialog md = new Gtk.MessageDialog (this,
+//					Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.Modal,
+//					Gtk.MessageType.Question,
+//					Gtk.ButtonsType.YesNo,
+//					Catalog.GetString ("You cannot synchronize your notes without a password.  Disable synchronization?"));
+//				md.Modal = true;
+//				Gtk.ResponseType result = (Gtk.ResponseType) md.Run ();
+//				md.Destroy ();
+//				if (result == Gtk.ResponseType.Yes) {
+					enable_sync_check.Active = false;
+//				} else {
+//					sync_password.GrabFocus ();
+//				}
+			} else {
+				Preferences.SetPassword (Preferences.SYNCHRONIZING_PASSWORD_DOMAIN, password);
+			}
+		}
+*/		
+		
+		int CompareTitles (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			string title_a = model.GetValue (a, 1 /* title */) as string;
+			string title_b = model.GetValue (b, 1 /* title */) as string;
+			
+			if (title_a == null || title_b == null)
+				return -1;
+			
+			return title_a.CompareTo (title_b);
+		}
 
 		void SetupPropertyEditor (PropertyEditor peditor)
 		{
@@ -425,6 +989,19 @@ namespace Tomboy
 			label.LineWrap = true;
 			label.Xpad = 20;
 			return label;
+		}
+		
+		Gtk.RadioButton MakeRadioButton (Gtk.RadioButton group_button, string label_text)
+		{
+			Gtk.RadioButton button;
+			
+			if (group_button != null)
+				button = new Gtk.RadioButton (group_button, label_text);
+			else
+				button = new Gtk.RadioButton (label_text);
+			button.Show ();
+			
+			return button;
 		}
 
 		// Font Change handler

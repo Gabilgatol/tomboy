@@ -1,5 +1,5 @@
 
-SUBDIRS = . Plugins
+SUBDIRS = . Plugins Sharing.WebService
 
 CSC = mcs
 
@@ -48,11 +48,16 @@ CSFILES = 					\
 	\
 	$(srcdir)/panelapplet/*.cs		\
 	\
-	$(DBUS_CSFILES)	
+	$(DBUS_CSFILES)					\
+	$(srcdir)/gnome-keyring-sharp/*.cs \
+	$(srcdir)/Mono.Zeroconf/*.cs \
+	$(srcdir)/Sharing/*.cs \
+	$(srcdir)/Sharing/TomboyWebServiceClient.cs
 
 ASSEMBLIES = 		\
 	$(TOMBOY_LIBS) 	\
-	-r:Mono.Posix
+	-r:Mono.Posix	\
+	-r:System.Web.Services.dll
 
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
@@ -67,6 +72,9 @@ RESOURCES = 										\
 
 $(TARGET): $(CSFILES) Defines.cs
 	$(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
+
+$(srcdir)/Sharing/TomboyWebServiceClient.cs: $(srcdir)/Sharing.WebService/TomboyWebService.wsdl
+	wsdl -nologo -namespace:Tomboy.Sharing -out:$(srcdir)/Sharing/TomboyWebServiceClient.cs $(srcdir)/Sharing.WebService/TomboyWebService.wsdl
 
 tomboylibdir = $(pkglibdir)
 tomboylib_DATA = $(TARGET) $(TARGET).config
@@ -100,11 +108,13 @@ EXTRA_DIST =            		\
 	$(CSFILES)      		\
 	$(WRAPPER).in			\
 	$(TARGET).config.in		\
-	$(srcdir)/Defines.cs.in	
+	$(srcdir)/Defines.cs.in	 \
+	$(srcdir)/Sharing/*.cs
 
 CLEANFILES =			\
 	$(TARGET) 		\
 	$(TARGET).config	\
 	$(TARGET).mdb 		\
 	$(WRAPPER)		\
-	Defines.cs
+	Defines.cs \
+	$(srcdir)/Sharing/TomboyWebServiceClient.cs

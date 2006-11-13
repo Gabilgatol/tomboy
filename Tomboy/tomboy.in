@@ -3,11 +3,14 @@
 if [ -e ./@target@ ] && [ -e ./Makefile.am ] ; then
     echo "*** Running uninstalled @target@ ***"
 
+    export MONO_PATH=".:$PWD/Sharing.WebService/bin:$MONO_PATH"
     export LD_LIBRARY_PATH="../libtomboy/.libs:$LD_LIBRARY_PATH"
     export TOMBOY_WRAPPER_PATH="$PWD/@wrapper@"
 
-    THIS_EXE="--debug ./@target@"
+    THIS_EXE="--debug ./@target@ --webdir=$PWD/Sharing.WebService"
 else
+	cd @bindir@
+    export MONO_PATH="@pkglibdir@:@pkglibdir@/web/bin:$MONO_PATH"
     export LD_LIBRARY_PATH="@pkglibdir@:$LD_LIBRARY_PATH"
     export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
 

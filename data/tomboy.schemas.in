@@ -209,6 +209,84 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/tomboy/sharing/guid</key>
+      <applyto>/apps/tomboy/sharing/guid</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>Guid</short>
+         <long>
+	   This is a .NET System.Guid (in string format) and uniquely identifies this
+	   Tomboy client on the local network.  Once this is set, it should never be
+	   changed.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sharing/enable_local_browsing</key>
+      <applyto>/apps/tomboy/sharing/enable_local_browsing</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>Enable Local Browsing</short>
+         <long>
+	   Enable this option to allow Tomboy to look for other Tomboy clients on the
+	   local network.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sharing/enable_local_publishing</key>
+      <applyto>/apps/tomboy/sharing/enable_local_publishing</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>Enable Local Publishing</short>
+         <long>
+	   Enable this option to publish Tomboy notes on the local network for other
+	   Tomboy clients to view.  Use this in conjunction with the "Selected Notes"
+	   setting.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sharing/selected_notes</key>
+      <applyto>/apps/tomboy/sharing/selected_notes</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>Selected Notes</short>
+         <long>
+	   Set this to either "ALL" (will share all notes) or list notes that should
+	   be shared individually separated with commas.  Specify a note using its
+	   partial uri.  For example, "ff51bf96-1e3e-45b1-ae56-5509d64b76f5".
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sharing/shared_name</key>
+      <applyto>/apps/tomboy/sharing/shared_name</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>Shared Name</short>
+         <long>
+	   Specify a name for this Tomboy client that other Tomboy clients will see.
+	   Leave this blank to have the following be used: {username}-{hostname}'s Notes
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/tomboy/export_html/last_directory</key>
       <applyto>/apps/tomboy/export_html/last_directory</applyto>
       <owner>tomboy</owner>

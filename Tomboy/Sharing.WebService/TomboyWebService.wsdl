@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s0="http://beatniksoftware.com/tomboy/web/" name="TomboyWebService" targetNamespace="http://beatniksoftware.com/tomboy/web/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://beatniksoftware.com/tomboy/web/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="Ping">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="PingResponse">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="GetNote">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="noteUri" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="NoteFullInfo">
+        <xs:complexContent mixed="false">
+          <xs:extension base="s0:NoteInfo">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="XmlContent" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="NoteInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Guid" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="LastModified" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Revision" type="xs:unsignedInt" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetNoteResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="GetNoteResult" type="s0:NoteFullInfo" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSharedNotes">
+        <xs:complexType />
+      </xs:element>
+      <xs:complexType name="ArrayOfNoteInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="NoteInfo" nillable="true" type="s0:NoteInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetSharedNotesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="GetSharedNotesResult" type="s0:ArrayOfNoteInfo" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="NoteFullInfo" type="s0:NoteFullInfo" />
+      <xs:element name="ArrayOfNoteInfo" type="s0:ArrayOfNoteInfo" />
+    </xs:schema>
+  </types>
+  <message name="PingSoapIn">
+    <part element="s0:Ping" name="parameters" />
+  </message>
+  <message name="PingSoapOut">
+    <part element="s0:PingResponse" name="parameters" />
+  </message>
+  <message name="GetNoteSoapIn">
+    <part element="s0:GetNote" name="parameters" />
+  </message>
+  <message name="GetNoteSoapOut">
+    <part element="s0:GetNoteResponse" name="parameters" />
+  </message>
+  <message name="GetSharedNotesSoapIn">
+    <part element="s0:GetSharedNotes" name="parameters" />
+  </message>
+  <message name="GetSharedNotesSoapOut">
+    <part element="s0:GetSharedNotesResponse" name="parameters" />
+  </message>
+  <message name="PingHttpGetIn" />
+  <message name="PingHttpGetOut" />
+  <message name="GetNoteHttpGetIn">
+    <part name="noteUri" type="s:string" />
+  </message>
+  <message name="GetNoteHttpGetOut">
+    <part element="s0:NoteFullInfo" name="Body" />
+  </message>
+  <message name="GetSharedNotesHttpGetIn" />
+  <message name="GetSharedNotesHttpGetOut">
+    <part element="s0:ArrayOfNoteInfo" name="Body" />
+  </message>
+  <message name="PingHttpPostIn" />
+  <message name="PingHttpPostOut" />
+  <message name="GetNoteHttpPostIn">
+    <part name="noteUri" type="s:string" />
+  </message>
+  <message name="GetNoteHttpPostOut">
+    <part element="s0:NoteFullInfo" name="Body" />
+  </message>
+  <message name="GetSharedNotesHttpPostIn" />
+  <message name="GetSharedNotesHttpPostOut">
+    <part element="s0:ArrayOfNoteInfo" name="Body" />
+  </message>
+  <portType name="TomboyWebServiceSoap">
+    <operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows a client to ping to make sure the Web Service is up and running</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows a client to ping to make sure the Web Service is up and running</wsdl:documentation>
+      <input message="s0:PingSoapIn" />
+      <output message="s0:PingSoapOut" />
+    </operation>
+    <operation name="GetNote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the specified note</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the specified note</wsdl:documentation>
+      <input message="s0:GetNoteSoapIn" />
+      <output message="s0:GetNoteSoapOut" />
+    </operation>
+    <operation name="GetSharedNotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all shared notes</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all shared notes</wsdl:documentation>
+      <input message="s0:GetSharedNotesSoapIn" />
+      <output message="s0:GetSharedNotesSoapOut" />
+    </operation>
+  </portType>
+  <portType name="TomboyWebServiceHttpGet">
+    <operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows a client to ping to make sure the Web Service is up and running</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows a client to ping to make sure the Web Service is up and running</wsdl:documentation>
+      <input message="s0:PingHttpGetIn" />
+      <output message="s0:PingHttpGetOut" />
+    </operation>
+    <operation name="GetNote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the specified note</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the specified note</wsdl:documentation>
+      <input message="s0:GetNoteHttpGetIn" />
+      <output message="s0:GetNoteHttpGetOut" />
+    </operation>
+    <operation name="GetSharedNotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all shared notes</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all shared notes</wsdl:documentation>
+      <input message="s0:GetSharedNotesHttpGetIn" />
+      <output message="s0:GetSharedNotesHttpGetOut" />
+    </operation>
+  </portType>
+  <portType name="TomboyWebServiceHttpPost">
+    <operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows a client to ping to make sure the Web Service is up and running</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows a client to ping to make sure the Web Service is up and running</wsdl:documentation>
+      <input message="s0:PingHttpPostIn" />
+      <output message="s0:PingHttpPostOut" />
+    </operation>
+    <operation name="GetNote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the specified note</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the specified note</wsdl:documentation>
+      <input message="s0:GetNoteHttpPostIn" />
+      <output message="s0:GetNoteHttpPostOut" />
+    </operation>
+    <operation name="GetSharedNotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all shared notes</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all shared notes</wsdl:documentation>
+      <input message="s0:GetSharedNotesHttpPostIn" />
+      <output message="s0:GetSharedNotesHttpPostOut" />
+    </operation>
+  </portType>
+  <binding name="TomboyWebServiceSoap" type="s0:TomboyWebServiceSoap">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Ping">
+      <soap:operation soapAction="http://beatniksoftware.com/tomboy/web/Ping" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetNote">
+      <soap:operation soapAction="http://beatniksoftware.com/tomboy/web/GetNote" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetSharedNotes">
+      <soap:operation soapAction="http://beatniksoftware.com/tomboy/web/GetSharedNotes" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="TomboyWebServiceHttpGet" type="s0:TomboyWebServiceHttpGet">
+    <http:binding verb="GET" />
+    <operation name="Ping">
+      <http:operation location="/Ping" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output />
+    </operation>
+    <operation name="GetNote">
+      <http:operation location="/GetNote" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="GetSharedNotes">
+      <http:operation location="/GetSharedNotes" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="TomboyWebServiceHttpPost" type="s0:TomboyWebServiceHttpPost">
+    <http:binding verb="POST" />
+    <operation name="Ping">
+      <http:operation location="/Ping" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output />
+    </operation>
+    <operation name="GetNote">
+      <http:operation location="/GetNote" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="GetSharedNotes">
+      <http:operation location="/GetSharedNotes" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <service name="TomboyWebService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service providing access to Tomboy Notes</wsdl:documentation>
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service providing access to Tomboy Notes</wsdl:documentation>
+    <port binding="s0:TomboyWebServiceSoap" name="TomboyWebServiceSoap">
+      <soap:address location="http://127.0.0.1:8088/tomboy/Tomboy.asmx" />
+    </port>
+    <port binding="s0:TomboyWebServiceHttpGet" name="TomboyWebServiceHttpGet">
+      <http:address location="http://127.0.0.1:8088/tomboy/Tomboy.asmx" />
+    </port>
+    <port binding="s0:TomboyWebServiceHttpPost" name="TomboyWebServiceHttpPost">
+      <http:address location="http://127.0.0.1:8088/tomboy/Tomboy.asmx" />
+    </port>
+  </service>
+</definitions>

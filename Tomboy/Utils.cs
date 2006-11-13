@@ -135,6 +135,28 @@ namespace Tomboy
 				dialog.Destroy ();
 			}
 		}
+
+		public static string PrettyPrintDate (DateTime date)
+		{
+			DateTime now = DateTime.Now;
+			string short_time = date.ToShortTimeString ();
+
+			if (date.Year == now.Year) {
+				if (date.DayOfYear == now.DayOfYear)
+					return String.Format (Catalog.GetString ("Today, {0}"), 
+							      short_time);
+				else if (date.DayOfYear == now.DayOfYear - 1)
+					return String.Format (Catalog.GetString ("Yesterday, {0}"),
+							      short_time);
+				else if (date.DayOfYear > now.DayOfYear - 6)
+					return String.Format (Catalog.GetString ("{0} days ago, {1}"), 
+							      now.DayOfYear - date.DayOfYear,
+							      short_time);
+				else
+					return date.ToString (Catalog.GetString ("MMMM d, h:mm tt"));
+			} else
+				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
+		}
 	}
 
 	public class GlobalKeybinder 

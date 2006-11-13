@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Mono.Unix;
 
+using Tomboy.Sharing;
+
 // Work around bug in Gtk# panel applet bindings by using a local copy with
 // fixed OnBackgroundChanged marshalling.
 using _Gnome;
@@ -14,6 +16,7 @@ namespace Tomboy
 	public class TomboyApplet : PanelApplet
 	{
 		NoteManager manager;
+		SharingManager sharing_manager;
 		TomboyTray tray;
 		TomboyGConfXKeybinder keybinder;
 
@@ -40,7 +43,8 @@ namespace Tomboy
 			Logger.Log ("Applet Created...");
 
 			manager = Tomboy.DefaultNoteManager;
-			tray = new TomboyTray (manager);
+			sharing_manager = Tomboy.DefaultSharingManager;
+			tray = new TomboyTray (manager, sharing_manager);
 			keybinder = new TomboyGConfXKeybinder (manager, tray);
 
 			Flags |= PanelAppletFlags.ExpandMinor;
@@ -136,6 +140,7 @@ namespace Tomboy
 	public class TomboyTrayIcon : Gtk.Plug
 	{
 		NoteManager manager;
+		SharingManager sharing_manager;
 		TomboyTray tray;
 		TomboyGConfXKeybinder keybinder;
 
@@ -143,16 +148,17 @@ namespace Tomboy
 		private static extern IntPtr egg_tray_icon_new (string name);
 
 		public TomboyTrayIcon ()
-			: this (Tomboy.DefaultNoteManager)
+			: this (Tomboy.DefaultNoteManager, Tomboy.DefaultSharingManager)
 		{
 		}
 
-		public TomboyTrayIcon (NoteManager manager)
+		public TomboyTrayIcon (NoteManager manager, SharingManager sharing_manager)
 		{
 			this.Raw = egg_tray_icon_new (Catalog.GetString ("Tomboy Notes"));
 			this.manager = manager;
+			this.sharing_manager = sharing_manager;
 
-			tray = new TomboyTray (manager);
+			tray = new TomboyTray (manager, sharing_manager);
 			tray.ButtonPressEvent += ButtonPress;
 
 			keybinder = new TomboyGConfXKeybinder (manager, tray);

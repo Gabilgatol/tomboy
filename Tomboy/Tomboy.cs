@@ -3,11 +3,14 @@ using System;
 using System.IO;
 using Mono.Unix;
 
+using Tomboy.Sharing;
+
 namespace Tomboy 
 {
 	public class Tomboy : Application
 	{
 		static NoteManager manager;
+		static SharingManager sharing_manager;
 		static Object remote_control;
 
 		public static void Main (string [] args) 
@@ -28,6 +31,9 @@ namespace Tomboy
 
 			// Register the manager to handle remote requests.
 			RegisterRemoteControl (manager);
+			
+			// Create the default sharing manager instance.
+			sharing_manager = SharingManager.GetInstance ();
 
 			if (cmd_line.UsePanelApplet) {
 				RegisterPanelAppletFactory ();
@@ -66,7 +72,8 @@ namespace Tomboy
 		static void StartTrayIcon ()
 		{
 			// Create the tray icon and run the main loop
-			TomboyTrayIcon tray_icon = new TomboyTrayIcon (DefaultNoteManager);
+			TomboyTrayIcon tray_icon = new TomboyTrayIcon (DefaultNoteManager,
+														   DefaultSharingManager);
 			tray_icon.Show ();
 
 			StartMainLoop ();
@@ -90,6 +97,11 @@ namespace Tomboy
 		public static NoteManager DefaultNoteManager
 		{
 			get { return manager; }
+		}
+		
+		public static SharingManager DefaultSharingManager
+		{
+			get { return sharing_manager; }
 		}
 	}
 
