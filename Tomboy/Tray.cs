@@ -376,8 +376,7 @@ namespace Tomboy
 
 		void ViewRecentChanges (object sender, EventArgs args)
 		{
-			Gtk.Window recent = new NoteRecentChanges (manager);
-			recent.Show ();
+			NoteRecentChanges.GetInstance (manager).Present ();
 		}
 
 		// Used by TomboyApplet to modify the icon background.

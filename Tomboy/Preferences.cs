@@ -495,6 +495,7 @@ namespace Tomboy
 			table.Attach (label, 0, 1, 0, 1);
 
 			entry = new Gtk.Entry ();
+			label.MnemonicWidget = entry;	
 			entry.Show ();
 			table.Attach (entry, 1, 2, 0, 1);
 
@@ -511,6 +512,7 @@ namespace Tomboy
 			table.Attach (label, 0, 1, 1, 2);
 
 			entry = new Gtk.Entry ();
+			label.MnemonicWidget = entry;	
 			entry.Show ();
 			table.Attach (entry, 1, 2, 1, 2);
 
@@ -527,6 +529,7 @@ namespace Tomboy
 			table.Attach (label, 0, 1, 2, 3);
 
 			entry = new Gtk.Entry ();
+			label.MnemonicWidget = entry;	
 			entry.Show ();
 			table.Attach (entry, 1, 2, 2, 3);
 
@@ -537,16 +540,17 @@ namespace Tomboy
 			keybind_peditor.AddGuard (entry);
 
 
-			// Search dialog keybinding...
+			// Open All Notes window keybinding...
 
-			label = MakeLabel (Catalog.GetString ("S_earch notes"));
+			label = MakeLabel (Catalog.GetString ("Open \"_Table of Contents\""));
 			table.Attach (label, 0, 1, 3, 4);
 
 			entry = new Gtk.Entry ();
+			label.MnemonicWidget = entry;	
 			entry.Show ();
 			table.Attach (entry, 1, 2, 3, 4);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_SEARCH, 
+			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_RECENT_CHANGES, 
 							   entry);
 			SetupPropertyEditor (peditor);
 

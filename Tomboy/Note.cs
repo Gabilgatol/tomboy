@@ -299,7 +299,6 @@ namespace Tomboy
 						       string filepath,
 						       NoteManager manager)
 		{
-			data.CreateDate = DateTime.MinValue;
 			data.ChangeDate = File.GetLastWriteTime (filepath);
 			return new Note (data, filepath, manager);
 		}
