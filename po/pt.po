@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.16\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-01 01:18+0000\n"
-"PO-Revision-Date: 2006-09-01 01:20+0000\n"
+"POT-Creation-Date: 2006-11-19 19:06+0000\n"
+"PO-Revision-Date: 2006-11-19 19:10+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -37,20 +37,20 @@ msgid "Tomboy Applet Factory"
 msgstr "Fábrica de Applets Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:37
+#: ../Tomboy/Applet.cs:146 ../Tomboy/Tray.cs:37
 msgid "Tomboy Notes"
 msgstr "Notas Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:179
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:189
 msgid "_About Tomboy"
 msgstr "_Sobre o Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:174
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:184
 #: ../Tomboy/NoteWindow.cs:513
 msgid "_Open Plugins Folder"
 msgstr "_Abrir a Pasta de Plugins"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:169
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:179
 msgid "_Preferences..."
 msgstr "_Preferências..."
 
@@ -300,7 +300,7 @@ msgstr "Página %N de %Q"
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:196
 msgid "_Quit"
 msgstr "_Sair"
 
@@ -465,11 +465,11 @@ msgid "Hotkeys"
 msgstr "Teclas de Atalho"
 
 #. Spell checking...
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/Preferences.cs:183
 msgid "_Spell check while typing"
 msgstr "_Verificação ortográfica ao escrever"
 
-#: ../Tomboy/Preferences.cs:189
+#: ../Tomboy/Preferences.cs:190
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -478,11 +478,11 @@ msgstr ""
 "ortograficamente correctas no menu de contexto."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:198
+#: ../Tomboy/Preferences.cs:200
 msgid "Highlight _WikiWords"
 msgstr "Realçar _PalavrasWiki"
 
-#: ../Tomboy/Preferences.cs:205
+#: ../Tomboy/Preferences.cs:207
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -491,16 +491,16 @@ msgstr ""
 "na palavra irá criar uma nota com esse nome."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:214
+#: ../Tomboy/Preferences.cs:216
 msgid "Use custom _font"
 msgstr "Utilizar _fonte personalizada"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:284
+#: ../Tomboy/Preferences.cs:286
 msgid "Listen for _Hotkeys"
 msgstr "Escutar por _Teclas de Atalho"
 
-#: ../Tomboy/Preferences.cs:292
+#: ../Tomboy/Preferences.cs:294
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -511,26 +511,26 @@ msgstr ""
 "<b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:312
+#: ../Tomboy/Preferences.cs:314
 msgid "Show notes _menu"
 msgstr "Apresentar o _menu de notas"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:328
+#: ../Tomboy/Preferences.cs:330
 msgid "Open \"_Start Here\""
 msgstr "Abrir \"_Iniciar Aqui\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:344
+#: ../Tomboy/Preferences.cs:346
 msgid "Create _new note"
 msgstr "Criar uma _nova nota"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:360
+#: ../Tomboy/Preferences.cs:362
 msgid "S_earch notes"
 msgstr "_Procurar nas notas"
 
-#: ../Tomboy/Preferences.cs:422
+#: ../Tomboy/Preferences.cs:424
 msgid "Choose Note Font"
 msgstr "Seleccionar a Fonte da Nota"
 
@@ -742,15 +742,15 @@ msgstr ""
 msgid "Note title taken"
 msgstr "retirado o título da nota"
 
-#: ../Tomboy/Watchers.cs:386
+#: ../Tomboy/Watchers.cs:388
 msgid "Cannot open location"
 msgstr "Incapaz de abrir a localização"
 
-#: ../Tomboy/Watchers.cs:480
+#: ../Tomboy/Watchers.cs:482
 msgid "_Copy Link Address"
 msgstr "_Copiar o Endereço do Link"
 
-#: ../Tomboy/Watchers.cs:485
+#: ../Tomboy/Watchers.cs:487
 msgid "_Open Link"
 msgstr "_Abrir Link"
 
@@ -786,7 +786,7 @@ msgstr "Erro ao executar o gaim-remote: {0}"
 
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:13
 msgid "NotD: "
-msgstr "NãoD: "
+msgstr "NdD: "
 
 #. Format: "NotD: Friday, July 01 2005"
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:18
