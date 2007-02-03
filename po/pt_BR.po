@@ -2,18 +2,19 @@
 # Copyright (C) 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the tomboy package.
 # Raphael Higino <raphaelh@uai.com.br>, 2005.
-# Vinicius Pinheiro <vinnie.gp@gmail.com>, 2006.
+# Vinicius Pinheiro <vinnie.gp@gmail.com>, 2006-2007.
 #
 # Nota sobre a autoria:
-# Reconheço que a tradução inicial desse pacote não foi feita por mim, Raphael Higino.
-# Como o tradutor original não deixou registrado o seu nome, fica essa nota como reconhecimento ao seu trabalho.
+# Reconheço que a tradução inicial desse pacote não foi feita por mim,
+# Raphael Higino. Como o tradutor original não deixou registrado o seu nome,
+# fica essa nota como reconhecimento ao seu trabalho.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-06 00:25+0200\n"
-"PO-Revision-Date: 2006-09-04 01:59-0300\n"
+"POT-Creation-Date: 2007-01-02 02:01+0000\n"
+"PO-Revision-Date: 2007-02-03 19:48-0200\n"
 "Last-Translator: Vinicius Pinheiro <vinnie.gp@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -23,11 +24,11 @@ msgstr ""
 
 #: ../data/DefaultPlugins.desktop.in.in.h:1
 msgid "Default Plugins"
-msgstr "Plugins Padrão"
+msgstr "Plug-ins Padrão"
 
 #: ../data/DefaultPlugins.desktop.in.in.h:2
 msgid "Directory containing system-installed Plugins"
-msgstr "Diretório que contém os Plugins instalados no sistema"
+msgstr "Diretório que contém os Plug-ins instalados no sistema"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -39,23 +40,28 @@ msgstr "Aplicação para tomar notas, simples e fácil de usar"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:3
 msgid "Tomboy Applet Factory"
-msgstr "Fábrica do Mini-aplicativo Tomboy"
+msgstr "Fábrica do Miniaplicativo Tomboy"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:146 ../Tomboy/Tray.cs:37
+#: ../data/GNOME_TomboyApplet.server.in.in.h:4
+#: ../data/tomboy.desktop.in.h:3
+#: ../Tomboy/Applet.cs:146
+#: ../Tomboy/Tray.cs:37
 msgid "Tomboy Notes"
 msgstr "Tomboy Notas"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:189
+#: ../data/GNOME_TomboyApplet.xml.h:1
+#: ../Tomboy/Applet.cs:189
 msgid "_About Tomboy"
 msgstr "_Sobre o Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:184
+#: ../data/GNOME_TomboyApplet.xml.h:2
+#: ../Tomboy/Applet.cs:184
 #: ../Tomboy/NoteWindow.cs:513
 msgid "_Open Plugins Folder"
-msgstr "_Abrir Pasta de Plugins"
+msgstr "_Abrir Pasta de Plug-ins"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:179
+#: ../data/GNOME_TomboyApplet.xml.h:3
+#: ../Tomboy/Applet.cs:179
 msgid "_Preferences..."
 msgstr "_Preferências..."
 
@@ -92,12 +98,8 @@ msgid "Enable spellchecking"
 msgstr "Habilitar verificação ortográfica"
 
 #: ../data/tomboy.schemas.in.h:7
-msgid ""
-"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
-"will create a note with that name."
-msgstr ""
-"Habilite essa opção para destacar palavras QueSeParecemComEssa. Clicando na "
-"palavra, será criada uma nota com aquele nome."
+msgid "Enable this option to highlight words ThatLookLikeThis. Clicking the word will create a note with that name."
+msgstr "Habilite essa opção para destacar palavras QueSeParecemComEssa. Clicando na palavra, será criada uma nota com aquele nome."
 
 #: ../data/tomboy.schemas.in.h:8
 msgid "HTML Export Last Directory"
@@ -108,46 +110,24 @@ msgid "HTML Export Linked Notes"
 msgstr "Notas Vinculadas da Exportação HTML"
 
 #: ../data/tomboy.schemas.in.h:10
-msgid ""
-"If enable_custom_font is true, the font name set here will be used as the "
-"font when displaying notes."
-msgstr ""
-"Se enable_custom_font for true, o nome de fonte definido aqui será usado "
-"como a fonte de exibição das notas."
+msgid "If enable_custom_font is true, the font name set here will be used as the font when displaying notes."
+msgstr "Se enable_custom_font for verdadeiro, o nome de fonte definido aqui será usado como a fonte de exibição das notas."
 
 #: ../data/tomboy.schemas.in.h:11
-msgid ""
-"If true, misspellings will be underlined in red, and correct spelling "
-"suggestions shown in the right-click menu."
-msgstr ""
-"Se true, erros ortográficos serão sublinhados em vermelho e sugestões de "
-"ortografias corretas serão exibidas no menu de contexto."
+msgid "If true, misspellings will be underlined in red, and correct spelling suggestions shown in the right-click menu."
+msgstr "Se verdadeiro, erros ortográficos serão sublinhados em vermelho e sugestões de ortografias serão exibidas no menu de contexto."
 
 #: ../data/tomboy.schemas.in.h:12
-msgid ""
-"If true, the desktop-global keybindings set in /apps/tomboy/"
-"global_keybindings will be enabled, allowing for useful Tomboy actions to be "
-"available from any application."
-msgstr ""
-"Se true, as associações de teclas globais do ambiente definidas em /apps/"
-"tomboy/global_keybindings serão habilitadas, permitindo que ações úteis do "
-"Tomboy estejam disponíveis a partir de qualquer aplicação."
+msgid "If true, the desktop-global keybindings set in /apps/tomboy/global_keybindings will be enabled, allowing for useful Tomboy actions to be available from any application."
+msgstr "Se verdadeiro, as associações de teclas globais do ambiente definidas em /apps/tomboy/global_keybindings serão habilitadas, permitindo que ações úteis do Tomboy estejam disponíveis a partir de qualquer aplicação."
 
 #: ../data/tomboy.schemas.in.h:13
-msgid ""
-"If true, the font name set in custom_font_face will be used as the font when "
-"displaying notes. Otherwise the desktop default font will be used."
-msgstr ""
-"Se true, o nome de fonte definido em custom_font_face será usado como a "
-"fonte ao exibir notas. Do contrário, a fonte padrão do ambiente será usada."
+msgid "If true, the font name set in custom_font_face will be used as the font when displaying notes. Otherwise the desktop default font will be used."
+msgstr "Se verdadeiro, o nome de fonte definido em custom_font_face será usado como a fonte ao exibir notas. Do contrário, a fonte padrão do ambiente será usada."
 
 #: ../data/tomboy.schemas.in.h:14
-msgid ""
-"Indicates that the Sticky Note Importer plugin has not been run, so it "
-"should run automatically the next time Tomboy starts."
-msgstr ""
-"Indica que a importação do aplicativo Notas não foi executada, e que deve "
-"executar automaticamente na próxima vez em que o Tomboy for iniciado."
+msgid "Indicates that the Sticky Note Importer plugin has not been run, so it should run automatically the next time Tomboy starts."
+msgstr "Indica que a importação do aplicativo Notas não foi executada, e que deve executar automaticamente na próxima vez em que o Tomboy for iniciado."
 
 #: ../data/tomboy.schemas.in.h:15
 msgid "Open Recent Changes"
@@ -163,114 +143,50 @@ msgstr "Abrir Comece Aqui"
 
 #: ../data/tomboy.schemas.in.h:18
 msgid "Set to TRUE to activate"
-msgstr "Defina como TRUE para ativar"
+msgstr "Defina como VERDADEIRO para ativar"
 
 #: ../data/tomboy.schemas.in.h:19
 msgid "Show applet menu"
-msgstr "Exibir menu do mini-aplicativo"
+msgstr "Exibir menu do miniaplicativo"
 
 #: ../data/tomboy.schemas.in.h:20
 msgid "Sticky Note Importer First Run"
 msgstr "Primeira Execução da Importação do Aplicativo Notas"
 
 #: ../data/tomboy.schemas.in.h:21
-msgid ""
-"The global keybinding for creating and displaying a new Note. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-msgstr ""
-"As associações de teclas globais para criar e exibir uma nova Nota. O "
-"formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1"
-"\". O analisador é bastante liberal e permite minúsculas, maiúsculas e "
-"também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir "
-"a opção com a string especial \"disabled\", não haverá combinação de teclas "
-"para essa ação."
+msgid "The global keybinding for creating and displaying a new Note. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "As associações de teclas globais para criar e exibir uma nova Nota. O formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1\". O analisador é bastante liberal e permite minúsculas, maiúsculas e também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir a opção com a string especial \"disabled\", não haverá combinação de teclas para essa ação."
 
 #: ../data/tomboy.schemas.in.h:22
-msgid ""
-"The global keybinding for opening the \"Start Here\" note. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"A associação de teclas global para abrir a nota \"Comece Aqui\". O formato "
-"se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1\". O "
-"analisador é bastante liberal e permite minúsculas, maiúsculas e também "
-"abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir a opção "
-"com a string especial \"disabled\", não haverá combinação de teclas para "
-"essa ação."
+msgid "The global keybinding for opening the \"Start Here\" note. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "A associação de teclas global para abrir a nota \"Comece Aqui\". O formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1\". O analisador é bastante liberal e permite minúsculas, maiúsculas e também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir a opção com a string especial \"disabled\", não haverá combinação de teclas para essa ação."
 
 #: ../data/tomboy.schemas.in.h:23
-msgid ""
-"The global keybinding for opening the Note Search dialog. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"A associação de teclas global para abrir a caixa de diálogo de busca de "
-"notas. O formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;"
-"Alt&gt;F1\". O analisador é bastante liberal e permite minúsculas, "
-"maiúsculas e também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se "
-"você definir a opção com a string especial \"disabled\", não haverá "
-"combinação de teclas para essa ação."
+msgid "The global keybinding for opening the Note Search dialog. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "A associação de teclas global para abrir a caixa de diálogo de busca de notas. O formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1\". O analisador é bastante liberal e permite minúsculas, maiúsculas e também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir a opção com a string especial \"disabled\", não haverá combinação de teclas para essa ação."
 
 #: ../data/tomboy.schemas.in.h:24
-msgid ""
-"The global keybinding for opening the Recent Changes dialog. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-msgstr ""
-"A associação de teclas global para abrir diálogo Alterações Recentes. O "
-"formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1"
-"\". O analisador é bastante liberal e permite minúsculas, maiúsculas e "
-"também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir "
-"a opção com a string especial \"disabled\", não haverá combinação de teclas "
-"para essa ação."
+msgid "The global keybinding for opening the Recent Changes dialog. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "A associação de teclas global para abrir diálogo Alterações Recentes. O formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1\". O analisador é bastante liberal e permite minúsculas, maiúsculas e também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir a opção com a string especial \"disabled\", não haverá combinação de teclas para essa ação."
 
 #: ../data/tomboy.schemas.in.h:25
-msgid ""
-"The global keybinding for showing the Tomboy applet's menu. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"A associação de teclas global para exibir o menu do mini-aplicativo Tomboy. "
-"O formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1"
-"\". O analisador é bastante liberal e permite minúsculas, maiúsculas e "
-"também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir "
-"a opção com a string especial \"disabled\", não haverá combinação de teclas "
-"para essa ação."
+msgid "The global keybinding for showing the Tomboy applet's menu. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "A associação de teclas global para exibir o menu do miniaplicativo Tomboy. O formato se parece com \"&lt;Control&gt;a\" ou \"&lt;Shift&gt;&lt;Alt&gt;F1\". O analisador é bastante liberal e permite minúsculas, maiúsculas e também abreviações como \"&lt;Ctl&gt;\" e \"&lt;Ctrl&gt;\". Se você definir a opção com a string especial \"disabled\", não haverá combinação de teclas para essa ação."
 
 #: ../data/tomboy.schemas.in.h:26
 msgid "The handler for \"note://\" URLs"
 msgstr "Manipulador para URLs \"note://\""
 
 #: ../data/tomboy.schemas.in.h:27
-msgid ""
-"The last directory a note was exported to using the Export To HTML plugin."
-msgstr "O último diretório utilizado pelo plugin de Exportação HTML."
+msgid "The last directory a note was exported to using the Export To HTML plugin."
+msgstr "O último diretório utilizado pelo plug-in de Exportação HTML."
 
 #: ../data/tomboy.schemas.in.h:28
-msgid ""
-"The last setting for the 'Export linked notes' checkbox in the Export to "
-"HTML plugin."
-msgstr ""
-"O último estado da caixa de seleção 'Exportar notas vinculadas' no plugin de "
-"Exportação HTML."
+msgid "The last setting for the 'Export linked notes' checkbox in the Export to HTML plugin."
+msgstr "O último estado da caixa de seleção 'Exportar notas vinculadas' no plug-in de Exportação HTML."
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:15
+#: ../libtomboy/gedit-print.c:142
+#: ../Tomboy/Plugins/PrintNotes.cs:15
 msgid "Print"
 msgstr "Imprimir"
 
@@ -306,9 +222,14 @@ msgid "_Quit"
 msgstr "Sai_r"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:562 ../Tomboy/NoteManager.cs:107
-#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:208 ../Tomboy/Tray.cs:123
-#: ../Tomboy/Tray.cs:179 ../Tomboy/Tray.cs:385 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/Note.cs:562
+#: ../Tomboy/NoteManager.cs:107
+#: ../Tomboy/NoteManager.cs:115
+#: ../Tomboy/Tomboy.cs:208
+#: ../Tomboy/Tray.cs:123
+#: ../Tomboy/Tray.cs:179
+#: ../Tomboy/Tray.cs:385
+#: ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Comece Aqui"
 
@@ -325,12 +246,8 @@ msgid "Welcome to Tomboy!"
 msgstr "Bem-vindo ao Tomboy!"
 
 #: ../Tomboy/NoteManager.cs:109
-msgid ""
-"Use this page as a Start Page for organizing your notes and keeping "
-"unorganized ideas around."
-msgstr ""
-"Use esta página como um modelo para organizar suas notas e se lembrar de "
-"idéias desorganizadas."
+msgid "Use this page as a Start Page for organizing your notes and keeping unorganized ideas around."
+msgstr "Use esta página como um modelo para organizar suas notas e se lembrar de idéias desorganizadas."
 
 #: ../Tomboy/NoteManager.cs:203
 #, csharp-format
@@ -343,7 +260,7 @@ msgstr "Descreva sua nova nota aqui."
 
 #: ../Tomboy/NoteWindow.cs:364
 msgid "_Link to New Note"
-msgstr "_Ligação para Nova Nota"
+msgstr "_Vínculo para Nova Nota"
 
 #: ../Tomboy/NoteWindow.cs:377
 msgid "Te_xt"
@@ -371,11 +288,11 @@ msgstr "Localizar suas notas"
 
 #: ../Tomboy/NoteWindow.cs:450
 msgid "Link"
-msgstr "Ligação"
+msgstr "Vínculo"
 
 #: ../Tomboy/NoteWindow.cs:451
 msgid "Link selected text to a new note"
-msgstr "Liga o texto selecionado a uma nova nota"
+msgstr "Vincula o texto selecionado a uma nova nota"
 
 #: ../Tomboy/NoteWindow.cs:465
 msgid "_Text"
@@ -405,7 +322,8 @@ msgstr "Excluir esta nota"
 msgid "_Search..."
 msgstr "_Localizar..."
 
-#: ../Tomboy/NoteWindow.cs:556 ../Tomboy/Search.cs:177
+#: ../Tomboy/NoteWindow.cs:556
+#: ../Tomboy/Search.cs:177
 msgid "Find _Next"
 msgstr "Localizar _Próxima"
 
@@ -471,12 +389,8 @@ msgid "_Spell check while typing"
 msgstr "_Verificação ortográfica ao digitar"
 
 #: ../Tomboy/Preferences.cs:190
-msgid ""
-"Misspellings will be underlined in red, and correct spelling suggestions "
-"shown in the right-click menu."
-msgstr ""
-"Erros ortográficos serão sublinhados em vermelho e sugestões de ortografias "
-"corretas serão exibidas no menu de contexto."
+msgid "Misspellings will be underlined in red, and correct spelling suggestions shown in the right-click menu."
+msgstr "Erros ortográficos serão sublinhados em vermelho e sugestões de ortografias corretas serão exibidas no menu de contexto."
 
 #. WikiWords...
 #: ../Tomboy/Preferences.cs:200
@@ -484,12 +398,8 @@ msgid "Highlight _WikiWords"
 msgstr "Destacar _WikiWords"
 
 #: ../Tomboy/Preferences.cs:207
-msgid ""
-"Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
-"word will create a note with that name."
-msgstr ""
-"Habilite essa opção para destacar palavras <b>QueSeParecemComEssa</b>. "
-"Clicando na palavra será criada uma nota com aquele nome."
+msgid "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the word will create a note with that name."
+msgstr "Habilite essa opção para destacar palavras <b>QueSeParecemComEssa</b>. Clicando na palavra será criada uma nota com aquele nome."
 
 #. Custom font...
 #: ../Tomboy/Preferences.cs:216
@@ -502,14 +412,8 @@ msgid "Listen for _Hotkeys"
 msgstr "Capturar _Teclas de Atalho"
 
 #: ../Tomboy/Preferences.cs:294
-msgid ""
-"Hotkeys allow you to quickly access your notes from anywhere with a "
-"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
-"Alt&gt;N</b>"
-msgstr ""
-"Teclas de atalho te permitem acessar rapidamente suas notas a partir de "
-"qualquer lugar pressionando uma tecla. Exemplos de teclas de atalho: <b>&lt;"
-"Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+msgid "Hotkeys allow you to quickly access your notes from anywhere with a keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+msgstr "Teclas de atalho te permitem acessar rapidamente suas notas a partir de qualquer lugar pressionando uma tecla. Exemplos de teclas de atalho: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
 #: ../Tomboy/Preferences.cs:314
@@ -585,11 +489,13 @@ msgstr "d \\de MMMM, h:mm"
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d \\de MMMM, yyyy, h:mm"
 
-#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:489
+#: ../Tomboy/Search.cs:87
+#: ../Tomboy/Search.cs:489
 msgid "Search All Notes"
 msgstr "Procurar em Todas as Notas"
 
-#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:493
+#: ../Tomboy/Search.cs:88
+#: ../Tomboy/Search.cs:493
 msgid "Search Note"
 msgstr "Procurar Nota"
 
@@ -711,8 +617,7 @@ msgid "translator-credits"
 msgstr ""
 "Raphael Higino <raphaelh@uai.com.br>\n"
 "Vinicius Pinheiro <vinnie.gp@gmail.com>\n"
-"Nota sobre a autoria:O tradutor inicial deste programa não deixou registrado "
-"o seu nome.\n"
+"Nota sobre a autoria:O tradutor inicial deste programa não deixou registrado o seu nome.\n"
 "Fica essa nota como reconhecimento ao seu trabalho."
 
 #: ../Tomboy/Tray.cs:326
@@ -734,12 +639,8 @@ msgstr "(Sem Título {0})"
 
 #: ../Tomboy/Watchers.cs:169
 #, csharp-format
-msgid ""
-"A note with the title <b>{0}</b> already exists. Please choose another name "
-"for this note before continuing."
-msgstr ""
-"Já existe uma nota com o título <b>{0}</b>. Por favor, escolha um outro nome "
-"para esta nota antes de continuar."
+msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
+msgstr "Já existe uma nota com o título <b>{0}</b>. Por favor, escolha um outro nome para esta nota antes de continuar."
 
 #: ../Tomboy/Watchers.cs:181
 msgid "Note title taken"
@@ -751,11 +652,11 @@ msgstr "Não é possível abrir o local"
 
 #: ../Tomboy/Watchers.cs:482
 msgid "_Copy Link Address"
-msgstr "_Copiar Endereço do Link"
+msgstr "_Copiar Endereço do Vínculo"
 
 #: ../Tomboy/Watchers.cs:487
 msgid "_Open Link"
-msgstr "_Abrir Link"
+msgstr "_Abrir Vínculo"
 
 #: ../Tomboy/Plugins/Evolution.cs:264
 msgid "Cannot open email"
@@ -840,30 +741,22 @@ msgstr "Nota:"
 
 #~ msgid "_About Tomboy..."
 #~ msgstr "_Sobre o Tomboy..."
-
 #~ msgid "_Install Plugins..."
 #~ msgstr "_Instalar Plugins..."
-
 #~ msgid "<b>_Bold</b>"
 #~ msgstr "<b>_Negrito</b>"
-
 #~ msgid "Recent Changes"
 #~ msgstr "Alterações Recentes"
-
 #~ msgid "_Recent Changes"
 #~ msgstr "Alterações _Recentes"
-
 #~ msgid "Related to: "
 #~ msgstr "Relacionada a: "
-
 #~ msgid "Print this note"
 #~ msgstr "Imprime essa nota"
-
 #~ msgid "Export"
 #~ msgstr "Exportar"
-
 #~ msgid "Mana_ge Plugins..."
 #~ msgstr "_Gerenciar Plugins..."
-
 #~ msgid "({0} matches)"
 #~ msgstr "({0} encontradas)"
+
