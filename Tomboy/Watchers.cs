@@ -6,6 +6,8 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Mono.Unix;
 
+using Tomboy.Platform;
+
 namespace Tomboy
 {
 	public class NoteRenameWatcher : NotePlugin
@@ -281,7 +283,7 @@ namespace Tomboy
 			}
 		}
 
-		void OnEnableSpellcheckChanged (object sender, GConf.NotifyEventArgs args)
+		void OnEnableSpellcheckChanged (object sender, NotifyEventArgs args)
 		{
 			if (args.Key != Preferences.ENABLE_SPELLCHECKING)
 				return;
@@ -839,7 +841,7 @@ namespace Tomboy
 			Preferences.SettingChanged += OnEnableWikiwordsChanged;
 		}
 
-		void OnEnableWikiwordsChanged (object sender, GConf.NotifyEventArgs args)
+		void OnEnableWikiwordsChanged (object sender, NotifyEventArgs args)
 		{
 			if (args.Key != Preferences.ENABLE_WIKIWORDS)
 				return;

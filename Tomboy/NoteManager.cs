@@ -4,6 +4,8 @@ using System.IO;
 using System.Collections;
 using Mono.Unix;
 
+using Tomboy.Platform;
+
 namespace Tomboy
 {
 	public delegate void NotesChangedHandler (object sender, Note changed);
@@ -28,7 +30,7 @@ namespace Tomboy
 			Preferences.SettingChanged += OnSettingChanged;
 		}
 		
-		static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
+		static void OnSettingChanged (object sender, NotifyEventArgs args)
 		{
 			switch (args.Key) {
 			case Preferences.START_NOTE_URI:

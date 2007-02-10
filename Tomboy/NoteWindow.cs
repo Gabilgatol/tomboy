@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Mono.Unix;
 
+using Tomboy.Platform;
+
 namespace Tomboy
 {
 	public class NoteEditor : Gtk.TextView
@@ -20,7 +22,7 @@ namespace Tomboy
 			// Make sure the cursor position is visible
 			ScrollMarkOnscreen (buffer.InsertMark);
 
-			// Set Font from GConf preference
+			// Set Font from preference
 			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
 				string font_string = (string) 
 					Preferences.Get (Preferences.CUSTOM_FONT_FACE);
@@ -46,7 +48,7 @@ namespace Tomboy
 		//
 		// Update the font based on the changed Preference dialog setting.
 		//
-		void OnFontSettingChanged (object sender, GConf.NotifyEventArgs args)
+		void OnFontSettingChanged (object sender, NotifyEventArgs args)
 		{
 			switch (args.Key) {
 			case Preferences.ENABLE_CUSTOM_FONT:

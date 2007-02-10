@@ -55,6 +55,8 @@ CSFILES = 					\
 	\
 	$(srcdir)/panelapplet/*.cs		\
 	\
+	$(srcdir)/Platform/*.cs		\
+	\
 	$(DBUS_CSFILES)	
 
 

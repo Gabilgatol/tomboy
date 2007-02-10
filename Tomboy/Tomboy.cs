@@ -49,7 +49,7 @@ namespace Tomboy
 				cmd_line.Execute ();
 			}
 #endif
-			ActionManager am = Tomboy.ActionManager;
+			ActionManager am = ActionManager;
 
 			if (cmd_line.UsePanelApplet) {
 				tray_icon_showing = true;
@@ -156,7 +156,7 @@ namespace Tomboy
 		// These actions can be called from anywhere in Tomboy
 		static void SetupGlobalActions ()
 		{
-			ActionManager am = Tomboy.ActionManager;
+			ActionManager am = ActionManager;
 			am ["NewNoteAction"].Activated += OnNewNoteAction;
 			am ["QuitTomboyAction"].Activated += OnQuitTomboyAction;
 			am ["ShowPreferencesAction"].Activated += OnShowPreferencesAction;

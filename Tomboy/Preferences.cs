@@ -1,7 +1,7 @@
 
 using System;
 using Mono.Unix;
-using GConf.PropertyEditors;
+using Tomboy.Platform;
 
 namespace Tomboy
 {
@@ -36,16 +36,16 @@ namespace Tomboy
 
 		public const string STICKYNOTEIMPORTER_FIRST_RUN = "/apps/tomboy/sticky_note_importer/sticky_importer_first_run";
 
-		static GConf.Client client;
-		static GConf.NotifyEventHandler changed_handler;
+		static IPreferencesClient client;
+		static NotifyEventHandler changed_handler;
 
-		public static GConf.Client Client 
+		public static IPreferencesClient Client 
 		{
 			get {
 				if (client == null) {
-					client = new GConf.Client ();
+					client = PlatformFactory.CreatePreferencesClient ();
 
-					changed_handler = new GConf.NotifyEventHandler (OnSettingChanged);
+					changed_handler = new NotifyEventHandler (OnSettingChanged);
 					client.AddNotify ("/apps/tomboy", changed_handler);
 				}
 				return client;
@@ -110,7 +110,7 @@ namespace Tomboy
 		{
 			try {
 				return Client.Get (key);
-			} catch (GConf.NoSuchKeyException) {
+			} catch (NoSuchKeyException) {
 				object default_val = GetDefault (key);
 
 				if (default_val != null)
@@ -125,9 +125,9 @@ namespace Tomboy
 			Client.Set (key, value);
 		}
 
-		public static event GConf.NotifyEventHandler SettingChanged;
+		public static event NotifyEventHandler SettingChanged;
 
-		static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
+		static void OnSettingChanged (object sender, NotifyEventArgs args)
 		{
 			if (SettingChanged != null) {
 				SettingChanged (sender, args);
@@ -214,7 +214,7 @@ namespace Tomboy
 			Gtk.Label label;
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
-			PropertyEditorBool peditor, font_peditor;
+			IPropertyEditorBool peditor, font_peditor;
 			
 			Gtk.VBox options_list = new Gtk.VBox (false, 12);
 			options_list.BorderWidth = 12;
@@ -228,7 +228,7 @@ namespace Tomboy
 					Catalog.GetString ("_Spell check while typing"));
 				options_list.PackStart (check, false, false, 0);
 				
-				peditor = new PropertyEditorToggleButton (
+				peditor = PlatformFactory.CreatePropertyEditorToggleButton (
 					Preferences.ENABLE_SPELLCHECKING,
 					check);
 				SetupPropertyEditor (peditor);
@@ -247,7 +247,7 @@ namespace Tomboy
 			check = MakeCheckButton (Catalog.GetString ("Highlight _WikiWords"));
 			options_list.PackStart (check, false, false, 0);
 
-			peditor = new PropertyEditorToggleButton (Preferences.ENABLE_WIKIWORDS, 
+			peditor = PlatformFactory.CreatePropertyEditorToggleButton (Preferences.ENABLE_WIKIWORDS, 
 								  check);
 			SetupPropertyEditor (peditor);
 
@@ -265,7 +265,7 @@ namespace Tomboy
 			options_list.PackStart (check, false, false, 0);
 
 			font_peditor = 
-				new PropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_FONT, 
+				PlatformFactory.CreatePropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_FONT, 
 								check);
 			SetupPropertyEditor (font_peditor);
 
@@ -321,8 +321,8 @@ namespace Tomboy
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
 			Gtk.Entry entry;
-			PropertyEditorBool keybind_peditor;
-			PropertyEditor peditor;
+			IPropertyEditorBool keybind_peditor;
+			IPropertyEditor peditor;
 			
 			Gtk.VBox hotkeys_list = new Gtk.VBox (false, 12);
 			hotkeys_list.BorderWidth = 12;
@@ -335,7 +335,7 @@ namespace Tomboy
 			hotkeys_list.PackStart (check, false, false, 0);
 
 			keybind_peditor = 
-				new PropertyEditorToggleButton (Preferences.ENABLE_KEYBINDINGS, 
+				PlatformFactory.CreatePropertyEditorToggleButton (Preferences.ENABLE_KEYBINDINGS, 
 								check);
 			SetupPropertyEditor (keybind_peditor);
 
@@ -368,7 +368,7 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 0, 1);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_SHOW_NOTE_MENU, 
+			peditor = PlatformFactory.CreatePropertyEditorEntry (Preferences.KEYBINDING_SHOW_NOTE_MENU, 
 							   entry);
 			SetupPropertyEditor (peditor);
 
@@ -385,7 +385,7 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 1, 2);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_START_HERE, 
+			peditor = PlatformFactory.CreatePropertyEditorEntry (Preferences.KEYBINDING_OPEN_START_HERE, 
 							   entry);
 			SetupPropertyEditor (peditor);
 
@@ -402,7 +402,7 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 2, 3);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_CREATE_NEW_NOTE, 
+			peditor = PlatformFactory.CreatePropertyEditorEntry (Preferences.KEYBINDING_CREATE_NEW_NOTE, 
 							   entry);
 			SetupPropertyEditor (peditor);
 
@@ -419,7 +419,7 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 3, 4);
 
-			peditor = new PropertyEditorEntry (
+			peditor = PlatformFactory.CreatePropertyEditorEntry (
 				Preferences.KEYBINDING_OPEN_RECENT_CHANGES, 
 				entry);
 			SetupPropertyEditor (peditor);
@@ -702,7 +702,7 @@ namespace Tomboy
 			dialog.Destroy();
 		}
 
-		void SetupPropertyEditor (PropertyEditor peditor)
+		void SetupPropertyEditor (IPropertyEditor peditor)
 		{
 			// Ensure the key exists
 			Preferences.Get (peditor.Key);

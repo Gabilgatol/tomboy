@@ -4,6 +4,8 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using Mono.Unix;
 
+using Tomboy.Platform;
+
 namespace Tomboy
 {
 	public class XKeybinder 
@@ -208,7 +210,7 @@ namespace Tomboy
 			Preferences.SettingChanged += EnableKeybindingsChanged;
 		}
 
-		void EnableKeybindingsChanged (object sender, GConf.NotifyEventArgs args)
+		void EnableKeybindingsChanged (object sender, NotifyEventArgs args)
 		{
 			if (args.Key == Preferences.ENABLE_KEYBINDINGS) {
 				bool enabled = (bool) args.Value;
