@@ -31,23 +31,21 @@ public class StickyNoteImporter : NotePlugin
 	private const string debug_gconf_set_error_base =
 		"StickyNoteImporter: Error setting initial GConf first run key value: {0}";
 
-	private string sticky_xml_path;
+	private static string sticky_xml_path =
+			Environment.GetFolderPath (System.Environment.SpecialFolder.Personal)
+			+ sticky_xml_rel_path;
 	
 	Gtk.ImageMenuItem item;
 	
 	protected override void Initialize ()
 	{
-		item = 
-			new Gtk.ImageMenuItem (Catalog.GetString ("Import from Sticky Notes"));
+		item = new Gtk.ImageMenuItem (
+					Catalog.GetString ("Import from Sticky Notes"));
 		item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
 		item.Activated += ImportButtonClicked;
 		item.Show ();
 		AddPluginMenuItem (item);
-		
-		sticky_xml_path =
-			Environment.GetFolderPath (System.Environment.SpecialFolder.Personal)
-			+ sticky_xml_rel_path;
-		
+
 		CheckForFirstRun ();
 	}
 	
@@ -55,7 +53,9 @@ public class StickyNoteImporter : NotePlugin
 	{
 		// Disconnect the event handlers so
 		// there aren't any memory leaks.
-		item.Activated -= ImportButtonClicked;
+		// item is null if this plugin wasn't initialized
+		if (item != null)
+			item.Activated -= ImportButtonClicked;
 	}
 
 	protected override void OnNoteOpened () 
