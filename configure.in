@@ -1,5 +1,5 @@
 AC_INIT(Tomboy/Tomboy.cs)
-AM_INIT_AUTOMAKE(tomboy, 0.5.7)
+AM_INIT_AUTOMAKE(tomboy, 0.5.9)
 AM_MAINTAINER_MODE
 
 GNOME_COMMON_INIT
@@ -20,7 +20,7 @@ AM_PROG_LIBTOOL
 # Setup GETTEXT
 #
 
-ALL_LINGUAS="ar be bg bn bn_IN ca cs da de dz el en_CA en_GB es et eu fi fr gl gu hi hu is it ja ko ku lt lv mk ml nb ne nl or pa pl pt pt_BR ro ru rw sl sq sr sr@Latn sv ta th tr uk vi zh_CN zh_HK zh_TW"
+ALL_LINGUAS="ar be bg bn bn_IN ca cs da de dz el en_CA en_GB es et eu fi fr he gl gu hi hu is it ja ko ku lt lv mk ml nb ne nl or pa pl pt pt_BR ro ru rw sl sq sr sr@Latn sv ta th tr uk vi zh_CN zh_HK zh_TW"
 
 GETTEXT_PACKAGE=tomboy
 AC_SUBST(GETTEXT_PACKAGE)
@@ -135,7 +135,7 @@ fi
 fi
 # Set DBUS_SERVICE_DIR if it's not already set
 if test "x$DBUS_SERVICE_DIR" = "x" ; then
-	DBUS_SERVICE_DIR=$libdir/dbus-1.0/services
+	DBUS_SERVICE_DIR=$datadir/dbus-1/services
 fi
 AC_SUBST(DBUS_SERVICE_DIR)
 
@@ -149,6 +149,10 @@ if test "x$ENABLE_DBUS" != "xno" ; then
 		AC_MSG_RESULT([using internal copy])
 	fi
 	AM_CONDITIONAL(EXTERNAL_DBUS, test "x$have_external_dbus" = "xyes")
+	AC_SUBST(DBUS_LIBS)
+else
+	DBUS_LIBS=
+	AM_CONDITIONAL(EXTERNAL_DBUS, false)
 	AC_SUBST(DBUS_LIBS)
 fi
 
