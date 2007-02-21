@@ -22,5 +22,10 @@ namespace Tomboy.Platform
 		{
 			return new GnomeApplication ();
 		}
+
+		public static IKeybinder CreateKeybinder ()
+		{
+			return new XKeybinder ();
+		}
 	}
 }

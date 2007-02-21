@@ -1,108 +1,32 @@
+// TODO: Rename this file?
 
 using System;
 using System.Collections;
-using System.Runtime.InteropServices;
-using Mono.Unix;
 
 using Tomboy.Platform;
 
 namespace Tomboy
 {
-	public class XKeybinder 
+	public class PrefsKeybinder
 	{
-		[DllImport("libtomboy")]
-		static extern void tomboy_keybinder_init ();
-
-		[DllImport("libtomboy")]
-		static extern void tomboy_keybinder_bind (string keystring,
-							  BindkeyHandler handler);
-
-		[DllImport("libtomboy")]
-		static extern void tomboy_keybinder_unbind (string keystring,
-							    BindkeyHandler handler);
-
-		public delegate void BindkeyHandler (string key, IntPtr user_data);
-
-		ArrayList      bindings;
-		BindkeyHandler key_handler;
-
-		struct Binding {
-			internal string       keystring;
-			internal EventHandler handler;
-		}
-
-		public XKeybinder ()
-			: base ()
-		{
-			bindings = new ArrayList ();
-			key_handler = new BindkeyHandler (KeybindingPressed);
-			
-			tomboy_keybinder_init ();
-		}
-
-		void KeybindingPressed (string keystring, IntPtr user_data)
-		{
-			foreach (Binding bind in bindings) {
-				if (bind.keystring == keystring) {
-					bind.handler (this, new EventArgs ());
-				}
-			}
-		}
-
-		public void Bind (string       keystring, 
-				  EventHandler handler)
-		{
-			Binding bind = new Binding ();
-			bind.keystring = keystring;
-			bind.handler = handler;
-			bindings.Add (bind);
-			
-			tomboy_keybinder_bind (bind.keystring, key_handler);
-		}
-
-		public void Unbind (string keystring)
-		{
-			foreach (Binding bind in bindings) {
-				if (bind.keystring == keystring) {
-					tomboy_keybinder_unbind (bind.keystring,
-								 key_handler);
-
-					bindings.Remove (bind);
-					break;
-				}
-			}
-		}
-
-		public virtual void UnbindAll ()
-		{
-			foreach (Binding bind in bindings) {
-				tomboy_keybinder_unbind (bind.keystring, key_handler);
-			}
-
-			bindings.Clear ();
-		}
-	}
-
-	public class GConfXKeybinder : XKeybinder
-	{
-		GConf.Client client;
 		ArrayList bindings;
+		IKeybinder native_keybinder;
 		
-		public GConfXKeybinder ()
+		public PrefsKeybinder ()
 		{
-			client = new GConf.Client ();
 			bindings = new ArrayList ();
+			native_keybinder = PlatformFactory.CreateKeybinder ();
 		}
 
-		public void Bind (string       gconf_path, 
+		public void Bind (string       pref_path, 
 				  string       default_binding, 
 				  EventHandler handler)
 		{
 			try {
-				Binding binding = new Binding (gconf_path, 
+				Binding binding = new Binding (pref_path, 
 							       default_binding,
 							       handler,
-							       this);
+							       native_keybinder);
 				bindings.Add (binding);
 			} catch (Exception e) {
 				Logger.Log ("Error Adding global keybinding:");
@@ -110,53 +34,62 @@ namespace Tomboy
 			}
 		}
 
-		public override void UnbindAll ()
+		public void UnbindAll ()
 		{
 			try {
+				foreach (Binding binding in bindings)
+					binding.RemoveNotify ();
 				bindings.Clear ();
-				base.UnbindAll ();
+				native_keybinder.UnbindAll ();
 			} catch (Exception e) {
 				Logger.Log ("Error Removing global keybinding:");
 				Logger.Log (e.ToString ());
 			}
 		}
 
-		class Binding 
+		class Binding
 		{
-			public string   gconf_path;
+			public string   pref_path;
 			public string   key_sequence;
 			EventHandler    handler;
-			GConfXKeybinder parent;
+			IKeybinder native_keybinder;
 
-			public Binding (string          gconf_path, 
+			public Binding (string          pref_path, 
 					string          default_binding,
 					EventHandler    handler,
-					GConfXKeybinder parent)
+					IKeybinder native_keybinder)
 			{
-				this.gconf_path = gconf_path;
+				this.pref_path = pref_path;
 				this.key_sequence = default_binding;
 				this.handler = handler;
-				this.parent = parent;
+				this.native_keybinder = native_keybinder;
 
 				try {
-					key_sequence = (string) parent.client.Get (gconf_path);
+					key_sequence = (string) Preferences.Client.Get (pref_path);
 				} catch {
-					Logger.Log ("GConf key '{0}' does not exist, using default.", 
-							   gconf_path);
+					Logger.Log ("Preference key '{0}' does not exist, using default.", 
+							   pref_path);
 				}
 
 				SetBinding ();
 
-				parent.client.AddNotify (
-					gconf_path, 
-					new GConf.NotifyEventHandler (BindingChanged));
+				Preferences.Client.AddNotify (
+					pref_path, 
+					BindingChanged);
 			}
 
-			void BindingChanged (object sender, GConf.NotifyEventArgs args)
+			public void RemoveNotify ()
 			{
-				if (args.Key == gconf_path) {
+				Preferences.Client.RemoveNotify (
+					pref_path, 
+					BindingChanged);
+			}
+
+			void BindingChanged (object sender, NotifyEventArgs args)
+			{
+				if (args.Key == pref_path) {
 					Logger.Log ("Binding for '{0}' changed to '{1}'!",
-							   gconf_path,
+							   pref_path,
 							   args.Value);
 
 					UnsetBinding ();
@@ -175,9 +108,9 @@ namespace Tomboy
 
 				Logger.Log ("Binding key '{0}' for '{1}'",
 						   key_sequence,
-						   gconf_path);
+						   pref_path);
 
-				parent.Bind (key_sequence, handler);
+				native_keybinder.Bind (key_sequence, handler);
 			}
 
 			public void UnsetBinding ()
@@ -187,19 +120,19 @@ namespace Tomboy
 
 				Logger.Log ("Unbinding key '{0}' for '{1}'",
 						   key_sequence,
-						   gconf_path);
+						   pref_path);
 
-				parent.Unbind (key_sequence);
+				native_keybinder.Unbind (key_sequence);
 			}
 		}
 	}
 
-	public class TomboyGConfXKeybinder : GConfXKeybinder
+	public class TomboyPrefsKeybinder : PrefsKeybinder
 	{
 		NoteManager manager;
 		TomboyTray  tray;
 
-		public TomboyGConfXKeybinder (NoteManager manager, TomboyTray tray)
+		public TomboyPrefsKeybinder (NoteManager manager, TomboyTray tray)
 			: base ()
 		{
 			this.manager = manager;
@@ -241,10 +174,10 @@ namespace Tomboy
 			}
 		}
 
-		void BindPreference (string gconf_path, EventHandler handler)
+		void BindPreference (string pref_path, EventHandler handler)
 		{
-			Bind (gconf_path,  
-			      (string) Preferences.GetDefault (gconf_path),
+			Bind (pref_path,  
+			      (string) Preferences.GetDefault (pref_path),
 			      handler);
 		}
 

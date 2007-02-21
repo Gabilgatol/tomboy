@@ -15,7 +15,7 @@ namespace Tomboy
 	{
 		NoteManager manager;
 		TomboyTray tray;
-		TomboyGConfXKeybinder keybinder;
+		TomboyPrefsKeybinder keybinder;
 
 		// Keep referenced so our callbacks don't get reaped.
 		static BonoboUIVerb [] menu_verbs;
@@ -41,7 +41,7 @@ namespace Tomboy
 
 			manager = Tomboy.DefaultNoteManager;
 			tray = new TomboyTray (manager);
-			keybinder = new TomboyGConfXKeybinder (manager, tray);
+			keybinder = new TomboyPrefsKeybinder (manager, tray);
 
 			Flags |= PanelAppletFlags.ExpandMinor;
 
@@ -139,7 +139,7 @@ namespace Tomboy
 	{
 		NoteManager manager;
 		TomboyTray tray;
-		TomboyGConfXKeybinder keybinder;
+		TomboyPrefsKeybinder keybinder;
 
 		[DllImport ("libtomboy")]
 		private static extern IntPtr egg_tray_icon_new (string name);
@@ -157,7 +157,7 @@ namespace Tomboy
 			tray = new TomboyTray (manager);
 			tray.ButtonPressEvent += ButtonPress;
 
-			keybinder = new TomboyGConfXKeybinder (manager, tray);
+			keybinder = new TomboyPrefsKeybinder (manager, tray);
 
 			Add (tray);
 			ShowAll ();

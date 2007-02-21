@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -148,7 +147,7 @@ namespace Tomboy
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_KEYBINDINGS)) {
 				string shortcut = 
-					GConfKeybindingToAccel.GetShortcut (
+					PrefKeybindingToAccel.GetShortcut (
 						Preferences.KEYBINDING_SHOW_NOTE_MENU);
 				if (shortcut != null)
 					tip_text += String.Format (" ({0})", shortcut);
@@ -256,7 +255,7 @@ namespace Tomboy
 					Tomboy.ActionManager.GetWidget (
 						"/TrayIconMenu/NewNote") as Gtk.MenuItem;
 				if (item != null)
-					GConfKeybindingToAccel.AddAccelerator (
+					PrefKeybindingToAccel.AddAccelerator (
 						item,
 						Preferences.KEYBINDING_CREATE_NEW_NOTE);
 				
@@ -265,7 +264,7 @@ namespace Tomboy
 					Tomboy.ActionManager.GetWidget (
 						"/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
 				if (item != null)
-					GConfKeybindingToAccel.AddAccelerator (
+					PrefKeybindingToAccel.AddAccelerator (
 						item,
 						Preferences.KEYBINDING_CREATE_NEW_NOTE);
 				
@@ -274,7 +273,7 @@ namespace Tomboy
 					Tomboy.ActionManager.GetWidget (
 						"/TrayIconMenu/OpenStartHereNote") as Gtk.MenuItem;
 				if (item != null)
-					GConfKeybindingToAccel.AddAccelerator (
+					PrefKeybindingToAccel.AddAccelerator (
 						item,
 						Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
 			}				
@@ -336,7 +335,7 @@ namespace Tomboy
 				bool enable_keybindings = (bool) 
 					Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
 				if (enable_keybindings)
-					GConfKeybindingToAccel.AddAccelerator (
+					PrefKeybindingToAccel.AddAccelerator (
 						item, 
 						Preferences.KEYBINDING_OPEN_START_HERE);
 			}
@@ -506,27 +505,27 @@ namespace Tomboy
 	}
 
 	// 
-	// This is a helper to take the XKeybinding string from GConf, and
+	// This is a helper to take the XKeybinding string from Prefs, and
 	// convert it to a widget accelerator label, so note menu items can
 	// display their global X keybinding.
 	//
 	// FIXME: It would be totally sweet to allow setting the accelerator
 	// visually through the menuitem, and have the new value be stored in
-	// GConf.
+	// Prefs.
 	//
-	public class GConfKeybindingToAccel
+	public class PrefKeybindingToAccel
 	{
 		static Gtk.AccelGroup accel_group;
 
-		static GConfKeybindingToAccel ()
+		static PrefKeybindingToAccel ()
 		{
 			accel_group = new Gtk.AccelGroup ();
 		}
 
-		public static string GetShortcut (string gconf_path)
+		public static string GetShortcut (string pref_path)
 		{
 			try {
-				string binding = (string) Preferences.Get (gconf_path);
+				string binding = (string) Preferences.Get (pref_path);
 				if (binding == null || 
 				    binding == String.Empty || 
 				    binding == "disabled")
@@ -552,7 +551,7 @@ namespace Tomboy
 			uint virtual_mods,
 			out Gdk.ModifierType real_mods);
 
-		public static bool GetAccelKeys (string               gconf_path, 
+		public static bool GetAccelKeys (string               pref_path, 
 						 out uint             keyval, 
 						 out Gdk.ModifierType mods)
 		{
@@ -560,7 +559,7 @@ namespace Tomboy
 			mods = 0;
 
 			try {
-				string binding = (string) Preferences.Get (gconf_path);
+				string binding = (string) Preferences.Get (pref_path);
 				if (binding == null || 
 				    binding == String.Empty || 
 				    binding == "disabled")
@@ -583,12 +582,12 @@ namespace Tomboy
 			}
 		}
 
-		public static void AddAccelerator (Gtk.MenuItem item, string gconf_path)
+		public static void AddAccelerator (Gtk.MenuItem item, string pref_path)
 		{
 			uint keyval;
 			Gdk.ModifierType mods;
 
-			if (GetAccelKeys (gconf_path, out keyval, out mods))
+			if (GetAccelKeys (pref_path, out keyval, out mods))
 				item.AddAccelerator ("activate",
 						     accel_group,
 						     keyval,

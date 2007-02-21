@@ -37,16 +37,13 @@ namespace Tomboy
 		public const string STICKYNOTEIMPORTER_FIRST_RUN = "/apps/tomboy/sticky_note_importer/sticky_importer_first_run";
 
 		static IPreferencesClient client;
-		static NotifyEventHandler changed_handler;
 
 		public static IPreferencesClient Client 
 		{
 			get {
 				if (client == null) {
 					client = PlatformFactory.CreatePreferencesClient ();
-
-					changed_handler = new NotifyEventHandler (OnSettingChanged);
-					client.AddNotify ("/apps/tomboy", changed_handler);
+					client.AddNotify ("/apps/tomboy", OnSettingChanged);
 				}
 				return client;
 			}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Tomboy.Platform
@@ -5,17 +6,21 @@ namespace Tomboy.Platform
 	public class GConfPreferencesClient : IPreferencesClient
 	{
 		private GConf.Client client;
-		private Dictionary<string, NotifyEventHandler> event_map;
+		private List<NotifyWrapper> wrapper_list;
 
 		public GConfPreferencesClient ()
 		{
 			client = new GConf.Client ();
-			event_map = new Dictionary<string, NotifyEventHandler> ();
+			wrapper_list = new List<NotifyWrapper> ();
 		}
 
 		public void Set (string key, object val)
 		{
-			client.Set (key, val);
+			try {
+				client.Set (key, val);
+			} catch {	// TODO: what kind?
+				throw new Exception ("Error setting key: " + key);	// TODO: can do better than this
+			}
 		}
 
 		public object Get (string key)
@@ -29,20 +34,38 @@ namespace Tomboy.Platform
 
 		public void AddNotify (string dir, NotifyEventHandler notify)
 		{
-			if(!event_map.ContainsKey (dir)) {
-				event_map.Add (dir, notify);
-				client.AddNotify (dir, HandleNotify);
-			} else
-				event_map[dir] += notify;
+			if (dir == null)
+				throw new NullReferenceException("dir");
+			if (notify == null)
+				throw new NullReferenceException("notify");
+
+			NotifyWrapper wrapper = new NotifyWrapper (notify, dir);
+			client.AddNotify (dir, wrapper.HandleNotify);
+			wrapper_list.Add (wrapper);
 		}
 
 		public void RemoveNotify (string dir, NotifyEventHandler notify)
 		{
-			if(!event_map.ContainsKey (dir)) {
-				event_map[dir] -= notify;	// any need to try/catch here?
-				if(event_map[dir].GetInvocationList ().Length == 0)
-					client.RemoveNotify(dir, HandleNotify);
-				// TODO: When list is empty, remove key from dictionary?
+			if (dir == null)
+				throw new NullReferenceException("dir");
+			if (notify == null)
+				throw new NullReferenceException("notify");
+
+			NotifyWrapper wrapper_to_remove = null;
+			foreach (NotifyWrapper wrapper in wrapper_list)
+				if (wrapper.dir.Equals (dir) && wrapper.notify.Equals (notify)) {
+					wrapper_to_remove = wrapper;
+					break;
+				}
+
+			// NOTE: For some unknown reason, the RemoveNotify call does not
+			//		 work here.  That is why we explicitly disable the wrapper,
+			//		 since it will unfortunately continue to exist and get
+			//		 inappropriately notified.
+			if (wrapper_to_remove != null) {
+				client.RemoveNotify (dir, wrapper_to_remove.HandleNotify);
+				wrapper_to_remove.enabled = false;
+				wrapper_list.Remove (wrapper_to_remove);
 			}
 		}
 
@@ -51,15 +74,30 @@ namespace Tomboy.Platform
 			client.SuggestSync ();
 		}
 
-		private void HandleNotify(object sender, GConf.NotifyEventArgs args)
+		class NotifyWrapper
 		{
-			foreach(string key in event_map.Keys)
-				if(args.Key.StartsWith (key)) {
-					NotifyEventArgs newArgs = new NotifyEventArgs(args.Key, args.Value);
-					event_map[key](sender, newArgs);
+			public NotifyEventHandler notify;
+			public string dir;
+			public bool enabled = true;
+
+			public NotifyWrapper (NotifyEventHandler notify, string dir)
+			{
+				this.notify = notify;
+				this.dir = dir;
+			}
+
+			public void HandleNotify (object sender, GConf.NotifyEventArgs args)
+			{
+				if (!enabled) {
+					Logger.Log ("NotifyWrapper for '" + dir + "' called after being disabled");	// TODO: Delete this...
+					return;
 				}
+				NotifyEventArgs newArgs = new NotifyEventArgs (args.Key, args.Value);
+				notify (sender, newArgs);
+			}
 		}
 	}
+
 
 	public class GConfPropertyEditorToggleButton : GConf.PropertyEditors.PropertyEditorToggleButton, IPropertyEditorBool
 	{
