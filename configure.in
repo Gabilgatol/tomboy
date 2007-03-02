@@ -1,5 +1,5 @@
 AC_INIT(Tomboy/Tomboy.cs)
-AM_INIT_AUTOMAKE(tomboy, 0.5.9)
+AM_INIT_AUTOMAKE(tomboy, 0.5.10)
 AM_MAINTAINER_MODE
 
 GNOME_COMMON_INIT
@@ -44,8 +44,8 @@ fi
 #
 # Gdk and Atk are needed for libtrayicon
 #
-GDK20_MINIMUM_VERSION=2.2.3
-GTK20_MINIMUM_VERSION=2.2.3
+GDK20_MINIMUM_VERSION=2.6.0
+GTK20_MINIMUM_VERSION=2.6.0
 ATK_MINIMUM_VERSION=1.2.4
 
 PKG_CHECK_MODULES(LIBTOMBOY, 
@@ -56,16 +56,6 @@ PKG_CHECK_MODULES(LIBTOMBOY,
 		  atk >= $ATK_MINIMUM_VERSION)
 AC_SUBST(LIBTOMBOY_CFLAGS)
 AC_SUBST(LIBTOMBOY_LIBS)
-
-#
-# Need Gtk 2.6+ for gdk_x11_window_set_user_time() to get around 
-# anti-focus avoidance for keybindings.
-#
-PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.6.0, GTK_2_6="yes", GTK_2_6="no")
-if test "x$GTK_2_6" = "xyes"; then
-   AC_DEFINE(HAVE_GDK_X11_WINDOW_SET_USER_TIME, 1, 
-             [Whether GTK+ method gdk_x11_window_set_user_time() is present.])
-fi
 
 #
 # Use pkg-config to check for the panel applet server directory if
@@ -142,24 +132,22 @@ AC_SUBST(DBUS_SERVICE_DIR)
 #
 # Check for external NDesk DBus
 #
+DBUS_LIBS=
 if test "x$ENABLE_DBUS" != "xno" ; then
 	PKG_CHECK_MODULES(DBUS, ndesk-dbus-1.0 >= 0.4 \
 		ndesk-dbus-glib-1.0 >= 0.3, have_external_dbus="yes", have_external_dbus="no")
 	if test "x$have_external_dbus" != "xyes"; then
 		AC_MSG_RESULT([using internal copy])
 	fi
-	AM_CONDITIONAL(EXTERNAL_DBUS, test "x$have_external_dbus" = "xyes")
-	AC_SUBST(DBUS_LIBS)
-else
-	DBUS_LIBS=
-	AM_CONDITIONAL(EXTERNAL_DBUS, false)
-	AC_SUBST(DBUS_LIBS)
 fi
+AM_CONDITIONAL(EXTERNAL_DBUS, test "x$have_external_dbus" = "xyes")
+AC_SUBST(DBUS_LIBS)
 
 #
 # Tomboy.exe needs Gtk# Gnome# GConf#
 #
-PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 gnome-sharp-2.0 gconf-sharp-2.0)
+GTKSHARP2_MINIMUM_VERSION=$GTK20_MINIMUM_VERSION
+PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION gnome-sharp-2.0 gconf-sharp-2.0)
 AC_SUBST(TOMBOY_LIBS)
 
 #

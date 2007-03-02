@@ -489,10 +489,11 @@ class BugzillaPreferences : Gtk.VBox
 
 [PluginInfo(
 	"Bugzilla Plugin", Defines.VERSION,
-	"David Trowbridge <trowbrds@gmail.com>",
+	PluginInfoAttribute.OFFICIAL_AUTHOR,
     "Allows you to drag a Bugzilla URL from your browser " +
     "directly into a tomboy note.  The bug number is " +
     "inserted as a link with a little bug icon next to it.",
+	WebSite = "http://www.gnome.org/projects/tomboy/",
 	PreferencesWidget = typeof (BugzillaPreferences)
 	)]
 
@@ -538,18 +539,20 @@ public class BugzillaPlugin : NotePlugin
 
 	void DropUriList (Gtk.DragDataReceivedArgs args)
 	{
-		string uriString = Encoding.UTF8.GetString (args.SelectionData.Data);
+		if (args.SelectionData.Length > 0) {
+			string uriString = Encoding.UTF8.GetString (args.SelectionData.Data);
 
-		if (uriString.IndexOf ("show_bug.cgi?id=") != -1) {
-			if (InsertBug (uriString)) {
-				Gtk.Drag.Finish (args.Context, true, false, args.Time);
-				g_signal_stop_emission_by_name(Window.Editor.Handle,
-							       "drag_data_received");
+			if (uriString.IndexOf ("show_bug.cgi?id=") != -1) {
+				if (InsertBug (args.X, args.Y, uriString)) {
+					Gtk.Drag.Finish (args.Context, true, false, args.Time);
+					g_signal_stop_emission_by_name(Window.Editor.Handle,
+								       "drag_data_received");
+				}
 			}
 		}
 	}
 
-	bool InsertBug(string uri)
+	bool InsertBug (int x, int y, string uri)
 	{
 		try {
 			string bug = uri.Substring (uri.IndexOf ("show_bug.cgi?id=") + 16);
@@ -565,7 +568,13 @@ public class BugzillaPlugin : NotePlugin
 				Note.TagTable.CreateDynamicTag ("link:bugzilla");
 			link_tag.BugUrl = uri;
 
-			Gtk.TextIter cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
+			// Place the cursor in the position where the uri was
+			// dropped, adjusting x,y by the TextView's VisibleRect.
+			Gdk.Rectangle rect = Window.Editor.VisibleRect;
+			x = x + rect.X;
+			y = y + rect.Y;
+			Gtk.TextIter cursor = Window.Editor.GetIterAtLocation (x, y);
+			Buffer.PlaceCursor (cursor);
 
 			Buffer.Undoer.AddUndoAction (new InsertBugAction (cursor, bug, Buffer, link_tag));
 

@@ -1,3 +1,113 @@
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteWindow.cs: Use RadioMenuItem.Activated instead of the Toggled
+	event.  This makes it so that even if "Normal" or another font size is
+	already selected, a large selection of text (with multiple sizes) can be
+	sized to the selected font.  Fixes bug #412404.
+	
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: Use the Defines.VERSION string since
+	this is a built-in/official plugin.
+	
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Cleaned up the check for ndesk-dbus-1.0 by not using an
+	else statement.  Additional cleanup fix for bug #405577.
+	
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Watchers.cs: Added a comment in the code about why the previous
+	change is needed (bug #413234).
+	
+2007-02-28  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Watchers.cs: Don't check for link == this.Note.  Fixes bug
+	#413234.
+	
+2007-02-28  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteManager: Use Note.QueueSave () instead of Note.Save () when
+	creating the start notes so they both get saved.  Fixes bug #413230.
+	
+2007-02-26  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.5.10.
+	
+2007-02-26  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Update for 0.5.9.
+	
+2007-02-26  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* configure.in: Bump minimum required gtk-sharp2 to 2.6.0.  From bug
+	#412130.
+
+2007-02-26  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteWindow.cs: Deal with multiple uris dropped from nautilus by
+	making sure multiple <link:uri> tags are used.  Fixes bug #412355.
+	
+2007-02-26  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* configure.in: Bump minimum required gtk/gdk to 2.6.0.  From bug #412130.
+	* libtomboy/tomboyutil.c: Remove #ifdef that is obsolete since gtk/gdk
+	>=2.6.0 is now required.
+
+2007-02-26  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Plugins/Evolution.cs: Pay attention to the x and y position where
+	the user drag and drops links so the cursor position can be adjusted before
+	inserting the link.  Fixes bug #330964.
+
+	* Tomboy/Plugins/Bugzilla.cs: Ditto.
+
+	* Tomboy/NoteWindow.cs: Ditto.
+	
+2007-02-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* Tomboy/RecentChanges.cs:
+	* Tomboy/XKeybinder.cs:
+
+	Search dialog should open in foreground if it's invoked
+	from a keybinding. Fixes bug #411924, patch by Sanford
+	Armstrong.
+
+2007-02-25  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	Fixes for bug 410314:
+	* Tomboy/Plugins/FixedWidth.cs: Set author to OFFICIAL_AUTHOR, website
+	to official Tomboy website.
+	* Tomboy/Plugins/GalagoPresence.cs: Ditto.
+	* Tomboy/Plugins/Backlinks.cs: Ditto.
+	* Tomboy/Plugins/Evolution.cs: Ditto.
+	* Tomboy/Plugins/PrintNotes.cs: Ditto.
+	* Tomboy/Plugins/StickyNoteImport.cs: Ditto.
+	* Tomboy/Plugins/Bugzilla.cs: Ditto.
+	* Tomboy/Plugins/ExportToHTML.cs: Ditto.
+	* Tomboy/Plugins/NoteOfTheDay.cs: Ditto.
+	* Tomboy/PluginManager.cs: Added OFFICIAL_AUTHOR constant for use by
+	plugins maintained by Tomboy project.
+	* Tomboy/Tomboy.cs: Updated website to gnome.org URL.
+
+2007-02-25  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* Tomboy/Preferences.cs:
+	* data/tomboy.schemas.in:
+
+	Default font settings should not enable the 'use custom
+	font' checkbox. Fixes bug #358974.
+
+2007-02-24 Chris Scobell <chris@thescobells.com>
+	* Tomboy/Utils.cs: Check for > 0 SelectionData Length before
+	proceding to process the drag-and-drop data. This prevents a crash
+	when dragging an email with a blank subject from evolution. Fixes
+	bug #408859.
+	
+	* Tomboy/Plugins/Evolution.cs: Ditto.
+	
+	* Tomboy/Plugins/Bugzilla.cs: Ditto.
+	
 2007-02-20  Boyd Timothy  <btimothy@gmail.com>
 
 	* data/tomboy.schemas.in: Remove NoteOfTheDayPlugin from the default

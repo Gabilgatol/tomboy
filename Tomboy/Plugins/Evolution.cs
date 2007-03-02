@@ -274,9 +274,10 @@ public class EmailLink : DynamicNoteTag
 
 [PluginInfo(
 	"Evolution Plugin", Defines.VERSION,
-	"Alex Graveley <alex@beatniksoftware.com>",
+	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Allows you to drag an email from Evolution into a tomboy note.  The " +
-	"message subject is added as a link in the note."
+	"message subject is added as a link in the note.",
+	WebSite = "http://www.gnome.org/projects/tomboy/"
 	)]
 public class EvolutionPlugin : NotePlugin
 {
@@ -325,6 +326,9 @@ public class EvolutionPlugin : NotePlugin
 	void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
 	{
 		bool stop_emission = false;
+		
+		if (args.SelectionData.Length < 0)
+			return;
 
 		if (args.Info == 1) {
 			foreach (Gdk.Atom atom in args.Context.Targets) {
@@ -350,7 +354,7 @@ public class EvolutionPlugin : NotePlugin
 
 			// Insert the email: links into the note, using the
 			// message subject as the display text.
-			InsertMailLinks (xuid_list, subject_list);
+			InsertMailLinks (args.X, args.Y, xuid_list, subject_list);
 
 			Gtk.Drag.Finish (args.Context, true, false, args.Time);
 			stop_emission = true;
@@ -436,13 +440,20 @@ public class EvolutionPlugin : NotePlugin
 		}
 	}
 
-	void InsertMailLinks (ArrayList xuid_list, ArrayList subject_list)
+	void InsertMailLinks (int x, int y, ArrayList xuid_list, ArrayList subject_list)
 	{
 		int message_idx = 0;
 		bool more_than_one = false;
+		
+		// Place the cursor in the position where the uri was
+		// dropped, adjusting x,y by the TextView's VisibleRect.
+		Gdk.Rectangle rect = Window.Editor.VisibleRect;
+		x = x + rect.X;
+		y = y + rect.Y;
+		Gtk.TextIter cursor = Window.Editor.GetIterAtLocation (x, y);
+		Buffer.PlaceCursor (cursor);
 
 		foreach (string subject in subject_list) {
-			Gtk.TextIter cursor;
 			int start_offset;
 
 			if (more_than_one) {

@@ -342,7 +342,8 @@ namespace Tomboy
 		public UriList (Gtk.SelectionData selection) 
 		{
 			// FIXME this should check the atom etc.
-			LoadFromString (Encoding.UTF8.GetString (selection.Data));
+			if (selection.Length > 0)
+				LoadFromString (Encoding.UTF8.GetString (selection.Data));
 		}
 
 		public override string ToString () 

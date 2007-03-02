@@ -95,32 +95,46 @@ namespace Tomboy
 
 			if (has_url) {
 				UriList uri_list = new UriList (selection_data);
-				StringBuilder insert = new StringBuilder ();
+				bool more_than_one = false;
+				
+				// Place the cursor in the position where the uri was
+				// dropped, adjusting x,y by the TextView's VisibleRect.
+				Gdk.Rectangle rect = VisibleRect;
+				int adjustedX = x + rect.X;
+				int adjustedY = y + rect.Y;
+				Gtk.TextIter cursor = GetIterAtLocation (adjustedX, adjustedY);
+				Buffer.PlaceCursor (cursor);
+				
+				Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:url");
 
 				foreach (Uri uri in uri_list) {
 					Logger.Log ("Got Dropped URI: {0}", uri);
-
-					// FIXME: The space here is a hack
-					// around a bug in the URL Regex which
-					// matches across newlines.
-					if (insert.Length > 0)
-						insert.Append (" \n");
-
-					if (uri.IsFile) 
-						insert.Append (uri.LocalPath);
+					string insert;
+					if (uri.IsFile)
+						insert = uri.LocalPath;
 					else
-						insert.Append (uri.ToString ());
+						insert = uri.ToString ();
+					
+					if (insert == null || insert.Trim () == String.Empty)
+						continue;
+					
+					if (more_than_one) {
+						cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
+						
+						// FIXME: The space here is a hack
+						// around a bug in the URL Regex which
+						// matches across newlines.
+						if (cursor.LineOffset == 0)
+							Buffer.Insert (ref cursor, " \n");
+						else
+							Buffer.Insert (ref cursor, ", ");
+					}
+					
+					Buffer.InsertWithTags (ref cursor, insert, link_tag);
+					more_than_one = true;
 				}
 
-				if (insert.Length > 0) {
-					Gtk.TextIter insert_iter = 
-						Buffer.GetIterAtMark (Buffer.InsertMark);
-					Buffer.InsertWithTags (ref insert_iter,
-							       insert.ToString (),
-							       Buffer.TagTable.Lookup ("link:url"));
-				}
-
-				Gtk.Drag.Finish (context, insert.Length > 0, false, time);
+				Gtk.Drag.Finish (context, more_than_one, false, time);
 			} else {
 				base.OnDragDataReceived (context, x, y, selection_data, info, time);
 			}
@@ -1414,7 +1428,7 @@ namespace Tomboy
 			normal = new Gtk.RadioMenuItem (Catalog.GetString ("_Normal"));
 			MarkupLabel (normal);
 			normal.Active = true;
-			normal.Toggled += FontSizeClicked;
+			normal.Activated += FontSizeActivated;
 
 			huge = new Gtk.RadioMenuItem (normal.Group, 
 						      "<span size=\"x-large\">" +
@@ -1422,7 +1436,7 @@ namespace Tomboy
 						      "</span>");
 			MarkupLabel (huge);
 			huge.Data ["Tag"] = "size:huge";
-			huge.Toggled += FontSizeClicked;
+			huge.Activated += FontSizeActivated;
 
 			large = new Gtk.RadioMenuItem (huge.Group, 
 						       "<span size=\"large\">" +
@@ -1430,7 +1444,7 @@ namespace Tomboy
 						       "</span>");
 			MarkupLabel (large);
 			large.Data ["Tag"] = "size:large";
-			large.Toggled += FontSizeClicked;
+			large.Activated += FontSizeActivated;
 
 			small = new Gtk.RadioMenuItem (large.Group, 
 						       "<span size=\"small\">" +
@@ -1438,7 +1452,7 @@ namespace Tomboy
 						       "</span>");
 			MarkupLabel (small);
 			small.Data ["Tag"] = "size:small";
-			small.Toggled += FontSizeClicked;
+			small.Activated += FontSizeActivated;
 
 			hidden_no_size = new Gtk.RadioMenuItem (small.Group, string.Empty);
 			hidden_no_size.Hide ();
@@ -1561,8 +1575,13 @@ namespace Tomboy
 		// Set the font size tag for the current text.  Style tags are
 		// stored in a "Tag" member of the menuitem's Data.
 		//
-
-		void FontSizeClicked (object sender, EventArgs args) 
+		
+		// FIXME: Change this back to use FontSizeToggled instead of using the
+		// Activated signal.  Fix the Text menu so it doesn't show a specific
+		// font size already selected if multiple sizes are highlighted. The
+		// Activated event is used here to fix
+		// http://bugzilla.gnome.org/show_bug.cgi?id=412404.
+		void FontSizeActivated (object sender, EventArgs args)
 		{
 			if (event_freeze)
 				return;
