@@ -1,3 +1,74 @@
+2007-03-12  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Tray.cs: Reverse the order of the if/else statement to check
+	note.IsPinned first.  Fixes bug #417590.
+
+2007-03-12  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/tomboy.desktop.in: Changed category from "Application" to
+	GNOME;GTK; as directed by
+	http://live.gnome.org/GnomeGoals/ApplicationCategory.  Fixes bug
+	#417364.
+
+2007-03-12  David Trowbridge  <trowbrds@gmail.com>
+
+	* Tomboy/Plugins/Bugzilla.cs:
+	  - More code cleanup.
+
+2007-03-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* data/GNOME_TomboyApplet.xml, Tomboy/Applet.cs, Tomboy/NoteWindow.cs:
+	  Removing "Open Plugins Folder" menu items from everywhere except
+	  for Preferences dialog.  Fixes bug #414326.
+
+2007-03-11  David Trowbridge  <trowbrds@gmail.com>
+
+	* Tomboy/Plugins/Bugzilla.cs:
+	  - Pretty up the main settings window.
+
+2007-03-11  David Trowbridge  <trowbrds@gmail.com>
+
+	* Tomboy/Plugins/Bugzilla.cs:
+	  - Fix whitespace issues that were making me sad.
+
+2007-03-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.mdp, Tomboy.mds: Adding extremely basic MonoDevelop solution. 
+	  Probably requires version 0.13 or greater.
+
+2007-03-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.7.0 (new development is open again
+	in trunk).
+
+2007-03-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Fix typo of calling 0.6.0, 0.5.10.
+
+2007-03-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.6.0 (stable release).
+
+	* NEWS: Update for 0.6.0.
+
+2007-03-05  Sandy Armstrong  <sanfordarmstrong@gmail.com
+
+	* Tomboy/PluginManager.cs: When attaching plugins to notes, be sure to
+	iterate through a copy of the list of notes, as notes may be added or
+	removed to the list by the plugins that are being instantiated.  Fixes
+	bug #414957.
+
+2007-03-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Preferences.cs: Patch from Sanford Armstrong to make the plugins
+	Settings button be insensitive by default and prevent null reference crash.
+	Fixes bug #414933.
+	
+2007-03-02  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteWindow.cs: Respect Emacs keybindings for Ctrl-W and Ctrl-N.
+	Fixes bug #412402.
+	
 2007-03-01  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/NoteWindow.cs: Use RadioMenuItem.Activated instead of the Toggled

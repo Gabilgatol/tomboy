@@ -279,7 +279,14 @@ namespace Tomboy
 			box.PackStart (editor_window, true, true, 0);
 			box.PackStart (find_bar, false, false, 0);
 			box.Show ();
-
+			
+			// Don't set up Ctrl-W or Ctrl-N if Emacs is in use
+			bool using_emacs = false;
+			string gtk_key_theme = (string)
+					Preferences.Get ("/desktop/gnome/interface/gtk_key_theme");
+			if (gtk_key_theme != null && gtk_key_theme.CompareTo ("Emacs") == 0)
+				using_emacs = true;
+			
 			// NOTE: Since some of our keybindings are only
 			// available in the context menu, and the context menu
 			// is created on demand, register them with the
@@ -287,7 +294,8 @@ namespace Tomboy
 			global_keys = new GlobalKeybinder (accel_group);
 
 			// Close window (Ctrl-W)
-			global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
+			if (!using_emacs)
+				global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
 						    (uint) Gdk.Key.w, 
 						    Gdk.ModifierType.ControlMask,
 						    Gtk.AccelFlags.Visible);
@@ -321,7 +329,8 @@ namespace Tomboy
 						    0);
 			
 			// Create a new note
-			global_keys.AddAccelerator (new EventHandler (CreateNewNote),
+			if (!using_emacs)
+				global_keys.AddAccelerator (new EventHandler (CreateNewNote),
 							(uint) Gdk.Key.n,
 							Gdk.ModifierType.ControlMask,
 							Gtk.AccelFlags.Visible);
@@ -632,7 +641,7 @@ namespace Tomboy
 		//
 		// Plugin toolbar menu
 		//
-		// Prefixed with Open Plugins Folder action, the rest being
+		// This menu can be
 		// populated by individual plugins using
 		// NotePlugin.AddPluginMenuItem().
 		//
@@ -640,24 +649,7 @@ namespace Tomboy
 		Gtk.Menu MakePluginMenu ()
 		{
 			Gtk.Menu menu = new Gtk.Menu ();
-
-			Gtk.ImageMenuItem open;
-			open = new Gtk.ImageMenuItem (Catalog.GetString ("_Open Plugins Folder"));
-			open.Image = new Gtk.Image (Gtk.Stock.Open, Gtk.IconSize.Menu);
-			open.Activated += OnOpenPluginsFolderActivate;
-			open.Show ();
-			menu.Add (open);
-
-			Gtk.SeparatorMenuItem sep = new Gtk.SeparatorMenuItem ();
-			sep.Show ();
-			menu.Add (sep);
-
 			return menu;
-		}
-
-		void OnOpenPluginsFolderActivate (object sender, EventArgs args)
-		{
-			note.Manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		//
