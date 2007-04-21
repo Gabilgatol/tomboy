@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-26 00:02+0100\n"
-"PO-Revision-Date: 2007-02-26 00:01+0100\n"
+"POT-Creation-Date: 2007-04-21 13:48+0200\n"
+"PO-Revision-Date: 2007-04-21 12:59+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgid "_Help"
 msgstr "_Hjälp"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
-#: ../Tomboy/NoteWindow.cs:629 ../Tomboy/Preferences.cs:645
+#: ../Tomboy/NoteWindow.cs:652 ../Tomboy/Preferences.cs:646
 msgid "_Open Plugins Folder"
 msgstr "_Öppna insticksmodulmappen"
 
@@ -396,7 +396,7 @@ msgstr "_Ta bort"
 msgid "Delete the selected note"
 msgstr "Ta bort den valda anteckningen"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:523
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:546
 msgid "_Close"
 msgstr "S_täng"
 
@@ -440,7 +440,7 @@ msgstr "Lådikon"
 msgid "Create _New Note"
 msgstr "Skapa _ny anteckning"
 
-#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:466
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:489
 msgid "_Search All Notes"
 msgstr "_Sök i alla anteckningar"
 
@@ -530,7 +530,7 @@ msgstr ""
 "kommer den automatiskt att länkas åt dig.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:228
+#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:229
 msgid "Start Here"
 msgstr "Börja här"
 
@@ -538,141 +538,141 @@ msgstr "Börja här"
 msgid "Using Links in Tomboy"
 msgstr "Användning av länkar i Tomboy"
 
-#: ../Tomboy/NoteManager.cs:283
+#: ../Tomboy/NoteManager.cs:284
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Ny anteckning {0}"
 
-#: ../Tomboy/NoteManager.cs:329
+#: ../Tomboy/NoteManager.cs:330
 msgid "Describe your new note here."
 msgstr "Beskriv din nya anteckning här."
 
-#: ../Tomboy/NoteWindow.cs:219
+#: ../Tomboy/NoteWindow.cs:233
 msgid "Find in This Note"
 msgstr "Sök i den här anteckningen"
 
-#: ../Tomboy/NoteWindow.cs:478
+#: ../Tomboy/NoteWindow.cs:501
 msgid "_Link to New Note"
 msgstr "_Länka till ny anteckning"
 
-#: ../Tomboy/NoteWindow.cs:490
+#: ../Tomboy/NoteWindow.cs:513
 msgid "Te_xt"
 msgstr "Te_xt"
 
-#: ../Tomboy/NoteWindow.cs:498
+#: ../Tomboy/NoteWindow.cs:521
 msgid "_Find in This Note"
 msgstr "_Sök i den här anteckningen"
 
-#: ../Tomboy/NoteWindow.cs:513
+#: ../Tomboy/NoteWindow.cs:536
 msgid "Clos_e All Notes"
 msgstr "S_täng alla anteckningar"
 
-#: ../Tomboy/NoteWindow.cs:551
+#: ../Tomboy/NoteWindow.cs:574
 msgid "Search"
 msgstr "Sök"
 
-#: ../Tomboy/NoteWindow.cs:552
+#: ../Tomboy/NoteWindow.cs:575
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Sök i dina anteckningar (Ctrl-Skift-F)"
 
 # Hoppas detta är verbet...
-#: ../Tomboy/NoteWindow.cs:565
+#: ../Tomboy/NoteWindow.cs:588
 msgid "Link"
 msgstr "Länka"
 
-#: ../Tomboy/NoteWindow.cs:567
+#: ../Tomboy/NoteWindow.cs:590
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Länka markerad text till en ny anteckning (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:581
+#: ../Tomboy/NoteWindow.cs:604
 msgid "_Text"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:586
+#: ../Tomboy/NoteWindow.cs:609
 msgid "Set properties of text"
 msgstr "Ställ in textegenskaper"
 
-#: ../Tomboy/NoteWindow.cs:592
+#: ../Tomboy/NoteWindow.cs:615
 msgid "T_ools"
 msgstr "_Verktyg"
 
-#: ../Tomboy/NoteWindow.cs:596
+#: ../Tomboy/NoteWindow.cs:619
 msgid "Use tools on this note"
 msgstr "Använd verktyg på denna anteckning."
 
-#: ../Tomboy/NoteWindow.cs:603
+#: ../Tomboy/NoteWindow.cs:626
 msgid "Delete"
 msgstr "Ta bort"
 
-#: ../Tomboy/NoteWindow.cs:604
+#: ../Tomboy/NoteWindow.cs:627
 msgid "Delete this note"
 msgstr "Ta bort denna anteckning"
 
-#: ../Tomboy/NoteWindow.cs:661
+#: ../Tomboy/NoteWindow.cs:684
 msgid "_Find..."
 msgstr "_Sök..."
 
-#: ../Tomboy/NoteWindow.cs:672 ../Tomboy/NoteWindow.cs:874
+#: ../Tomboy/NoteWindow.cs:695 ../Tomboy/NoteWindow.cs:897
 msgid "Find _Next"
 msgstr "Sök _nästa"
 
-#: ../Tomboy/NoteWindow.cs:685
+#: ../Tomboy/NoteWindow.cs:708
 msgid "Find _Previous"
 msgstr "Sök _föregående"
 
-#: ../Tomboy/NoteWindow.cs:773
+#: ../Tomboy/NoteWindow.cs:796
 msgid "Cannot create note"
 msgstr "Kan inte skapa anteckning"
 
-#: ../Tomboy/NoteWindow.cs:854
+#: ../Tomboy/NoteWindow.cs:877
 msgid "_Find:"
 msgstr "_Sök:"
 
-#: ../Tomboy/NoteWindow.cs:865
+#: ../Tomboy/NoteWindow.cs:888
 msgid "_Previous"
 msgstr "_Föregående"
 
-#: ../Tomboy/NoteWindow.cs:884
+#: ../Tomboy/NoteWindow.cs:907
 msgid "Case _sensitive"
 msgstr "Skiftläges_känslig"
 
-#: ../Tomboy/NoteWindow.cs:1360
+#: ../Tomboy/NoteWindow.cs:1383
 msgid "_Bold"
 msgstr "_Fet"
 
-#: ../Tomboy/NoteWindow.cs:1372
+#: ../Tomboy/NoteWindow.cs:1395
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: ../Tomboy/NoteWindow.cs:1384
+#: ../Tomboy/NoteWindow.cs:1407
 msgid "_Strikeout"
 msgstr "_Genomstruken"
 
-#: ../Tomboy/NoteWindow.cs:1396
+#: ../Tomboy/NoteWindow.cs:1419
 msgid "_Highlight"
 msgstr "_Markera"
 
-#: ../Tomboy/NoteWindow.cs:1409
+#: ../Tomboy/NoteWindow.cs:1432
 msgid "Font Size"
 msgstr "Typsnittsstorlek"
 
-#: ../Tomboy/NoteWindow.cs:1412
+#: ../Tomboy/NoteWindow.cs:1435
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1419
+#: ../Tomboy/NoteWindow.cs:1442
 msgid "Hu_ge"
 msgstr "_Enorm"
 
-#: ../Tomboy/NoteWindow.cs:1427
+#: ../Tomboy/NoteWindow.cs:1450
 msgid "_Large"
 msgstr "_Stor"
 
-#: ../Tomboy/NoteWindow.cs:1435
+#: ../Tomboy/NoteWindow.cs:1458
 msgid "S_mall"
 msgstr "_Liten"
 
-#: ../Tomboy/NoteWindow.cs:1446
+#: ../Tomboy/NoteWindow.cs:1469
 msgid "Bullets"
 msgstr "Punkter"
 
@@ -680,12 +680,12 @@ msgstr "Punkter"
 msgid "Tomboy Project"
 msgstr "Tomboy-projektet"
 
-#: ../Tomboy/PluginManager.cs:607
+#: ../Tomboy/PluginManager.cs:612
 #, csharp-format
 msgid "Cannot fully disable {0}."
 msgstr "Kan inte fullständigt inaktivera {0}."
 
-#: ../Tomboy/PluginManager.cs:610
+#: ../Tomboy/PluginManager.cs:615
 #, csharp-format
 msgid ""
 "Cannot fully disable {0} as there still are at least {1} reference to this "
@@ -807,12 +807,12 @@ msgstr "Filnamn:"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: ../Tomboy/Preferences.cs:694
+#: ../Tomboy/Preferences.cs:698
 #, csharp-format
 msgid "{0} Settings"
 msgstr "Inställningar för {0}"
 
-#: ../Tomboy/Preferences.cs:755
+#: ../Tomboy/Preferences.cs:759
 msgid "Choose Note Font"
 msgstr "Välj anteckningstypsnitt"
 
@@ -1182,11 +1182,38 @@ msgstr "Namnlös"
 msgid "Sticky Note: "
 msgstr "Klisterlapp: "
 
+#~ msgid "Tags"
+#~ msgstr "Taggar"
+
+#~ msgid "Add/Remove note tags"
+#~ msgstr "Lägg till/ta bort anteckningstaggar"
+
+#~ msgid "Tags:"
+#~ msgstr "Taggar:"
+
+#~ msgid ""
+#~ "You can use any bugzilla just by dragging links into notes.  If you want "
+#~ "a special icon for certain hosts, add them here."
+#~ msgstr ""
+#~ "Du kan använda en valfri bugzilla helt enkelt genom att dra länkar till "
+#~ "anteckningar.  Om du vill ha en speciell ikon för vissa värddatorer kan "
+#~ "du lägga till dem här."
+
+#~ msgid "Note of the Day"
+#~ msgstr "Dagens anteckning"
+
+#~ msgid ""
+#~ "Change the <span weight=\"bold\">Today: Template</span> note to customize "
+#~ "the text that new Today notes have."
+#~ msgstr ""
+#~ "Ändra anteckningen <span weight=\"bold\">Idag: Mall</span> för att "
+#~ "anpassa texten som nya Idag-anteckningar använder."
+
+#~ msgid "_Open Today: Template"
+#~ msgstr "_Öppna Idag: Mall"
+
 #~ msgid "NotD: "
 #~ msgstr "Dagens anteckning:"
-
-#~ msgid "Create Note of the Day"
-#~ msgstr "Skapa en Dagens anteckning"
 
 #~ msgid "Welcome to Tomboy!"
 #~ msgstr "Välkommen till Tomboy!"
