@@ -1,11 +1,12 @@
-# Jorge González <jorge.gonzalez.gonzalez@hispalinux.es>, 2006, 2007.
+# Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
+# Jorge González <jorgegonz@svn.gnome.org>, 2006, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: tomboy_help.gnome-2-18.es\n"
-"POT-Creation-Date: 2007-03-06 02:53+0000\n"
-"PO-Revision-Date: 2007-04-02 19:11-0400\n"
-"Last-Translator: Jorge González <jorge.gonzalez.gonzalez@hispalinux.es>\n"
-"Language-Team: Español <traductores@es.gnome.org>\n"
+"Project-Id-Version: manual.tomboy.head\n"
+"POT-Creation-Date: 2007-03-01 03:14+0000\n"
+"PO-Revision-Date: 2007-04-22 20:23+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -169,8 +170,8 @@ msgid ""
 "Tomboy is a simple desktop note-taking application, with some powerful built-"
 "in features to help you organize your ideas."
 msgstr ""
-"Tomboy es una aplicación simple y fácil de usar para tomar notas en el escritorio, "
-"con algunas potentes características que le ayudan a organizar sus ideas."
+"Tomboy es una aplicación simple y fácil de usar para tomar notas en el escritorio, con algunas potentes características que le ayudan a organizar "
+"sus ideas."
 
 #: C/tomboy.xml:31(year) C/tomboy.xml:49(year)
 msgid "2007"
@@ -259,10 +260,8 @@ msgid ""
 "application or this manual, follow the directions in the <ulink type=\"help"
 "\" url=\"ghelp:gnome-feedback\">GNOME Feedback Page</ulink>."
 msgstr ""
-"Para informar de un fallo, o hacer alguna sugerencia concerniente a la "
-"aplicación <application>Tomboy</application> o este manual, siga las "
-"indicaciones en la <ulink url=\"ghelp:gnome-feedback\" type=\"help\">Página "
-"de sugerencias de Gnome</ulink>."
+"Para informar de un fallo, o hacer alguna sugerencia concerniente a la aplicación <application>Tomboy</application> o este manual, siga las "
+"indicaciones en la <ulink url=\"ghelp:gnome-feedback\" type=\"help\">Página de sugerencias de Gnome</ulink>."
 
 #: C/tomboy.xml:157(primary)
 msgid "Tomboy Notes"
@@ -290,10 +289,7 @@ msgid ""
 "to use, and allows you to organize the ideas and information you deal with "
 "every day. Tomboy has some very useful editing features to help you "
 "customize your notes, including:"
-msgstr ""
-"Tomboy es una aplicación para tomar notas en el escritorio GNOME. Es fácil y simple de usar "
-"y le permite organizar las ideas e información con la que trata a diario. Tomboy tiene algunas "
-"características de edición muy útiles para ayudarle a personalizar sus notas, incluyendo:"
+msgstr "Tomboy es una aplicación para tomar notas en el escritorio GNOME. Es simple y fácil de usar y le permite organizar las ideas e información con la que trata a diario. Tomboy tiene algunas características de edición muy útiles para ayudarle a personalizar sus notas, incluyendo:"
 
 #: C/tomboy.xml:190(para)
 msgid "Highlighting Search Text"
@@ -324,8 +320,8 @@ msgid ""
 "Tomboy is accessed through the GNOME panel. To startup Tomboy automatically "
 "when you log into GNOME, see the section <xref linkend=\"add-to-panel\"/>."
 msgstr ""
-"A Tomboy se accede a través del panel de GNOME. Para iniciar Tomboy atomáticamente "
-"cuando inicie la sesión en GNOME, vea la sección <xref linkend=\"add-to-panel\"/>."
+"A Tomboy se accede a través del panel de GNOME. Para iniciar Tomboy atomáticamente cuando inicie la sesión en GNOME, vea la sección <xref "
+"linkend=\"add-to-panel\"/>."
 
 #: C/tomboy.xml:222(title)
 msgid "Getting Started"
@@ -343,12 +339,7 @@ msgid ""
 "<menuchoice><guibutton>Add</guibutton></menuchoice>. You should see a yellow "
 "note icon appear in the panel, representing Tomboy. The panel icon is "
 "illustrated in <xref linkend=\"tomboy-panel\"/>."
-msgstr ""
-"Para añadir Tomboy a un panel, pulse con el botón derecho en el panel, "
-"después elija <menuchoice><guimenuitem>Añadir al panel</guimenuitem></menuchoice>. "
-"Seleccione Notas Tomboy en el diálogo de añadir al panel. Entonces "
-"debería ver aparecer un icono de notas amarillo en el panel, que representa "
-"a Tomboy. El icono del panel está ilustrado en <xref linkend=\"tomboy-panel\"/>."
+msgstr "Para añadir Tomboy a un panel, pulse con el botón derecho en el panel, después elija <menuchoice><guimenuitem>Añadir al panel</guimenuitem></menuchoice>. Seleccione Notas Tomboy en el diálogo de añadir al panel. Entonces debería ver aparecer un icono de notas amarillo en el panel, que representa a Tomboy. El icono del panel está ilustrado en <xref linkend=\"tomboy-panel\"/>."
 
 #: C/tomboy.xml:239(title)
 msgid "Creating Notes"
@@ -358,9 +349,7 @@ msgstr "Crear notas"
 msgid ""
 "Once you have successfully added Tomboy to the Panel, you can create new "
 "notes using one of the following methods."
-msgstr ""
-"Una vez que ha añadido correctamente Tomboy al panel, puede crear nuevas notas "
-"usando uno de los siguientes métodos."
+msgstr "Una vez que ha añadido correctamente Tomboy al panel, puede crear nuevas notas usando uno de los siguientes métodos."
 
 #: C/tomboy.xml:244(para)
 msgid "To create a new note using the mouse:"
@@ -374,9 +363,7 @@ msgstr "Pulse sobre el icono de Tomboy presente en el panel de GNOME. Aparecerá
 msgid ""
 "Select the <menuchoice><guimenuitem>Create New Note</guimenuitem></"
 "menuchoice> option in the menu."
-msgstr ""
-"Seleccione la opción <menuchoice><guimenuitem>Crear nueva nota</guimenuitem></"
-"menuchoice> del menú."
+msgstr "Seleccione la opción <menuchoice><guimenuitem>Crear nueva nota</guimenuitem></menuchoice> del menú."
 
 #: C/tomboy.xml:259(para)
 msgid "To create a new note using the keyboard:"
@@ -386,9 +373,7 @@ msgstr "Para crear una nueva nota usando el teclado:"
 msgid ""
 "Open the Tomboy menu using the key combination <keycombo><keycap>Alt</"
 "keycap><keycap>F12</keycap></keycombo>."
-msgstr ""
-"Abra el menú de Tomboy usando la combinación de teclas <keycombo><keycap>Alt</"
-"keycap><keycap>F12</keycap></keycombo>."
+msgstr "Abra el menú de Tomboy usando la combinación de teclas <keycombo><keycap>Alt</keycap><keycap>F12</keycap></keycombo>."
 
 #: C/tomboy.xml:271(para)
 msgid ""
@@ -407,7 +392,7 @@ msgid ""
 "note is a toolbar with several buttons and text. Directly below this toolbar "
 "is the content area of the note. This is illustrated in <xref linkend=\"new-"
 "note\"/>."
-msgstr "Después de crear una nota nueva, una nueva ventana aparecerá con el título <literal>Nueva Nota <replaceable>N</replaceable></literal>. En la parte superior de la nota hay una barra de herramientas con varios botones y texto. Directamente debajo de esta barra de herramientas está el area de contenidos de la nota. Esta es ilustrada en <xref linkend=\"new-note\" />."
+msgstr "Después de crear una nota nueva, una nueva ventana aparecerá con el título <literal>Nueva nota <replaceable>N</replaceable></literal>. En la parte superior de la nota hay una barra de herramientas con varios botones y texto. Directamente debajo de esta barra de herramientas está el área de contenidos de la nota. Esto se ilustra en <xref linkend=\"new-note\" />."
 
 #: C/tomboy.xml:288(para)
 msgid ""
@@ -420,17 +405,14 @@ msgid ""
 "creation of a new note, so you can immediately start editing the note "
 "without the need to click on the content area with the mouse."
 msgstr ""
-"Esta nota puede ser editada al hacer clic en el area de contenidos y usando el teclado para agregar y remover contenidos. La primera línea es considerada el título de la nota. Por defecto, esta es poblada con el texto <quote><literal>Nueva Nota <replaceable>N</replaceable></literal></quote>. El título se puede cambiar mediante un clic en la primera línea del area de contenido y usando el teclado. Por defecto, \n"
-"el foco es dado al area de contenido tras la creación de una nota nueva, por lo que se puede comenzar la edición de ésta sin necesidad \n"
-"de hacer clic en el area de contenidos con el ratón."
+"Esta nota se puede editar al pulsar en el área de contenidos y usando el teclado para añador y eliminar contenidos. La primera línea es "
+"el título de la nota. De forma predeterminada, ésta se rellena con el texto <quote><literal>Nueva nota <replaceable>N</replaceable></literal></quote>. El título se puede cambiar pulsando en la primera línea del área de contenido y usando el teclado. De forma predeterminada, el foco está en el área de contenido tras la creación de una nueva nota, por lo que se puede comenzar la edición de ésta sin necesidad de pulsar en el área de contenidos con el ratón."
 
 #: C/tomboy.xml:298(para)
 msgid ""
 "Using the toolbar available on each note is discussed in the section <xref "
 "linkend=\"working-with-notes\"/>."
-msgstr ""
-"El uso de la barra de herramientas en cada nota está explicado en la sección <xref "
-"linkend=\"working-with-notes\"/>."
+msgstr "El uso de la barra de herramientas en cada nota está explicado en la sección <xref linkend=\"working-with-notes\"/>."
 
 #: C/tomboy.xml:302(title)
 msgid "The default window for a New Note"
@@ -450,12 +432,8 @@ msgid ""
 "guilabel> column headings to change the sort order. Click the column heading "
 "a second time to toggle between ascending and descending order."
 msgstr ""
-"Para obtener una visión general de todas las notas administradas por Tomboy, seleccione el elemento del menú "
-"<menuchoice><guimenuitem>Buscar en todas las notas</guimenuitem></menuchoice>del menú del panel. "
-"El diálogo de <interface>Buscar en todas las notas</interface> mostrará por omisión las notas en orden de su "
-"última modificación. Pulse sobre el título de la columna <guilabel>Nota</guilabel> o <guilabel>Último cambio</"
-"guilabel> para cambiar el orden. Pulse sobre el título de la columna una segunda vez para conmutar entre orden "
-"ascendente o descendente."
+"Para obtener una visión general de todas las notas administradas por Tomboy, seleccione el elemento del menú <menuchoice><guimenuitem>Buscar en todas las notas</guimenuitem></menuchoice>del menú del panel. El diálogo de "
+"<interface>Buscar en todas las notas</interface> mostrará de forma predeterminada las notas en orden de su última modificación. Pulse sobre el título de la columna <guilabel>Nota</guilabel> o <guilabel>Último cambio</guilabel> para cambiar el orden. Pulse sobre el título de la columna una segunda vez para conmutar entre orden ascendente o descendente."
 
 #: C/tomboy.xml:325(para)
 msgid ""
@@ -479,15 +457,17 @@ msgid ""
 "Highlight a note by selecting it and then select "
 "<menuchoice><guimenuitem>Open</guimenuitem></menuchoice> from the "
 "<guimenuitem>File</guimenuitem> menu."
-msgstr "Resalte una nota seleccionándola y después seleccionando <menuchoice><guimenuitem>Abrir</guimenuitem></menuchoice> del menú <guimenuitem>Archivo</guimenuitem>."
+msgstr ""
+"Resalte una nota seleccionándola y después seleccionando <menuchoice><guimenuitem>Abrir</guimenuitem></menuchoice> del menú "
+"<guimenuitem>Archivo</guimenuitem>."
 
 #: C/tomboy.xml:345(para)
 msgid ""
 "Right-click on a note and select <menuchoice><guimenuitem>Open</"
 "guimenuitem></menuchoice> from the context menu that appears."
 msgstr ""
-"Pulse con el botón derecho del ratón y seleccione <menuchoice><guimenuitem>Abrir</"
-"guimenuitem></menuchoice> del menú contextual que aparecerá."
+"Pulse con el botón derecho del ratón y seleccione <menuchoice><guimenuitem>Abrir</guimenuitem></menuchoice> del menú "
+"contextual que aparecerá."
 
 #: C/tomboy.xml:351(para)
 msgid ""
@@ -505,9 +485,7 @@ msgid ""
 "toolbar at the top of each note allows you to stylize the note and perform "
 "other note-related functions. We discuss the functions of each item on the "
 "toolbar in the following sections."
-msgstr ""
-"Las notas son modificaas y editadas a través de la ventana principal de cada nota. La barra de herramientas en la parte superior de cada nota permite darle estilo a la nota y realizar otras tareas relacionadas con ésta. Discutiremos las funciones de cada ítem de la \n"
-"barra de herramientas en las siguientes secciones."
+msgstr "Las notas se modifican y editan a través de la ventana principal de cada nota. La barra de herramientas en la parte superior de cada nota permite darle estilo a la nota y realizar otras táreas relacionadas con ésta. Se discutirán las funciones de cada elemento de la barra de herramientas en las siguientes secciones."
 
 #: C/tomboy.xml:373(title)
 msgid "Search"
@@ -518,11 +496,11 @@ msgid ""
 "Clicking the <guibutton>Search</guibutton> button will open the "
 "<interface>Search All Notes</interface> dialog described earlier (<xref "
 "linkend=\"search-all-notes\"/>.)"
-msgstr "Haciendo clic en el botón <guibutton>Buscar</guibutton> abrirá el diálogo <interface>Buscar en todas las notas</interface> descrito previamente (<xref linkend=\"search-all-notes\" />)."
+msgstr "Pulsando el botón <guibutton>Buscar</guibutton> abrirá el diálogo <interface>Buscar en todas las notas</interface> descrito previamente (<xref linkend=\"search-all-notes\" />)."
 
 #: C/tomboy.xml:381(title)
 msgid "Link"
-msgstr "Enlazar"
+msgstr "Enlace"
 
 #: C/tomboy.xml:383(para)
 msgid ""
@@ -532,7 +510,9 @@ msgid ""
 "click the <guibutton>Link</guibutton> button to create a new note with the "
 "title <quote>FinalExam</quote>. A link will also be created in the current "
 "note that can be clicked to open the new <quote>FinalExam</quote> note."
-msgstr "El botón <guibutton>Enlazar</guibutton> le permite crear un enlace a una nueva nota desde el interior de la nota actual. Por ejemplo, si su nota contiene la frase <quote>ExamenFinal</quote>, puede seleccionar este texto con el mouse y hacer clic en el botón <guibutton>Enlazar</guibutton> para crear una nueva nota con el título <quote>ExamenFinal</quote>. Se creará además un enlace en la nota actual sobre el cual se puede hacer clic para abrir la nueva nota <quote>ExamenFinal</quote>."
+msgstr ""
+"El botón <guibutton>Enlazar</guibutton> le permite crear un enlace a una nueva nota desde el interior de la nota actual. Por ejemplo, si su nota "
+"contiene la frase <quote>Examen final</quote>, puede seleccionar este texto con el ratón y pulsar el botón <guibutton>Enlazar</guibutton> para crear una nueva nota con el título <quote>Examen final</quote>. Se creará además un enlace en la nota actual sobre el cual se puede pulsar para abrir la nueva nota <quote>Examen final</quote>."
 
 #: C/tomboy.xml:392(para)
 msgid ""
@@ -550,7 +530,9 @@ msgid ""
 "guibutton> button. The <guibutton>Text</guibutton> button will display a "
 "drop down menu with several options from which you can choose. Each menu "
 "item is explained next."
-msgstr "Se puede dar formato al texto dentro de sus notas mediante el botón <guibutton>Texto</guibutton>. El botón <guibutton>Texto</guibutton> desplegará un menú emergente con multiples opciones desde las cuales elegir. Cada ítem del menú se explica a continuación."
+msgstr ""
+"Se puede dar formato al texto dentro de sus notas mediante el botón <guibutton>Texto</guibutton>. El botón <guibutton>Texto</guibutton> "
+"desplegará un menú emergente con multiples opciones desde las cuales elegir. Cada elemento del menú se explica a continuación."
 
 #: C/tomboy.xml:408(term)
 msgid "Undo"
@@ -563,7 +545,7 @@ msgid ""
 "note during the current session. To undo your last change using the "
 "keyboard, use the standard keybinding, <keycombo><keycap>Ctrl</"
 "keycap><keycap>Z</keycap></keycombo>."
-msgstr "El soporte para <quote>Deshacer</quote> está disponible en Tomboy a través de este ítem del menú. La funcion Deshacer le permite revertir cambios hechos previamente a su nota durante la sesión actual. Para deshacer su último cambio usando el teclado, utilice el atajo por defecto, <keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo>."
+msgstr "El soporte para <quote>Deshacer</quote> está disponible en Tomboy a través de este elemento del menú. La funcion deshacer le permite revertir cambios hechos previamente a su nota durante la sesión actual. Para deshacer su último cambio usando el teclado, utilice el atajo de teclado predeterminado <keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo>."
 
 #: C/tomboy.xml:424(term)
 msgid "Redo"
@@ -576,7 +558,7 @@ msgid ""
 "using the keyboard, use the standard keybinding, <keycombo><keycap>Shift</"
 "keycap><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo>."
 msgstr ""
-"La función <quote>Rehacer</quote> es utilizada para reestablecer cambios que fueron eliminados por medio de la característica <quote>Deshacer</quote>. Para rehacer el último cambio deshecho usando el teclado, utilice el atajo por defecto, \n"
+"La función <quote>Rehacer</quote> se utiliza para reestablecer cambios que fueron eliminados por medio de la característica <quote>Deshacer</quote>. Para rehacer el último cambio deshecho usando el teclado, utilice el atajo de teclado predeterminado"
 "<keycombo><keycap>Máyus.</keycap><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo>."
 
 #: C/tomboy.xml:441(term)
@@ -590,7 +572,7 @@ msgid ""
 "menuchoice> option from the <guibutton>Text</guibutton> dropdown menu. You "
 "may also use the keybinding <keycombo><keycap>Ctrl</keycap><keycap>B</"
 "keycap></keycombo> after selecting the text."
-msgstr "Para poner texto de su nota en negrita, primero seleccione el texto que desea modificar. Luego seleccione la opción <menuchoice><guimenuitem>Negrita</guimenuitem></menuchoice> desde el ménu desplegable <guibutton>Texto</guibutton>. Además puede usar el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>B</keycap></keycombo> luego de haber seleccionado el texto."
+msgstr "Para poner texto de su nota en negrita, primero seleccione el texto que desea modificar. Luego seleccione la opción <menuchoice><guimenuitem>Negrita</guimenuitem></menuchoice> desde el ménu desplegable <guibutton>Texto</guibutton>. Además puede usar el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>B</keycap></keycombo> después de haber seleccionado el texto."
 
 #: C/tomboy.xml:457(term)
 msgid "Italic"
@@ -604,8 +586,8 @@ msgid ""
 "may also use the keybinding <keycombo><keycap>Ctrl</keycap><keycap>I</"
 "keycap></keycombo> after selecting the text."
 msgstr ""
-"Para poner texto en su nota en cursiva, primero seleccioe el texto que desea modificar. Luego seleccione la opción <menuchoice><guimenuitem>Cursiva</guimenuitem></menuchoice> desde el menu desplegable <guibutton>Texto</guibutton>. \n"
-"Además puede usar el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>I</keycap></keycombo> luego de haber seleccionado el texto."
+"Para poner texto en su nota en cursiva, primero seleccione el texto que desea modificar. Luego seleccione la opción <menuchoice><guimenuitem>Cursiva</guimenuitem></menuchoice> desde el menu desplegable <guibutton>Texto</guibutton>. \n"
+"Además puede usar el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>I</keycap></keycombo> después de haber seleccionado el texto."
 
 #: C/tomboy.xml:473(term)
 msgid "Strikeout"
@@ -619,11 +601,13 @@ msgid ""
 "the <guibutton>Text</guibutton> dropdown menu. You may also use the "
 "keybinding <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo> "
 "after selecting the text."
-msgstr "El estilo tachado pondrá una linea a través del texto seleccionado. Para tachar texto, seleccione el texto a modificar y luego seleccione la opción <menuchoice><guimenuitem>Tachado</guimenuitem></menuchoice> desde el menu desplegable <guibutton>Texto</guibutton>. Además puede utilizar el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo> después de haber seleccionado el texto."
+msgstr ""
+"El estilo tachado pondrá una linea a través del texto seleccionado. Para tachar texto, seleccione el texto a modificar y luego seleccione la opción "
+"<menuchoice><guimenuitem>Tachado</guimenuitem></menuchoice> desde el menu desplegable <guibutton>Texto</guibutton>. Además puede utilizar el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo> después de haber seleccionado el texto."
 
 #: C/tomboy.xml:490(term)
 msgid "Highlight"
-msgstr "Resaltado"
+msgstr "Resaltar"
 
 #: C/tomboy.xml:493(para)
 msgid ""
@@ -633,7 +617,9 @@ msgid ""
 "the <guibutton>Text</guibutton> dropdown menu. You may also use the "
 "keybinding <keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo> "
 "after selecting the text."
-msgstr "El estilo resaltado pondrá un fondo amarillo alrededor del texto seleccionado. Para agregar resaltado, seleccione el texto y luego seleccione la opción <menuchoice><guimenuitem>Resaltado</guimenuitem></menuchoice>desde el menu desplegable <guibutton>Texto</guibutton>. Además puede utilizar el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo> luego de haber seleccionado el texto."
+msgstr ""
+"El estilo resaltado pondrá un fondo amarillo alrededor del texto seleccionado. Para añadir resaltado, seleccione el texto y luego seleccione "
+"la opción <menuchoice><guimenuitem>Resaltado</guimenuitem></menuchoice>desde el menu desplegable <guibutton>Texto</guibutton>. Además puede utilizar el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo> después de haber seleccionado el texto."
 
 #: C/tomboy.xml:507(term) C/tomboy.xml:1016(member) C/tomboy.xml:1101(term)
 msgid "Fixed Width"
@@ -648,14 +634,16 @@ msgid ""
 "<menuchoice><guimenuitem>Fixed Width</guimenuitem></menuchoice> option from "
 "the <guibutton>Text</guibutton> before you start typing to have the text you "
 "type be in a fixed width style."
-msgstr "El estilo de anchura fija permite al texto utilizar una fuente de anchura fija. Para cambiar texto existente, primero seleccione el texto a modificar. Luego seleccione la opción <menuchoice><guimenuitem>Anchura Fija</guimenuitem></menuchoice> desde el menú desplegable <guibutton>Texto</guibutton>. Se puede además seleccionar la opción <menuchoice><guimenuitem>Anchura Fija</guimenuitem></menuchoice> antes de comenzar a escribir texto para que este utilice una fuente de anchura fija."
+msgstr ""
+"El estilo de anchura fija permite al texto utilizar una fuente de anchura fija. Para cambiar texto existente, primero seleccione el texto a modificar. "
+"Luego seleccione la opción <menuchoice><guimenuitem>Anchura fija</guimenuitem></menuchoice> desde el menú desplegable <guibutton>Texto</guibutton>. Además se puede seleccionar la opción <menuchoice><guimenuitem>Anchura fija</guimenuitem></menuchoice> antes de comenzar a escribir texto para que éste utilice una tipografía de anchura fija."
 
 #: C/tomboy.xml:521(para)
 msgid ""
 "The <menuchoice><guimenuitem>Fixed Width</guimenuitem></menuchoice> option "
 "is a feature provided by the Fixed Width Plugin. For more information on "
 "plugins, see <xref linkend=\"plugins\"/>."
-msgstr "La opción <menuchoice><guimenuitem>Anchura Fija</guimenuitem></menuchoice> es una caracteristica provista por el Complemento Anchura Fija. Para más información sobre complementos, vea <xref linkend=\"plugins\" />."
+msgstr "La opción <menuchoice><guimenuitem>Anchura fija</guimenuitem></menuchoice> es una caracteristica provista por el complemento anchura fija. Para obtener más información sobre complementos, vea <xref linkend=\"plugins\" />."
 
 #: C/tomboy.xml:530(term)
 msgid "Font size"
@@ -684,7 +672,7 @@ msgid ""
 "text in the note. To modify the font size, select the text and then select "
 "one of <placeholder-2/> options from the <guibutton>Text</guibutton> "
 "dropdown menu."
-msgstr "Existen realmente cuatro opciones en esta parte del menú: <placeholder-1/>. Cada una de estas opciones representa un tamaño de fuente a utilizar para el texto seleccionado en la nota. Para modificar el tamaño de la fuente, seleccione el texto y luego seleccione una de las opciones de <placeholder-2/> desde el menú desplegable <guibutton>Texto</guibutton>."
+msgstr "Existen realmente cuatro opciones en esta parte del menú: <placeholder-1/>. Cada una de estas opciones representa un tamaño de tipografía a utilizar para el texto seleccionado en la nota. Para modificar el tamaño de la tipografía, seleccione el texto y luego seleccione una de las opciones de <placeholder-2/> desde el menú desplegable <guibutton>Texto</guibutton>."
 
 #: C/tomboy.xml:558(term)
 msgid "Bullets"
@@ -692,11 +680,11 @@ msgstr "Topos"
 
 #: C/tomboy.xml:566(guilabel)
 msgid "Increase Indent"
-msgstr "Incrementar la sangría"
+msgstr "Aumentar sangría"
 
 #: C/tomboy.xml:568(guilabel)
 msgid "Decrease Indent"
-msgstr "Reducir la sangría"
+msgstr "Disminuir sangría"
 
 #: C/tomboy.xml:561(para)
 msgid ""
@@ -704,7 +692,7 @@ msgid ""
 "option from the <guibutton>Text</guibutton> dropdown menu to begin or end a "
 "bulleted list. If the cursor is inside a bulleted list, the <placeholder-1/> "
 "options will be enabled."
-msgstr "Seleccione la opción <menuchoice><guimenuitem>Topos</guimenuitem></menuchoice> desde el menú desplegable <guibutton>Texto</guibutton> para comenzar o finalizar una lista con topos. Si el cursor está dentro de una lista con topos, las opciones <placeholder-1> serán activadas."
+msgstr "Seleccione la opción <menuchoice><guimenuitem>Topos</guimenuitem></menuchoice> desde el menú desplegable <guibutton>Texto</guibutton> para comenzar o finalizar una lista de topos. Si el cursor está dentro de una lista de topos, se activarán las opciones <placeholder-1>."
 
 #: C/tomboy.xml:571(para)
 msgid ""
@@ -713,11 +701,11 @@ msgid ""
 "to shift the current line to the right or the "
 "<menuchoice><guimenuitem>Decrease Indent</guimenuitem></menuchoice> option "
 "to shift the current line to the left."
-msgstr "Con el cursor en una línea de una lista con topos, seleccione la opción <menuchoice><guimenuitem>Aumentar sangría</guimenuitem></menuchoice> para hacer saltar la linea actual hacia la derecha o la opción <menuchoice><guimenuitem>Disminuir sangría</guimenuitem></menuchoice> para hacer saltar la línea actual hacia la izquierda."
+msgstr "Con el cursor en una línea de una lista de topos, seleccione la opción <menuchoice><guimenuitem>Aumentar sangría</guimenuitem></menuchoice> para incrementar la linea actual hacia la derecha o la opción <menuchoice><guimenuitem>Disminuir sangría</guimenuitem></menuchoice> para reducir la línea actual hacia la izquierda."
 
 #: C/tomboy.xml:580(para)
 msgid "For more information on bullets, see <xref linkend=\"bullets\"/>."
-msgstr "Para más información sobre topos, vea <xref linkend=\"bullets\" />."
+msgstr "Para obtener más información sobre topos, vea <xref linkend=\"bullets\" />."
 
 #: C/tomboy.xml:586(term)
 msgid "Find in This Note"
@@ -729,7 +717,7 @@ msgid ""
 "open up at the bottom of the note. To open the find bar using the keyboard, "
 "use the standard keybinding, <keycombo><keycap>Ctrl</keycap><keycap>F</"
 "keycap></keycombo>."
-msgstr "Use esto para buscar texto dentro de la nota actual. Una pequeña barra de busqueda se abrirá en la parte inferior de la nota. Para abrir la barra de búsqueda usando el teclado, utilice el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>."
+msgstr "Use esto para buscar texto dentro de la nota actual. Una pequeña barra de busqueda se abrirá en la parte inferior de la nota. Para abrir la barra de búsqueda usando el teclado, use el atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>."
 
 #: C/tomboy.xml:597(para)
 msgid ""
@@ -737,7 +725,10 @@ msgid ""
 "Click <guibutton>Find Next</guibutton> to highlight the next match and place "
 "the cursor there. Click <guibutton>Previous</guibutton> to move to the "
 "previous match."
-msgstr "Ingrese el texto a buscar. Luego de haber ingresado el texto, las coincidencias serán destacadas. Haga clic en <guibutton>Buscar Siguiente</guibutton> para destaar la siguiente coincidencia y ubicar el cursor ahí. Haga clic en <guibutton>Anterior</guibutton> para ir a la coincidencia anterior."
+msgstr ""
+"Introduzca el texto a buscar. Después de haber introducido el texto, se resaltarán las coincidencias. Pulse en <guibutton>Buscar siguiente</"
+"guibutton> para resaltar la siguiente coincidencia y ubicar el cursor allí. Pulse <guibutton>Anterior</guibutton> para ir a la coincidencia "
+"anterior."
 
 #: C/tomboy.xml:603(para)
 msgid ""
@@ -749,7 +740,7 @@ msgstr "Use la casilla <guibutton>Sensible a mayúsculas</guibutton> para limita
 msgid ""
 "To close the find bar, click <guibutton>X</guibutton> (Close Button) on the "
 "far left or press the <keycap>Escape</keycap> key."
-msgstr "Para cerrar la barra de búsqueda, haga clic en la <guibutton>X</guibutton> (botón cerrar) a la izquierda, o presione la tecla <keycap>Escape</keycap>."
+msgstr "Para cerrar la barra de búsqueda, pulse en la <guibutton>X</guibutton> (botón cerrar) a la izquierda, o pulse la tecla <keycap>Escape</keycap>."
 
 #: C/tomboy.xml:616(title)
 msgid "Tools (gear icon)"
@@ -761,7 +752,7 @@ msgid ""
 "fileref=\"figures/tomboy-tools.png\"/> icon. When you click the "
 "<guiicon>Tools</guiicon> icon on the toolbar present on your note, a "
 "dropdown menu will appear with the following items:"
-msgstr "El botón <guibutton>Herramientas</guibutton> está representado por el icono <inlinegraphic fileref=\"figures/tomboy-tools.png\"/>. Cuando haga clic en el icono <guiicon>Herramientas</guiicon> en la barra de herramientas presente en una su nota, un menú desplegable aparecerá con los siguientes ítems:"
+msgstr "El botón <guibutton>Herramientas</guibutton> está representado por el icono <inlinegraphic fileref=\"figures/tomboy-tools.png\"/>. Cuando pulse en el icono <guiicon>Herramientas</guiicon> en la barra de herramientas presente en su nota, aparecerá un menú desplegable con los siguientes elementos:"
 
 #: C/tomboy.xml:625(term)
 msgid "Open Plugins Folder"
@@ -772,7 +763,9 @@ msgid ""
 "This option will open the plugins folder for Tomboy in the File Browser "
 "application. For more information on plugins, see <xref linkend=\"plugins\"/"
 ">."
-msgstr "Esta opción abrirá la carpeta de los complementos para Tomboy en la aplicación de navegación de archivos. Para más información sobre complementos, vea <xref linkend=\"plugins\"/>."
+msgstr ""
+"Esta opción abrirá la carpeta de los complementos para Tomboy en la aplicación de navegación de archivos. Para obtener más información sobre "
+"complementos, vea <xref linkend=\"plugins\"/>."
 
 #: C/tomboy.xml:635(term)
 msgid "What links here?"
@@ -783,7 +776,7 @@ msgid ""
 "This option allows you to quickly see what other notes link to the current "
 "note. This feature is provided by the Backlinks Plugin. For more information "
 "on plugins, see <xref linkend=\"plugins\"/>."
-msgstr "Esta opción le permite ver rápidamente que otras notas enlazan a la nota actual. Esta característica es provista por el complemento de enlaces inversos. Para mayor información sobre complementos, vea <xref linkend=\"plugins\" />."
+msgstr "Esta opción le permite ver rápidamente que otras notas enlazan a la nota actual. El complemento de retroenlaces proporciona esta característica. Para obtener más información sobre complementos, vea <xref linkend=\"plugins\" />."
 
 #: C/tomboy.xml:646(term) C/tomboy.xml:1014(member) C/tomboy.xml:1081(term)
 msgid "Export to HTML"
@@ -794,7 +787,7 @@ msgid ""
 "You can create an <acronym>HTML</acronym> (Hypertext Markup Language) "
 "document from one or more notes by selecting this option. For more "
 "information, please see <xref linkend=\"plugins\"/>."
-msgstr "Usted puede crear un documento <acronym>HTML</acronym> (Hypertext Markup Language) de una o más notas seleccionando esta opción. Para más información, por favor vea <xref linkend=\"plugins\"/>."
+msgstr "Puede crear un documento <acronym>HTML</acronym> (HyperText Markup Language) de una o más notas seleccionando esta opción. Para obtener más información, por favor vea <xref linkend=\"plugins\"/>."
 
 #: C/tomboy.xml:657(term)
 msgid "Print"
@@ -810,7 +803,7 @@ msgstr "Seleccione esta opción para imprimir la nota actual. Se le presentará 
 msgid ""
 "Depending on the plugins that you have installed for Tomboy, you may have "
 "more or less items available in the <guimenu>Tools</guimenu> menu."
-msgstr "Dependiendo de los complementos para Tomboy instalados, usted tendrá más o menos items disponibles en el menú <guimenu>Herramientas</guimenu>."
+msgstr "Dependiendo de los complementos instalados para Tomboy, tendrá más o menos elementos disponibles en el menú <guimenu>Herramientas</guimenu>."
 
 #: C/tomboy.xml:674(title)
 msgid "Delete"
@@ -823,7 +816,7 @@ msgid ""
 "<guibutton>Delete</guibutton> button to discard the note permanently, or "
 "<guibutton>Cancel</guibutton> to abort the process. Links to this note from "
 "other notes will still exist, but will re-create the note upon activation."
-msgstr "El botón <guibutton>Borrar</guibutton> abrirá un diálogo emergente que le preguntará si desea eliminar permanentemente la nota y sus contenidos. Haga clic en el botón <guibutton>Borrar</guibutton> para eliminar la nota permanentenmente, o <guibutton>Cancelar</guibutton> para abortar el proceso. Enlaces a esta desde otras notas existirán, pero recrearán esta nota cuando sean activados. "
+msgstr "El botón <guibutton>Borrar</guibutton> abrirá un diálogo emergente que le preguntará si desea eliminar permanentemente la nota y su contenido. Pulse el botón <guibutton>Borrar</guibutton> para eliminar la nota permanentenmente, o <guibutton>Cancelar</guibutton> para abortar el proceso. Los enlaces a esta nota desde otras notas seguirán existiendo, pero recrearán esta nota al ser activados."
 
 #: C/tomboy.xml:688(title)
 msgid "Panel Menu"
@@ -833,7 +826,7 @@ msgstr "Menú del panel"
 msgid ""
 "Tomboy keeps the most recently used notes quickly available to you in a menu "
 "that appears when you click on the Tomboy Icon in the GNOME Panel."
-msgstr "Tomboy mantiene las notas más recientemente usadas disponibles rápidamente para usted en un menú que aparece al hacer clic en el ícono de Tomboy en el Panel de GNOME."
+msgstr "Tomboy mantiene las notas más recientemente usadas disponibles de forma rápida en un menú que aparece al pulsar sobre el icono de Tomboy en el Panel de GNOME."
 
 #: C/tomboy.xml:695(title)
 msgid "Note Pinning"
@@ -847,7 +840,9 @@ msgid ""
 "this: <inlinegraphic fileref=\"figures/tomboy-pindown.png\"/>. Notes that "
 "are not pinned to the panel menu will have thumbtack icons that look like "
 "this: <inlinegraphic fileref=\"figures/tomboy-pinup.png\"/>."
-msgstr "Para forzar a una nota a estar siempre en el panel, sin importar cuando fue utilizada por última vez, haga clic en el ícono de .... para \"pinchar\" la nota al menú. Notas que están pinchadas en el menú del panel tendrán un ícono de ... que se ve así: <inlinegraphic fileref=\"figures/tomboy-pindown.png\"/>. Notas que no están pinchadas al menú del panel tendrán íconos de ... que se ven así: <inlinegraphic fileref=\"figures/tomboy-pinup.png\"/>."
+msgstr ""
+"Para forzar a una nota a estar siempre en el panel, sin importar cuando se utilizó por última vez, pulse en el icono para «pincharla» al menú. Las notas que están pinchadas en el menú del panel tendrán un icono de pegado que se ve así: <inlinegraphic fileref=\"figures/tomboy-pindown."
+"png\"/>. Las notas que no están pinchadas al menú del panel tendrán iconos de pegado que se ven así: <inlinegraphic fileref=\"figures/tomboy-pinup.png\"/>."
 
 #: C/tomboy.xml:706(title)
 msgid "Tomboy Panel Menu"
@@ -855,11 +850,11 @@ msgstr "Menú del panel de Tomboy"
 
 #: C/tomboy.xml:723(title)
 msgid "Begin a bulleted list"
-msgstr "Comenzar una lista con topos"
+msgstr "Comenzar una lista de topos"
 
 #: C/tomboy.xml:725(para)
 msgid "You may begin a bulleted list by using one of the following methods:"
-msgstr "Usted puede comenzar una lista con topos mediante uno de los siguientes métodos:"
+msgstr "Puede comenzar una lista de topos mediante uno de los siguientes métodos:"
 
 #: C/tomboy.xml:730(para) C/tomboy.xml:751(para)
 msgid ""
@@ -871,33 +866,33 @@ msgstr "Seleccione <menuchoice><guimenu>Topos</guimenu><menuchoice> del menú de
 msgid ""
 "Begin a line with a single dash character (-), type some text immediately "
 "following the dash, and press <keycap>Enter</keycap>."
-msgstr "Comience una línea con un caracter guión (-), escriba algún texto inmediatamente después del guión, y presione <keycap>Enter</keycap>."
+msgstr "Comience una línea con un caracter guión (-), escriba algún texto inmediatamente después del guión, y pulse <keycap>Retorno</keycap>."
 
 #: C/tomboy.xml:745(title)
 msgid "End a bulleted list"
-msgstr "Finalizar una lista con topos"
+msgstr "Finalizar una lista de topos"
 
 #: C/tomboy.xml:747(para)
 msgid "End a bulleted list by doing one of the following:"
-msgstr "Finalice una lista con topos haciendo lo siguiente:"
+msgstr "Finalice una lista de topos haciendo lo siguiente:"
 
 #: C/tomboy.xml:758(para)
 msgid "Press <keycap>Enter</keycap> on a blank bulleted line."
-msgstr "Presione <keycap>Enter</keycap> en una línea con topos pero vacía."
+msgstr "Pulse <keycap>Retorno</keycap> en una línea vacía de topos."
 
 #: C/tomboy.xml:762(para)
 msgid ""
 "Select <menuchoice><guimenuitem>Decrease Indent</guimenuitem></menuchoice> "
 "from the <guibutton>Text</guibutton> dropdown menu in succession until the "
 "current line is no longer part of the bulleted list."
-msgstr "Seleccione <menuchoice><guimenuitem>Disminuir sangría</guimenuitem></menuchoice> desde el menú desplegable <guibutton>Texto</guibutton> sucesivamente hasta que la línea actual no sea más parte de la lista con topos."
+msgstr "Seleccione <menuchoice><guimenuitem>Disminuir sangría</guimenuitem></menuchoice> desde el menú desplegable <guibutton>Texto</guibutton> sucesivamente hasta que la línea actual no siga formando parte de la lista de topos."
 
 #: C/tomboy.xml:770(para)
 msgid ""
 "Using the key combination <keycombo><keycap>Shift</keycap><keycap>Tab</"
 "keycap></keycombo> in succession until the current line is no longer part of "
 "the bulleted list."
-msgstr "Usando la combinación de teclas <keycombo><keycap>Mayús.</keycap><keycap>Tab</keycap></keycombo> sucesivamente hasta que la linea actual no sea más parte de la lista con topos."
+msgstr "Usando la combinación de teclas <keycombo><keycap>Mayús.</keycap><keycap>Tab</keycap></keycombo> sucesivamente hasta que la linea actual no siga formando parte de la lista de topos."
 
 #: C/tomboy.xml:781(title)
 msgid "Increase Indentation"
@@ -905,7 +900,7 @@ msgstr "Aumentar sangría"
 
 #: C/tomboy.xml:783(para)
 msgid "To increase the line indentation in a bulleted list with the mouse:"
-msgstr "Para aumentar la sangría en una lista con topos con el ratón:"
+msgstr "Para aumentar la sangría en una lista de topos con el ratón:"
 
 #: C/tomboy.xml:788(para)
 msgid ""
@@ -915,11 +910,11 @@ msgstr "Seleccione <menuchoice><guimenuitem>Aumentar sangría</guimenuitem></men
 
 #: C/tomboy.xml:795(para)
 msgid "To increase the line indentation in a bulleted list with the keyboard:"
-msgstr "Para aumentar la sangría en una lista con topos usando el teclado:"
+msgstr "Para aumentar la sangría en una lista de topos usando el teclado:"
 
 #: C/tomboy.xml:800(para)
 msgid "Press the <keycap>Tab</keycap> key."
-msgstr "Presione la tecla <keycap>Tab</keycap>."
+msgstr "Pulse la tecla <keycap>Tab</keycap>."
 
 #: C/tomboy.xml:806(title)
 msgid "Decrease Indentation"
@@ -927,7 +922,7 @@ msgstr "Disminuir sangría"
 
 #: C/tomboy.xml:808(para)
 msgid "To decrease the line indentation in a bulleted list with the mouse:"
-msgstr "Para disminuir la sangría en una lista con topos usando el ratón:"
+msgstr "Para disminuir la sangría en una lista de topos usando el ratón:"
 
 #: C/tomboy.xml:813(para)
 msgid ""
@@ -937,7 +932,7 @@ msgstr "Seleccione <menuchoice>guimenuitem>Disminuir sangría</guimenuitem></men
 
 #: C/tomboy.xml:820(para)
 msgid "To decrease the line indentation in a bulleted list with the keyboard:"
-msgstr "Para disminuir la sangría en una lista con topos usando el ratón:"
+msgstr "Para disminuir la sangría en una lista de topos usando el ratón:"
 
 #: C/tomboy.xml:825(para)
 msgid ""
@@ -957,7 +952,9 @@ msgid ""
 "linkend=\"pref-editing\"/>. There are two categories of preferences, "
 "<guilabel>Editing</guilabel> and <guilabel>Hotkeys</guilabel>. Preferences "
 "for each section will be described below."
-msgstr "Para definir las preferencias para Tomboy, haga clic con el botón secundario en el icono en el panel y seleccione <menuchoice><guimenuitem>Preferencias</guimenuitem></menuchoice> desde el menú. Usted verá un diálogo similar al presentado en <xref linkend=\"pref-editing\"/>. Existen dos categorías de preferencias, <guilabel>Edición</guilabel> y <guilabel>Teclas rápidas</guilabel>. Las preferencias para cada sección se describen a continuación."
+msgstr ""
+"Para definir las preferencias para Tomboy, pulse con el botón derecho del ratón sobre el icono del panel y seleccione <menuchoice><guimenuitem>Preferencias</guimenuitem></menuchoice> desde el menú. Verá un diálogo similar al "
+"presentado en <xref linkend=\"pref-editing\"/>. Existen dos categorías de preferencias, <guilabel>Edición</guilabel> y <guilabel>Teclas rápidas</guilabel>. Las preferencias para cada sección se describen a continuación."
 
 #: C/tomboy.xml:848(title)
 msgid "Editing"
@@ -968,7 +965,9 @@ msgid ""
 "The editing section will allow you to set preferences related to editing "
 "notes. There are three checkboxes on this tab, which can either be turned on "
 "or off."
-msgstr "La sección de edición le permite definir preferencias relacionadas a la edición de notas. Existen tres casillas en esta solapa, las cuales pueden ser activadas o desactivadas."
+msgstr ""
+"La sección de edición le permite definir preferencias relacionadas a la edición de notas. Existen tres casillas en esta solapa, las cuales pueden "
+"ser activadas o desactivadas."
 
 #: C/tomboy.xml:856(term)
 msgid "Spellcheck While Typing"
@@ -980,17 +979,17 @@ msgid ""
 "suggestions in the right click context menu. Enable or disable the checkbox "
 "using the mouse or the key combination <keycombo><keycap>Alt</"
 "keycap><keycap>S</keycap></keycombo>."
-msgstr "Active esta casilla para que los errores ortográficos sean subrayados con rojo, y se provea de sugerencias en el menú contextual de clic derecho. Active o desactive esta casilla usando el ratón o la combinación de teclas <keycombo><keycap>Alt</keycap><keycap>S</keycap></keycombo>."
+msgstr "Active esta casilla para que los errores ortográficos se subrayen en rojo, y se proporcionen sugerencias en el menú contextual al pulsar con el botón derecho del ratón. Active o desactive esta casilla usando el ratón o la combinación de teclas <keycombo><keycap>Alt</keycap><keycap>S</keycap></keycombo>."
 
 #: C/tomboy.xml:869(para)
 msgid ""
 "The spellcheck option is only available if you have the "
 "<application>GtkSpell</application> package for your distribution installed."
-msgstr "La opción de corrección ortográfica está sólo disponible si usted tiene el paquete de <application>GtkSpell</application> para su distribución instalado."
+msgstr "La opción de corrección ortográfica sólo está disponible si tiene instalado el paquete <application>GtkSpell</application> para su distribución."
 
 #: C/tomboy.xml:877(term)
 msgid "Highlight WikiWords"
-msgstr "Resaltado de wikipalabras"
+msgstr "Resaltado de WikiPalabras"
 
 #: C/tomboy.xml:880(para)
 msgid ""
@@ -999,7 +998,9 @@ msgid ""
 "corresponding to the link text. Enable or disable this checkbox using the "
 "mouse or the key combination <keycombo><keycap>Alt</keycap><keycap>W</"
 "keycap></keycombo>."
-msgstr "Active esta casilla para crear enlaces para frases <literal>QueSeVenAsí</literal>. Al hacer clic en el enlace se creará una nota nueva con el título correspondiente al texto del enlace. Active o desactive esta casilla usando el ratón o la combinación de teclas <keycombo><keycap>Alt</keycap><keycap>W</keycap></keycombo>. "
+msgstr ""
+"Active esta casilla para crear enlaces para frases <literal>QueSeVenAsí</literal>. Al pulsar en el enlace se creará una nota nueva con el título "
+"correspondiente al texto del enlace. Active o desactive esta casilla usando el ratón o la combinación de teclas <keycombo><keycap>Alt</keycap><keycap>W</keycap></keycombo>. "
 
 #: C/tomboy.xml:893(term)
 msgid "Use Custom Font"
@@ -1011,7 +1012,7 @@ msgid ""
 "option is disabled, the default system font will be used. Enable or disable "
 "this checkbox using the mouse or the key combination <keycombo><keycap>Alt</"
 "keycap><keycap>F</keycap></keycombo>."
-msgstr "Active esta casilla para definir una tipografía personalizada a ser usada en sus notas. Si esta opción está desactivada, la fuente por defecto del sistema será utilizada. Active o desactive esta caja de casilla usando el ratón o la combinación de teclas <keycombo><keycap>Alt</keycap><keycap>F</keycap></keycombo>."
+msgstr "Active esta casilla para definir una tipografía personalizada a ser usada en sus notas. Si esta opción está desactivada, se utilizará la fuente predeterminada del sistema. Active o desactive esta casilla usando el ratón o la combinación de teclas <keycombo><keycap>Alt</keycap><keycap>F</keycap></keycombo>."
 
 #: C/tomboy.xml:909(title)
 msgid "Tomboy Editing Preferences"
@@ -1028,7 +1029,9 @@ msgid ""
 "have the <guibutton>Listen for Hotkeys</guibutton> checkbox enabled. Use "
 "<keycombo><keycap>Alt</keycap><keycap>H</keycap></keycombo> to toggle this "
 "option."
-msgstr "La sección de teclas rápidas le permite definir las combinaciones de teclas globales que le permitirán realizar distintas tareas en Tomboy. Para activar las combinaciones de teclas, debe tener la casilla <guibutton>Teclas rápidas</guibutton> activada. Utilice la combinación de teclas <keycombo><keycap>Alt</keycap><keycap>R</keycap></keycombo> para invertir el valor de esta opción."
+msgstr ""
+"La sección de teclas rápidas le permite definir las combinaciones de teclas globales que le permitirán realizar distintas táreas en Tomboy. Para activar las combinaciones de teclas, debe tener la casilla <guibutton>Teclas rápidas</guibutton> activada. Use la combinación de teclas "
+"<keycombo><keycap>Alt</keycap><keycap>R</keycap></keycombo> para invertir el valor de esta opción."
 
 #: C/tomboy.xml:933(term)
 msgid "Show notes menu"
@@ -1036,17 +1039,17 @@ msgstr "Menú de mostrado de notas"
 
 #: C/tomboy.xml:936(para)
 msgid "Enter the key combination to open the notes menu."
-msgstr "Ingrese la combinación de teclas para abrir el menú de notas."
+msgstr "Introduzca la combinación de teclas para abrir el menú de notas."
 
 #: C/tomboy.xml:941(term)
 msgid "Open \"Start Here\""
-msgstr "Abrir \"Comenzar Aquí\""
+msgstr "Abrir «Comenzar aquí»"
 
 #: C/tomboy.xml:944(para)
 msgid ""
 "Enter the key combination to open the <quote>Start Here</quote> note, which "
 "is preinstalled with Tomboy."
-msgstr "Ingrese la combinación de teclas para abrir la nota <quote>Comenzar Aquí</quote>, que viene preinstalada con Tomboy."
+msgstr "Introduzca la combinación de teclas para abrir la nota <quote>Comenzar aquí</quote>, que viene preinstalada con Tomboy."
 
 #: C/tomboy.xml:950(term)
 msgid "Create new note"
@@ -1054,7 +1057,7 @@ msgstr "Crear una nota nueva"
 
 #: C/tomboy.xml:953(para)
 msgid "Enter the key combination to create a new note."
-msgstr "Ingrese la combinación de teclas para crear una nota nueva."
+msgstr "Introduzca la combinación de teclas para crear una nota nueva."
 
 #: C/tomboy.xml:958(term)
 msgid "Search notes"
@@ -1064,7 +1067,7 @@ msgstr "Buscar notas"
 msgid ""
 "Enter the key combination to open the <interface>Search All Notes</"
 "interface> dialog."
-msgstr "Ingrese la combinación de teclas para abrir la <interface>Búsqueda en todas las notas</interface>."
+msgstr "Introduzca la combinación de teclas para abrir el diálogo <interface>Buscar en todas las notas</interface>."
 
 #: C/tomboy.xml:968(title)
 msgid "Tomboy Hotkey Preferences"
@@ -1082,13 +1085,15 @@ msgstr "La sección de complementos le permite activar y configurar complementos
 msgid ""
 "The list of installed plugins shows on the left. A plugin is enabled by "
 "placing a check in the checkbox. Disable a plugin by unchecking its checkbox."
-msgstr "La lista de complementos instalados se muestra a la izquierda. Un complemento es activado al activar su casilla. Desactive un complemento desactivando su casilla."
+msgstr ""
+"La lista de complementos instalados se muestra a la izquierda. Un complemento se activa al activar su casilla. Desactive un complemento "
+"desactivando su casilla."
 
 #: C/tomboy.xml:988(para)
 msgid ""
 "Please see the <xref linkend=\"plugins\"/> section for more information "
 "about the plugins that are installed with Tomboy."
-msgstr "Por favor vea la sección <xref linkend=\"plugins\"/> para más información  sobre los complementos que son instalados con Tomboy."
+msgstr "Por favor vea la sección <xref linkend=\"plugins\"/> para obtener más información sobre los complementos instalados con Tomboy."
 
 #: C/tomboy.xml:992(title)
 msgid "Tomboy Plugin Preferences"
@@ -1096,7 +1101,7 @@ msgstr "Preferencias de los complementos de Tomboy"
 
 #: C/tomboy.xml:1008(member)
 msgid "Backlinks"
-msgstr "Enlaces reversos"
+msgstr "Retroenlaces"
 
 #: C/tomboy.xml:1010(member) C/tomboy.xml:1047(term)
 msgid "Bugzilla URL Drop"
@@ -1123,15 +1128,15 @@ msgid ""
 "By default, Tomboy comes with several pre-installed plugins: <placeholder-1/"
 "> Since these are preinstalled, they are ready to use and are automatically "
 "loaded into the Tomboy interface."
-msgstr "Por defecto, Tomboy incluye varios complementos preinstalados: <placeholder-1> Dado que estos vienen preinstalados, están listos para ser utilizados y son cargados automáticamente en la interfaz de Tomboy."
+msgstr "De forma predeterminada, Tomboy incluye varios complementos preinstalados: <placeholder-1> Dado que estos vienen preinstalados, están listos para ser utilizados y son cargados automáticamente en la interfaz de Tomboy."
 
 #: C/tomboy.xml:1027(para)
 msgid "Some plugins exist that are not installed by default."
-msgstr "Algunos complementos existen que no vienen instalados por defecto."
+msgstr "Algunos complementos existen que no vienen instalados de forma predeterminada."
 
 #: C/tomboy.xml:1032(term)
 msgid "Backlinks (What links here?)"
-msgstr "Enlaces inversos (¿Qué enlaza aquí?)"
+msgstr "Retroenlaces (¿Qué enlaza aquí?)"
 
 #: C/tomboy.xml:1035(para)
 msgid ""
@@ -1141,7 +1146,7 @@ msgid ""
 "menu will have a <guimenuitem>What links here?</guimenuitem> option. When "
 "you select this option, it will list all the notes which link to the current "
 "note in a submenu. Select a note in the submenu to open it."
-msgstr "Este complemente permite conocer que notas enlazan a la nota que está usando actualmente. Hace más fácil mantener registro de las relaciones entre notas. Si este complemento está activado, el menú <link linkend=\"tools\">Herramientas</link> tendrá una opción <guimenuitem>¿Qué enlaza aquí?</guimenuitem>. Cuando seleccione esta opción, se listarán todas las notas que enlazan a ésta en un submenú. Seleccione una nota en el menú para abrirla."
+msgstr "Este complemento permite conocer que notas enlazan a la nota que actualmente está usando. Hace más fácil mantener registro de las relaciones entre notas. Si este complemento está activado, el menú <link linkend=\"tools\">Herramientas</link> tendrá una opción <guimenuitem>¿Qué enlaza aquí?</guimenuitem>. Cuando seleccione esta opción, se listarán todas las notas que enlazan a ésta en un submenú. Seleccione una nota en el menú para abrirla."
 
 #: C/tomboy.xml:1050(para)
 msgid ""
@@ -1149,7 +1154,7 @@ msgid ""
 "note. The bug number is inserted as a link with a small bug icon next to it. "
 "Once the Bugzilla link has been inserted into the note, click on it to open "
 "the URL in your web browser."
-msgstr "Le permite arrastrar una URL de Bugzilla desde su navegador directamente a una nota de Tomboy. El número del fallo es insertado como un enlace con un pequeño icono de un bicho junto a él. Una vez que el enlace de Bugzilla se ha insetertado en la nota, haga clic en él para abrir la URL en su navegador web."
+msgstr "Le permite arrastrar una URL de Bugzilla desde su navegador directamente a una nota de Tomboy. El número del fallo se insertará como un enlace con un pequeño icono de un bicho junto a él. Una vez que el enlace de Bugzilla se ha insetertado en la nota, pulse en él para abrir la URL en su navegador web."
 
 #: C/tomboy.xml:1056(para)
 msgid ""
@@ -1161,7 +1166,12 @@ msgid ""
 "provide a Bugzilla host name (e.g., bugzilla.gnome.org), and click "
 "<guibutton>Open</guibutton>. Any Bugzilla URL that is dragged and dropped "
 "from one of these custom host names will now use the icon you specified."
-msgstr "Personalice los iconos que son usados editando las preferencias del complemento en el <link linkend=\"prefs-plugins\">Diálogo de preferencias</link>. Luego de seleccionar el complemento de Bugzilla, haga clic en <guibutton>Configuración</guibutton> para abrir el diálogo de <interface>Configuración del complemento de Bugzilla</interface>. Para agregar un icono nuevo, haga clic en <guibutton>Añadir</guibutton>, seleccione el icono en su computador, provea de un nombre de servidor de Bugzilla. (e.g., bugzilla.gnome.org), y haga clic en <guibutton>Abrir</guibutton>. Cualquier URL de Bugzilla que sea arrastrada y soltada desde uno de estos nombres de servidores personalizados usará ahora el icono que usted ha especificado."
+msgstr ""
+"Personalice los iconos utilizados editando los ajustes de los complementos en el <link linkend=\"prefs-plugins\">Diálogo de preferencias</"
+"link>. Después de seleccionar el complemento de Bugzilla, pulse en <guibutton>Configuración</guibutton> para abrir el diálogo de "
+"<interface>Configuración del complemento de Bugzilla</interface>. Para añadir un nuevo icono, pulse en <guibutton>Añadir</guibutton>, "
+"seleccione el icono en su equipo, proporcione un nombre de servidor de Bugzilla. (p.ej. bugzilla.gnome.org), y pulse en <guibutton>Abrir</"
+"guibutton>. Cualquier URL de Bugzilla que sea arrastrada y soltada desde uno de estos nombres de servidores personalizados usará ahora el icono que ha especificado."
 
 #: C/tomboy.xml:1073(para)
 msgid ""
@@ -1169,13 +1179,13 @@ msgid ""
 "<application>Evolution</application> mail application to one of your Tomboy "
 "notes. Clicking on the mail icon in the note will then open the "
 "corresponding e-mail message in Evolution."
-msgstr "Este complemento permite que arrastre y suelte un mensaje de correo desde la aplicación de correo <application>Evolution</application> a una de sus notas de Tomboy. Haciendo clic en el icono de correo en la nota abrirá el correspondiente mesaje de correo-e en Evolution."
+msgstr "Este complemento le permite arrastrar y soltar un mensaje de correo desde la aplicación de correo <application>Evolution</application> a una de sus notas de Tomboy. Pulsando en el icono de correo en la nota abrirá el correspondiente mesaje de correo electrónico en Evolution."
 
 #: C/tomboy.xml:1084(para)
 msgid ""
 "When this plugin is installed, the <link linkend=\"tools\">Tools</link> menu "
 "will have the <guimenuitem>Export to HTML</guimenuitem> option available."
-msgstr "Cuando este complemento esta activado, el menú <link linkend=\"tools\">Herramientas</link> tendrá la opción <guimenuitem>Exportar a HTML</guimenuitem> disponible."
+msgstr "Cuando este complemento esta instalado, el menú <link linkend=\"tools\">Herramientas</link> tendrá la opción <guimenuitem>Exportar a HTML</guimenuitem> disponible."
 
 #: C/tomboy.xml:1088(para)
 msgid ""
@@ -1183,20 +1193,26 @@ msgid ""
 "you to choose where to save the <acronym>HTML</acronym> file. Enter the "
 "destination filename and click <guibutton>OK</guibutton> to save the file, "
 "or <guibutton>Cancel</guibutton> to abort the operation."
-msgstr "Luego de seleccionar esta opción, se le presentará un diálogo que le permite seleccionar donde salvar el archivo <acronym>HTML</acronym>. Ingrese el nombre del archivo destino y haga clic en <guibutton>Guardar</guibutton> para guardar el archivo, o en <guibutton>Cancelar</guibutton> para abortar la operación."
+msgstr ""
+"Después de seleccionar esta opción, se le presentará un diálogo que le permite seleccionar dónde guardar el archivo <acronym>HTML</acronym>. Introduzca el nombre del archivo destino y pulse <guibutton>Aceptar</guibutton> "
+"para guardar el archivo, o <guibutton>Cancelar</guibutton> para abortar la operación."
 
 #: C/tomboy.xml:1094(para)
 msgid ""
 "To export any notes for which a link exists in the current note, select the "
 "<guibutton>Export linked notes</guibutton> button."
-msgstr "Para exportar cualquier nota para la cual exista un enlace en la nota actual, seleccione el botón <guibutton>Exportar las notas enlazadas</guibutton>."
+msgstr ""
+"Para exportar cualquier nota para la cual exista un enlace en la nota actual, seleccione el botón <guibutton>Exportar las notas enlazadas</"
+"guibutton>."
 
 #: C/tomboy.xml:1104(para)
 msgid ""
 "Allows you to use a fixed-width font when creating/editing notes. If this "
 "plugin is enabled, the <link linkend=\"text\">Text</link> menu will have a "
 "<guimenuitem>Fixed Width</guimenuitem> option."
-msgstr "Le permite usar una tipografía de ancho fijo al crear/editar notas. Si este complemento está activado, el menú <link linkend=\"text\">Texto</link> tendrá una opción <guimenuitem>Anchura fija</guimenuitem>."
+msgstr ""
+"Le permite usar una tipografía de ancho fijo al crear/editar notas. Si este complemento está activado, el menú <linklinkend=\"text\">Texto</link> "
+"tendrá una opción <guimenuitem>Anchura fija</guimenuitem>."
 
 #: C/tomboy.xml:1115(para)
 msgid ""
@@ -1204,13 +1220,13 @@ msgid ""
 "thoughts down. The current date is used as a basis for the title of the "
 "note. As an example, the title of a \"Today\" note created on February 28, "
 "2007, would be, \"Today: Wednesday, February 28 2007\""
-msgstr "Este complemento automáticamente crea una nota \"Hoy\" para que pueda anotar sus pensamientos diarios. La fecha actual es utilizada como base para el título de la nota. Por ejemplo, el título de una nota \"Hoy\" creada el 28 de febrero de 2007, sería: \"Hoy: 28, Miércoles 28 de febrero de 2007\""
+msgstr "Este complemento crea automáticamente una nota «Hoy» para que pueda anotar sus pensamientos diarios. La fecha actual se utiliza como base para el título de la nota. Por ejemplo, el título de una nota «Hoy» creada el 28 de febrero de 2007, sería: «Hoy: 28, Miércoles 28 de febrero de 2007»"
 
 #: C/tomboy.xml:1121(para)
 msgid ""
 "If you leave a \"Today\" note unmodified, the Note of the Day Plugin will "
 "automatically delete the note."
-msgstr "Si usted no modifica una nota \"Hoy\", el complemento de Nota del Día automáticamente la eliminará."
+msgstr "Si no modifica una nota «Hoy», el complemento de Nota del día la eliminará automáticamente."
 
 #: C/tomboy.xml:1124(para)
 msgid ""
@@ -1219,7 +1235,7 @@ msgid ""
 "content of the template note to whatever you'd like. When new \"Today\" "
 "notes are created, it will then use the content of your \"Today: Template\" "
 "note."
-msgstr "Para personalizar el contenido de la nota \"Hoy\" por defecto, cree una nueva nota y haga el título de la nota \"Today: Template\". Modifique los contenidos de la nota plantilla a lo que quiera que sea. Cuando se cree una nueva nota \"Hoy\", usará los contenidos de su nota \"Today: Template\"."
+msgstr "Para personalizar el contenido de la nota «Hoy» predeterminada, cree una nueva nota y escriba en el título de la nota «Hoy: Plantilla». Modifique el contenido de la nota plantilla a lo que desee. Cuando se creen nuevas notas «Hoy», se usarán los contenidos de su nota «Hoy: Plantilla»."
 
 #: C/tomboy.xml:1136(para)
 msgid ""
@@ -1245,12 +1261,15 @@ msgid ""
 "option has been included in Tomboy to provide an upgrade path for users who "
 "would like to migrate from <application>Sticky Notes</application> to Tomboy "
 "for their note taking purposes."
-msgstr "Utilice esta opción para importar las notas desde la aplicación <application>Notas adhesivas</application> que está disponible en versiones anteriores de GNOME. Esta opción ha sido incluida en Tomboy para proveer una vía de actualización para usuarios que gustarían de migrar desde <application>Notas adhesivas</application> a Tomboy para propósitos de tomar notas."
+msgstr ""
+"Use esta opción para importar las notas desde la aplicación <application>Notas adhesivas</application> que está disponible en versiones "
+"anteriores de GNOME. Esta opción ha sido incluida en Tomboy para proporcionar una vía de actualización para usuarios que quieren migrar desde "
+"<application>Notas adhesivas</application> a Tomboy para propósitos de tomar notas."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/tomboy.xml:0(None)
 msgid "translator-credits"
 msgstr ""
-"Jorge González González <jorge.gonzalez.gonzalez@hispalinux.es>, 2006.\n"
-"Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007."
+"Jorge González <jorgegonz@svn.gnome.org>, 2006, 2007\n"
+"Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007"
 
