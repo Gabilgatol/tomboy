@@ -8,9 +8,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tomboy HEAD\n"
+"Project-Id-Version: tomboy 0.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-25 23:02+0000\n"
+"POT-Creation-Date: 2007-03-29 19:17+0100\n"
 "PO-Revision-Date: 2007-03-25 10:20+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
@@ -54,7 +54,7 @@ msgid "_Help"
 msgstr "_Abi"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
-#: ../Tomboy/NoteWindow.cs:629 ../Tomboy/Preferences.cs:645
+#: ../Tomboy/NoteWindow.cs:652 ../Tomboy/Preferences.cs:646
 msgid "_Open Plugins Folder"
 msgstr "Ava _pluginate kataloog"
 
@@ -309,11 +309,11 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
-"HTML-iks eksportimise plugina märkeruudu \"Kõigi viidatud märkmete "
-"kaasamine\" viimane olek. Seda sätet kasutatakse koos sättega 'Viidatud "
-"märkmete HTML-eksport' ja selle abil määratakse, kas HTML-iks eksportimise "
-"ajal kaasatakse kõik eksporditava märkme poolt viidatud märkmed, mis "
-"leitakse rekursiivse otsingu abil."
+"HTML-iks eksportimise plugina märkeruudu \"Kõigi viidatud märkmete kaasamine"
+"\" viimane olek. Seda sätet kasutatakse koos sättega 'Viidatud märkmete HTML-"
+"eksport' ja selle abil määratakse, kas HTML-iks eksportimise ajal kaasatakse "
+"kõik eksporditava märkme poolt viidatud märkmed, mis leitakse rekursiivse "
+"otsingu abil."
 
 #: ../data/tomboy.schemas.in.h:37
 msgid ""
@@ -391,7 +391,7 @@ msgstr "_Kustuta"
 msgid "Delete the selected note"
 msgstr "Valitud märkme kustutamine"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:523
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:546
 msgid "_Close"
 msgstr "_Sulge"
 
@@ -435,7 +435,7 @@ msgstr "SalveIkoon"
 msgid "Create _New Note"
 msgstr "Loo _uus märge"
 
-#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:466
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:489
 msgid "_Search All Notes"
 msgstr "_Otsi kõikide märkmete hulgast"
 
@@ -493,7 +493,7 @@ msgid ""
 msgstr ""
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:228
+#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:229
 msgid "Start Here"
 msgstr "Alusta siit"
 
@@ -501,140 +501,140 @@ msgstr "Alusta siit"
 msgid "Using Links in Tomboy"
 msgstr "Viitade kasutamine Tomboy's"
 
-#: ../Tomboy/NoteManager.cs:283
+#: ../Tomboy/NoteManager.cs:284
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Uus märge {0}"
 
-#: ../Tomboy/NoteManager.cs:329
+#: ../Tomboy/NoteManager.cs:330
 msgid "Describe your new note here."
 msgstr "Siia saad uue märkme kirjutada."
 
-#: ../Tomboy/NoteWindow.cs:219
+#: ../Tomboy/NoteWindow.cs:233
 msgid "Find in This Note"
 msgstr "Otsi sellest märkmest"
 
-#: ../Tomboy/NoteWindow.cs:478
+#: ../Tomboy/NoteWindow.cs:501
 msgid "_Link to New Note"
 msgstr "_Viita uuele märkmele"
 
-#: ../Tomboy/NoteWindow.cs:490
+#: ../Tomboy/NoteWindow.cs:513
 msgid "Te_xt"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:498
+#: ../Tomboy/NoteWindow.cs:521
 msgid "_Find in This Note"
 msgstr "_Otsi sellest märkmest"
 
-#: ../Tomboy/NoteWindow.cs:513
+#: ../Tomboy/NoteWindow.cs:536
 msgid "Clos_e All Notes"
 msgstr "_Sulge kõik märkmed"
 
-#: ../Tomboy/NoteWindow.cs:551
+#: ../Tomboy/NoteWindow.cs:574
 msgid "Search"
 msgstr "Otsi"
 
-#: ../Tomboy/NoteWindow.cs:552
+#: ../Tomboy/NoteWindow.cs:575
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Otsing Sinu märkmete hulgast (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:565
+#: ../Tomboy/NoteWindow.cs:588
 msgid "Link"
 msgstr "Viit"
 
-#: ../Tomboy/NoteWindow.cs:567
+#: ../Tomboy/NoteWindow.cs:590
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Valitud tekstist uuele märkmele viitamine (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:581
+#: ../Tomboy/NoteWindow.cs:604
 msgid "_Text"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:586
+#: ../Tomboy/NoteWindow.cs:609
 msgid "Set properties of text"
 msgstr "Teksti omaduste määramine"
 
-#: ../Tomboy/NoteWindow.cs:592
+#: ../Tomboy/NoteWindow.cs:615
 msgid "T_ools"
 msgstr "Töö_riistad"
 
-#: ../Tomboy/NoteWindow.cs:596
+#: ../Tomboy/NoteWindow.cs:619
 msgid "Use tools on this note"
 msgstr "Tööriistade kasutamine selle märkme jaoks"
 
-#: ../Tomboy/NoteWindow.cs:603
+#: ../Tomboy/NoteWindow.cs:626
 msgid "Delete"
 msgstr "Kustuta"
 
-#: ../Tomboy/NoteWindow.cs:604
+#: ../Tomboy/NoteWindow.cs:627
 msgid "Delete this note"
 msgstr "Selle märkme kustutamine"
 
-#: ../Tomboy/NoteWindow.cs:661
+#: ../Tomboy/NoteWindow.cs:684
 msgid "_Find..."
 msgstr "_Leia..."
 
-#: ../Tomboy/NoteWindow.cs:672 ../Tomboy/NoteWindow.cs:874
+#: ../Tomboy/NoteWindow.cs:695 ../Tomboy/NoteWindow.cs:897
 msgid "Find _Next"
 msgstr "Leia _järgmine"
 
-#: ../Tomboy/NoteWindow.cs:685
+#: ../Tomboy/NoteWindow.cs:708
 msgid "Find _Previous"
 msgstr "Leia _eelmine"
 
-#: ../Tomboy/NoteWindow.cs:773
+#: ../Tomboy/NoteWindow.cs:796
 msgid "Cannot create note"
 msgstr "Märget pole võimalik luua"
 
-#: ../Tomboy/NoteWindow.cs:854
+#: ../Tomboy/NoteWindow.cs:877
 msgid "_Find:"
 msgstr "_Otsing:"
 
-#: ../Tomboy/NoteWindow.cs:865
+#: ../Tomboy/NoteWindow.cs:888
 msgid "_Previous"
 msgstr "_Eelmine"
 
-#: ../Tomboy/NoteWindow.cs:884
+#: ../Tomboy/NoteWindow.cs:907
 msgid "Case _sensitive"
 msgstr "_Tõstutundlik"
 
-#: ../Tomboy/NoteWindow.cs:1360
+#: ../Tomboy/NoteWindow.cs:1383
 msgid "_Bold"
 msgstr "_Rasvane"
 
-#: ../Tomboy/NoteWindow.cs:1372
+#: ../Tomboy/NoteWindow.cs:1395
 msgid "_Italic"
 msgstr "_Kursiiv"
 
-#: ../Tomboy/NoteWindow.cs:1384
+#: ../Tomboy/NoteWindow.cs:1407
 msgid "_Strikeout"
 msgstr "_Läbijoonitud"
 
-#: ../Tomboy/NoteWindow.cs:1396
+#: ../Tomboy/NoteWindow.cs:1419
 msgid "_Highlight"
 msgstr "_Esiletõstetud"
 
-#: ../Tomboy/NoteWindow.cs:1409
+#: ../Tomboy/NoteWindow.cs:1432
 msgid "Font Size"
 msgstr "Kirjatüübi suurus"
 
-#: ../Tomboy/NoteWindow.cs:1412
+#: ../Tomboy/NoteWindow.cs:1435
 msgid "_Normal"
 msgstr "_Tavaline"
 
-#: ../Tomboy/NoteWindow.cs:1419
+#: ../Tomboy/NoteWindow.cs:1442
 msgid "Hu_ge"
 msgstr "Vä_ga suur"
 
-#: ../Tomboy/NoteWindow.cs:1427
+#: ../Tomboy/NoteWindow.cs:1450
 msgid "_Large"
 msgstr "_Suur"
 
-#: ../Tomboy/NoteWindow.cs:1435
+#: ../Tomboy/NoteWindow.cs:1458
 msgid "S_mall"
 msgstr "_Väike"
 
-#: ../Tomboy/NoteWindow.cs:1446
+#: ../Tomboy/NoteWindow.cs:1469
 msgid "Bullets"
 msgstr "Mummud"
 
@@ -642,12 +642,12 @@ msgstr "Mummud"
 msgid "Tomboy Project"
 msgstr "Tomboy projekt"
 
-#: ../Tomboy/PluginManager.cs:607
+#: ../Tomboy/PluginManager.cs:612
 #, csharp-format
 msgid "Cannot fully disable {0}."
 msgstr "Pluginat {0} pole võimalik täielikult keelata."
 
-#: ../Tomboy/PluginManager.cs:610
+#: ../Tomboy/PluginManager.cs:615
 #, csharp-format
 msgid ""
 "Cannot fully disable {0} as there still are at least {1} reference to this "
@@ -768,12 +768,12 @@ msgstr "Faili nimi:"
 msgid "Settings"
 msgstr "Sätted"
 
-#: ../Tomboy/Preferences.cs:694
+#: ../Tomboy/Preferences.cs:698
 #, csharp-format
 msgid "{0} Settings"
 msgstr "{0} - sätted"
 
-#: ../Tomboy/Preferences.cs:755
+#: ../Tomboy/Preferences.cs:759
 msgid "Choose Note Font"
 msgstr "Märkme kirjatüübi valimine"
 
