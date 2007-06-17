@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: tomboy 0.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-29 19:17+0100\n"
-"PO-Revision-Date: 2007-03-25 10:20+0300\n"
+"PO-Revision-Date: 2007-06-12 16:09+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -449,7 +449,7 @@ msgstr "_Tomboy'st lähemalt"
 
 #: ../Tomboy/Note.cs:879
 msgid "Really delete this note?"
-msgstr "Kas tõesti kustutada see märge?"
+msgstr "Kas kustutada see märge?"
 
 #: ../Tomboy/Note.cs:880
 msgid "If you delete a note it is permanently lost."
@@ -532,7 +532,7 @@ msgstr "_Sulge kõik märkmed"
 
 #: ../Tomboy/NoteWindow.cs:574
 msgid "Search"
-msgstr "Otsi"
+msgstr "Otsing"
 
 #: ../Tomboy/NoteWindow.cs:575
 msgid "Search your notes (Ctrl-Shift-F)"
@@ -564,7 +564,7 @@ msgstr "Tööriistade kasutamine selle märkme jaoks"
 
 #: ../Tomboy/NoteWindow.cs:626
 msgid "Delete"
-msgstr "Kustuta"
+msgstr "Kustutamine"
 
 #: ../Tomboy/NoteWindow.cs:627
 msgid "Delete this note"
@@ -1025,7 +1025,7 @@ msgstr "Ikoonifaili pole võimalik salvestada.  "
 
 #: ../Tomboy/Plugins/Bugzilla.cs:457
 msgid "Really remove this icon?"
-msgstr "Kas tõesti kustutada see ikoon?"
+msgstr "Kas kustutada see ikoon?"
 
 #: ../Tomboy/Plugins/Bugzilla.cs:458
 msgid "If you remove an icon it is permanently lost."
@@ -1093,7 +1093,7 @@ msgstr "Täna: "
 
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:14
 msgid "Today: Template"
-msgstr "Täna: mall"
+msgstr "Täna: Mall"
 
 #. Format: "Today: Friday, July 01 2005"
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:19
@@ -1137,9 +1137,3 @@ msgstr "Pealkirjata"
 #: ../Tomboy/Plugins/StickyNoteImport.cs:185
 msgid "Sticky Note: "
 msgstr "Märkmepaber: "
-
-#~ msgid "NotD: "
-#~ msgstr "PäevaMärge:"
-
-#~ msgid "Create Note of the Day"
-#~ msgstr "PäevaMärkme loomine"
