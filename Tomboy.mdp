@@ -49,6 +49,7 @@
     <File name="./Tomboy/Defines.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/NoteEditor.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/SyncManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Backlinks" subtype="Directory" buildaction="Compile" />
     <File name="./Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Tasks" subtype="Directory" buildaction="Compile" />
@@ -68,6 +69,9 @@
     <File name="./Tomboy/Addins/Backlinks/BacklinkMenuItem.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/AddinManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Tasks/TasksNoteAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/SyncDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/FileSystemSyncServer.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/TomboySyncClient.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
     <BuildFilesVar />

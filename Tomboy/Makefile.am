@@ -42,6 +42,7 @@ CSFILES = 					\
 	$(srcdir)/AddinManager.cs		\
 	$(srcdir)/Applet.cs 			\
 	$(srcdir)/ApplicationAddin.cs		\
+	$(srcdir)/FileSystemSyncServer.cs	\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/Note.cs 			\
 	$(srcdir)/NoteAddin.cs			\
@@ -53,10 +54,13 @@ CSFILES = 					\
 	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/Preferences.cs		\
 	$(srcdir)/PreferencesDialog.cs		\
-	$(srcdir)/RecentChanges.cs		\
-	$(srcdir)/Tag.cs				\
+	$(srcdir)/RecentChanges.cs		\	
+	$(srcdir)/SyncDialog.cs			\
+	$(srcdir)/SyncManager.cs		\
+	$(srcdir)/Tag.cs			\
 	$(srcdir)/TagButton.cs			\
 	$(srcdir)/TagManager.cs			\
+	$(srcdir)/TomboySyncClient.cs		\
 	$(srcdir)/Tray.cs 			\
 	$(srcdir)/Trie.cs			\
 	$(srcdir)/Undo.cs 			\

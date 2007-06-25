@@ -33,6 +33,8 @@ namespace Tomboy
 		public const string EXPORTHTML_EXPORT_LINKED_ALL = "/apps/tomboy/export_html/export_linked_all";
 
 		public const string STICKYNOTEIMPORTER_FIRST_RUN = "/apps/tomboy/sticky_note_importer/sticky_importer_first_run";
+		
+		public const string SYNC_URL = "/apps/tomboy/sync_url"; // TODO: Rename, put in schema, etc
 
 		static GConf.Client client;
 		static GConf.NotifyEventHandler changed_handler;
@@ -104,6 +106,9 @@ namespace Tomboy
 			
 			case ENABLE_STARTUP_NOTES:
 				return true;
+			
+			case SYNC_URL:
+				return "";
 			}
 
 			return null;

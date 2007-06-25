@@ -59,6 +59,8 @@ namespace Tomboy
 				new Gtk.Label (Catalog.GetString ("Editing")));
 			notebook.AppendPage (MakeHotkeysPane (), 
 				new Gtk.Label (Catalog.GetString ("Hotkeys")));
+			notebook.AppendPage (MakeSyncPane (), 
+				new Gtk.Label (Catalog.GetString ("Synchronization")));
 			notebook.AppendPage (MakePluginsPane (), 
 				new Gtk.Label (Catalog.GetString ("Plugins")));
 
@@ -307,6 +309,30 @@ namespace Tomboy
 
 
 			return hotkeys_list;
+		}
+		
+		public Gtk.Widget MakeSyncPane ()
+		{
+			Gtk.HPaned pane;
+			
+			pane = new Gtk.HPaned ();
+			
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("Path:"));
+			Gtk.Entry entry = new Gtk.Entry ();
+			label.MnemonicWidget = entry;
+			entry.Show ();
+			PropertyEditorEntry peditor =
+				new PropertyEditorEntry (Preferences.SYNC_URL,
+				                         entry);
+			SetupPropertyEditor (peditor);
+			
+			pane.Pack2 (entry, true, false);
+			pane.Pack1 (label, true, false);
+			
+			pane.BorderWidth = 6;
+			pane.ShowAll ();
+			
+			return pane;
 		}
 
 		// Page 3

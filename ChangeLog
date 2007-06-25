@@ -1,3 +1,17 @@
+2007-06-25  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Added SyncManager.cs, SyncDialog.cs,
+	  FileSystemSyncServer.cs, TomboySyncClient.cs
+	* Tomboy/PreferencesDialog.cs, Tomboy/SyncDialog.cs,
+	  Tomboy/SyncManager.cs, Tomboy/Preferences.cs, Tomboy/Makefile.am,
+	  Tomboy/TomboySyncClient.cs: Initial sync code from Sandy Armstrong.
+	* Tomboy/FileSystemSyncServer.cs: Initial sync code from Sandy
+	  Armstrong.  Deal with lock file expiration also.
+	* Tomboy/NoteWindow.cs: Initial sync code from Sandy Armstrong.  Add a
+	  temporary "Synchronize Notes" menu item to the Tools menu.
+	* Tomboy/Note.cs: Initial sync code from Sandy Armstrong.  Add revision
+	  support.
+
 2007-06-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Plugins/ExportToHTML.xsl: Change HTML export link/title colors
