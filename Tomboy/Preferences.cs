@@ -34,7 +34,8 @@ namespace Tomboy
 
 		public const string STICKYNOTEIMPORTER_FIRST_RUN = "/apps/tomboy/sticky_note_importer/sticky_importer_first_run";
 		
-		public const string SYNC_URL = "/apps/tomboy/sync_url"; // TODO: Rename, put in schema, etc
+		public const string SYNC_GUID = "/apps/tomboy/sync_guid"; // TODO: Rename, put in schema, etc.
+		public const string SYNC_URL = "/apps/tomboy/sync_url"; // TODO: Rename, put in schema, etc.
 
 		static GConf.Client client;
 		static GConf.NotifyEventHandler changed_handler;
@@ -106,6 +107,10 @@ namespace Tomboy
 			
 			case ENABLE_STARTUP_NOTES:
 				return true;
+			
+			case SYNC_GUID:
+				return System.Guid.NewGuid ().ToString ();
+				break;
 			
 			case SYNC_URL:
 				return "";

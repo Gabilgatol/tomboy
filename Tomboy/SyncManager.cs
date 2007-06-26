@@ -235,6 +235,59 @@ namespace Tomboy
 		}
 	}
 	
+	public class SyncLockInfo
+	{
+		/// <summary>
+		/// A string that's unique to identify which client currently has the
+		/// lock open.
+		/// </summary>
+		public string LockOwner;
+		
+		/// <summary>
+		/// Indicates how many times the client has renewed the lock.
+		/// Subsequent clients should watch this (along with the LockOwner) to
+		/// determine whether the currently synchronizing client has become
+		/// inactive.  Clients currently synchronizing should update the lock
+		/// file before the duration expires to prevent other clients from
+		/// overtaking the lock.
+		/// </summary>
+		public int RenewCount;
+		
+		/// <summary>
+		/// A TimeSpan to indicate how long the current synchronization will
+		/// take.  If the current synchronization will take longer than this,
+		/// the client synchronizing should update the lock file to indicate
+		/// this.
+		/// </summary>
+		public TimeSpan Duration;
+		
+		public SyncLockInfo ()
+		{
+			LockOwner = Preferences.Get (Preferences.SYNC_GUID) as string;
+			RenewCount = 0;
+			Duration = new TimeSpan (0, 2, 0); // default of 2 minutes
+		}
+		
+		public SyncLockInfo (string lockOwner, int renewCount, TimeSpan duration) : this ()
+		{
+			LockOwner = lockOwner;
+			RenewCount = renewCount;
+			Duration = duration;
+		}
+		
+		/// <summary>
+		/// The point of this property is to let clients quickly know if a sync
+		/// lock has changed.
+		/// </summary>
+		public string HashString
+		{
+			get {
+				return string.Format ("{0}-{1}-{2}",
+					LockOwner, RenewCount, Duration.ToString ());
+			}
+		}
+	}
+	
 	public interface SyncServer
 	{
 		bool BeginSyncTransaction ();
@@ -244,12 +297,7 @@ namespace Tomboy
 		void DeleteNotes (IList<string> deletedNoteUUIDs);
 		void UploadNotes (IList<Note> notes);
 		int LatestRevision { get; }
-		TimeSpan LockExpirationDuration { get; }
-	}
-	
-	public interface SyncSession
-	{
-		
+		SyncLockInfo CurrentSyncLock { get; }
 	}
 	
 	public interface SyncClient

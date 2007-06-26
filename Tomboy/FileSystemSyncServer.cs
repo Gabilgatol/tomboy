@@ -56,6 +56,9 @@ namespace Tomboy
 		private string lockPath;
 		
 		private static DateTime initialSyncAttempt = DateTime.MinValue;
+		private static string lastSyncLockHash = string.Empty;
+		InterruptableTimeout lockTimeout;
+		SyncLockInfo syncLock;
 		
 		public FileSystemSyncServer ()
 		{			
@@ -69,6 +72,9 @@ namespace Tomboy
 			
 			notePath = Tomboy.DefaultNoteManager.NoteDirectoryPath;
 			lockPath = Path.Combine (serverPath, "lock");
+			lockTimeout = new InterruptableTimeout ();
+			lockTimeout.Timeout += LockTimeout;
+			syncLock = new SyncLockInfo ();
 		}
 		
 		public virtual void UploadNotes (IList<Note> notes)
@@ -152,25 +158,51 @@ namespace Tomboy
 			// will never be able to synchronize on its first attempt.  The
 			// client should record the time elapsed
 			if (File.Exists (lockPath)) {
-				TimeSpan ts = LockExpirationDuration;
+				SyncLockInfo currentSyncLock = CurrentSyncLock;
 				if (initialSyncAttempt == DateTime.MinValue) {
+					Logger.Debug ("Sync: Discovered a sync lock file, wait at least {0} before trying again.", currentSyncLock.Duration);
+					// This is our initial attempt to sync and we've detected
+					// a sync file, so we're gonna have to wait.
 					initialSyncAttempt = DateTime.Now;
+					lastSyncLockHash = currentSyncLock.HashString;
 					return false;
-				} else if (DateTime.Now - ts < initialSyncAttempt) {
-					// Not enough time has expired since the initial sync attempt 
+				} else if (lastSyncLockHash != currentSyncLock.HashString) {
+					Logger.Debug ("Sync: Updated sync lock file discovered, wait at least {0} before trying again.", currentSyncLock.Duration);
+					// The sync lock has been updated and is still a valid lock
+					initialSyncAttempt = DateTime.Now;
+					lastSyncLockHash = currentSyncLock.HashString;
 					return false;
 				} else {
+					if (lastSyncLockHash == currentSyncLock.HashString) {
+						// The sync lock has is the same so check to see if the
+						// duration of the lock has expired.  If it hasn't, wait
+						// even longer.
+						if (DateTime.Now - currentSyncLock.Duration < initialSyncAttempt ) {
+							Logger.Debug ("Sync: You haven't waited long enough for the sync file to expire.");
+							return false;
+						}
+					}
+					
 					Logger.Debug ("Sync: Deleting expired lockfile");
+					Logger.Debug ("\t Old Client: {0}", currentSyncLock.LockOwner);
+					Logger.Debug ("\tRetry Count: {0}", currentSyncLock.RenewCount);
+					Logger.Debug ("\t   Duration: {0}", currentSyncLock.Duration.ToString ());
 					File.Delete (lockPath);
 				}
 			}
 			
 			// Reset the initialSyncAttempt
 			initialSyncAttempt = DateTime.MinValue;
+			lastSyncLockHash = string.Empty;
 			
 			// Create a new lock file so other clients know another client is
 			// actively synchronizing right now.
-			CreateLockFile (new TimeSpan (0, 1, 0));
+			syncLock.RenewCount = 0;
+			UpdateLockFile (syncLock);
+			// TODO: Verify that the lockTimeout is actually working or figure
+			// out some other way to automatically update the lock file.
+			// Reset the timer to 20 seconds sooner than the sync lock duration
+			lockTimeout.Reset ((uint)syncLock.Duration.TotalMilliseconds - 20000);
 			
 			updatedNotes = new List<string> ();
 			deletedNotes = new List<string> ();
@@ -214,6 +246,7 @@ namespace Tomboy
 				                                Mono.Unix.Native.FilePermissions.ACCESSPERMS);
 			}
 			
+			lockTimeout.Cancel ();
 			File.Delete (lockPath);//TODO: Errors?  When return false?
 			return true;
 		}
@@ -247,6 +280,38 @@ namespace Tomboy
 			}
 		}
 		
+		public virtual SyncLockInfo CurrentSyncLock
+		{
+			get {
+				SyncLockInfo syncLockInfo = new SyncLockInfo ();
+				
+				XmlDocument doc = new XmlDocument ();
+				FileStream fs = new FileStream (lockPath, FileMode.Open);
+				doc.Load (fs);
+				
+				XmlNode node = doc.SelectSingleNode ("//client-guid/text ()");
+				if (node != null) {
+					string client_guid_txt = node.InnerText;
+					syncLockInfo.LockOwner = client_guid_txt;
+				}
+				
+				node = doc.SelectSingleNode ("//renew-count/text ()");
+				if (node != null) {
+					string renew_txt = node.InnerText;
+					syncLockInfo.RenewCount = Int32.Parse (renew_txt);
+				}
+				
+				node = doc.SelectSingleNode ("//lock-expiration-duration/text ()");
+				if (node != null) {
+					string span_txt = node.InnerText;
+					syncLockInfo.Duration = TimeSpan.Parse (span_txt);
+				}
+				
+				fs.Close ();
+				
+				return syncLockInfo;
+			}
+		}
 		/// <summary>
 		/// The amount of time that must expire before a client can claim
 		/// ownership of a synchronization session.  If a lock file exists
@@ -257,7 +322,7 @@ namespace Tomboy
 		public virtual TimeSpan LockExpirationDuration
 		{
 			get {
-				// Set a default of 5 minutes
+				// Use a default of 5 minutes
 				TimeSpan ts = new TimeSpan (0, 5, 0);
 				
 				XmlDocument doc = new XmlDocument ();
@@ -276,8 +341,8 @@ namespace Tomboy
 			}
 		}
 		
-		#region Pivate Methods
-		public void CreateLockFile (TimeSpan ts)
+		#region Private Methods
+		private void UpdateLockFile (SyncLockInfo syncLockInfo)
 		{
 			XmlTextWriter xml = new XmlTextWriter (lockPath, System.Text.Encoding.UTF8);
 			
@@ -286,8 +351,16 @@ namespace Tomboy
 			xml.WriteStartDocument ();
 			xml.WriteStartElement (null, "lock", null);
 			
+			xml.WriteStartElement (null, "client-guid", null);
+			xml.WriteString (syncLockInfo.LockOwner);
+			xml.WriteEndElement ();
+			
+			xml.WriteStartElement (null, "renew-count", null);
+			xml.WriteString (string.Format ("{0}", syncLockInfo.RenewCount));
+			xml.WriteEndElement ();
+			
 			xml.WriteStartElement (null, "lock-expiration-duration", null);
-			xml.WriteString (ts.ToString ());
+			xml.WriteString (syncLockInfo.Duration.ToString ());
 			xml.WriteEndElement ();
 			
 			xml.WriteEndElement ();
@@ -295,6 +368,17 @@ namespace Tomboy
 			
 			xml.Close ();
 		}
-		#endregion
+		#endregion // Private Methods
+		
+		#region Private Event Handlers
+		private void LockTimeout (object sender, EventArgs args)
+		{
+Logger.Debug ("FileSystemSyncService.LockTimeout");
+			syncLock.RenewCount++;
+			UpdateLockFile (syncLock);
+			// Reset the timer to 20 seconds sooner than the sync lock duration
+			lockTimeout.Reset ((uint)syncLock.Duration.TotalMilliseconds - 20000);
+		}
+		#endregion // Private Event Handlers
 	}
 }

@@ -1,3 +1,14 @@
+2007-06-26  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/SyncManager.cs: SyncLockInfo class added.
+	* Tomboy/FileSystemSyncServer.cs: Added code to deal with sync lock
+	  files to expire them and guarantee that only one client gets in at
+	  a time.
+	* Tomboy/Preferences.cs: Added a SYNC_GUID so that clients can identify
+	  themselves in the lock file.  By default it'll just use a
+	  System.Guid, but you could go change the key in GConf and it'll
+	  work.
+
 2007-06-25  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy.mdp: Added SyncManager.cs, SyncDialog.cs,
