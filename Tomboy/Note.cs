@@ -458,9 +458,13 @@ namespace Tomboy
 			window = null;
 		}
 
-		// Set a 4 second timeout to execute the save.  Possibly
-		// invalidate the text, which causes a re-serialize when the
-		// timeout is called...
+		/// <summary>
+		/// Set a 4 second timeout to execute the save.  Possibly
+		/// invalidate the text, which causes a re-serialize when the
+		/// timeout is called...
+		/// </summary>
+		/// <param name="content_changed">Indicates whether or not
+		/// to update the note's last change date</param>
 		public void QueueSave (bool content_changed)
 		{
 			DebugSave ("Got QueueSave");
@@ -502,7 +506,7 @@ namespace Tomboy
 					TagAdded (this, tag);
 
 				DebugSave ("Tag added, queueing save");
-				QueueSave (false);
+				QueueSave (true);
 			}
 		}
 		
@@ -524,7 +528,7 @@ namespace Tomboy
 				TagRemoved (this, tag.NormalizedName);
 
 			DebugSave ("Tag removed, queueing save");
-			QueueSave (false);
+			QueueSave (true);
 		}
 
 		public string Uri
@@ -576,6 +580,11 @@ namespace Tomboy
 			StringReader reader = new StringReader (foreignNoteXml);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
+			
+			// Remove tags now, since a note with no tags has
+			// no "tags" element in the XML
+			foreach (Tag tag in Tags)
+				RemoveTag (tag);
 
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
@@ -598,9 +607,6 @@ namespace Tomboy
 							XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
 						break;
 					case "tags":
-						// TODO: Is this the right way to clear old tags?
-						foreach (Tag tag in Tags)
-							RemoveTag (tag);
 						XmlDocument doc = new XmlDocument ();
 						List<string> tag_strings = ParseTags (doc.ReadNode (xml.ReadSubtree ()));
 						foreach (string tag_str in tag_strings) {

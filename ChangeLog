@@ -1,5 +1,11 @@
 2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Note.cs: Remove all note tags before parsing XML in
+	  LoadForeignNoteXml.  Adding and removing tags now updates a note's
+	  last changed date.
+
+2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncManager.cs: When adding a note from the server, use
 	  NoteManager.CreateWithGuid followed by Note.LoadForeignNoteXml. 
 	  This allows the note XML to be verified by LoadForeignNoteXml
