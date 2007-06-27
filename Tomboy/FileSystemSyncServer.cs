@@ -7,49 +7,6 @@ namespace Tomboy
 {
 	public class FileSystemSyncServer : SyncServer
 	{
-/*
-		private class RevisionDetails
-		{
-			public int Revision;
-			public IList<string> UpdatedNotes;
-			public IList<string> DeletedNotes;
-			
-			private FileSystemSyncServer server;
-			
-			public RevisionDetails (int revision, FileSystemSyncServer server)
-			{
-				Revision = revision;
-				this.server = server;
-				UpdatedNotes = new List<string> ();
-				DeletedNotes = new List<string> ();
-				
-				int revisionParentDir = revision / 100;
-				string manifestFileParentDir = Path.Combine (server.serverPath,
-				                                             revisionParentDir.ToString ());
-				string manifestFileDirPath = Path.Combine (manifestFileParentDir,
-				                                        revision.ToString ());
-				string manifestFilePath = Path.Combine (manifestFileDirPath, "changes");
-				
-				StreamReader reader = new StreamReader (manifestFilePath);
-				
-				// TODO: Read details from file
-				string section = "";
-				while (!reader.EndOfStream) {
-					string line = reader.ReadLine ();
-					if (line == "U")
-						section = "U";
-					else if (line == "D")
-						section = "D";
-					else if (line.Length > 0 && section == "U")
-						UpdatedNotes.Add (line);
-					else if (line.Length > 0 && section == "D")
-						DeletedNotes.Add (line);
-				}
-				
-				reader.Close ();
-			}
-		}
-*/		
 		private List<string> updatedNotes;
 		private List<string> deletedNotes;
 		
@@ -110,7 +67,6 @@ namespace Tomboy
 		{
 			foreach (string uuid in deletedNoteUUIDs) {
 				try {
-//					File.Delete (Path.Combine (serverPath, uuid + ".note"));
 					deletedNotes.Add (uuid);
 				} catch (Exception e) {
 					Logger.Log ("Sync: Error deleting note: " + e.Message);
@@ -135,9 +91,6 @@ namespace Tomboy
 				
 				fs.Close ();
 			}
-			
-//			foreach (string fileName in Directory.GetFiles (serverPath, "*.note"))
-//				noteUUIDs.Add (Path.GetFileNameWithoutExtension (fileName));
 			
 			return noteUUIDs;
 		}
@@ -256,12 +209,7 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			if (updatedNotes.Count > 0 || deletedNotes.Count > 0)
 			{
 				// TODO: error-checking, etc
-//				int newRevision = LatestRevision + 1;
-//				int newRevisionParentDir = newRevision / 100;
-//				string manifestFileParentDir = Path.Combine (serverPath,
-//				                                             newRevisionParentDir.ToString ());
 				string manifestFilePath = Path.Combine (newRevisionPath,
-//				                                        newRevision.ToString () + ".rev");
 														"manifest.xml");
 				if (!Directory.Exists (newRevisionPath))
 				{
@@ -270,20 +218,6 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 					                                Mono.Unix.Native.FilePermissions.ACCESSPERMS);
 				}
 				
-//				FileInfo info = new FileInfo (manifestFilePath);
-//				StreamWriter writer = info.CreateText ();
-//				if (updatedNotes.Count > 0) {
-//					writer.WriteLine ("U");
-//					foreach (string uuid in updatedNotes)
-//						writer.WriteLine (uuid);
-//				}
-//				if (deletedNotes.Count > 0) {
-//					writer.WriteLine ("D");
-//					foreach (string uuid in deletedNotes)
-//						writer.WriteLine (uuid);
-//				}
-
-//				writer.Close ();
 				XmlDocument doc = new XmlDocument ();
 				XmlNodeList noteNodes = null;
 				if (File.Exists (manifestPath) == true) {
@@ -562,7 +496,6 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 		#region Private Event Handlers
 		private void LockTimeout (object sender, EventArgs args)
 		{
-Logger.Debug ("FileSystemSyncService.LockTimeout");
 			syncLock.RenewCount++;
 			UpdateLockFile (syncLock);
 			// Reset the timer to 20 seconds sooner than the sync lock duration
