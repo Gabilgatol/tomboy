@@ -1,5 +1,10 @@
 2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Note.cs: Check for null before acting on buffer (Note may not
+	  have been opened yet).
+
+2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncManager.cs, Tomboy/RemoteControl.cs, Tomboy/Note.cs: New
 	  Note.LoadForeignNoteXml method, used by sync and
 	  RemoteControl.SetNoteContentsCompleteXml.

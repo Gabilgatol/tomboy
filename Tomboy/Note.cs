@@ -570,6 +570,9 @@ namespace Tomboy
 		// Should referesh note window, too
 		public void LoadForeignNoteXml (string foreignNoteXml)
 		{
+			if (foreignNoteXml == null)
+				throw new ArgumentNullException ("foreignNoteXml");
+			
 			StringReader reader = new StringReader (foreignNoteXml);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
@@ -618,9 +621,12 @@ namespace Tomboy
 
 			xml.Close ();
 			
-			string temp = data.Data.Text;
-			buffer.SetText("");
-			NoteBufferArchiver.Deserialize (buffer, temp);
+			// TODO: Should this go above?
+			if (buffer != null) {
+				string temp = data.Data.Text;
+				buffer.SetText("");
+				NoteBufferArchiver.Deserialize (buffer, temp);
+			}
 			
 			/*
 			DebugSave ("Tag added, queueing save");
