@@ -26,6 +26,7 @@
     <popup name="TrayIconMenu" action="TrayIconMenuAction">
         <menuitem name="TrayNewNote" action="TrayNewNoteAction" />
         <menuitem name="ShowSearchAllNotes" action="ShowSearchAllNotesAction" />
+        <menuitem name="NoteSynchronization" action="NoteSynchronizationAction" />
     </popup>
 <!-- The following are not implemented yet
     <toolbar name="NoteWindowToolbar" action="NoteWindowToolbarAction">

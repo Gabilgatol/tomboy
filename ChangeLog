@@ -1,5 +1,15 @@
 2007-06-27  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Stubbed in a Synchronize Now button.
+	* Tomboy/SyncManager.cs: Get the SyncDialog from the Tomboy class.
+	* Tomboy/Tomboy.cs: Create and expose the SyncDialog.
+	* Tomboy/NoteWindow.cs: Removed "Synchronize Notes" from the Tools
+	  menu.
+	* Tomboy/ActionManager.cs, data/UIManagerLayout.xml: Added
+	  NoteSynchronizationAction.
+
+2007-06-27  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/SyncManager.cs: Added in descriptive status messages (which
 	  we'll need to change later) for the sync dialog.  Also added code
 	  to add status messages about files that come from the client.

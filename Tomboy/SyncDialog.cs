@@ -5,6 +5,7 @@ namespace Tomboy
 {
 	public class SyncDialog : Gtk.Dialog
 	{
+		private Gtk.Button syncButton;
 		private Gtk.ProgressBar progressBar;
 		private Gtk.Expander expander;
 		private Gtk.Button closeButton;
@@ -12,12 +13,17 @@ namespace Tomboy
 		private Gtk.ListStore model;
 		
 		// TODO: Possible to make Tomboy not crash if quit while dialog is up?
-		public SyncDialog () : base ("Synchronization Progress", null, Gtk.DialogFlags.Modal)
+		public SyncDialog () : base ("Synchronization Progress", null, Gtk.DialogFlags.DestroyWithParent)
 		{
 			SetSizeRequest (400, -1);
 			
 			VBox.PackStart (new Gtk.Label ("Tomboy synchronization is currently in progress"),
 			                false, false, 5);
+			
+			syncButton = new Gtk.Button (new Gtk.Label (Catalog.GetString ("Synchronize Now")));
+			syncButton.Clicked += OnSynchronizeButton;
+			syncButton.Show ();
+			VBox.PackStart (syncButton, false, false, 0);
 			
 			progressBar = new Gtk.ProgressBar ();
 			//progressBar.Text = "Contacting Server...";
@@ -100,11 +106,17 @@ namespace Tomboy
 		
 		public void AddUpdateItem (string title, string status)
 		{
-			Gtk.TreeIter iter = model.Append ();
-			model.SetValue (iter, 0, title);
-			model.SetValue (iter, 1, status);
-//			model.AppendValues (title, status);
+			model.AppendValues (title, status);
 		}
+
+		#region Private Event Handlers
+		void OnSynchronizeButton (object sender, EventArgs args)
+		{
+			syncButton.Sensitive = false;
+			SyncManager.PerformSynchronization ();
+			syncButton.Sensitive = true;
+		}
+		#endregion // Private Event Handlers
 	}
 
 

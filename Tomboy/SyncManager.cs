@@ -24,12 +24,12 @@ namespace Tomboy
 			try {
 				server = new FileSystemSyncServer ();
 			} catch (Exception e) {
-				Logger.Log ("Exception while creating SyncServer: " + e.Message);
+				Logger.Log ("Exception while creating SyncServer: {0}\n{1}", e.Message, e.StackTrace);
 				return;
 				// TODO: This should be a GUI dialog
 			}
 			
-			SyncDialog syncDialog = new SyncDialog ();
+			SyncDialog syncDialog = Tomboy.SyncDialog;
 			syncDialog.ProgressText = "Contacting Server...";
 			syncDialog.Response += OnSyncDialogResponse;
 			syncDialog.Show ();
@@ -148,7 +148,7 @@ namespace Tomboy
 					// This is a new note that has never been synchronized to the server
 					newOrModifiedNotes.Add (note);
 					syncDialog.AddUpdateItem (note.Title, Catalog.GetString ("Adding new file to server"));
-				} else if (note.Revision <= client.LastSynchronizedRevision &&// NOTE: Confused...?
+				} else if (note.Revision < client.LastSynchronizedRevision &&
 				    	note.ChangeDate.CompareTo (client.LastSyncDate) > 0) {
 					newOrModifiedNotes.Add (note);
 					syncDialog.AddUpdateItem (note.Title, Catalog.GetString ("Uploading changes"));

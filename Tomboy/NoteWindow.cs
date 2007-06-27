@@ -475,22 +475,10 @@ namespace Tomboy
 			// Don't allow deleting the "Start Here" note...
 			if (note.IsSpecial)
 				delete.Sensitive = false;
- 
-                        Gtk.ImageMenuItem item = 
-                                new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
-                        item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
-                        item.Activated += SyncItemSelected;
-                        item.Show ();
-                        PluginMenu.Add (item);
 
 			return toolbar;
 		}
  
-		void SyncItemSelected (object sender, EventArgs args)
-		{
-		   SyncManager.PerformSynchronization ();
-		}
-
 		//
 		// Plugin toolbar menu
 		//
