@@ -1,3 +1,10 @@
+2007-06-27  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/SyncDialog.cs: Respond to the events being sent from the
+	  SyncManager to update the GUI.
+	* Tomboy/SyncManager.cs: Do the synchronization on a thread so the GUI
+	  doesn't lock.
+
 2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Note.cs: Remove all note tags before parsing XML in

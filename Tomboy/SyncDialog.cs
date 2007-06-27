@@ -75,6 +75,9 @@ namespace Tomboy
 			
 			expander.Activated += OnExpanderActivated;
 			
+			SyncManager.StateChanged += OnSyncStateChanged;
+			SyncManager.NoteSynchronized += OnNoteSynchronized;
+			
 			VBox.ShowAll ();
 		}
 
@@ -112,12 +115,100 @@ namespace Tomboy
 		#region Private Event Handlers
 		void OnSynchronizeButton (object sender, EventArgs args)
 		{
-			model.Clear ();
-			progressBar.Fraction = 0;
-			syncButton.Sensitive = false;
 			SyncManager.PerformSynchronization ();
-			syncButton.Sensitive = true;
 		}
+		
+		void OnSyncStateChanged (SyncState state)
+		{
+			// This event handler will be called by the synchronization thread
+			// so we have to use the delegate here to manipulate the GUI.
+			Gtk.Application.Invoke (delegate {
+				// FIXME: Change these strings to be user-friendly
+				switch (state) {
+				case SyncState.AcquiringLock:
+					ProgressText = Catalog.GetString ("Acquiring sync lock");
+					progressBar.Pulse ();
+					break;
+				case SyncState.CommittingChanges:
+					ProgressText = Catalog.GetString ("Committing changes");
+					progressBar.Pulse ();
+					break;
+				case SyncState.Connecting:
+					model.Clear ();
+					syncButton.Sensitive = false;
+					ProgressText = Catalog.GetString ("Connecting to the server");
+					progressBar.Fraction = 0;
+					break;
+				case SyncState.DeleteServerNotes:
+					ProgressText = Catalog.GetString ("Deleting notes off of the server");
+					progressBar.Pulse ();
+					break;
+				case SyncState.Downloading:
+					ProgressText = Catalog.GetString ("Downloading new/updated notes");
+					progressBar.Pulse ();
+					break;
+				case SyncState.Idle:
+					progressBar.Fraction = 0;
+					syncButton.Sensitive = true;
+					break;
+				case SyncState.Locked:
+					ProgressText = Catalog.GetString ("Another client is synchronizing, please try again.");
+					progressBar.Fraction = 0;
+					syncButton.Sensitive = true;
+					break;
+				case SyncState.PrepareDownload:
+					ProgressText = Catalog.GetString ("Preparing to download updates from server");
+					progressBar.Pulse ();
+					break;
+				case SyncState.PrepareUpload:
+					ProgressText = Catalog.GetString ("Preparing to upload updates from server");
+					progressBar.Pulse ();
+					break;
+				case SyncState.Uploading:
+					ProgressText = Catalog.GetString ("Uploading notes to server");
+					progressBar.Pulse ();
+					break;
+				case SyncState.Failed:
+					ProgressText = Catalog.GetString ("Failed");
+					break;
+				case SyncState.Succeeded:
+					ProgressText = Catalog.GetString ("Succeeded");
+					break;
+				}
+			});
+		}
+		
+		void OnNoteSynchronized (string noteTitle, NoteSyncType type)
+		{
+			// This event handler will be called by the synchronization thread
+			// so we have to use the delegate here to manipulate the GUI.
+			Gtk.Application.Invoke (delegate {
+				// FIXME: Change these strings to be more user-friendly
+				string statusText = string.Empty;
+				switch (type) {
+				case NoteSyncType.DeleteFromClient:
+					statusText = Catalog.GetString ("Deleting from local copy");
+					break;
+				case NoteSyncType.DeleteFromServer:
+					statusText = Catalog.GetString ("Deleting from server");
+					break;
+				case NoteSyncType.DownloadModified:
+					statusText = Catalog.GetString ("Downloading updates from server");
+					break;
+				case NoteSyncType.DownloadNew:
+					statusText = Catalog.GetString ("Downloading new note from server");
+					break;
+				case NoteSyncType.UploadModified:
+					statusText = Catalog.GetString ("Uploading changes to server");
+					break;
+				case NoteSyncType.UploadNew:
+					statusText = Catalog.GetString ("Uploading new note to server");
+					break;
+				}
+				AddUpdateItem (noteTitle, statusText);
+			});
+		}
+
 		#endregion // Private Event Handlers
 	}
 
