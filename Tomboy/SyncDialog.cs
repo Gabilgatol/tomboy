@@ -112,6 +112,8 @@ namespace Tomboy
 		#region Private Event Handlers
 		void OnSynchronizeButton (object sender, EventArgs args)
 		{
+			model.Clear ();
+			progressBar.Fraction = 0;
 			syncButton.Sensitive = false;
 			SyncManager.PerformSynchronization ();
 			syncButton.Sensitive = true;

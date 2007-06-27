@@ -1,3 +1,9 @@
+2007-06-27  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/SyncDialog.cs: Clear out the treeview and reset the progress
+	  bar when starting a new sync.
+	* Tomboy/TomboySyncClient.cs: Set the default revision to -1.
+
 2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/SyncManager.cs, Tomboy/FileSystemSyncServer.cs,

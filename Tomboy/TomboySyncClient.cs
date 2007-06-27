@@ -35,11 +35,10 @@ namespace Tomboy
 		{
 			// blah blah blah, read XML
 			lastSyncDate = DateTime.Today.AddDays (-1);
-			lastSyncRev = 0;
+			lastSyncRev = -1;
 			
 			if (!File.Exists (manifestPath)) {
-				lastSyncDate = new DateTime (0);
-				lastSyncRev = 0;
+				lastSyncDate = DateTime.MinValue;
 				Write (manifestPath);
 			}
 			
