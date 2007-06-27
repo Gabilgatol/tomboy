@@ -327,7 +327,7 @@ namespace Tomboy
 			data.Title = title;
 			data.CreateDate = DateTime.Now;
 			data.ChangeDate = data.CreateDate;
-			data.Revision = 0;// TODO: How best?
+			data.Revision = -1;
 			return new Note (data, filepath, manager);
 		}
 

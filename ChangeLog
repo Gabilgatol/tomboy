@@ -1,3 +1,11 @@
+2007-06-27  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/SyncManager.cs: Added in descriptive status messages (which
+	  we'll need to change later) for the sync dialog.  Also added code
+	  to add status messages about files that come from the client.
+	* Tomboy/Note.cs: Changed the default revision on a new note to be -1. 
+	  -1 signifies that a note has never been synchronized.
+
 2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/FileSystemSyncServer.cs: Extrated AdjustPermissions method. 

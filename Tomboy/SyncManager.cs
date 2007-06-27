@@ -3,6 +3,8 @@ using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 
+using Mono.Unix;
+
 namespace Tomboy
 {
 	public class SyncManager
@@ -122,14 +124,14 @@ namespace Tomboy
 					existingNote = Note.Load (newNotePath, NoteMgr);
 					NoteMgr.Notes.Add (existingNote);
 					
-					syncDialog.AddUpdateItem (existingNote.Title, "Added");
+					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading new note"));
 				} else if (note.XmlContent == string.Empty &&
 				         existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {
-					syncDialog.AddUpdateItem (existingNote.Title, "Deleted");
+					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Deleting note on client"));
 					NoteMgr.Delete (existingNote);
 				} else if (existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {
 					existingNote.XmlContent = note.XmlContent;// TODO: live update of note XML
-					syncDialog.AddUpdateItem (existingNote.Title, "Updated");
+					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading update"));
 				} else {
 					// TODO: handle conflicts
 				}
@@ -142,9 +144,15 @@ namespace Tomboy
 			// Upload notes modified or added on client
 			List<Note> newOrModifiedNotes = new List<Note> ();			
 			foreach (Note note in NoteMgr.Notes) {
-				if (note.Revision <= client.LastSynchronizedRevision &&// NOTE: Confused...?
-				    note.ChangeDate.CompareTo (client.LastSyncDate) > 0)
+				if (note.Revision == -1) {
+					// This is a new note that has never been synchronized to the server
 					newOrModifiedNotes.Add (note);
+					syncDialog.AddUpdateItem (note.Title, Catalog.GetString ("Adding new file to server"));
+				} else if (note.Revision <= client.LastSynchronizedRevision &&// NOTE: Confused...?
+				    	note.ChangeDate.CompareTo (client.LastSyncDate) > 0) {
+					newOrModifiedNotes.Add (note);
+					syncDialog.AddUpdateItem (note.Title, Catalog.GetString ("Uploading changes"));
+				}
 			}
 			// Apply this revision number to all new/modified notes since last sync
 			// TODO: Should revision info be stored in note, or a seperate file?
@@ -159,8 +167,11 @@ namespace Tomboy
 			// Handle notes deleted on client
 			List<string> locallyDeletedUUIDs = new List<string> ();			
 			foreach (string noteUUID in server.GetAllNoteUUIDs ()) {
-				if (FindNoteByUUID (noteUUID) == null)
+				if (FindNoteByUUID (noteUUID) == null) {
 					locallyDeletedUUIDs.Add (noteUUID);
+					// TODO: Cough, ugh.  Can we get the title at this point?
+					syncDialog.AddUpdateItem (noteUUID, Catalog.GetString ("Deleting from server"));
+				}
 			}			
 			server.DeleteNotes (locallyDeletedUUIDs);
 			
