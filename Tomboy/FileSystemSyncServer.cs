@@ -374,11 +374,17 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				XmlDocument doc = new XmlDocument ();
 				FileStream fs = new FileStream (lockPath, FileMode.Open);
 				doc.Load (fs);
-				
-				XmlNode node = doc.SelectSingleNode ("//client-guid/text ()");
+
+				XmlNode node = doc.SelectSingleNode ("//transaction-id/text ()");
 				if (node != null) {
-					string client_guid_txt = node.InnerText;
-					syncLockInfo.LockOwner = client_guid_txt;
+					string transaction_id_txt = node.InnerText;
+					syncLockInfo.TransactionId = transaction_id_txt;
+				}
+				
+				node = doc.SelectSingleNode ("//client-id/text ()");
+				if (node != null) {
+					string client_id_txt = node.InnerText;
+					syncLockInfo.ClientId = client_id_txt;
 				}
 				
 				node = doc.SelectSingleNode ("//renew-count/text ()");
@@ -415,8 +421,12 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			xml.WriteStartDocument ();
 			xml.WriteStartElement (null, "lock", null);
 			
-			xml.WriteStartElement (null, "client-guid", null);
-			xml.WriteString (syncLockInfo.LockOwner);
+			xml.WriteStartElement (null, "transaction-id", null);
+			xml.WriteString (syncLockInfo.TransactionId);
+			xml.WriteEndElement ();
+			
+			xml.WriteStartElement (null, "client-id", null);
+			xml.WriteString (syncLockInfo.ClientId);
 			xml.WriteEndElement ();
 			
 			xml.WriteStartElement (null, "renew-count", null);

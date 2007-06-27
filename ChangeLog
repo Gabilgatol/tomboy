@@ -1,5 +1,13 @@
 2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/SyncManager.cs, Tomboy/FileSystemSyncServer.cs,
+	  Tomboy/Preferences.cs: Adding TransactionID guid to the lock file,
+	  unique for each attempted transaction with the server.  Renaming
+	  LockOwner to ClientId; note that the ClientId can be changed by the
+	  user and is not guaranteed to be unique.
+
+2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Note.cs: Check for null before acting on buffer (Note may not
 	  have been opened yet).
 

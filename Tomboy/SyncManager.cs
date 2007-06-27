@@ -249,10 +249,15 @@ namespace Tomboy
 	public class SyncLockInfo
 	{
 		/// <summary>
-		/// A string that's unique to identify which client currently has the
-		/// lock open.
+		/// A string to identify which client currently has the
+		/// lock open.  Not guaranteed to be unique.
 		/// </summary>
-		public string LockOwner;
+		public string ClientId;
+		
+		/// <summary>
+		/// Unique ID for the sync transaction associated with the lock.
+		/// </summary>
+		public string TransactionId;
 		
 		/// <summary>
 		/// Indicates how many times the client has renewed the lock.
@@ -282,18 +287,11 @@ namespace Tomboy
 		
 		public SyncLockInfo ()
 		{
-			LockOwner = Preferences.Get (Preferences.SYNC_GUID) as string;
+			ClientId = Preferences.Get (Preferences.SYNC_CLIENT_ID) as string;
+			TransactionId = System.Guid.NewGuid ().ToString ();
 			RenewCount = 0;
 			Duration = new TimeSpan (0, 2, 0); // default of 2 minutes
 			Revision = 0;
-		}
-		
-		public SyncLockInfo (string lockOwner, int renewCount, TimeSpan duration, int revision) : this ()
-		{
-			LockOwner = lockOwner;
-			RenewCount = renewCount;
-			Duration = duration;
-			Revision = revision;
 		}
 		
 		/// <summary>
@@ -303,8 +301,8 @@ namespace Tomboy
 		public string HashString
 		{
 			get {
-				return string.Format ("{0}-{1}-{2}-{3}",
-					LockOwner, RenewCount,
+				return string.Format ("{0}-{1}-{2}-{3}-{4}",
+					TransactionId, ClientId, RenewCount,
 					Duration.ToString (), Revision);
 			}
 		}
