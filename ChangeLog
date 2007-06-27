@@ -1,3 +1,9 @@
+2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/SyncManager.cs, Tomboy/RemoteControl.cs, Tomboy/Note.cs: New
+	  Note.LoadForeignNoteXml method, used by sync and
+	  RemoteControl.SetNoteContentsCompleteXml.
+
 2007-06-27  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/SyncDialog.cs: Stubbed in a Synchronize Now button.

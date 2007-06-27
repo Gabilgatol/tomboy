@@ -565,6 +565,81 @@ namespace Tomboy
 					data.Text = value; 
 			}
 		}
+		
+		// Reload note data from a complete note XML string
+		// Should referesh note window, too
+		public void LoadForeignNoteXml (string foreignNoteXml)
+		{
+			StringReader reader = new StringReader (foreignNoteXml);
+			XmlTextReader xml = new XmlTextReader (reader);
+			xml.Namespaces = false;
+
+			while (xml.Read ()) {
+				switch (xml.NodeType) {
+				case XmlNodeType.Element:
+					switch (xml.Name) {
+					case "title":
+						Title = xml.ReadString ();
+						break;
+					case "text":
+						// <text> is just a wrapper around <note-content>
+						// NOTE: Use .text here to avoid triggering a save.
+						data.Data.Text = xml.ReadInnerXml ();
+						break;
+					case "last-change-date":
+						data.Data.ChangeDate = 
+							XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						break;
+					case "create-date":
+						data.Data.CreateDate = 
+							XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						break;
+					case "tags":
+						// TODO: Is this the right way to clear old tags?
+						foreach (Tag tag in Tags)
+							RemoveTag (tag);
+						XmlDocument doc = new XmlDocument ();
+						List<string> tag_strings = ParseTags (doc.ReadNode (xml.ReadSubtree ()));
+						foreach (string tag_str in tag_strings) {
+							Tag tag = TagManager.GetOrCreateTag (tag_str);
+							AddTag (tag);
+						}
+						break;
+					case "open-on-startup":
+						IsOpenOnStartup = bool.Parse (xml.ReadString ());
+						break;
+				case "revision":
+					Revision = int.Parse (xml.ReadString ());
+					break;
+					}
+					break;
+				}
+			}
+
+			xml.Close ();
+			
+			string temp = data.Data.Text;
+			buffer.SetText("");
+			NoteBufferArchiver.Deserialize (buffer, temp);
+			
+			/*
+			DebugSave ("Tag added, queueing save");
+			QueueSave (false);
+			 */
+		}
+		
+		// TODO: CODE DUPLICATION SUCKS
+		List<string> ParseTags (XmlNode tagNodes)
+		{
+			List<string> tags = new List<string> ();
+			
+			foreach (XmlNode node in tagNodes.SelectNodes ("//tag")) {
+				string tag = node.InnerText;
+				tags.Add (tag);
+			}
+			
+			return tags;
+		}
 
 		public string TextContent
 		{

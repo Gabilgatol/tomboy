@@ -130,7 +130,7 @@ namespace Tomboy
 					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Deleting note on client"));
 					NoteMgr.Delete (existingNote);
 				} else if (existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {
-					existingNote.XmlContent = note.XmlContent;// TODO: live update of note XML
+					existingNote.LoadForeignNoteXml (note.XmlContent);// TODO: live update of note XML
 					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading update"));
 				} else {
 					// TODO: handle conflicts
