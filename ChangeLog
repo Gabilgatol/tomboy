@@ -1,3 +1,8 @@
+2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/FileSystemSyncServer.cs: Extrated AdjustPermissions method. 
+	  Setting permissions on parent directory when necessary.
+
 2007-06-27  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/FileSystemSyncServer.cs: Removing old code that was commented

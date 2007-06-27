@@ -48,14 +48,17 @@ namespace Tomboy
 		
 		public virtual void UploadNotes (IList<Note> notes)
 		{
-			if (Directory.Exists (newRevisionPath) == false)
-				Directory.CreateDirectory (newRevisionPath);
+			if (Directory.Exists (newRevisionPath) == false) {
+				DirectoryInfo info = Directory.CreateDirectory (newRevisionPath);
+				AdjustPermissions (info.Parent.FullName);
+				AdjustPermissions (newRevisionPath);
+			}
 			Logger.Debug ("UploadNotes: notes.Count = {0}", notes.Count);
 			foreach (Note note in notes) {
 				try {
 					string serverNotePath = Path.Combine (newRevisionPath, Path.GetFileName (note.FilePath));
 					File.Copy (note.FilePath, serverNotePath, true);
-					Mono.Unix.Native.Syscall.chmod (serverNotePath, Mono.Unix.Native.FilePermissions.ACCESSPERMS);
+					AdjustPermissions (serverNotePath);
 					updatedNotes.Add (Path.GetFileNameWithoutExtension (note.FilePath));
 				} catch (Exception e) {
 					Logger.Log ("Sync: Error uploading note \"{0}\": {1}", note.Title, e.Message);
@@ -213,9 +216,9 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 														"manifest.xml");
 				if (!Directory.Exists (newRevisionPath))
 				{
-					Directory.CreateDirectory (newRevisionPath);
-					Mono.Unix.Native.Syscall.chmod (newRevisionPath,
-					                                Mono.Unix.Native.FilePermissions.ACCESSPERMS);
+					DirectoryInfo info = Directory.CreateDirectory (newRevisionPath);
+					AdjustPermissions (info.Parent.FullName);
+					AdjustPermissions (newRevisionPath);
 				}
 				
 				XmlDocument doc = new XmlDocument ();
@@ -275,9 +278,8 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				
 				xml.Close ();
 				
-				Mono.Unix.Native.Syscall.chmod (manifestFilePath,
-				                                Mono.Unix.Native.FilePermissions.ACCESSPERMS);
-				
+				AdjustPermissions (manifestFilePath);
+
 				
 				// Rename original /manifest.xml to /manifest.xml.old
 				string oldManifestPath = manifestPath + ".old";
@@ -290,8 +292,7 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				
 				// Copy the /${parent}/${rev}/manifest.xml -> /manifest.xml
 				File.Copy (manifestFilePath, manifestPath);
-				Mono.Unix.Native.Syscall.chmod (manifestPath,
-												Mono.Unix.Native.FilePermissions.ACCESSPERMS);
+				AdjustPermissions (manifestPath);
 				
 				// Delete /manifest.xml.old
 				if (File.Exists (oldManifestPath))
@@ -434,6 +435,8 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			xml.WriteEndDocument ();
 			
 			xml.Close ();
+			
+			AdjustPermissions (lockPath);
 		}
 		
 		/// <summary>
@@ -490,6 +493,11 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			}
 			
 			return true;
+		}
+		
+		private void AdjustPermissions (string path)
+		{
+			Mono.Unix.Native.Syscall.chmod (path, Mono.Unix.Native.FilePermissions.ACCESSPERMS);
 		}
 		#endregion // Private Methods
 		
