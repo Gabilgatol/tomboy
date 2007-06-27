@@ -111,19 +111,9 @@ namespace Tomboy
 				if (existingNote == null) {// TODO: not so simple...what if I deleted the note?
 					if (note.XmlContent == string.Empty)
 						continue; // Deletion of note that doesn't exist
-					
-					string newNotePath = Path.Combine (NoteMgr.NoteDirectoryPath,
-					                                   note.UUID + ".note");
-					FileInfo info = new FileInfo (newNotePath);
-					StreamWriter writer = info.CreateText ();
-					writer.Write (note.XmlContent);
-					writer.Close ();
-					Logger.Debug ("Copied new note here: " + newNotePath);
-					Logger.Debug ("New note contents are: " + note.XmlContent);
-					
-					existingNote = Note.Load (newNotePath, NoteMgr);
-					NoteMgr.Notes.Add (existingNote);
-					
+
+					existingNote = NoteMgr.CreateWithGuid (note.Title, note.UUID);
+					existingNote.LoadForeignNoteXml (note.XmlContent);					
 					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading new note"));
 				} else if (note.XmlContent == string.Empty &&
 				         existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {

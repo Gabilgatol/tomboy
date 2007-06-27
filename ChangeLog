@@ -1,3 +1,12 @@
+2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/SyncManager.cs: When adding a note from the server, use
+	  NoteManager.CreateWithGuid followed by Note.LoadForeignNoteXml. 
+	  This allows the note XML to be verified by LoadForeignNoteXml
+	  before it actually gets into Tomboy.
+	* Tomboy/NoteManager.cs: Refactor NoteManager.Create* methods to allow
+	  creating a new note with a specified GUID.
+
 2007-06-27  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/SyncDialog.cs: Clear out the treeview and reset the progress
