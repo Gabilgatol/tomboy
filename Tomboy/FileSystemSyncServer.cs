@@ -7,6 +7,7 @@ namespace Tomboy
 {
 	public class FileSystemSyncServer : SyncServer
 	{
+/*
 		private class RevisionDetails
 		{
 			public int Revision;
@@ -25,8 +26,9 @@ namespace Tomboy
 				int revisionParentDir = revision / 100;
 				string manifestFileParentDir = Path.Combine (server.serverPath,
 				                                             revisionParentDir.ToString ());
-				string manifestFilePath = Path.Combine (manifestFileParentDir,
-				                                        revision.ToString () + ".rev");
+				string manifestFileDirPath = Path.Combine (manifestFileParentDir,
+				                                        revision.ToString ());
+				string manifestFilePath = Path.Combine (manifestFileDirPath, "changes");
 				
 				StreamReader reader = new StreamReader (manifestFilePath);
 				
@@ -47,13 +49,17 @@ namespace Tomboy
 				reader.Close ();
 			}
 		}
-		
+*/		
 		private List<string> updatedNotes;
 		private List<string> deletedNotes;
 		
 		private string serverPath;
 		private string notePath;
 		private string lockPath;
+		private string manifestPath;
+		
+		private int newRevision;
+		private string newRevisionPath;
 		
 		private static DateTime initialSyncAttempt = DateTime.MinValue;
 		private static string lastSyncLockHash = string.Empty;
@@ -72,6 +78,12 @@ namespace Tomboy
 			
 			notePath = Tomboy.DefaultNoteManager.NoteDirectoryPath;
 			lockPath = Path.Combine (serverPath, "lock");
+			manifestPath = Path.Combine (serverPath, "manifest.xml");
+			
+			newRevision = LatestRevision + 1;
+			string revParentPath = Path.Combine (serverPath, (newRevision / 100).ToString ());
+			newRevisionPath = Path.Combine (revParentPath, newRevision.ToString ());
+			
 			lockTimeout = new InterruptableTimeout ();
 			lockTimeout.Timeout += LockTimeout;
 			syncLock = new SyncLockInfo ();
@@ -79,14 +91,17 @@ namespace Tomboy
 		
 		public virtual void UploadNotes (IList<Note> notes)
 		{
+			if (Directory.Exists (newRevisionPath) == false)
+				Directory.CreateDirectory (newRevisionPath);
+			Logger.Debug ("UploadNotes: notes.Count = {0}", notes.Count);
 			foreach (Note note in notes) {
 				try {
-					string serverNotePath = Path.Combine (serverPath, Path.GetFileName (note.FilePath));
+					string serverNotePath = Path.Combine (newRevisionPath, Path.GetFileName (note.FilePath));
 					File.Copy (note.FilePath, serverNotePath, true);
 					Mono.Unix.Native.Syscall.chmod (serverNotePath, Mono.Unix.Native.FilePermissions.ACCESSPERMS);
 					updatedNotes.Add (Path.GetFileNameWithoutExtension (note.FilePath));
 				} catch (Exception e) {
-					Logger.Log ("Sync: Error uploading note: " + e.Message);
+					Logger.Log ("Sync: Error uploading note \"{0}\": {1}", note.Title, e.Message);
 				}
 			}
 		}
@@ -95,60 +110,88 @@ namespace Tomboy
 		{
 			foreach (string uuid in deletedNoteUUIDs) {
 				try {
-					File.Delete (Path.Combine (serverPath, uuid + ".note"));
+//					File.Delete (Path.Combine (serverPath, uuid + ".note"));
 					deletedNotes.Add (uuid);
 				} catch (Exception e) {
 					Logger.Log ("Sync: Error deleting note: " + e.Message);
 				}
-			}				
+			}
 		}
 
 		public IList<string> GetAllNoteUUIDs ()
 		{
 			List<string> noteUUIDs = new List<string> ();
 			
-			foreach (string fileName in Directory.GetFiles (serverPath, "*.note"))
-				noteUUIDs.Add (Path.GetFileNameWithoutExtension (fileName));
+			if (File.Exists (manifestPath)) {
+				FileStream fs = new FileStream (manifestPath, FileMode.Open);
+				XmlDocument doc = new XmlDocument ();
+				doc.Load (fs);
+				
+				XmlNodeList noteIds = doc.SelectNodes ("//note/@id");
+				Logger.Debug ("GetAllNoteUUIDs has {0} notes", noteIds.Count);
+				foreach (XmlNode idNode in noteIds) {
+					noteUUIDs.Add (idNode.InnerText);
+				}
+				
+				fs.Close ();
+			}
+			
+//			foreach (string fileName in Directory.GetFiles (serverPath, "*.note"))
+//				noteUUIDs.Add (Path.GetFileNameWithoutExtension (fileName));
 			
 			return noteUUIDs;
 		}
-
+		
 		public virtual IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision)
 		{
-			// TODO: Empty temp dir each time
-			string tempPath = Path.Combine (notePath, "sync_temp");
-			if (!Directory.Exists (tempPath))
-				Directory.CreateDirectory (tempPath);
-			
 			Dictionary<string, NoteUpdate> noteUpdates = new Dictionary<string, NoteUpdate> ();
-			// TODO: Read manifest file
-			for (int i = LatestRevision; i> revision; i--) {
-				RevisionDetails revDetails = new RevisionDetails (i, this);
-				// TODO: Pull info into NoteUpdate objects
-				foreach (string uuid in revDetails.DeletedNotes) {
-					if (!noteUpdates.ContainsKey (uuid)) {
-						NoteUpdate update = new NoteUpdate (string.Empty,string.Empty,uuid,i);
-						noteUpdates[uuid] = update;
+
+			string tempPath = Path.Combine (notePath, "sync_temp");
+			if (!Directory.Exists (tempPath)) {
+				Directory.CreateDirectory (tempPath);
+			} else {
+				// Empty the temp dir
+				try {
+					foreach (string oldFile in Directory.GetFiles (tempPath)) {
+						File.Delete (oldFile);
+					}
+				} catch {}
+			}
+			
+			if (File.Exists (manifestPath)) {
+				FileStream fs = new FileStream (manifestPath, FileMode.Open);
+				XmlDocument doc = new XmlDocument ();
+				doc.Load (fs);
+				
+				string xpath =
+					string.Format ("//note[@rev > {0}]", revision.ToString ());
+				XmlNodeList noteNodes = doc.SelectNodes (xpath);
+Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
+				foreach (XmlNode node in noteNodes) {
+					string id = node.SelectSingleNode ("@id").InnerText;
+					int rev = Int32.Parse (node.SelectSingleNode ("@rev").InnerText);
+					if (noteUpdates.ContainsKey (id) == false) {
+						// Copy the file from the server to the temp directory
+						string revParentDir = Path.Combine (serverPath, (rev / 100).ToString ());
+						string revDir = Path.Combine (revParentDir, rev.ToString ());
+						string serverNotePath = Path.Combine (revDir, id + ".note");
+						string noteTempPath = Path.Combine (tempPath, id + ".note");
+						File.Copy (serverNotePath, noteTempPath, true);
+						
+						// Get the title, contents, etc.
+						string noteTitle = string.Empty;
+						StreamReader reader = new StreamReader (noteTempPath);
+						string noteXml = reader.ReadToEnd ();
+						reader.Close ();
+						NoteUpdate update = new NoteUpdate (noteXml, noteTitle, id, rev);
+						noteUpdates [id] = update;
 					}
 				}
 				
-				foreach (string uuid in revDetails.UpdatedNotes) {
-					if (!noteUpdates.ContainsKey (uuid)) {
-						// TODO: Put file in temp dir
-						File.Copy (Path.Combine (serverPath, uuid + ".note"),
-						           Path.Combine (tempPath, uuid + ".note"),
-						           true);
-						// TODO: Get title, contents, etc
-						string noteTitle = "";
-						StreamReader reader = new StreamReader (Path.Combine (tempPath, uuid + ".note"));
-						string noteXml = reader.ReadToEnd ();
-						reader.Close ();
-						NoteUpdate update = new NoteUpdate (noteXml, noteTitle, uuid, i);
-						noteUpdates[uuid] = update;
-					}
-				}
+				fs.Close ();
 			}
 			
+			Logger.Debug ("GetNoteUpdatesSince ({0}) returning: {1}", revision, noteUpdates.Count);
 			return noteUpdates;
 		}
 
@@ -183,11 +226,8 @@ namespace Tomboy
 						}
 					}
 					
-					Logger.Debug ("Sync: Deleting expired lockfile");
-					Logger.Debug ("\t Old Client: {0}", currentSyncLock.LockOwner);
-					Logger.Debug ("\tRetry Count: {0}", currentSyncLock.RenewCount);
-					Logger.Debug ("\t   Duration: {0}", currentSyncLock.Duration.ToString ());
-					File.Delete (lockPath);
+					// Cleanup Old Sync Lock!
+					CleanupOldSync (currentSyncLock);
 				}
 			}
 			
@@ -198,6 +238,7 @@ namespace Tomboy
 			// Create a new lock file so other clients know another client is
 			// actively synchronizing right now.
 			syncLock.RenewCount = 0;
+			syncLock.Revision = newRevision;
 			UpdateLockFile (syncLock);
 			// TODO: Verify that the lockTimeout is actually working or figure
 			// out some other way to automatically update the lock file.
@@ -215,35 +256,114 @@ namespace Tomboy
 			if (updatedNotes.Count > 0 || deletedNotes.Count > 0)
 			{
 				// TODO: error-checking, etc
-				int newRevision = LatestRevision + 1;
-				int newRevisionParentDir = newRevision / 100;
-				string manifestFileParentDir = Path.Combine (serverPath,
-				                                             newRevisionParentDir.ToString ());
-				string manifestFilePath = Path.Combine (manifestFileParentDir,
-				                                        newRevision.ToString () + ".rev");
-				if (!Directory.Exists (manifestFileParentDir))
+//				int newRevision = LatestRevision + 1;
+//				int newRevisionParentDir = newRevision / 100;
+//				string manifestFileParentDir = Path.Combine (serverPath,
+//				                                             newRevisionParentDir.ToString ());
+				string manifestFilePath = Path.Combine (newRevisionPath,
+//				                                        newRevision.ToString () + ".rev");
+														"manifest.xml");
+				if (!Directory.Exists (newRevisionPath))
 				{
-					Directory.CreateDirectory (manifestFileParentDir);
-					Mono.Unix.Native.Syscall.chmod (manifestFileParentDir,
+					Directory.CreateDirectory (newRevisionPath);
+					Mono.Unix.Native.Syscall.chmod (newRevisionPath,
 					                                Mono.Unix.Native.FilePermissions.ACCESSPERMS);
 				}
 				
-				FileInfo info = new FileInfo (manifestFilePath);
-				StreamWriter writer = info.CreateText ();
-				if (updatedNotes.Count > 0) {
-					writer.WriteLine ("U");
-					foreach (string uuid in updatedNotes)
-						writer.WriteLine (uuid);
-				}
-				if (deletedNotes.Count > 0) {
-					writer.WriteLine ("D");
-					foreach (string uuid in deletedNotes)
-						writer.WriteLine (uuid);
-				}
+//				FileInfo info = new FileInfo (manifestFilePath);
+//				StreamWriter writer = info.CreateText ();
+//				if (updatedNotes.Count > 0) {
+//					writer.WriteLine ("U");
+//					foreach (string uuid in updatedNotes)
+//						writer.WriteLine (uuid);
+//				}
+//				if (deletedNotes.Count > 0) {
+//					writer.WriteLine ("D");
+//					foreach (string uuid in deletedNotes)
+//						writer.WriteLine (uuid);
+//				}
 
-				writer.Close ();
+//				writer.Close ();
+				XmlDocument doc = new XmlDocument ();
+				XmlNodeList noteNodes = null;
+				if (File.Exists (manifestPath) == true) {
+					FileStream fs = new FileStream (manifestPath, FileMode.Open);
+					try {
+						doc.Load (fs);
+						noteNodes = doc.SelectNodes ("//note");
+					} finally {
+						fs.Close ();
+					}
+				} else {
+					StringReader sr = new StringReader ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<sync>\n</sync>");
+					doc.Load (sr);
+					sr.Close ();
+					noteNodes = doc.SelectNodes ("//note");
+				}
+				
+				// Write out the new manifest file
+				XmlTextWriter xml = new XmlTextWriter (manifestFilePath, System.Text.Encoding.UTF8);
+				
+				xml.Formatting = Formatting.Indented;
+
+				xml.WriteStartDocument ();
+				xml.WriteStartElement (null, "sync", null);
+				xml.WriteAttributeString ("revision", newRevision.ToString ());
+
+				foreach (XmlNode node in noteNodes) {
+					string id = node.SelectSingleNode ("@id").InnerText;
+					string rev = node.SelectSingleNode ("@rev").InnerText;
+					
+					// Don't write out deleted notes
+					if (deletedNotes.Contains (id))
+						continue;
+					
+					// Skip updated notes, we'll update them in a sec
+					if (updatedNotes.Contains (id))
+						continue;
+					
+					xml.WriteStartElement (null, "note", null);
+					xml.WriteAttributeString ("id", id);
+					xml.WriteAttributeString ("rev", rev);
+					xml.WriteEndElement ();
+				}
+				
+				// Write out all the updated notes
+				foreach (string uuid in updatedNotes) {
+					xml.WriteStartElement (null, "note", null);
+					xml.WriteAttributeString ("id", uuid);
+					xml.WriteAttributeString ("rev", newRevision.ToString ());
+					xml.WriteEndElement ();
+				}
+				
+				xml.WriteEndElement ();
+				xml.WriteEndDocument ();
+				
+				xml.Close ();
+				
 				Mono.Unix.Native.Syscall.chmod (manifestFilePath,
 				                                Mono.Unix.Native.FilePermissions.ACCESSPERMS);
+				
+				
+				// Rename original /manifest.xml to /manifest.xml.old
+				string oldManifestPath = manifestPath + ".old";
+				if (File.Exists (manifestPath) == true) {
+					if (File.Exists (oldManifestPath)) {
+						File.Delete (oldManifestPath);
+					}
+					File.Move (manifestPath, oldManifestPath);
+				}
+				
+				// Copy the /${parent}/${rev}/manifest.xml -> /manifest.xml
+				File.Copy (manifestFilePath, manifestPath);
+				Mono.Unix.Native.Syscall.chmod (manifestPath,
+												Mono.Unix.Native.FilePermissions.ACCESSPERMS);
+				
+				// Delete /manifest.xml.old
+				if (File.Exists (oldManifestPath))
+					File.Delete (oldManifestPath);
+				
+				// TODO: Do step #8 as described in http://bugzilla.gnome.org/show_bug.cgi?id=321037#c17
 			}
 			
 			lockTimeout.Cancel ();
@@ -255,24 +375,55 @@ namespace Tomboy
 		{
 			get
 			{
+				int latestRev = -1;
 				int latestRevDir = -1;
-				foreach (string dir in Directory.GetDirectories (serverPath)) {
+				if (File.Exists (manifestPath) == true) {
+					FileStream fs = new FileStream (manifestPath, FileMode.Open);
+					XmlDocument doc = new XmlDocument ();
 					try {
-						int currentRevDir = int.Parse (Path.GetFileName (dir));// TODO: Do this better!
-						if (currentRevDir > latestRevDir)
-							latestRevDir = currentRevDir;
-					} catch {}
+						doc.Load (fs);
+						XmlNode syncNode = doc.SelectSingleNode ("//sync");
+						string latestRevStr = syncNode.Attributes.GetNamedItem ("revision").InnerText;
+						if (latestRevStr != null && latestRevStr != string.Empty)
+							latestRev = Int32.Parse (latestRevStr);
+					} finally {
+						fs.Close ();
+					}
 				}
 				
-				int latestRev = -1;
-				if (latestRevDir > -1) {
-					foreach (string revFile in Directory.GetFiles (Path.Combine (serverPath,
-					                                                                   latestRevDir.ToString ()))) {
+				LOOK_FOR_LATEST_REV:
+				
+				if (latestRev < 0) {
+					// Look for the highest revision parent path
+					foreach (string dir in Directory.GetDirectories (serverPath)) {
 						try {
-							int currentRevFile = int.Parse (Path.GetFileNameWithoutExtension (revFile));
-							if (currentRevFile > latestRev)
-								latestRev = currentRevFile;
+							int currentRevParentDir = Int32.Parse (Path.GetFileName (dir));
+							if (currentRevParentDir > latestRevDir)
+								latestRevDir = currentRevParentDir;
 						} catch {}
+					}
+
+					if (latestRevDir >= 0) {
+						foreach (string revDir in Directory.GetDirectories (
+									Path.Combine (serverPath, latestRevDir.ToString ()))) {
+							try {
+								int currentRev = Int32.Parse (revDir);
+								if (currentRev > latestRev)
+									latestRev = currentRev;
+							} catch {}
+						}
+					}
+					
+					if (latestRev >= 0) {
+						// Validate that the manifest file inside the revision is valid
+						// TODO: Should we create the /manifest.xml file with a valid one?
+						string revParentPath = Path.Combine (serverPath, latestRevDir.ToString ());
+						string revDirPath = Path.Combine (revParentPath, latestRev.ToString ());
+						string revManifestPath = Path.Combine (revDirPath, "manifest.xml");
+						if (IsValidXmlFile (revManifestPath) == false) {
+							// TODO: Delete the revDirPath since it's invalid ... without fixing this, you could get into a forever loop!
+							goto LOOK_FOR_LATEST_REV;
+						}
 					}
 				}
 				
@@ -307,37 +458,15 @@ namespace Tomboy
 					syncLockInfo.Duration = TimeSpan.Parse (span_txt);
 				}
 				
-				fs.Close ();
-				
-				return syncLockInfo;
-			}
-		}
-		/// <summary>
-		/// The amount of time that must expire before a client can claim
-		/// ownership of a synchronization session.  If a lock file exists
-		/// on the server, the client must wait this amount of time before
-		/// checking for the lock file again.  If the same lock file exists
-		/// the client can delete the lock file and begin synchronizing.
-		/// </summary>
-		public virtual TimeSpan LockExpirationDuration
-		{
-			get {
-				// Use a default of 5 minutes
-				TimeSpan ts = new TimeSpan (0, 5, 0);
-				
-				XmlDocument doc = new XmlDocument ();
-				FileStream fs = new FileStream (lockPath, FileMode.Open);
-				doc.Load (fs);
-				
-				XmlNode node = doc.SelectSingleNode ("//lock-expiration-duration/text ()");
+				node = doc.SelectSingleNode ("//revision/text ()");
 				if (node != null) {
-					string span_txt = node.InnerText;
-					ts = TimeSpan.Parse (span_txt);
+					string revision_txt = node.InnerText;
+					syncLockInfo.Revision = Int32.Parse (revision_txt);
 				}
 				
 				fs.Close ();
 				
-				return ts;
+				return syncLockInfo;
 			}
 		}
 		
@@ -363,10 +492,70 @@ namespace Tomboy
 			xml.WriteString (syncLockInfo.Duration.ToString ());
 			xml.WriteEndElement ();
 			
+			xml.WriteStartElement (null, "revision", null);
+			xml.WriteString (syncLockInfo.Revision.ToString ());
+			xml.WriteEndElement ();
+			
 			xml.WriteEndElement ();
 			xml.WriteEndDocument ();
 			
 			xml.Close ();
+		}
+		
+		/// <summary>
+		/// This method is used when the sync lock file is determined to be out
+		/// of date.  It will check to see if the manifest.xml file exists and
+		/// check whether it is valid (must be a valid XML file).
+		/// </summary>
+		private void CleanupOldSync (SyncLockInfo syncLockInfo)
+		{
+			Logger.Debug ("Sync: Cleaning up a previous failed sync transaction");
+			int rev = LatestRevision;
+			if (rev >= 0 && (File.Exists (manifestPath) == false
+						|| IsValidXmlFile (manifestPath) == false)) {
+				// Time to discover the latest valid revision
+				// If no manifest.xml file exists, that means we've got to
+				// figure out if there are any previous revisions with valid
+				// manifest.xml files around.
+				for (; rev >= 0; rev--) {
+					string revParentPath = Path.Combine (serverPath, rev.ToString ());
+					string manPath = Path.Combine (revParentPath, "manifest.xml");
+					if (File.Exists (manPath) == false)
+						continue;
+					
+					if (IsValidXmlFile (manPath) == false)
+						continue;
+					
+					// Restore a valid manifest path
+					File.Copy (manPath, manifestPath, true);
+					break;
+				}
+			}
+
+			// Delete the old lock file
+			Logger.Debug ("Sync: Deleting expired lockfile");
+			try {
+				File.Delete (lockPath);
+			} catch (Exception e) {
+				Logger.Warn ("Error deleting the old sync lock \"{0}\": {1}", lockPath, e.Message);
+			}
+		}
+		
+		private bool IsValidXmlFile (string xmlFilePath)
+		{
+			// Attempt to load the file and parse it as XML
+			FileStream fs = new FileStream (xmlFilePath, FileMode.Open);
+			XmlDocument doc = new XmlDocument ();
+			try {
+				// TODO: Make this be a validating XML reader.  Not sure if it's validating yet.
+				doc.Load (fs);
+			} catch {
+				return false;
+			} finally {
+				fs.Close ();
+			}
+			
+			return true;
 		}
 		#endregion // Private Methods
 		

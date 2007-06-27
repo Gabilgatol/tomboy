@@ -1,5 +1,13 @@
 2007-06-26  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/SyncManager.cs: Added Revision to the lock file though I'm not
+	  sure it's entirely necessary.
+	* Tomboy/FileSystemSyncServer.cs: Added a bunch of code to sync using
+	  the new method that uses manifest.xml files in combination with
+	  clients only writing to a revision directory.
+
+2007-06-26  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/SyncManager.cs: SyncLockInfo class added.
 	* Tomboy/FileSystemSyncServer.cs: Added code to deal with sync lock
 	  files to expire them and guarantee that only one client gets in at

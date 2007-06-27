@@ -138,7 +138,7 @@ namespace Tomboy
 			// TODO: Add following updates to syncDialog treeview
 			syncDialog.ProgressText = "Sending note updates...";
 			syncDialog.ProgressFraction = 0.5;
-
+			
 			// Upload notes modified or added on client
 			List<Note> newOrModifiedNotes = new List<Note> ();			
 			foreach (Note note in NoteMgr.Notes) {
@@ -261,18 +261,28 @@ namespace Tomboy
 		/// </summary>
 		public TimeSpan Duration;
 		
+		/// <summary>
+		/// Specifies the current revision that this lock is for.  The client
+		/// that lays the lock file down should specify which revision they're
+		/// creating.  Clients needing to perform cleanup may want to know which
+		/// revision files to clean up by reading the value of this.
+		/// </summary>
+		public int Revision;
+		
 		public SyncLockInfo ()
 		{
 			LockOwner = Preferences.Get (Preferences.SYNC_GUID) as string;
 			RenewCount = 0;
 			Duration = new TimeSpan (0, 2, 0); // default of 2 minutes
+			Revision = 0;
 		}
 		
-		public SyncLockInfo (string lockOwner, int renewCount, TimeSpan duration) : this ()
+		public SyncLockInfo (string lockOwner, int renewCount, TimeSpan duration, int revision) : this ()
 		{
 			LockOwner = lockOwner;
 			RenewCount = renewCount;
 			Duration = duration;
+			Revision = revision;
 		}
 		
 		/// <summary>
@@ -282,8 +292,9 @@ namespace Tomboy
 		public string HashString
 		{
 			get {
-				return string.Format ("{0}-{1}-{2}",
-					LockOwner, RenewCount, Duration.ToString ());
+				return string.Format ("{0}-{1}-{2}-{3}",
+					LockOwner, RenewCount,
+					Duration.ToString (), Revision);
 			}
 		}
 	}
