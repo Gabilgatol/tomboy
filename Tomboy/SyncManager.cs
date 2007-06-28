@@ -236,10 +236,8 @@ namespace Tomboy
 			foreach (NoteUpdate note in noteUpdates.Values) {
 //				syncDialog.ProgressFraction += updateProgressInterval;
 				Note existingNote = FindNoteByUUID (note.UUID);
-				
+
 				if (existingNote == null) {// TODO: not so simple...what if I deleted the note?
-					if (note.XmlContent == string.Empty)
-						continue; // Deletion of note that doesn't exist
 					
 					existingNote = NoteMgr.CreateWithGuid (note.Title, note.UUID);
 					existingNote.LoadForeignNoteXml (note.XmlContent);
@@ -248,12 +246,6 @@ namespace Tomboy
 					if (NoteSynchronized != null)
 						NoteSynchronized (existingNote.Title, NoteSyncType.DownloadNew);
 //					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading new note"));
-				} else if (note.XmlContent == string.Empty &&
-				         existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {
-						if (NoteSynchronized != null)
-							NoteSynchronized (existingNote.Title, NoteSyncType.DeleteFromClient);
-//					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Deleting note on client"));
-					NoteMgr.Delete (existingNote);
 				} else if (existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {
 					existingNote.LoadForeignNoteXml (note.XmlContent);
 					client.SetRevision (existingNote, note.LatestRevision);
@@ -261,9 +253,27 @@ namespace Tomboy
 						NoteSynchronized (existingNote.Title, NoteSyncType.DownloadModified);
 //					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading update"));
 				} else {
-					// TODO: handle conflicts
+					// TODO: handle conflicts (may include notes modified on one client, deleted on another)
 				}
 			}
+				// Make list of all local notes
+				List<Note> localNotes = new List<Note> ();
+				foreach (Note note in NoteMgr.Notes)
+					localNotes.Add (note);
+				
+				// Get all notes currently on server
+				IList<string> serverNotes = server.GetAllNoteUUIDs ();
+				
+				foreach (Note note in localNotes) {
+					if (client.GetRevision (note) != -1 &&
+					    !serverNotes.Contains (note.Id)) {
+
+						if (NoteSynchronized != null)
+							NoteSynchronized (note.Title, NoteSyncType.DeleteFromClient);
+//					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Deleting note on client"));
+						NoteMgr.Delete (note);
+					}
+				}
 			evt.Set ();
 			});
 			

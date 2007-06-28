@@ -38,8 +38,7 @@ namespace Tomboy
 			manifestPath = Path.Combine (serverPath, "manifest.xml");
 			
 			newRevision = LatestRevision + 1;
-			string revParentPath = Path.Combine (serverPath, (newRevision / 100).ToString ());
-			newRevisionPath = Path.Combine (revParentPath, newRevision.ToString ());
+			newRevisionPath = GetRevisionDirPath (newRevision);
 			
 			lockTimeout = new InterruptableTimeout ();
 			lockTimeout.Timeout += LockTimeout;
@@ -128,8 +127,7 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 					int rev = Int32.Parse (node.SelectSingleNode ("@rev").InnerText);
 					if (noteUpdates.ContainsKey (id) == false) {
 						// Copy the file from the server to the temp directory
-						string revParentDir = Path.Combine (serverPath, (rev / 100).ToString ());
-						string revDir = Path.Combine (revParentDir, rev.ToString ());
+						string revDir = GetRevisionDirPath (rev);
 						string serverNotePath = Path.Combine (revDir, id + ".note");
 						string noteTempPath = Path.Combine (tempPath, id + ".note");
 						File.Copy (serverNotePath, noteTempPath, true);
@@ -298,7 +296,25 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				if (File.Exists (oldManifestPath))
 					File.Delete (oldManifestPath);
 				
-				// TODO: Do step #8 as described in http://bugzilla.gnome.org/show_bug.cgi?id=321037#c17
+				string oldManifestFilePath = Path.Combine (GetRevisionDirPath (newRevision - 1),
+				                                           "manifest.xml");
+				if (File.Exists (oldManifestFilePath)) {
+					// TODO: Do step #8 as described in http://bugzilla.gnome.org/show_bug.cgi?id=321037#c17
+					// Like this?
+					FileInfo oldManifestFilePathInfo = new FileInfo (oldManifestFilePath);
+					foreach (FileInfo file in oldManifestFilePathInfo.Directory.GetFiles ()) {
+						string fileGuid = Path.GetFileNameWithoutExtension (file.Name);
+						if (deletedNotes.Contains (fileGuid) ||
+						    updatedNotes.Contains (fileGuid))
+							File.Delete (file.FullName);
+						// TODO: Need to check *all* revision dirs, not just previous (duh)
+						//       Should be a way to cache this from checking earlier.
+					}
+					
+					// TODO: Leaving old empty dir for now.  Some stuff is probably easier
+					//       when you can guarantee the existence of each intermediate directory?
+	
+				}
 			}
 			
 			lockTimeout.Cancel ();
@@ -326,40 +342,46 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 					}
 				}
 				
-				LOOK_FOR_LATEST_REV:
-				
-				if (latestRev < 0) {
-					// Look for the highest revision parent path
-					foreach (string dir in Directory.GetDirectories (serverPath)) {
-						try {
-							int currentRevParentDir = Int32.Parse (Path.GetFileName (dir));
-							if (currentRevParentDir > latestRevDir)
-								latestRevDir = currentRevParentDir;
-						} catch {}
-					}
-
-					if (latestRevDir >= 0) {
-						foreach (string revDir in Directory.GetDirectories (
-									Path.Combine (serverPath, latestRevDir.ToString ()))) {
+				bool foundValidManifest = false;
+				while (!foundValidManifest)
+				{
+					if (latestRev < 0) {
+						// Look for the highest revision parent path
+						foreach (string dir in Directory.GetDirectories (serverPath)) {
 							try {
-								int currentRev = Int32.Parse (revDir);
-								if (currentRev > latestRev)
-									latestRev = currentRev;
+								int currentRevParentDir = Int32.Parse (Path.GetFileName (dir));
+								if (currentRevParentDir > latestRevDir)
+									latestRevDir = currentRevParentDir;
 							} catch {}
 						}
-					}
-					
-					if (latestRev >= 0) {
-						// Validate that the manifest file inside the revision is valid
-						// TODO: Should we create the /manifest.xml file with a valid one?
-						string revParentPath = Path.Combine (serverPath, latestRevDir.ToString ());
-						string revDirPath = Path.Combine (revParentPath, latestRev.ToString ());
-						string revManifestPath = Path.Combine (revDirPath, "manifest.xml");
-						if (IsValidXmlFile (revManifestPath) == false) {
-							// TODO: Delete the revDirPath since it's invalid ... without fixing this, you could get into a forever loop!
-							goto LOOK_FOR_LATEST_REV;
+
+						if (latestRevDir >= 0) {
+							foreach (string revDir in Directory.GetDirectories (
+										Path.Combine (serverPath, latestRevDir.ToString ()))) {
+								try {
+									int currentRev = Int32.Parse (revDir);
+									if (currentRev > latestRev)
+										latestRev = currentRev;
+								} catch {}
+							}
 						}
-					}
+						
+						if (latestRev >= 0) {
+							// Validate that the manifest file inside the revision is valid
+							// TODO: Should we create the /manifest.xml file with a valid one?
+							string revDirPath = GetRevisionDirPath (latestRev);
+							string revManifestPath = Path.Combine (revDirPath, "manifest.xml");
+							if (IsValidXmlFile (revManifestPath))
+								foundValidManifest = true;
+							else {
+								// TODO: Does this really belong here?
+								Directory.Delete (revDirPath, true);
+								// Continue looping
+							}
+						} else
+							foundValidManifest = true;
+					} else
+						foundValidManifest = true;
 				}
 				
 				return latestRev;
@@ -412,6 +434,15 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 		}
 		
 		#region Private Methods
+		
+		// NOTE: Assumes serverPath is set
+		private string GetRevisionDirPath (int rev)
+		{
+			return Path.Combine (
+			                     Path.Combine (serverPath, (rev/100).ToString ()),
+			                     rev.ToString ());
+		}
+		
 		private void UpdateLockFile (SyncLockInfo syncLockInfo)
 		{
 			XmlTextWriter xml = new XmlTextWriter (lockPath, System.Text.Encoding.UTF8);
@@ -465,7 +496,7 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				// figure out if there are any previous revisions with valid
 				// manifest.xml files around.
 				for (; rev >= 0; rev--) {
-					string revParentPath = Path.Combine (serverPath, rev.ToString ());
+					string revParentPath = GetRevisionDirPath (rev);
 					string manPath = Path.Combine (revParentPath, "manifest.xml");
 					if (File.Exists (manPath) == false)
 						continue;

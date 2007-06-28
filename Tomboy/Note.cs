@@ -525,6 +525,11 @@ namespace Tomboy
 		{
 			get { return data.Data.Uri; }
 		}
+		
+		public string Id
+		{
+			get { return data.Data.Uri.Replace ("note://tomboy/",""); }// TODO: Store on Note instantiation
+		}
 
 		public string FilePath 
 		{

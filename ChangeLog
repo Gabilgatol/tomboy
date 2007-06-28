@@ -1,5 +1,15 @@
 2007-06-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/SyncManager.cs: Handling note deletions from server
+	  differently (no longer given in server.GetNoteUpdatesSince).
+	* Tomboy/FileSystemSyncServer.cs: Fixed deletion.  Start of work on
+	  step #8 as described in
+	  http://bugzilla.gnome.org/show_bug.cgi?id=321037#c17 (see TODOs).
+	* Tomboy/Note.cs, Tomboy/TomboySyncClient.cs: Use Note.Id to get note
+	  GUID.
+
+2007-06-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncManager.cs: Wrap note update loop in
 	  Gtk.Application.Invoke for thread safety.
 

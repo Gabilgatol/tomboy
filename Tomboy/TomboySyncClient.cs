@@ -31,7 +31,7 @@ namespace Tomboy
 		
 		private void NoteDeletedHandler (object noteMgr, Note deletedNote)
 		{
-			fileRevisions.Remove (deletedNote.Uri.Replace ("note://tomboy/", ""));
+			fileRevisions.Remove (deletedNote.Id);
 		}
 				
 		private void OnChanged(object source, FileSystemEventArgs e)
@@ -132,7 +132,7 @@ namespace Tomboy
 
 		public virtual int GetRevision (Note note)
 		{
-			string noteGuid = note.Uri.Replace ("note://tomboy/", "");
+			string noteGuid = note.Id;
 			if (fileRevisions.ContainsKey (noteGuid))
 				return fileRevisions [noteGuid];
 			else
@@ -141,7 +141,7 @@ namespace Tomboy
 		
 		public virtual void SetRevision (Note note, int revision)
 		{
-			fileRevisions [note.Uri.Replace ("note://tomboy/", "")] = revision;
+			fileRevisions [note.Id] = revision;
 			// TODO: Should we write on each of these or no?
 			Write (localManifestFilePath);
 		}
