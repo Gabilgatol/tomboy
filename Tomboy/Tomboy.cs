@@ -40,6 +40,8 @@ namespace Tomboy
 			string note_path = GetNotePath (cmd_line.NotePath);
 			manager = new NoteManager (note_path);
 
+			SyncManager.Initialize ();
+
 			// Register the manager to handle remote requests.
 			RegisterRemoteControl (manager);
 			

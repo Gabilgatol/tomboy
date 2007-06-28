@@ -126,6 +126,12 @@ namespace Tomboy
 			//server = new FileSystemSyncServer ();
 		}
 		
+		public static void Initialize ()
+		{
+			// do nothing for now...static constructor should get called if this
+			// is the first references to SyncManager
+		}
+		
 		public static void PerformSynchronization ()
 		{
 			if (syncThread != null) {
@@ -325,9 +331,12 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 			foreach (string noteUUID in server.GetAllNoteUUIDs ()) {
 				if (FindNoteByUUID (noteUUID) == null) {
 					locallyDeletedUUIDs.Add (noteUUID);
-					// TODO: Cough, ugh.  Can we get the title at this point?
-					if (NoteSynchronized != null)
-						NoteSynchronized ("FIXME: Get the deleted note's title!", NoteSyncType.DeleteFromServer);
+					if (NoteSynchronized != null) {
+						string deletedTitle = noteUUID;
+						if (client.DeletedNoteTitles.ContainsKey (noteUUID))
+							deletedTitle = client.DeletedNoteTitles [noteUUID];
+						NoteSynchronized (deletedTitle, NoteSyncType.DeleteFromServer);
+					}
 //					syncDialog.AddUpdateItem (noteUUID, Catalog.GetString ("Deleting from server"));
 				}
 			}
@@ -528,6 +537,7 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 		int LastSynchronizedRevision { get; set; }
 		DateTime LastSyncDate { get; set; }
 		int GetRevision (Note note);
-		void SetRevision (Note note, int revision);		
+		void SetRevision (Note note, int revision);
+		IDictionary<string, string> DeletedNoteTitles { get; }
 	}
 }

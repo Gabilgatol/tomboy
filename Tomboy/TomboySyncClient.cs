@@ -13,6 +13,7 @@ namespace Tomboy
 		private int lastSyncRev;
 		private string localManifestFilePath;
 		private Dictionary<string, int> fileRevisions;
+		private Dictionary<string, string> deletedNotes;
 		
 		public TomboySyncClient ()
 		{			
@@ -31,6 +32,7 @@ namespace Tomboy
 		
 		private void NoteDeletedHandler (object noteMgr, Note deletedNote)
 		{
+			deletedNotes [deletedNote.Id] = deletedNote.Title;
 			fileRevisions.Remove (deletedNote.Id);
 		}
 				
@@ -45,6 +47,7 @@ namespace Tomboy
 			lastSyncDate = DateTime.Today.AddDays (-1);
 			lastSyncRev = -1;
 			fileRevisions = new Dictionary<string,int> ();
+			deletedNotes = new Dictionary<string,string> ();
 			
 			if (!File.Exists (manifestPath)) {
 				lastSyncDate = DateTime.MinValue;
@@ -64,6 +67,13 @@ namespace Tomboy
 				} catch { }
 				
 				fileRevisions [guid] = revision;
+			}
+
+			foreach (XmlNode noteNode in doc.SelectNodes ("//note-deletions/note")) {
+				string guid = noteNode.Attributes ["guid"].InnerXml;
+				string title = noteNode.Attributes ["title"].InnerXml;
+
+				deletedNotes [guid] = title;
 			}
 
 			XmlNode node = doc.SelectSingleNode ("//last-sync-rev/text ()");
@@ -105,6 +115,17 @@ namespace Tomboy
 			
 			xml.WriteEndElement (); // </note-revisons>
 			
+			xml.WriteStartElement (null, "note-deletions", null);
+			
+			foreach (string noteGuid in fileRevisions.Keys) {
+				xml.WriteStartElement (null, "note", null);
+				xml.WriteAttributeString (null, "guid", null, noteGuid);
+				xml.WriteAttributeString (null, "title", null, fileRevisions [noteGuid].ToString ());
+				xml.WriteEndElement ();
+			}
+			
+			xml.WriteEndElement (); // </note-deletions>
+			
 			xml.WriteEndElement (); // </manifest>
 			
 			xml.Close ();
@@ -116,6 +137,8 @@ namespace Tomboy
 			set
 			{
 				lastSyncDate = value;
+				// If we just did a sync, we should be able to forget older deleted notes
+				deletedNotes.Clear ();
 				Write (localManifestFilePath);
 			}
 		}
@@ -144,6 +167,16 @@ namespace Tomboy
 			fileRevisions [note.Id] = revision;
 			// TODO: Should we write on each of these or no?
 			Write (localManifestFilePath);
+		}
+		
+		/// <summary>
+		/// Return a dictionary keyed on deleted note GUIDs, where
+		/// the value is the note title.  This list may have obsolete
+		/// entries.
+		/// </summary>
+		public virtual IDictionary<string, string> DeletedNoteTitles
+		{
+			get { return deletedNotes; }
 		}
 	}
 }
