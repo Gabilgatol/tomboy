@@ -228,6 +228,11 @@ namespace Tomboy
 			if (noteUpdates.Count > 0)
 				SetState (SyncState.Downloading);
 
+			// The following loop may need to update GUIs in the main thread
+			// TODO: Extract a method here
+			AutoResetEvent evt = new AutoResetEvent (false);
+			Gtk.Application.Invoke (delegate {
+
 			foreach (NoteUpdate note in noteUpdates.Values) {
 //				syncDialog.ProgressFraction += updateProgressInterval;
 				Note existingNote = FindNoteByUUID (note.UUID);
@@ -259,6 +264,10 @@ namespace Tomboy
 					// TODO: handle conflicts
 				}
 			}
+			evt.Set ();
+			});
+			
+			evt.WaitOne ();
 			
 			// TODO: Add following updates to syncDialog treeview
 //			syncDialog.ProgressText = "Sending note updates...";
