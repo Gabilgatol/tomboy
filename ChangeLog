@@ -1,3 +1,9 @@
+2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/SyncManager.cs: Bringing back clobbered change (adding new
+	  notes with NoteMgr.CreateWithGuid followed by
+	  note.LoadForeignNoteXml).
+
 2007-06-27  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/SyncDialog.cs: Moved TitleConflictResolution to

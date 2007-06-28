@@ -234,17 +234,8 @@ namespace Tomboy
 					if (note.XmlContent == string.Empty)
 						continue; // Deletion of note that doesn't exist
 					
-					string newNotePath = Path.Combine (NoteMgr.NoteDirectoryPath,
-					                                   note.UUID + ".note");
-					FileInfo info = new FileInfo (newNotePath);
-					StreamWriter writer = info.CreateText ();
-					writer.Write (note.XmlContent);
-					writer.Close ();
-					Logger.Debug ("Copied new note here: " + newNotePath);
-					Logger.Debug ("New note contents are: " + note.XmlContent);
-					
-					existingNote = Note.Load (newNotePath, NoteMgr);
-					NoteMgr.Notes.Add (existingNote);
+					existingNote = NoteMgr.CreateWithGuid (note.Title, note.UUID);
+					existingNote.LoadForeignNoteXml (note.XmlContent);
 					
 					if (NoteSynchronized != null)
 						NoteSynchronized (existingNote.Title, NoteSyncType.DownloadNew);
@@ -451,7 +442,7 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 		/// <summary>
 		/// Indicates how many times the client has renewed the lock.
 		/// Subsequent clients should watch this (along with the LockOwner) to
-		/// determine whether the currently synchronizing client has become
+		/// determine whether the currently synchronizing client has becomeeither
 		/// inactive.  Clients currently synchronizing should update the lock
 		/// file before the duration expires to prevent other clients from
 		/// overtaking the lock.
