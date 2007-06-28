@@ -1,5 +1,13 @@
 2007-06-27  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Moved TitleConflictResolution to
+	  SyncTitleConflictResolution.
+	* Tomboy/SyncManager.cs: Renamed
+	  SyncTitleConflictDialog.TitleConflictResolution ->
+	  SyncTitleConflictResolution.
+
+2007-06-27  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/SyncDialog.cs: Started the conflict resolution in the GUI.
 	* Tomboy/SyncManager.cs: Handle conflict resolution in the GUI and not
 	  in the sync thread.

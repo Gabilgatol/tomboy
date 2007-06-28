@@ -103,7 +103,7 @@ namespace Tomboy
 		private static SyncState state = SyncState.Idle;
 		private static Thread syncThread = null;
 		// TODO: Expose the next enum more publicly
-		private static SyncTitleConflictDialog.TitleConflictResolution conflictResolution;
+		private static SyncTitleConflictResolution conflictResolution;
 		
 		/// <summary>
 		/// Emitted when the state of the synchronization changes
@@ -347,8 +347,12 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 			syncThread = null;
 		}
 		
-		private static void ResolveConflict (Note conflictNote,
-				SyncTitleConflictDialog.TitleConflictResolution resolution)
+		/// <summary>
+		/// The GUI should call this after having the user resolve a conflict
+		/// so the synchronization thread can continue.
+		/// </summary>
+		public static void ResolveConflict (Note conflictNote,
+				SyncTitleConflictResolution resolution)
 		{
 			if (syncThread != null) {
 				conflictResolution = resolution;

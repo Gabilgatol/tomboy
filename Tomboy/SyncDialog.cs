@@ -212,6 +212,7 @@ namespace Tomboy
 		
 		void OnNoteConflictDetected (NoteManager manager, Note localConflictNote)
 		{
+			SyncTitleConflictResolution resolution = SyncTitleConflictResolution.DeleteExisting;
 			// This event handler will be called by the synchronization thread
 			// so we have to use the delegate here to manipulate the GUI.
 			Gtk.Application.Invoke (delegate {
@@ -220,22 +221,27 @@ namespace Tomboy
 				Gtk.ResponseType reponse = (Gtk.ResponseType) conflictDlg.Run ();
 				
 				if (reponse == Gtk.ResponseType.Cancel)
-					// TODO: Message?
-					return;
-				switch (conflictDlg.Resolution) {
-				case SyncTitleConflictDialog.TitleConflictResolution.DeleteExisting:
-					manager.Delete (localConflictNote);
-					break;
-				case SyncTitleConflictDialog.TitleConflictResolution.RenameExistingAndUpdate:
-					localConflictNote.Title = conflictDlg.RenamedTitle;  // TODO: What if note is open?
-					break;
-				case SyncTitleConflictDialog.TitleConflictResolution.RenameExistingNoUpdate:
-					localConflictNote.Data.Title = conflictDlg.RenamedTitle;     // TODO: Does this work?
-					break;
+					resolution = SyncTitleConflictResolution.Cancel;
+				else {
+					resolution = conflictDlg.Resolution;
+					switch (resolution) {
+					case SyncTitleConflictResolution.DeleteExisting:
+						manager.Delete (localConflictNote);
+						break;
+					case SyncTitleConflictResolution.RenameExistingAndUpdate:
+						localConflictNote.Title = conflictDlg.RenamedTitle;  // TODO: What if note is open?
+						break;
+					case SyncTitleConflictResolution.RenameExistingNoUpdate:
+						localConflictNote.Data.Title = conflictDlg.RenamedTitle;     // TODO: Does this work?
+						break;
+					}
 				}
 				
 				conflictDlg.Hide ();
-				conflictDlg.Destroy (); // TODO: Necessary?
+				conflictDlg.Destroy ();
+			
+				// Let the SyncManager continue
+				SyncManager.ResolveConflict (localConflictNote, resolution);
 			});
 		}
 
@@ -287,26 +293,27 @@ namespace Tomboy
 			get { return renameEntry.Text; }
 		}
 		
-		public TitleConflictResolution Resolution
+		public SyncTitleConflictResolution Resolution
 		{
 			get
 			{
 				if (renameRadio.Active) {
 					if (renameUpdateCheck.Active)
-					        return TitleConflictResolution.RenameExistingAndUpdate;
+					        return SyncTitleConflictResolution.RenameExistingAndUpdate;
 					else
-						return TitleConflictResolution.RenameExistingNoUpdate;
+						return SyncTitleConflictResolution.RenameExistingNoUpdate;
 				}
 				else
-					return TitleConflictResolution.DeleteExisting;
+					return SyncTitleConflictResolution.DeleteExisting;
 			}
 		}
-		
-		public enum TitleConflictResolution
-		{
-			RenameExistingNoUpdate,
-			RenameExistingAndUpdate,
-			DeleteExisting
-		}
 	}	
+
+	public enum SyncTitleConflictResolution
+	{
+		Cancel,
+		RenameExistingNoUpdate,
+		RenameExistingAndUpdate,
+		DeleteExisting
+	}
 }
