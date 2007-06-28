@@ -152,6 +152,7 @@ namespace Tomboy
 				SetState (SyncState.Failed);
 				Logger.Log ("Exception while creating SyncServer: {0}\n{1}", e.Message, e.StackTrace);
 				SetState (SyncState.Idle);
+				syncThread = null;
 				return;
 				// TODO: Figure out a clever way to get the specific error up to the GUI
 			}
@@ -168,6 +169,7 @@ namespace Tomboy
 				Logger.Log ("PerformSynchronization: Server locked, try again later");
 //				syncDialog.ProgressText = "Sync failed: Server locked, try again later";
 //				syncDialog.CloseSensitive = true;
+				syncThread = null;
 				return;
 			}
 			int latestServerRevision = server.LatestRevision;

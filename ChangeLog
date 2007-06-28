@@ -1,3 +1,9 @@
+2007-06-27  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/SyncManager.cs: Set syncThread to null before returning from
+	  the sync thread method.  This is important because if it's not
+	  null, it won't sync properly the next time around.
+
 2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/SyncManager.cs: Bringing back clobbered change (adding new
