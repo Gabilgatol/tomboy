@@ -1,3 +1,9 @@
+2007-06-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/SyncManager.cs, Tomboy/Note.cs, Tomboy/TomboySyncClient.cs:
+	  Note revision now stored in the client's local manifest.xml,
+	  instead of being coupled with the note data.
+
 2007-06-27  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/SyncManager.cs: Set syncThread to null before returning from

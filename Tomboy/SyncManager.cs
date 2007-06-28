@@ -238,6 +238,7 @@ namespace Tomboy
 					
 					existingNote = NoteMgr.CreateWithGuid (note.Title, note.UUID);
 					existingNote.LoadForeignNoteXml (note.XmlContent);
+					client.SetRevision (existingNote, note.LatestRevision);
 					
 					if (NoteSynchronized != null)
 						NoteSynchronized (existingNote.Title, NoteSyncType.DownloadNew);
@@ -269,16 +270,16 @@ namespace Tomboy
 Logger.Debug ("SYNC: client.LastSyncDate = {0}", client.LastSyncDate.ToString ());
 			foreach (Note note in NoteMgr.Notes) {
 if (note.Title.CompareTo ("Start Here") == 0) {
-	Logger.Debug ("SYNC: Start Here Revision = {0}", note.Revision);
+	Logger.Debug ("SYNC: Start Here Revision = {0}", client.GetRevision (note));
 	Logger.Debug ("SYNC: Start Here Change Date = {0}", note.ChangeDate.ToString ());
 }
-				if (note.Revision == -1) {
+				if (client.GetRevision (note) == -1) {
 					// This is a new note that has never been synchronized to the server
 					newOrModifiedNotes.Add (note);
 					if (NoteSynchronized != null)
 						NoteSynchronized (note.Title, NoteSyncType.UploadNew);
 //					syncDialog.AddUpdateItem (note.Title, Catalog.GetString ("Adding new file to server"));
-				} else if (note.Revision <= client.LastSynchronizedRevision &&
+				} else if (client.GetRevision (note) <= client.LastSynchronizedRevision &&
 				    	note.ChangeDate > client.LastSyncDate) {
 					newOrModifiedNotes.Add (note);
 					if (NoteSynchronized != null)
@@ -292,7 +293,7 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 			// dies after changing the revision but never really gets uploaded to the
 			// server.
 			foreach (Note note in newOrModifiedNotes) {
-				note.Revision = newRevision;
+				client.SetRevision (note, newRevision);
 				note.Save ();
 			}
 			Logger.Debug ("Sync: Uploading " + newOrModifiedNotes.Count.ToString () + " note updates");
@@ -505,6 +506,8 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 	public interface SyncClient
 	{
 		int LastSynchronizedRevision { get; set; }
-		DateTime LastSyncDate { get; set; }		
+		DateTime LastSyncDate { get; set; }
+		int GetRevision (Note note);
+		void SetRevision (Note note, int revision);		
 	}
 }

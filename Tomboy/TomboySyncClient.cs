@@ -12,6 +12,7 @@ namespace Tomboy
 		private DateTime lastSyncDate;
 		private int lastSyncRev;
 		private string localManifestFilePath;
+		private Dictionary<string, int> fileRevisions;
 		
 		public TomboySyncClient ()
 		{			
@@ -24,6 +25,13 @@ namespace Tomboy
 				Path.Combine (Tomboy.DefaultNoteManager.NoteDirectoryPath,
 				              localManifestFileName);
 			Parse (localManifestFilePath);
+			
+			Tomboy.DefaultNoteManager.NoteDeleted += NoteDeletedHandler;
+		}
+		
+		private void NoteDeletedHandler (object noteMgr, Note deletedNote)
+		{
+			fileRevisions.Remove (deletedNote.Uri.Replace ("note://tomboy/", ""));
 		}
 				
 		private void OnChanged(object source, FileSystemEventArgs e)
@@ -33,36 +41,40 @@ namespace Tomboy
 		
 		private void Parse (string manifestPath)
 		{
-			// blah blah blah, read XML
+			// Set defaults before parsing
 			lastSyncDate = DateTime.Today.AddDays (-1);
 			lastSyncRev = -1;
+			fileRevisions = new Dictionary<string,int> ();
 			
 			if (!File.Exists (manifestPath)) {
 				lastSyncDate = DateTime.MinValue;
 				Write (manifestPath);
-			}
+			}			
 			
-			StreamReader reader = new StreamReader (manifestPath,
-			                                        System.Text.Encoding.UTF8);
-			XmlTextReader xml = new XmlTextReader (reader);
-			xml.Namespaces = false;
+			XmlDocument doc = new XmlDocument ();
+			FileStream fs = new FileStream (manifestPath, FileMode.Open);
+			doc.Load (fs);
+			
+			// TODO: Error checking
+			foreach (XmlNode noteNode in doc.SelectNodes ("//note-revisions/note")) {
+				string guid = noteNode.Attributes ["guid"].InnerXml;
+				int revision = -1;
+				try {
+					revision = int.Parse (noteNode.Attributes ["latest-revision"].InnerXml);
+				} catch { }
+				
+				fileRevisions [guid] = revision;
+			}
 
-			while (xml.Read ()) {
-				switch (xml.NodeType) {
-				case XmlNodeType.Element:
-					switch (xml.Name) {
-					case "last-sync-rev":
-						lastSyncRev = int.Parse (xml.ReadString ());
-						break;
-					case "last-sync-date":
-						lastSyncDate = XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
-						break;
-				}
-				break;
-				}
-			}
+			XmlNode node = doc.SelectSingleNode ("//last-sync-rev/text ()");
+			if (node != null)
+				lastSyncRev = int.Parse (node.InnerText);
+
+			node = doc.SelectSingleNode ("//last-sync-date/text ()");
+			if (node != null)
+				lastSyncDate = XmlConvert.ToDateTime (node.InnerText);
 			
-			xml.Close ();
+			fs.Close ();
 		}
 		
 		private void Write (string manifestPath)
@@ -82,7 +94,18 @@ namespace Tomboy
 			xml.WriteString (lastSyncRev.ToString ());
 			xml.WriteEndElement ();
 			
-			xml.WriteEndElement ();
+			xml.WriteStartElement (null, "note-revisions", null);
+			
+			foreach (string noteGuid in fileRevisions.Keys) {
+				xml.WriteStartElement (null, "note", null);
+				xml.WriteAttributeString (null, "guid", null, noteGuid);
+				xml.WriteAttributeString (null, "latest-revision", null, fileRevisions [noteGuid].ToString ());
+				xml.WriteEndElement ();
+			}
+			
+			xml.WriteEndElement (); // </note-revisons>
+			
+			xml.WriteEndElement (); // </manifest>
 			
 			xml.Close ();
 		}
@@ -107,6 +130,20 @@ namespace Tomboy
 			}
 		}
 
+		public virtual int GetRevision (Note note)
+		{
+			string noteGuid = note.Uri.Replace ("note://tomboy/", "");
+			if (fileRevisions.ContainsKey (noteGuid))
+				return fileRevisions [noteGuid];
+			else
+				return -1;
+		}
 		
+		public virtual void SetRevision (Note note, int revision)
+		{
+			fileRevisions [note.Uri.Replace ("note://tomboy/", "")] = revision;
+			// TODO: Should we write on each of these or no?
+			Write (localManifestFilePath);
+		}
 	}
 }

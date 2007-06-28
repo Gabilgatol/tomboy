@@ -28,7 +28,6 @@ namespace Tomboy
 		int width, height;
 		int x, y;
 		bool open_on_startup;
-		int revision;
 		
 		Dictionary<string, Tag> tags;
 
@@ -45,8 +44,6 @@ namespace Tomboy
 			
 			create_date = DateTime.MinValue;
 			change_date = DateTime.MinValue;
-			
-			revision = -1;
 		}
 
 		public string Uri
@@ -121,12 +118,6 @@ namespace Tomboy
 		{
 			get { return open_on_startup; }
 			set { open_on_startup = value; }
-		}
-		
-		public int Revision
-		{
-			get { return revision; }
-			set { revision = value; }
 		}
 		
 		public void SetPositionExtent (int x, int y, int width, int height)
@@ -327,7 +318,6 @@ namespace Tomboy
 			data.Title = title;
 			data.CreateDate = DateTime.Now;
 			data.ChangeDate = data.CreateDate;
-			data.Revision = -1;
 			return new Note (data, filepath, manager);
 		}
 
@@ -617,9 +607,6 @@ namespace Tomboy
 					case "open-on-startup":
 						IsOpenOnStartup = bool.Parse (xml.ReadString ());
 						break;
-				case "revision":
-					Revision = int.Parse (xml.ReadString ());
-					break;
 					}
 					break;
 				}
@@ -834,17 +821,6 @@ namespace Tomboy
 			}
 		}
 		
-		public int Revision
-		{
-			get { return Data.Revision; }
-			set {
-				if (Data.Revision != value) {
-					Data.Revision = value;
-					save_needed = true;
-				}
-			}
-		}
-		
 		public List<Tag> Tags
 		{
 			get { return new List<Tag> (data.Data.Tags.Values); }
@@ -957,9 +933,6 @@ namespace Tomboy
 					case "open-on-startup":
 						note.IsOpenOnStartup = bool.Parse (xml.ReadString ());
 						break;
-				case "revision":
-					note.Revision = int.Parse (xml.ReadString ());
-					break;
 					}
 					break;
 				}
@@ -1094,10 +1067,6 @@ namespace Tomboy
 			
 			xml.WriteStartElement (null, "open-on-startup", null);
 			xml.WriteString (note.IsOpenOnStartup.ToString ());
-			xml.WriteEndElement ();
-			
-			xml.WriteStartElement (null, "revision", null);
-			xml.WriteString (note.Revision.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteEndElement (); // Note
