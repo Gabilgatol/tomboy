@@ -89,15 +89,21 @@ namespace Tomboy
 	/// <summary>
 	/// Handle when notes are uploaded, downloaded, or deleted
 	/// </summary>
-	public delegate void NoteSyncHandler (string noteTitle, NoteSyncType type); 
+	public delegate void NoteSyncHandler (string noteTitle, NoteSyncType type);
+	
+	/// <summary>
+	/// Handle a note conflict
+	/// </summary>
+	public delegate void NoteConflictHandler (NoteManager manager, Note localConflictNote);
 	
 	public class SyncManager
 	{
 		//private static SyncServer server;
 		private static SyncClient client;
 		private static SyncState state = SyncState.Idle;
-		
 		private static Thread syncThread = null;
+		// TODO: Expose the next enum more publicly
+		private static SyncTitleConflictDialog.TitleConflictResolution conflictResolution;
 		
 		/// <summary>
 		/// Emitted when the state of the synchronization changes
@@ -108,6 +114,11 @@ namespace Tomboy
 		/// Emmitted when a file is uploaded, downloaded, or deleted.
 		/// </summary>
 		public static event NoteSyncHandler NoteSynchronized;
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static event NoteConflictHandler NoteConflictDetected;
 		
 		static SyncManager ()
 		{
@@ -196,27 +207,16 @@ namespace Tomboy
 				if (FindNoteByUUID (noteUpdate.UUID) == null) {
 					Note existingNote = NoteMgr.Find (noteUpdate.Title);
 					if (existingNote != null) {
-						SyncTitleConflictDialog conflictDlg =
-							new SyncTitleConflictDialog (existingNote);
-						Gtk.ResponseType reponse = (Gtk.ResponseType) conflictDlg.Run ();
-						
-						if (reponse == Gtk.ResponseType.Cancel)
-							// TODO: Message?
-							return;
-						switch (conflictDlg.Resolution) {
-						case SyncTitleConflictDialog.TitleConflictResolution.DeleteExisting:
-							NoteMgr.Delete (existingNote);
-							break;
-						case SyncTitleConflictDialog.TitleConflictResolution.RenameExistingAndUpdate:
-							existingNote.Title = conflictDlg.RenamedTitle;  // TODO: What if note is open?
-							break;
-						case SyncTitleConflictDialog.TitleConflictResolution.RenameExistingNoUpdate:
-							existingNote.Data.Title = conflictDlg.RenamedTitle;     // TODO: Does this work?
-							break;
+						if (NoteConflictDetected != null) {
+							NoteConflictDetected (NoteMgr, existingNote);
+							
+							// Suspend this thread while the GUI is presented to
+							// the user.
+							syncThread.Suspend ();
+							
+							// The user has responded to the conflict.  Read what
+							// they've said to do.
 						}
-						
-						conflictDlg.Hide ();
-						conflictDlg.Destroy (); // TODO: Necessary?
 					}
 				}
 			}
@@ -233,9 +233,19 @@ namespace Tomboy
 				if (existingNote == null) {// TODO: not so simple...what if I deleted the note?
 					if (note.XmlContent == string.Empty)
 						continue; // Deletion of note that doesn't exist
-
-					existingNote = NoteMgr.CreateWithGuid (note.Title, note.UUID);
-					existingNote.LoadForeignNoteXml (note.XmlContent);					
+					
+					string newNotePath = Path.Combine (NoteMgr.NoteDirectoryPath,
+					                                   note.UUID + ".note");
+					FileInfo info = new FileInfo (newNotePath);
+					StreamWriter writer = info.CreateText ();
+					writer.Write (note.XmlContent);
+					writer.Close ();
+					Logger.Debug ("Copied new note here: " + newNotePath);
+					Logger.Debug ("New note contents are: " + note.XmlContent);
+					
+					existingNote = Note.Load (newNotePath, NoteMgr);
+					NoteMgr.Notes.Add (existingNote);
+					
 					if (NoteSynchronized != null)
 						NoteSynchronized (existingNote.Title, NoteSyncType.DownloadNew);
 //					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading new note"));
@@ -335,6 +345,15 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 			
 			SetState (SyncState.Idle);
 			syncThread = null;
+		}
+		
+		private static void ResolveConflict (Note conflictNote,
+				SyncTitleConflictDialog.TitleConflictResolution resolution)
+		{
+			if (syncThread != null) {
+				conflictResolution = resolution;
+				syncThread.Resume ();
+			}
 		}
 		
 		private static Note FindNoteByUUID (string uuid)

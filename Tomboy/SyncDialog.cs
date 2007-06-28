@@ -77,6 +77,7 @@ namespace Tomboy
 			
 			SyncManager.StateChanged += OnSyncStateChanged;
 			SyncManager.NoteSynchronized += OnNoteSynchronized;
+			SyncManager.NoteConflictDetected += OnNoteConflictDetected;
 			
 			VBox.ShowAll ();
 		}
@@ -208,6 +209,35 @@ namespace Tomboy
 				AddUpdateItem (noteTitle, statusText);
 			});
 		}
+		
+		void OnNoteConflictDetected (NoteManager manager, Note localConflictNote)
+		{
+			// This event handler will be called by the synchronization thread
+			// so we have to use the delegate here to manipulate the GUI.
+			Gtk.Application.Invoke (delegate {
+				SyncTitleConflictDialog conflictDlg =
+					new SyncTitleConflictDialog (localConflictNote);
+				Gtk.ResponseType reponse = (Gtk.ResponseType) conflictDlg.Run ();
+				
+				if (reponse == Gtk.ResponseType.Cancel)
+					// TODO: Message?
+					return;
+				switch (conflictDlg.Resolution) {
+				case SyncTitleConflictDialog.TitleConflictResolution.DeleteExisting:
+					manager.Delete (localConflictNote);
+					break;
+				case SyncTitleConflictDialog.TitleConflictResolution.RenameExistingAndUpdate:
+					localConflictNote.Title = conflictDlg.RenamedTitle;  // TODO: What if note is open?
+					break;
+				case SyncTitleConflictDialog.TitleConflictResolution.RenameExistingNoUpdate:
+					localConflictNote.Data.Title = conflictDlg.RenamedTitle;     // TODO: Does this work?
+					break;
+				}
+				
+				conflictDlg.Hide ();
+				conflictDlg.Destroy (); // TODO: Necessary?
+			});
+		}
 
 		#endregion // Private Event Handlers
 	}
@@ -223,7 +253,7 @@ namespace Tomboy
 		private Gtk.CheckButton renameUpdateCheck;
 		private Gtk.RadioButton renameRadio;
 		private Gtk.RadioButton deleteExistingRadio;
-					
+
 		public SyncTitleConflictDialog (Note existingNote) :
 			base ("Note Title Conflict", null, Gtk.DialogFlags.Modal)
 		{

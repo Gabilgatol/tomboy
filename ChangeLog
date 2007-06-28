@@ -1,5 +1,11 @@
 2007-06-27  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Started the conflict resolution in the GUI.
+	* Tomboy/SyncManager.cs: Handle conflict resolution in the GUI and not
+	  in the sync thread.
+
+2007-06-27  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/SyncDialog.cs: Respond to the events being sent from the
 	  SyncManager to update the GUI.
 	* Tomboy/SyncManager.cs: Do the synchronization on a thread so the GUI
