@@ -9,6 +9,15 @@
 
 2007-06-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/SyncManager.cs, Tomboy/TomboySyncClient.cs: Add
+	  SyncClient.DeletedNoteTitles to maintain a mapping between note
+	  GUIDs and note titles for notes deleted since the last sync.  This
+	  list is serialized into the local manifest.xml, and it is cleared
+	  whenever the client.LastSyncDate is updated.
+	* Tomboy/Tomboy.cs: Initialize SyncManager on Tomboy startup.
+
+2007-06-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncManager.cs: Handling note deletions from server
 	  differently (no longer given in server.GetNoteUpdatesSince).
 	* Tomboy/FileSystemSyncServer.cs: Fixed deletion.  Start of work on

@@ -34,6 +34,8 @@ namespace Tomboy
 		{
 			deletedNotes [deletedNote.Id] = deletedNote.Title;
 			fileRevisions.Remove (deletedNote.Id);
+			
+			Write (localManifestFilePath);
 		}
 				
 		private void OnChanged(object source, FileSystemEventArgs e)
@@ -117,10 +119,10 @@ namespace Tomboy
 			
 			xml.WriteStartElement (null, "note-deletions", null);
 			
-			foreach (string noteGuid in fileRevisions.Keys) {
+			foreach (string noteGuid in deletedNotes.Keys) {
 				xml.WriteStartElement (null, "note", null);
 				xml.WriteAttributeString (null, "guid", null, noteGuid);
-				xml.WriteAttributeString (null, "title", null, fileRevisions [noteGuid].ToString ());
+				xml.WriteAttributeString (null, "title", null, deletedNotes [noteGuid]);
 				xml.WriteEndElement ();
 			}
 			
