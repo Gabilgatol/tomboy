@@ -553,8 +553,10 @@ namespace Tomboy
 		{
 			get { return data.Text; }
 			set { 
-				if (buffer != null)
-					buffer.SetText (XmlDecoder.Decode (value));
+				if (buffer != null) {
+					buffer.SetText("");
+					NoteBufferArchiver.Deserialize (buffer, value);
+				}
 				else
 					data.Text = value; 
 			}
@@ -584,9 +586,7 @@ namespace Tomboy
 						Title = xml.ReadString ();
 						break;
 					case "text":
-						// <text> is just a wrapper around <note-content>
-						// NOTE: Use .text here to avoid triggering a save.
-						data.Data.Text = xml.ReadInnerXml ();
+						XmlContent = xml.ReadInnerXml ();
 						break;
 					case "last-change-date":
 						data.Data.ChangeDate = 
@@ -614,17 +614,7 @@ namespace Tomboy
 
 			xml.Close ();
 			
-			// TODO: Should this go above?
-			if (buffer != null) {
-				string temp = data.Data.Text;
-				buffer.SetText("");
-				NoteBufferArchiver.Deserialize (buffer, temp);
-			}
-			
-			/*
-			DebugSave ("Tag added, queueing save");
-			QueueSave (false);
-			 */
+			// TODO: Any reason to queue a save here?  Maybe not for sync but for others?
 		}
 		
 		// TODO: CODE DUPLICATION SUCKS
