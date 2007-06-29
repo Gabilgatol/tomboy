@@ -1,5 +1,10 @@
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
+	* configure.in: Bump the version to 0.7.1.3 since I used 0.7.1.2 to
+	  build the demo for Hack Week.
+
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
 	* configure.in: Changed the version to 0.7.1.2.  Since we haven't
 	  released 0.7.2 officially, the previous one didn't make sense.
 
