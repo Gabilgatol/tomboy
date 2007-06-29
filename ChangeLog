@@ -1,5 +1,10 @@
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Fixed some spacing so the progressBar and
+	  progressLabel hides and shows properly.
+
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/PreferencesDialog.cs: Delete ~/.tomboy/manifest.xml during
 	  reset.  Give user feedback when saving sync preferences.
 	* Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Return

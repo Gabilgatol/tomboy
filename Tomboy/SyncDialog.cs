@@ -239,8 +239,9 @@ namespace Tomboy
 					MessageText = Catalog.GetString ("This may take a while, kick back and enjoy!");
 					model.Clear ();
 					ProgressText = Catalog.GetString ("Connecting to the server...");
-					progressBar.Show ();
 					progressBar.Fraction = 0;
+					progressBar.Show ();
+					progressLabel.Show ();
 					break;
 				case SyncState.DeleteServerNotes:
 					ProgressText = Catalog.GetString ("Deleting notes off of the server...");
@@ -254,6 +255,8 @@ namespace Tomboy
 					GLib.Source.Remove (progressBarTimeoutId);
 					progressBarTimeoutId = 0;
 					progressBar.Fraction = 0;
+					progressBar.Hide ();
+					progressLabel.Hide ();
 					closeButton.Sensitive = true;
 					break;
 				case SyncState.Locked:
@@ -261,7 +264,6 @@ namespace Tomboy
 					HeaderText = Catalog.GetString ("Server is locked");
 					MessageText = Catalog.GetString ("One of your other computers is currently synchronizing.  Please wait and try again.");
 					ProgressText = string.Empty;
-					progressBar.Fraction = 0;
 					break;
 				case SyncState.PrepareDownload:
 					ProgressText = Catalog.GetString ("Preparing to download updates from server...");
@@ -273,38 +275,30 @@ namespace Tomboy
 					ProgressText = Catalog.GetString ("Uploading notes to server...");
 					break;
 				case SyncState.Failed:
-					progressBar.Hide ();
 					Title = Catalog.GetString ("Synchronization Failed");
 					HeaderText = Catalog.GetString ("Failed to synchronize");
 					MessageText = Catalog.GetString ("Could not synchronize notes.  Check the details below and try again.");
 					ProgressText = string.Empty;
 					break;
 				case SyncState.Succeeded:
-					progressBar.Hide ();
 					Title = Catalog.GetString ("Synchronization Complete");
 					HeaderText = Catalog.GetString ("Synchronization is complete");
 					MessageText = Catalog.GetString ("Your notes are up to date.  See the details below or close the window.");
 					ProgressText = string.Empty;
 					break;
 				case SyncState.UserCancelled:
-					progressBar.Hide ();
-					progressBar.Fraction = 0;
 					Title = Catalog.GetString ("Synchronization Canceled");
 					HeaderText = Catalog.GetString ("Synchronization was canceled");
 					MessageText = Catalog.GetString ("You canceled the synchronization.  You may close the window now.");
 					ProgressText = string.Empty;
 					break;
 				case SyncState.NoConfiguredSyncService:
-					progressBar.Hide ();
-					progressBar.Fraction = 0;
 					Title = Catalog.GetString ("Synchronization Not Configured");
 					HeaderText = Catalog.GetString ("Synchronization is not configured");
 					MessageText = Catalog.GetString ("Please configure synchronization in the preferences dialog.");
 					ProgressText = string.Empty;
 					break;
 				case SyncState.SyncServerCreationFailed:
-					progressBar.Hide ();
-					progressBar.Fraction = 0;
 					Title = Catalog.GetString ("Synchronization Service Error");
 					HeaderText = Catalog.GetString ("Service error");
 					MessageText = Catalog.GetString ("Error connecting to the synchronization service.  Please try again.");
