@@ -391,7 +391,7 @@ namespace Tomboy
 				note.Data.Title = newTitle;
 			string oldContent = note.XmlContent;
 			int i = oldContent.IndexOf (oldTitle);
-			string newContent = oldContent.Remove (i, newTitle.Length).Insert (i, newTitle);
+			string newContent = oldContent.Remove (i, oldTitle.Length).Insert (i, newTitle);
 			note.XmlContent = newContent;
 		}
 #endregion // Private Methods
