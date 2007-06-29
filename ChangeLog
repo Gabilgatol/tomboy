@@ -7,6 +7,13 @@
 
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
+	* configure.in, Makefile.include, Tomboy/Makefile.am, Tomboy/tomboy.in,
+	  Makefile.am, po/POTFILES.in: Changed the location of Mono.Addins to
+	  root of project.  Adjusted AM_INIT and AM_INIT_AUTOMAKE to allow
+	  longer file paths when creating tarball.
+
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Mono.Addins: Moved to root of project in hopes that it will
 	  solve the problem of make distcheck.
 
