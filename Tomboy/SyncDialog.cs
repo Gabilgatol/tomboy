@@ -81,6 +81,14 @@ namespace Tomboy
 			
 			VBox.ShowAll ();
 		}
+		
+		public override void Destroy ()
+		{
+			SyncManager.StateChanged -= OnSyncStateChanged;
+			SyncManager.NoteSynchronized -= OnNoteSynchronized;
+			SyncManager.NoteConflictDetected -= OnNoteConflictDetected;
+			base.Destroy ();
+		}
 
 		private void OnExpanderActivated (object sender, EventArgs e)
 		{
@@ -289,14 +297,20 @@ namespace Tomboy
 			base ("Note Title Conflict", null, Gtk.DialogFlags.Modal)
 		{
 			this.existingNote = existingNote;
+			string suggestedRenameBase = existingNote.Title + Catalog.GetString (" (old)");
+			string suggestedRename = suggestedRenameBase;
+			for (int i = 1; existingNote.Manager.Find (suggestedRename) != null; i++)
+				suggestedRename = suggestedRenameBase + " " + i.ToString();
 			
-			VBox.PackStart (new Gtk.Label ("The server already has a note called " +
-			                               existingNote.Title + ".  What do you want to do?"));
+			VBox.PackStart (new Gtk.Label ("The server already has a note called \"" +
+			                               existingNote.Title + "\".  What do you want to do with your local note?"));
 			
 			Gtk.HBox renameHBox = new Gtk.HBox ();
-			renameRadio = new Gtk.RadioButton ("Rename existing note");
+			renameRadio = new Gtk.RadioButton ("Rename local note");
 			Gtk.VBox renameOptionsVBox = new Gtk.VBox ();
-			renameEntry = new Gtk.Entry (existingNote.Title);
+			
+			renameEntry = new Gtk.Entry (suggestedRename);
+			renameEntry.Changed += renameEntry_Changed;
 			renameUpdateCheck = new Gtk.CheckButton ("Update referencing notes to match new note title");
 			renameOptionsVBox.PackStart (renameEntry);
 			renameOptionsVBox.PackStart (renameUpdateCheck);
@@ -307,10 +321,18 @@ namespace Tomboy
 			deleteExistingRadio = new Gtk.RadioButton (renameRadio, "Delete existing note");
 			VBox.PackStart (deleteExistingRadio);
 			
-			continueButton = (Gtk.Button) AddButton (Gtk.Stock.GoForward, Gtk.ResponseType.Accept);
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
+			continueButton = (Gtk.Button) AddButton (Gtk.Stock.GoForward, Gtk.ResponseType.Accept);
 			
 			ShowAll ();
+		}
+		
+		private void renameEntry_Changed (object sender, System.EventArgs e)
+		{
+			if (existingNote.Manager.Find (RenamedTitle) != null)
+				continueButton.Sensitive = false;
+			else
+				continueButton.Sensitive = true;
 		}
 		
 		public string RenamedTitle

@@ -1,5 +1,14 @@
 2007-06-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Don't allow user to rename a note if that name
+	  is already taken.  Unsubscribe from SyncManager events on
+	  SyncDialog.Destroy.
+	* Tomboy/SyncManager.cs, Tomboy/Tomboy.cs, Tomboy/NoteWindow.cs,
+	  data/UIManagerLayout.xml: Moving "Synchronize Notes" menu item to
+	  Note Tools menu and Search Tools menu.
+
+2007-06-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncDialog.cs, Tomboy/SyncManager.cs,
 	  Tomboy/FileSystemSyncServer.cs: Initial support for cancelling a
 	  sync transaction.  Currently only safe when done during conflict

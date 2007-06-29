@@ -133,15 +133,59 @@ namespace Tomboy
 		
 		public static void Initialize ()
 		{
-			// do nothing for now...static constructor should get called if this
-			// is the first references to SyncManager
+			// NOTE: static constructor should get called if this
+			// is the first reference to SyncManager
+			
+			///
+			/// Add a "Synchronize Notes" to Tomboy's Tray Icon Menu
+			///
+			Gtk.ActionGroup action_group = new Gtk.ActionGroup ("Sync");
+			action_group.Add (new Gtk.ActionEntry [] {
+				new Gtk.ActionEntry ("ToolsMenuAction", null,
+					Catalog.GetString ("_Tools"), null, null, null),
+				new Gtk.ActionEntry ("SyncNotesAction", null,
+					Catalog.GetString ("Synchronize Notes"), null, null,
+					delegate { SyncManager.OpenNoteSyncWindow (); })
+			});
+			
+			Tomboy.ActionManager.UI.AddUiFromString (@"
+				<ui>
+				    <menubar name='MainWindowMenubar'>
+				    	<placeholder name='MainWindowMenuPlaceholder'>
+					    	<menu name='ToolsMenu' action='ToolsMenuAction'>
+					    		<menuitem name='SyncNotes' action='SyncNotesAction' />
+					    	</menu>
+					    </placeholder>
+				    </menubar>
+				</ui>
+			");
+			
+			Tomboy.ActionManager.UI.InsertActionGroup (action_group, 0);
+		}
+		
+		// TODO: Move?
+		public static void OpenNoteSyncWindow ()
+		{
+			if (sync_dlg == null) {
+				sync_dlg = new SyncDialog ();
+				sync_dlg.Response += OnSyncDialogResponse;
+			}
+			sync_dlg.Present ();
+		}
+
+		static SyncDialog sync_dlg;
+		
+		static void OnSyncDialogResponse (object sender, Gtk.ResponseArgs args)
+		{
+			((Gtk.Widget) sender).Destroy ();
+			sync_dlg = null;
 		}
 		
 		public static void PerformSynchronization ()
 		{
 			if (syncThread != null) {
 				// A synchronization thread is already running
-				Tomboy.SyncDialog.Present ();
+				sync_dlg.Present ();
 				return;
 			}
 			
