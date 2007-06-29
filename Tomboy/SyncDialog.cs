@@ -229,10 +229,10 @@ namespace Tomboy
 						manager.Delete (localConflictNote);
 						break;
 					case SyncTitleConflictResolution.RenameExistingAndUpdate:
-						localConflictNote.Title = conflictDlg.RenamedTitle;  // TODO: What if note is open?
+						RenameNote (localConflictNote, conflictDlg.RenamedTitle, true);
 						break;
 					case SyncTitleConflictResolution.RenameExistingNoUpdate:
-						localConflictNote.Data.Title = conflictDlg.RenamedTitle;     // TODO: Does this work?
+						RenameNote (localConflictNote, conflictDlg.RenamedTitle, false);
 						break;
 					}
 				}
@@ -246,6 +246,27 @@ namespace Tomboy
 		}
 
 		#endregion // Private Event Handlers
+		
+#region Private Methods
+		
+			
+		// TODO: This appears to add <link:internal> around the note title
+		//       in the content, and it removes the newline between title
+		//       and rest of content.
+		private void RenameNote (Note note, string newTitle, bool updateReferencingNotes)
+		{
+			string oldTitle = note.Title;
+			if (updateReferencingNotes)
+				note.Title = newTitle;
+			else
+				note.Data.Title = newTitle;
+			string oldContent = note.XmlContent;
+			int i = oldContent.IndexOf (oldTitle);
+			string newContent = oldContent.Remove (i, newTitle.Length).Insert (i, newTitle);
+			note.XmlContent = newContent;
+		}
+#endregion // Private Methods
+		
 	}
 
 

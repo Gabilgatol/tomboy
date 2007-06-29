@@ -1,5 +1,10 @@
 2007-06-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Programmatic note renaming now works, though
+	  there are some formatting errors remaining.
+
+2007-06-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncManager.cs, Tomboy/TomboySyncClient.cs: Add
 	  SyncClient.DeletedNoteTitles to maintain a mapping between note
 	  GUIDs and note titles for notes deleted since the last sync.  This
