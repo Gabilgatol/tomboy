@@ -1,5 +1,10 @@
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Handle NoConfiguredSyncService and
+	  SyncServerCreationFailed.
+
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/SyncDialog.cs: Clean up the dialog so it's a little more
 	  clean.  Update the text and hide progress bar properly.
 	* Tomboy/SyncManager.cs: Use ActionManager to open sync.

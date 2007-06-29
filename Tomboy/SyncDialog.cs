@@ -290,6 +290,22 @@ namespace Tomboy
 					MessageText = Catalog.GetString ("You canceled the synchronization.  You may close the window now.");
 					ProgressText = string.Empty;
 					break;
+				case SyncState.NoConfiguredSyncService:
+					progressBar.Hide ();
+					progressBar.Fraction = 0;
+					Title = Catalog.GetString ("Synchronization Not Configured");
+					HeaderText = Catalog.GetString ("Synchronization is not configured");
+					MessageText = Catalog.GetString ("Please configure synchronization in the preferences dialog.");
+					ProgressText = string.Empty;
+					break;
+				case SyncState.SyncServerCreationFailed:
+					progressBar.Hide ();
+					progressBar.Fraction = 0;
+					Title = Catalog.GetString ("Synchronization Service Error");
+					HeaderText = Catalog.GetString ("Service error");
+					MessageText = Catalog.GetString ("Error connecting to the synchronization service.  Please try again.");
+					ProgressText = string.Empty;
+					break;
 				}
 			});
 		}
