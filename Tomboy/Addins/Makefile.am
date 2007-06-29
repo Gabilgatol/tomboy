@@ -1,2 +1,1 @@
-SUBDIRS = Backlinks FileSystemSyncService Tasks WebDavSyncService
-
+SUBDIRS = Backlinks FileSystemSyncService Tasks WebDavSyncService SshSyncService

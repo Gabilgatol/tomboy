@@ -11,13 +11,14 @@ using Tomboy;
 
 namespace Tomboy.Sync
 {
-	public class WebDavSyncServiceAddin : SyncServiceAddin
+	public class SshSyncServiceAddin : SyncServiceAddin
 	{
 		// TODO: Extract most of the code here and build GenericSyncServiceAddin
 		// that supports a field, a username, and password.  This could be useful
 		// in quickly building SshSyncServiceAddin, FtpSyncServiceAddin, etc.
 		
-		Entry urlEntry;
+		Entry serverEntry;
+		Entry folderEntry;
 		Entry usernameEntry;
 		Entry passwordEntry;
 		
@@ -44,17 +45,17 @@ namespace Tomboy.Sync
 		{
 			SyncServer server = null;
 			
-			string url, username, password;
-			if (GetConfigSettings (out url, out username, out password)) {
+			string url, folder, username, password;
+			if (GetConfigSettings (out url, out folder, out username, out password)) {
 				if (IsMounted () == false) {
-					if (MountWebDav (url, username, password) == false) {
+					if (MountSshfs (url, folder, username, password) == false) {
 						throw new Exception ("Could not mount " + mountPath);
 					}
 				}
 
-				server = new WebDavSyncServer (mountPath);
+				server = new FileSystemSyncServer (mountPath);
 			} else {
-				throw new InvalidOperationException ("WebDavSyncServiceAddin.CreateSyncServer () called without being configured");
+				throw new InvalidOperationException ("SshSyncServiceAddin.CreateSyncServer () called without being configured");
 			}
 			
 			return server;
@@ -71,9 +72,9 @@ namespace Tomboy.Sync
 			Gtk.Table table = new Gtk.Table (3, 2, false);
 			
 			// Read settings out of gconf
-			string url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
-			string username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
-			string password = Preferences.Get ("/apps/tomboy/sync_wdfs_password") as String;
+			string url = Preferences.Get ("/apps/tomboy/sync_sshfs_url") as String;
+			string username = Preferences.Get ("/apps/tomboy/sync_sshfs_username") as String;
+			string password = Preferences.Get ("/apps/tomboy/sync_sshfs_password") as String;
 			if (url == null)
 				url = string.Empty;
 			if (username == null)
@@ -81,36 +82,48 @@ namespace Tomboy.Sync
 			if (password == null)
 				password = string.Empty;
 			
-			Label l = new Label (Catalog.GetString ("URL:"));
+			Label l = new Label (Catalog.GetString ("Server:"));
 			l.Xalign = 1;
 			l.Show ();
 			table.Attach (l, 0, 1, 0, 1);
 			
-			urlEntry = new Entry ();
-			urlEntry.Text = url;
-			urlEntry.Show ();
-			table.Attach (urlEntry, 1, 2, 0, 1);
+			serverEntry = new Entry ();
+			serverEntry.Text = url;
+			serverEntry.Show ();
+			table.Attach (serverEntry, 1, 2, 0, 1);
 			
-			l = new Label (Catalog.GetString ("Username:"));
+			l = new Label (Catalog.GetString ("Folder (optional):"));
 			l.Xalign = 1;
 			l.Show ();
 			table.Attach (l, 0, 1, 1, 2);
 			
+			folderEntry = new Entry ();
+			folderEntry.Text = url;
+			folderEntry.Show ();
+			table.Attach (folderEntry, 1, 2, 1, 2);
+			
+			l = new Label (Catalog.GetString ("Username:"));
+			l.Xalign = 1;
+			l.Show ();
+			table.Attach (l, 0, 1, 2, 3);
+			
 			usernameEntry = new Entry ();
 			usernameEntry.Text = username;
 			usernameEntry.Show ();
-			table.Attach (usernameEntry, 1, 2, 1, 2);
+			table.Attach (usernameEntry, 1, 2, 2, 3);
 			
 			l = new Label (Catalog.GetString ("Password:"));
 			l.Xalign = 1;
 			l.Show ();
-			table.Attach (l, 0, 1, 2, 3);
+			table.Attach (l, 0, 1, 3, 4);
+			l.Sensitive = false;
 			
 			passwordEntry = new Entry ();
 			passwordEntry.Text = password;
 			passwordEntry.Visibility = false;
 			passwordEntry.Show ();
-			table.Attach (passwordEntry, 1, 2, 2, 3);
+			table.Attach (passwordEntry, 1, 2, 3, 4);
+			passwordEntry.Sensitive = false;
 			
 			table.Show ();
 			return table;
@@ -123,28 +136,29 @@ namespace Tomboy.Sync
 		/// </summary>
 		public override bool SaveConfiguration ()
 		{
-			string url = urlEntry.Text.Trim ();
+			string server = serverEntry.Text.Trim ();
+			string folder = folderEntry.Text.Trim ();
 			string username = usernameEntry.Text.Trim ();
 			string password = passwordEntry.Text.Trim ();
 			
-			if (url == string.Empty
-						|| username == string.Empty
-						|| password == string.Empty) {
+			if (server == string.Empty
+						|| username == string.Empty) {
 				// TODO: Figure out a way to send the error back to the client
-				Logger.Debug ("One of url, username, or password was empty");
+				Logger.Debug ("One of url, username was empty");
 				return false;
 			}
 			
 			SetUpMountPath ();
 			
 			// TODO: Check to see if the mount is already mounted
-			bool mounted = MountWebDav (url, username, password);
+			bool mounted = MountSshfs (server, folder, username, password);
 			
 			if (mounted) {
-				Preferences.Set ("/apps/tomboy/sync_wdfs_url", url);
-				Preferences.Set ("/apps/tomboy/sync_wdfs_username", username);
+				Preferences.Set ("/apps/tomboy/sync_sshfs_server", server);
+				Preferences.Set ("/apps/tomboy/sync_sshfs_folder", folder);
+				Preferences.Set ("/apps/tomboy/sync_sshfs_username", username);
 				// TODO: MUST FIX THIS.  DO NOT STORE CLEAR TEXT PASSWORD IN GCONF!
-				Preferences.Set ("/apps/tomboy/sync_wdfs_password", password);
+				Preferences.Set ("/apps/tomboy/sync_sshfs_password", password);
 			}
 			
 			return mounted;
@@ -155,11 +169,10 @@ namespace Tomboy.Sync
 		/// </summary>
 		public override void ResetConfiguration ()
 		{
-			Preferences.Set ("/apps/tomboy/sync_wdfs_url", string.Empty);
-			Preferences.Set ("/apps/tomboy/sync_wdfs_username", string.Empty);
-			Preferences.Set ("/apps/tomboy/sync_wdfs_password", string.Empty);
-			
-			// TODO: Unmount the FUSE mount!
+			Preferences.Set ("/apps/tomboy/sync_sshfs_server", string.Empty);
+			Preferences.Set ("/apps/tomboy/sync_sshfs_folder", string.Empty);
+			Preferences.Set ("/apps/tomboy/sync_sshfs_username", string.Empty);
+			Preferences.Set ("/apps/tomboy/sync_sshfs_password", string.Empty);
 		}
 		
 		/// <summary>
@@ -168,13 +181,13 @@ namespace Tomboy.Sync
 		public override bool IsConfigured
 		{
 			get {
-				string url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
-				string username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
-				string password = Preferences.Get ("/apps/tomboy/sync_wdfs_password") as String;
+				string server = Preferences.Get ("/apps/tomboy/sync_sshfs_server") as String;
+				string folder = Preferences.Get ("/apps/tomboy/sync_sshfs_folder") as String;
+				string username = Preferences.Get ("/apps/tomboy/sync_sshfs_username") as String;
+				string password = Preferences.Get ("/apps/tomboy/sync_sshfs_password") as String;
 				
-				if (url != null && url != string.Empty
-						&& username != null && username != string.Empty
-						&& password != null && password != string.Empty) {
+				if (server != null && server != string.Empty
+						&& username != null && username != string.Empty) {
 					return true;
 				}
 				
@@ -189,7 +202,7 @@ namespace Tomboy.Sync
 		public override string Name
 		{
 			get {
-				return Mono.Unix.Catalog.GetString ("WebDAV (wdfs FUSE)");
+				return Mono.Unix.Catalog.GetString ("SSH (sshfs FUSE)");
 			}
 		}
 
@@ -200,7 +213,7 @@ namespace Tomboy.Sync
 		public override string Id
 		{
 			get {
-				return "wdfs";
+				return "sshfs";
 			}
 		}
 		
@@ -216,7 +229,7 @@ namespace Tomboy.Sync
 		{
 			get {
 				// TODO: Figure out a better way to do this!
-				if (System.IO.File.Exists ("/usr/bin/wdfs") == true)
+				if (System.IO.File.Exists ("/usr/bin/sshfs") == true)
 					return true;
 				
 				return false;
@@ -227,7 +240,7 @@ namespace Tomboy.Sync
 		private void SetUpMountPath ()
 		{
 			string notesPath = Tomboy.DefaultNoteManager.NoteDirectoryPath;
-			mountPath = Path.Combine (notesPath, "sync-wdfs");
+			mountPath = Path.Combine (notesPath, "sync-sshfs");
 		}
 		
 		private void CreateMountPath ()
@@ -270,7 +283,7 @@ namespace Tomboy.Sync
 			}
 			
 			foreach (string outputLine in outputLines)
-				if (outputLine.StartsWith ("wdfs") &&
+				if (outputLine.StartsWith ("sshfs") &&
 				    outputLine.IndexOf (string.Format ("on {0} ", mountPath)) > -1)
 					return true;
 			
@@ -278,18 +291,18 @@ namespace Tomboy.Sync
 		}
 		
 		/// <summary>
-		/// Actually attempt to mount the WebDav URL
+		/// Actually attempt to mount the sshfs URL
 		///
-		/// Execute: wdfs <mount-path> -a <url> -u <username> -p <password> -o fsname=tomboywdfs
+		/// Execute: TODO
 		/// </summary>
-		private bool MountWebDav (string url, string username, string password)
+		private bool MountSshfs (string server, string folder, string username, string password)
 		{
 			if (mountPath == null)
 				return false;
 			
 			if (SyncUtils.IsFuseEnabled () == false) {
 				if (SyncUtils.EnableFuse () == false) {
-					Logger.Debug ("User canceled or something went wrong enabling fuse in WebDavSyncServiceAddin.MountWebDav");
+					Logger.Debug ("User canceled or something went wrong enabling fuse in SshSyncServiceAddin.MountSshfs");
 					return false;
 				}
 			}
@@ -299,20 +312,23 @@ namespace Tomboy.Sync
 			Process p = new Process ();
 			p.StartInfo.UseShellExecute = false;
 			p.StartInfo.RedirectStandardOutput = false;
-			p.StartInfo.FileName = "/usr/bin/wdfs";
+			p.StartInfo.FileName = "/usr/bin/sshfs";
 			p.StartInfo.Arguments =
 				string.Format (
-					"{0} -a {1} -u {2} -p {3} -o fsname=tomboywdfs",
-					mountPath,
-					url,
+					"{0}@{1}:{2} {3}",
 					username,
-					password);
+					server,
+				        folder,
+					mountPath);
 			p.StartInfo.CreateNoWindow = true;
 			p.Start ();
 			p.WaitForExit ();
+	
+			
+			// TODO: Handle password
 			
 			if (p.ExitCode == 1) {
-				Logger.Debug ("Error calling wdfs");
+				Logger.Debug ("Error calling sshfs");
 				return false;
 			}
 			return true;
@@ -321,15 +337,15 @@ namespace Tomboy.Sync
 		/// <summary>
 		/// Get config settings
 		/// </summary>
-		private bool GetConfigSettings (out string url, out string username, out string password)
+		private bool GetConfigSettings (out string server, out string folder, out string username, out string password)
 		{
-			url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
-			username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
-			password = Preferences.Get ("/apps/tomboy/sync_wdfs_password") as String;
+			server = Preferences.Get ("/apps/tomboy/sync_sshfs_server") as String;
+			folder = Preferences.Get ("/apps/tomboy/sync_sshfs_folder") as String;
+			username = Preferences.Get ("/apps/tomboy/sync_sshfs_username") as String;
+			password = Preferences.Get ("/apps/tomboy/sync_sshfs_password") as String;
 			
-			if (url != null && url != string.Empty
-					&& username != null && username != string.Empty
-					&& password != null && password != string.Empty) {
+			if (server != null && server != string.Empty
+					&& username != null && username != string.Empty) {
 				return true;
 			}
 			

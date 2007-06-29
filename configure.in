@@ -196,6 +196,7 @@ Tomboy/Addins/Backlinks/Makefile
 Tomboy/Addins/FileSystemSyncService/Makefile
 Tomboy/Addins/Tasks/Makefile
 Tomboy/Addins/WebDavSyncService/Makefile
+Tomboy/Addins/SshSyncService/Makefile
 Tomboy/Mono.Addins/Makefile
 Tomboy/Mono.Addins/Mono.Addins.Setup/Makefile
 Tomboy/Mono.Addins/Mono.Addins.Gui/Makefile
