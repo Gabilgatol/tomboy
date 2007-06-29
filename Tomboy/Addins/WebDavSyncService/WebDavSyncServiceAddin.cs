@@ -328,6 +328,9 @@ namespace Tomboy.Sync
 			if (mountPath == null)
 				return false;
 			
+			if (IsMounted ())
+				return true;
+			
 			if (SyncUtils.IsFuseEnabled () == false) {
 				if (SyncUtils.EnableFuse () == false) {
 					Logger.Debug ("User canceled or something went wrong enabling fuse in WebDavSyncServiceAddin.MountWebDav");

@@ -1,5 +1,12 @@
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/PreferencesDialog.cs: Delete ~/.tomboy/manifest.xml during
+	  reset.  Give user feedback when saving sync preferences.
+	* Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Return
+	  true if already mounted.
+
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/SyncDialog.cs: Fixed the spacing in the dialog.  Also use
 	  ellipses for all the progressLabel text.
 

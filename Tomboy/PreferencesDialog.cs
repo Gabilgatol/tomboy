@@ -889,7 +889,19 @@ namespace Tomboy
 				Preferences.SYNC_SELECTED_SERVICE_ADDIN,
 				String.Empty);
 			
-			// TODO: Nuke ~/.tomboy/manifest.xml
+			// Nuke ~/.tomboy/manifest.xml
+			string clientManifestPath = System.IO.Path.Combine ( 
+					Tomboy.DefaultNoteManager.NoteDirectoryPath,
+					"manifest.xml");
+			if (System.IO.File.Exists (clientManifestPath) == true) {
+				try {
+					System.IO.File.Delete (clientManifestPath);
+				} catch (Exception e) {
+					Logger.Debug ("Error deleting \"{0}\" during reset: {1}",
+						clientManifestPath,
+						e.Message);
+				}
+			}
 				
 			syncAddinCombo.Sensitive = true;
 			syncAddinPrefsWidget.Sensitive = true;
@@ -914,6 +926,7 @@ namespace Tomboy
 					selectedSyncAddin.Id, e.Message, e.StackTrace);
 			}
 			
+			HIGMessageDialog dialog; 
 			if (saved) {
 				Preferences.Set (
 					Preferences.SYNC_SELECTED_SERVICE_ADDIN,
@@ -923,6 +936,19 @@ namespace Tomboy
 				syncAddinPrefsWidget.Sensitive = false;
 				resetSyncAddinButton.Sensitive = true;
 				saveSyncAddinButton.Sensitive = false;
+
+				// Give the user a visual letting them know that connecting
+				// was successful.
+				dialog = 
+					new HIGMessageDialog (this,
+							      Gtk.DialogFlags.Modal,
+							      Gtk.MessageType.Info,
+							      Gtk.ButtonsType.Close,
+							      Catalog.GetString ("Success! You're connected!"),
+							      Catalog.GetString (
+						"Tomboy is ready to synchronize your notes."));
+				dialog.Run ();
+				dialog.Destroy ();
 			} else {
 				// TODO: Change the SyncServiceAddin API so the call to
 				// SaveConfiguration has a way of passing back an exception
@@ -935,6 +961,19 @@ namespace Tomboy
 				syncAddinPrefsWidget.Sensitive = true;
 				resetSyncAddinButton.Sensitive = false;
 				saveSyncAddinButton.Sensitive = true;
+
+				// Give the user a visual letting them know that connecting
+				// was successful.
+				dialog = 
+					new HIGMessageDialog (this,
+							      Gtk.DialogFlags.Modal,
+							      Gtk.MessageType.Warning,
+							      Gtk.ButtonsType.Close,
+							      Catalog.GetString ("Error connecting :("),
+							      Catalog.GetString (
+						"Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."));
+				dialog.Run ();
+				dialog.Destroy ();
 			}
 		}
 	}
