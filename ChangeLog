@@ -3,6 +3,11 @@
 	* configure.in: Changed the version to 0.7.1.2.  Since we haven't
 	  released 0.7.2 officially, the previous one didn't make sense.
 
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Changed the version to 0.7.1.2.  Since we haven't
+	  released 0.7.2 officially, the previous one didn't make sense.
+
 2007-06-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Tomboy.cs: When importing a note XML file through `tomboy
