@@ -1,3 +1,8 @@
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Makefile.am: Removed trailing whitespace causing build
+	  failure.
+
 2007-06-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* configure.in, Tomboy.mdp, Tomboy/Addins/Makefile.am,

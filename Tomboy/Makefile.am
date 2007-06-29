@@ -54,7 +54,7 @@ CSFILES = 					\
 	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/Preferences.cs		\
 	$(srcdir)/PreferencesDialog.cs		\
-	$(srcdir)/RecentChanges.cs		\	
+	$(srcdir)/RecentChanges.cs		\
 	$(srcdir)/SyncDialog.cs			\
 	$(srcdir)/SyncManager.cs		\
 	$(srcdir)/SyncServiceAddin.cs		\
