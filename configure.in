@@ -1,5 +1,6 @@
-AC_INIT(Tomboy/Tomboy.cs)
-AM_INIT_AUTOMAKE(tomboy, 0.7.2)
+AC_INIT(tomboy, 0.7.2.1-hackweek)
+AC_CONFIG_SRCDIR(Tomboy/Tomboy.cs)
+AM_INIT_AUTOMAKE([tar-pax])
 AM_MAINTAINER_MODE
 
 GNOME_COMMON_INIT
@@ -190,6 +191,10 @@ data/tomboy-plugins.pc
 data/images/Makefile
 help/Makefile
 libtomboy/Makefile
+Mono.Addins/Makefile
+Mono.Addins/Mono.Addins.Setup/Makefile
+Mono.Addins/Mono.Addins.Gui/Makefile
+Mono.Addins/Mono.Addins/Makefile
 Tomboy/Makefile
 Tomboy/Addins/Makefile
 Tomboy/Addins/Backlinks/Makefile
@@ -197,10 +202,6 @@ Tomboy/Addins/FileSystemSyncService/Makefile
 Tomboy/Addins/Tasks/Makefile
 Tomboy/Addins/WebDavSyncService/Makefile
 Tomboy/Addins/SshSyncService/Makefile
-Tomboy/Mono.Addins/Makefile
-Tomboy/Mono.Addins/Mono.Addins.Setup/Makefile
-Tomboy/Mono.Addins/Mono.Addins.Gui/Makefile
-Tomboy/Mono.Addins/Mono.Addins/Makefile
 Tomboy/Plugins/Makefile
 test/Makefile
 po/Makefile.in
