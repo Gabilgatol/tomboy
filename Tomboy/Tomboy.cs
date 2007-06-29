@@ -1,6 +1,7 @@
 
 using System;
 using System.IO;
+using System.Xml;
 using Mono.Unix;
 
 namespace Tomboy 
@@ -603,16 +604,30 @@ namespace Tomboy
 					// be part of our notes list.
 					if (remote.DisplayNote (
 							string.Format ("note://tomboy/{0}", note_id)) == false) {
-						// Not an existing note.  Create a new note.
-						string note_uri = remote.CreateNote ();
 						
-						if (note_uri != null) {
-							// Load in the XML contents of the note file
-							StreamReader sr = File.OpenText (open_external_note_path);
-							if (sr != null) {
-								string note_xml = sr.ReadToEnd ();
-								if (note_xml != null) {
-									if (remote.SetNoteContentsCompleteXml (note_uri, note_xml))
+						string noteTitle = null;
+						string noteXml = null;
+						
+						StreamReader sr = File.OpenText (open_external_note_path);
+						if (sr != null) {
+							noteXml = sr.ReadToEnd ();
+							
+							if (noteXml != null) {
+								noteTitle = GetTitleFromNoteXml (noteXml);
+
+								// Check for conflicting titles
+								string baseTitle = (string)noteTitle.Clone ();
+								for (int i = 1; remote.FindNote (noteTitle) != string.Empty; i++)
+									noteTitle = baseTitle + " (" + i.ToString() + ")";
+								
+								string note_uri = remote.CreateNamedNote (noteTitle);
+								// TODO: This method for updating the title in the noteXml
+								//       is a little overzealous.  Needs to be replaced.
+								noteXml = noteXml.Replace (baseTitle, noteTitle);
+								
+								if (note_uri != null) {
+									// Load in the XML contents of the note file
+									if (remote.SetNoteContentsCompleteXml (note_uri, noteXml))
 										remote.DisplayNote (note_uri);
 								}
 							}
@@ -640,6 +655,28 @@ namespace Tomboy
 				recent_changes.Present ();
 			}
 #endif // ENABLE_DBUS
+		}
+		
+		private string GetTitleFromNoteXml (string noteXml)
+		{
+			if (noteXml != null && noteXml.Length > 0) {
+				XmlTextReader xml = new XmlTextReader (new StringReader (noteXml));
+				xml.Namespaces = false;
+
+				while (xml.Read ()) {
+					switch (xml.NodeType) {
+					case XmlNodeType.Element:
+						switch (xml.Name) {
+					case "title":
+						return xml.ReadString ();
+						break;
+					}
+						break;
+					}
+				}
+			}
+			
+			return null;
 		}
 	}
 }

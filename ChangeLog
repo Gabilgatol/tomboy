@@ -1,3 +1,8 @@
+2007-06-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Tomboy.cs: When importing a note XML file through `tomboy
+	  --open-note`, prevent note title conflicts.
+
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/SyncDialog.cs: Handle NoConfiguredSyncService and
