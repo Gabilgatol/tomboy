@@ -29,8 +29,9 @@ namespace Tomboy
 			
 			SetSizeRequest (400, -1);
 			
-			VBox.BorderWidth = 12;
-			VBox.Spacing = 8;
+			VBox outerVBox = new VBox (false, 12);
+			outerVBox.BorderWidth = 12;
+			outerVBox.Spacing = 8;
 			
 			HBox hbox = new HBox (false, 8);
 			
@@ -59,7 +60,7 @@ namespace Tomboy
 			hbox.PackStart (vbox, true, true, 0);
 			
 			hbox.Show ();
-			VBox.PackStart (hbox, false, false, 0);
+			outerVBox.PackStart (hbox, false, false, 0);
 			
 			progressBar = new Gtk.ProgressBar ();
 			//progressBar.Text = "Contacting Server...";
@@ -67,7 +68,7 @@ namespace Tomboy
 			progressBar.BarStyle = ProgressBarStyle.Continuous;
 			progressBar.ActivityBlocks = 30;
 			progressBar.Show ();
-			VBox.PackStart (progressBar, false, false, 0);
+			outerVBox.PackStart (progressBar, false, false, 0);
 			
 			progressLabel = new Label ();
 			progressLabel.UseMarkup = true;
@@ -76,7 +77,7 @@ namespace Tomboy
 			progressLabel.LineWrap = true;
 			progressLabel.Wrap = true;
 			progressLabel.Show ();
-			VBox.PackStart (progressLabel, false, false, 0);
+			outerVBox.PackStart (progressLabel, false, false, 0);
 			
 			// Create model for TreeView
 			model = new Gtk.ListStore (typeof (string), typeof (string));
@@ -114,7 +115,7 @@ namespace Tomboy
 			expander = new Gtk.Expander ("Details");
 			expander.Add (expandVBox);
 			expander.Show ();
-			VBox.PackStart (expander, true, true, 5);
+			outerVBox.PackStart (expander, true, true, 5);
 			
 			closeButton = (Gtk.Button) AddButton (Gtk.Stock.Close, Gtk.ResponseType.Close);
 			closeButton.Sensitive = false;
@@ -123,6 +124,9 @@ namespace Tomboy
 			
 			expander.Activated += OnExpanderActivated;
 			
+			outerVBox.Show ();
+			VBox.PackStart (outerVBox, true, true, 0);
+
 			VBox.ShowAll ();
 		}
 		
@@ -224,10 +228,10 @@ namespace Tomboy
 				// FIXME: Change these strings to be user-friendly
 				switch (state) {
 				case SyncState.AcquiringLock:
-					ProgressText = Catalog.GetString ("Acquiring sync lock");
+					ProgressText = Catalog.GetString ("Acquiring sync lock...");
 					break;
 				case SyncState.CommittingChanges:
-					ProgressText = Catalog.GetString ("Committing changes");
+					ProgressText = Catalog.GetString ("Committing changes...");
 					break;
 				case SyncState.Connecting:
 					Title = Catalog.GetString ("Synchronizing Notes");
@@ -393,7 +397,7 @@ namespace Tomboy
 				note.Data.Title = newTitle;
 			string oldContent = note.XmlContent;
 			int i = oldContent.IndexOf (oldTitle);
-			string newContent = oldContent.Remove (i, oldTitle.Length).Insert (i, newTitle);
+			string newContent = oldContent.Remove (i, newTitle.Length).Insert (i, newTitle);
 			note.XmlContent = newContent;
 		}
 #endregion // Private Methods
@@ -437,7 +441,7 @@ namespace Tomboy
 			renameHBox.PackStart (renameOptionsVBox);
 			VBox.PackStart (renameHBox);
 			
-			deleteExistingRadio = new Gtk.RadioButton (renameRadio, "Delete local note");
+			deleteExistingRadio = new Gtk.RadioButton (renameRadio, "Delete existing note");
 			VBox.PackStart (deleteExistingRadio);
 			
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);

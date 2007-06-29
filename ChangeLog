@@ -1,5 +1,10 @@
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Fixed the spacing in the dialog.  Also use
+	  ellipses for all the progressLabel text.
+
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/SyncManager.cs: Make sure to set SyncState.Idle before
 	  returning.  This will prevent a client from being in a broken state
 	  where they can't fix.
