@@ -23,6 +23,8 @@ namespace Tomboy.Sync
 		
 		string mountPath;
 		
+		InterruptableTimeout unmountTimeout;
+		
 		/// <summary>
 		/// Called as soon as Tomboy needs to do anything with the service
 		/// </summary>
@@ -32,6 +34,8 @@ namespace Tomboy.Sync
 				// Make sure the mount is loaded
 				SetUpMountPath ();
 //			}
+			unmountTimeout = new InterruptableTimeout ();
+			unmountTimeout.Timeout += UnmountTimeout;
 		}
 
 		/// <summary>
@@ -42,6 +46,7 @@ namespace Tomboy.Sync
 		/// </summary>
 		public override SyncServer CreateSyncServer ()
 		{
+			unmountTimeout.Cancel (); // Prevent unmount during sync
 			SyncServer server = null;
 			
 			string url, username, password;
@@ -58,6 +63,37 @@ namespace Tomboy.Sync
 			}
 			
 			return server;
+		}
+		
+		public override void PostSyncCleanup ()
+		{
+			// Try unmounting in five minutes
+			// TODO: Ensure that this happens before Tomboy shuts down
+			unmountTimeout.Reset (1000 * 60 * 5);
+		}
+		
+		private void UnmountTimeout (object sender, System.EventArgs e)
+		{
+			Process p = new Process ();
+			p.StartInfo.UseShellExecute = false;
+			p.StartInfo.RedirectStandardOutput = false;
+			p.StartInfo.FileName = "/usr/bin/fusermount";
+			p.StartInfo.Arguments =
+				string.Format (
+					"-u {0}",
+					mountPath);
+			p.StartInfo.CreateNoWindow = true;
+			p.Start ();
+			p.WaitForExit ();
+			
+			if (p.ExitCode == 1) {
+				Logger.Debug ("Error unmounting " + Id);
+				unmountTimeout.Reset (1000 * 60 * 5); // Try again in five minutes
+			}
+			else {
+				Logger.Debug ("Successfully unmounted " + Id);
+				unmountTimeout.Cancel ();
+			}
 		}
 		
 		/// <summary>
@@ -80,6 +116,9 @@ namespace Tomboy.Sync
 				username = string.Empty;
 			if (password == null)
 				password = string.Empty;
+			
+			bool activeSyncService = url != string.Empty || username != string.Empty ||
+				password != string.Empty;
 			
 			Label l = new Label (Catalog.GetString ("URL:"));
 			l.Xalign = 1;
@@ -112,6 +151,7 @@ namespace Tomboy.Sync
 			passwordEntry.Show ();
 			table.Attach (passwordEntry, 1, 2, 2, 3);
 			
+			table.Sensitive = !activeSyncService;
 			table.Show ();
 			return table;
 		}
@@ -141,6 +181,7 @@ namespace Tomboy.Sync
 			bool mounted = MountWebDav (url, username, password);
 			
 			if (mounted) {
+				PostSyncCleanup ();
 				Preferences.Set ("/apps/tomboy/sync_wdfs_url", url);
 				Preferences.Set ("/apps/tomboy/sync_wdfs_username", username);
 				// TODO: MUST FIX THIS.  DO NOT STORE CLEAR TEXT PASSWORD IN GCONF!

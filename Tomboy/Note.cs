@@ -574,6 +574,8 @@ namespace Tomboy
 			if (foreignNoteXml == null)
 				throw new ArgumentNullException ("foreignNoteXml");
 			
+			// TODO: Handle non-XML, bad XML, etc
+			//       Remember, this string is NOT to be overly trusted!
 			StringReader reader = new StringReader (foreignNoteXml);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;

@@ -21,6 +21,9 @@ namespace Tomboy
 		/// </summary>
 		public abstract SyncServer CreateSyncServer ();
 		
+		// TODO: Document, rename?
+		public abstract void PostSyncCleanup ();
+		
 		/// <summary>
 		/// Creates a Gtk.Widget that's used to configure the service.  This
 		/// will be used in the Synchronization Preferences.  Preferences should

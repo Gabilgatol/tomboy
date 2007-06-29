@@ -24,6 +24,8 @@ namespace Tomboy.Sync
 		
 		string mountPath;
 		
+		InterruptableTimeout unmountTimeout;
+		
 		/// <summary>
 		/// Called as soon as Tomboy needs to do anything with the service
 		/// </summary>
@@ -33,6 +35,8 @@ namespace Tomboy.Sync
 				// Make sure the mount is loaded
 				SetUpMountPath ();
 //			}
+			unmountTimeout = new InterruptableTimeout ();
+			unmountTimeout.Timeout += UnmountTimeout;
 		}
 
 		/// <summary>
@@ -43,6 +47,7 @@ namespace Tomboy.Sync
 		/// </summary>
 		public override SyncServer CreateSyncServer ()
 		{
+			unmountTimeout.Cancel (); // Prevent unmount during sync
 			SyncServer server = null;
 			
 			string url, folder, username, password;
@@ -61,6 +66,37 @@ namespace Tomboy.Sync
 			return server;
 		}
 		
+		public override void PostSyncCleanup ()
+		{
+			// Try unmounting in five minutes
+			// TODO: Ensure that this happens before Tomboy shuts down
+			unmountTimeout.Reset (1000 * 60 * 5);
+		}
+		
+		private void UnmountTimeout (object sender, System.EventArgs e)
+		{
+			Process p = new Process ();
+			p.StartInfo.UseShellExecute = false;
+			p.StartInfo.RedirectStandardOutput = false;
+			p.StartInfo.FileName = "/usr/bin/fusermount";
+			p.StartInfo.Arguments =
+				string.Format (
+					"-u {0}",
+					mountPath);
+			p.StartInfo.CreateNoWindow = true;
+			p.Start ();
+			p.WaitForExit ();
+			
+			if (p.ExitCode == 1) {
+				Logger.Debug ("Error unmounting " + Id);
+				unmountTimeout.Reset (1000 * 60 * 5); // Try again in five minutes
+			}
+			else {
+				Logger.Debug ("Successfully unmounted " + Id);
+				unmountTimeout.Cancel ();
+			}
+		}
+		
 		/// <summary>
 		/// Creates a Gtk.Widget that's used to configure the service.  This
 		/// will be used in the Synchronization Preferences.  Preferences should
@@ -72,15 +108,21 @@ namespace Tomboy.Sync
 			Gtk.Table table = new Gtk.Table (3, 2, false);
 			
 			// Read settings out of gconf
-			string url = Preferences.Get ("/apps/tomboy/sync_sshfs_url") as String;
+			string server = Preferences.Get ("/apps/tomboy/sync_sshfs_server") as String;
+			string folder = Preferences.Get ("/apps/tomboy/sync_sshfs_folder") as String;
 			string username = Preferences.Get ("/apps/tomboy/sync_sshfs_username") as String;
 			string password = Preferences.Get ("/apps/tomboy/sync_sshfs_password") as String;
-			if (url == null)
-				url = string.Empty;
+			if (server == null)
+				server = string.Empty;
+			if (folder == null)
+				folder = string.Empty;
 			if (username == null)
 				username = string.Empty;
 			if (password == null)
 				password = string.Empty;
+			
+			bool activeSyncService = server != string.Empty || folder != string.Empty ||
+				username != string.Empty || password != string.Empty;
 			
 			Label l = new Label (Catalog.GetString ("Server:"));
 			l.Xalign = 1;
@@ -88,7 +130,7 @@ namespace Tomboy.Sync
 			table.Attach (l, 0, 1, 0, 1);
 			
 			serverEntry = new Entry ();
-			serverEntry.Text = url;
+			serverEntry.Text = server;
 			serverEntry.Show ();
 			table.Attach (serverEntry, 1, 2, 0, 1);
 			
@@ -98,7 +140,7 @@ namespace Tomboy.Sync
 			table.Attach (l, 0, 1, 1, 2);
 			
 			folderEntry = new Entry ();
-			folderEntry.Text = url;
+			folderEntry.Text = folder;
 			folderEntry.Show ();
 			table.Attach (folderEntry, 1, 2, 1, 2);
 			
@@ -125,6 +167,7 @@ namespace Tomboy.Sync
 			table.Attach (passwordEntry, 1, 2, 3, 4);
 			passwordEntry.Sensitive = false;
 			
+			table.Sensitive = !activeSyncService;
 			table.Show ();
 			return table;
 		}
@@ -154,6 +197,7 @@ namespace Tomboy.Sync
 			bool mounted = MountSshfs (server, folder, username, password);
 			
 			if (mounted) {
+				PostSyncCleanup ();
 				Preferences.Set ("/apps/tomboy/sync_sshfs_server", server);
 				Preferences.Set ("/apps/tomboy/sync_sshfs_folder", folder);
 				Preferences.Set ("/apps/tomboy/sync_sshfs_username", username);

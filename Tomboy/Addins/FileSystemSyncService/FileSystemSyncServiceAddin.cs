@@ -53,6 +53,11 @@ namespace Tomboy.Sync
 			return server;
 		}
 		
+		public override void PostSyncCleanup ()
+		{
+			// Nothing to do
+		}
+		
 		/// <summary>
 		/// Creates a Gtk.Widget that's used to configure the service.  This
 		/// will be used in the Synchronization Preferences.  Preferences should

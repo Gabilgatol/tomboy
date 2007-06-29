@@ -244,6 +244,7 @@ namespace Tomboy
 				Logger.Log ("Exception while creating SyncServer: {0}\n{1}", e.Message, e.StackTrace);
 				SetState (SyncState.Idle);
 				syncThread = null;
+					addin.PostSyncCleanup ();// TODO: Needed?
 				return;
 				// TODO: Figure out a clever way to get the specific error up to the GUI
 			}
@@ -254,6 +255,7 @@ namespace Tomboy
 				SetState (SyncState.Locked);
 				Logger.Log ("PerformSynchronization: Server locked, try again later");
 				syncThread = null;
+				addin.PostSyncCleanup ();
 				return;
 			}
 Logger.Debug ("8");
@@ -308,6 +310,7 @@ Logger.Debug ("8");
 									SetState (SyncState.UserCancelled);
 									SetState (SyncState.Idle);
 									syncThread = null;
+									addin.PostSyncCleanup ();
 									return;
 								}
 							}
@@ -455,6 +458,7 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 			
 			SetState (SyncState.Idle);
 			syncThread = null;
+			addin.PostSyncCleanup (); // TODO: try/finally this?
 		}
 		
 		/// <summary>

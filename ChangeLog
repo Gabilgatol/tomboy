@@ -1,3 +1,14 @@
+2007-06-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/SyncServiceAddin.cs, Tomboy/SyncManager.cs,
+	  Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs,
+	  Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs: Adding
+	  SyncServiceAddin.PostSyncCleanup, which the FUSE backends use to
+	  unmount the server when not in use.
+	* Tomboy/Note.cs: Added TODO regarding trusting foreign note XML
+	  content.
+
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
 	* configure.in, Makefile.include, Tomboy/Makefile.am, Tomboy/tomboy.in,
