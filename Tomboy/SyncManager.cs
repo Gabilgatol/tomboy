@@ -239,6 +239,7 @@ namespace Tomboy
 			if (!server.BeginSyncTransaction ()) {
 				SetState (SyncState.Locked);
 				Logger.Log ("PerformSynchronization: Server locked, try again later");
+				SetState (SyncState.Idle);
 				syncThread = null;
 				addin.PostSyncCleanup ();
 				return;
@@ -361,31 +362,22 @@ Logger.Debug ("8");
 			evt.WaitOne ();
 			
 			// TODO: Add following updates to syncDialog treeview
-//			syncDialog.ProgressText = "Sending note updates...";
-//			syncDialog.ProgressFraction = 0.5;
 			
 			SetState (SyncState.PrepareUpload);
 			// Look through all the notes modified on the client
 			// and upload new or modified ones to the server
 			List<Note> newOrModifiedNotes = new List<Note> ();
-Logger.Debug ("SYNC: client.LastSyncDate = {0}", client.LastSyncDate.ToString ());
 			foreach (Note note in NoteMgr.Notes) {
-if (note.Title.CompareTo ("Start Here") == 0) {
-	Logger.Debug ("SYNC: Start Here Revision = {0}", client.GetRevision (note));
-	Logger.Debug ("SYNC: Start Here Change Date = {0}", note.ChangeDate.ToString ());
-}
 				if (client.GetRevision (note) == -1) {
 					// This is a new note that has never been synchronized to the server
 					newOrModifiedNotes.Add (note);
 					if (NoteSynchronized != null)
 						NoteSynchronized (note.Title, NoteSyncType.UploadNew);
-//					syncDialog.AddUpdateItem (note.Title, Catalog.GetString ("Adding new file to server"));
 				} else if (client.GetRevision (note) <= client.LastSynchronizedRevision &&
 				    	note.ChangeDate > client.LastSyncDate) {
 					newOrModifiedNotes.Add (note);
 					if (NoteSynchronized != null)
 						NoteSynchronized (note.Title, NoteSyncType.UploadModified);
-//					syncDialog.AddUpdateItem (note.Title, Catalog.GetString ("Uploading changes"));
 				}
 			}
 			// Apply this revision number to all new/modified notes since last sync
@@ -412,7 +404,6 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 							deletedTitle = client.DeletedNoteTitles [noteUUID];
 						NoteSynchronized (deletedTitle, NoteSyncType.DeleteFromServer);
 					}
-//					syncDialog.AddUpdateItem (noteUUID, Catalog.GetString ("Deleting from server"));
 				}
 			}
 			if (locallyDeletedUUIDs.Count > 0) {
@@ -423,16 +414,11 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 			SetState (SyncState.CommittingChanges);
 			bool commitResult = server.CommitSyncTransaction ();
 			if (commitResult) {
-//				syncDialog.ProgressFraction = 1.0;
-//				syncDialog.ProgressText = "Sync completed successfully!";
 				SetState (SyncState.Succeeded);
 			} else {
-//				syncDialog.ProgressFraction = 0;
-//				syncDialog.ProgressText = "Sync failed!";
 				SetState (SyncState.Failed);
 				// TODO: Figure out a way to let the GUI know what exactly failed
 			}
-//			syncDialog.CloseSensitive = true;
 			
 			// This should be equivalent to newRevision
 			client.LastSynchronizedRevision = server.LatestRevision;
