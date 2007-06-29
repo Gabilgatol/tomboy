@@ -1,5 +1,10 @@
 2007-06-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/PreferencesDialog.cs: Get preferences widget from newly
+	  selected sync addin.
+
+2007-06-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncServiceAddin.cs, Tomboy/SyncManager.cs,
 	  Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs,
 	  Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs,

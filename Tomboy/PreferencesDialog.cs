@@ -838,6 +838,7 @@ namespace Tomboy
 				SyncServiceAddin newAddin =
 					syncAddinStore.GetValue (iter, 0) as SyncServiceAddin;
 				if (newAddin != null) {
+					selectedSyncAddin = newAddin;
 					syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
 					if (syncAddinPrefsWidget == null) {
 						Gtk.Label l = new Gtk.Label (Catalog.GetString ("Not configurable"));
