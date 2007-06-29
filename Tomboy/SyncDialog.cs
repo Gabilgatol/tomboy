@@ -175,6 +175,10 @@ namespace Tomboy
 				case SyncState.Succeeded:
 					ProgressText = Catalog.GetString ("Succeeded");
 					break;
+				case SyncState.UserCancelled:
+					progressBar.Fraction = 0;
+					ProgressText = Catalog.GetString ("Cancelled by user");
+					break;
 				}
 			});
 		}

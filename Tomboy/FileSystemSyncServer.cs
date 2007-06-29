@@ -322,6 +322,14 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			return true;
 		}
 		
+		// TODO: Return false if this is a bad time to cancel sync?
+		public bool CancelSyncTransaction ()
+		{
+			lockTimeout.Cancel ();
+			File.Delete (lockPath);
+			return true;
+		}
+		
 		public virtual int LatestRevision
 		{
 			get

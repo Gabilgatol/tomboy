@@ -69,7 +69,12 @@ namespace Tomboy
 		/// <summary>
 		/// The synchronization failed
 		/// </summary>
-		Failed
+		Failed,
+		
+		/// <summary>
+		/// The synchronization was cancelled by the user
+		/// </summary>
+		UserCancelled
 	};
 	
 	public enum NoteSyncType {
@@ -224,6 +229,14 @@ namespace Tomboy
 							
 							// The user has responded to the conflict.  Read what
 							// they've said to do.
+							if (conflictResolution == SyncTitleConflictResolution.Cancel) {
+								if (server.CancelSyncTransaction ()) {
+									SetState (SyncState.UserCancelled);
+									SetState (SyncState.Idle);
+									syncThread = null;
+									return;
+								}
+							}
 						}
 					}
 				}
@@ -524,6 +537,7 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 	{
 		bool BeginSyncTransaction ();
 		bool CommitSyncTransaction ();
+		bool CancelSyncTransaction ();
 		IList<string> GetAllNoteUUIDs ();
 		IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision);
 		void DeleteNotes (IList<string> deletedNoteUUIDs);
