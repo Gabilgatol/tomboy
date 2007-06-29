@@ -1,5 +1,13 @@
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/PreferencesDialog.cs: Added a TODO comment about removing
+	  ~/.tomboy/manifest.xml.
+	* Tomboy/Tomboy.cs: Added code to allow note files to be added/opened
+	  from anywhere on the machine (added primarily for the Giver
+	  project).
+
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Makefile.am: Removed trailing whitespace causing build
 	  failure.
 

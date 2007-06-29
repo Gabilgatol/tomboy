@@ -887,6 +887,8 @@ namespace Tomboy
 			Preferences.Set (
 				Preferences.SYNC_SELECTED_SERVICE_ADDIN,
 				String.Empty);
+			
+			// TODO: Nuke ~/.tomboy/manifest.xml
 				
 			syncAddinCombo.Sensitive = true;
 			syncAddinPrefsWidget.Sensitive = true;
