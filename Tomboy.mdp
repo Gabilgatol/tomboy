@@ -72,6 +72,11 @@
     <File name="./Tomboy/SyncDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/FileSystemSyncServer.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/TomboySyncClient.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/SyncUtils.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/SyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/WebDavSyncService" subtype="Directory" buildaction="Compile" />
+    <File name="./Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/WebDavSyncService/WebDavSyncServer.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
     <BuildFilesVar />

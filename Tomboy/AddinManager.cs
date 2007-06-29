@@ -128,6 +128,26 @@ namespace Tomboy
 		}
 		
 		/// <summary>
+		/// Returns an array of SyncServiceAddin objects
+		/// </summary>
+		public SyncServiceAddin [] GetSyncServiceAddins ()
+		{
+			SyncServiceAddin [] addins;
+			
+			try {
+				addins = (SyncServiceAddin [])
+						Mono.Addins.AddinManager.GetExtensionObjects (
+							"/Tomboy/SyncServiceAddins",
+							typeof (SyncServiceAddin));
+			} catch (Exception e) {
+				Logger.Debug ("No SyncServiceAddins found: {0}", e.Message);
+				addins = new SyncServiceAddin [0];
+			}
+			
+			return addins;
+		}
+		
+		/// <summary>
 		/// Add the addin to the note and save off a reference to the addin that
 		/// will be used when the note is deleted.
 		/// </summary>

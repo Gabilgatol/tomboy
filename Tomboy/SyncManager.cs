@@ -16,6 +16,16 @@ namespace Tomboy
 		Idle,
 		
 		/// <summary>
+		/// Indicates that no sync service has been configured
+		/// </summary>
+		NoConfiguredSyncService,
+		
+		/// <summary>
+		/// Indicates that SyncServiceAddin.CreateSyncServer () failed
+		/// </summary>
+		SyncServerCreationFailed,
+		
+		/// <summary>
 		/// Connecting to the server
 		/// </summary>
 		Connecting,
@@ -161,6 +171,19 @@ namespace Tomboy
 			");
 			
 			Tomboy.ActionManager.UI.InsertActionGroup (action_group, 0);
+			
+			// Initialize all the SyncServiceAddins
+			SyncServiceAddin [] addins = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
+			foreach (SyncServiceAddin addin in addins) {
+				try {
+					addin.Initialize ();
+				} catch (Exception e) {
+					Logger.Debug ("Error calling {0}.Initialize (): {1}\n{2}",
+						addin.Id, e.Message, e.StackTrace);
+					
+					// TODO: Call something like AddinManager.Disable (addin)
+				}
+			}
 		}
 		
 		// TODO: Move?
@@ -198,13 +221,26 @@ namespace Tomboy
 		/// The function that does all of the work
 		/// </summary>
 		public static void SynchronizationThread ()
-		{			
+		{
+			SyncServiceAddin addin = GetConfiguredSyncService ();
+			if (addin == null) {
+				SetState (SyncState.NoConfiguredSyncService);
+				Logger.Debug ("GetConfiguredSyncService is null");
+				SetState (SyncState.Idle);
+				syncThread = null;
+				return;
+			}
+			
+			Logger.Debug ("SyncThread using SyncServiceAddin: {0}", addin.Name); 
+			
 			SyncServer server;
 			SetState (SyncState.Connecting);
 			try {
-				server = new FileSystemSyncServer ();
+				server = addin.CreateSyncServer ();
+				if (server == null)
+					throw new Exception ("addin.CreateSyncServer () returned null");
 			} catch (Exception e) {
-				SetState (SyncState.Failed);
+				SetState (SyncState.SyncServerCreationFailed);
 				Logger.Log ("Exception while creating SyncServer: {0}\n{1}", e.Message, e.StackTrace);
 				SetState (SyncState.Idle);
 				syncThread = null;
@@ -212,21 +248,15 @@ namespace Tomboy
 				// TODO: Figure out a clever way to get the specific error up to the GUI
 			}
 			
-//			SyncDialog syncDialog = Tomboy.SyncDialog;
-//			syncDialog.ProgressText = "Contacting Server...";
-//			syncDialog.Response += OnSyncDialogResponse;
-//			syncDialog.Show ();
-			
 			SetState (SyncState.AcquiringLock);
 			// TODO: We should really throw exceptions from BeginSyncTransaction ()
 			if (!server.BeginSyncTransaction ()) {
 				SetState (SyncState.Locked);
 				Logger.Log ("PerformSynchronization: Server locked, try again later");
-//				syncDialog.ProgressText = "Sync failed: Server locked, try again later";
-//				syncDialog.CloseSensitive = true;
 				syncThread = null;
 				return;
 			}
+Logger.Debug ("8");
 			int latestServerRevision = server.LatestRevision;
 			int newRevision = latestServerRevision + 1;
 			
@@ -477,6 +507,40 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 					StateChanged (state);
 				} catch {}
 			}
+		}
+		
+		/// <summary>
+		/// Read the preferences and load the specified SyncServiceAddin to
+		/// perform synchronization.
+		/// </summary>
+		private static SyncServiceAddin GetConfiguredSyncService ()
+		{
+			SyncServiceAddin addin = null;
+			
+			string syncServiceId =
+				Preferences.Get (Preferences.SYNC_SELECTED_SERVICE_ADDIN) as String;
+			if (syncServiceId != null)
+				addin = GetSyncServiceAddin (syncServiceId);
+			
+			return addin;
+		}
+		
+		/// <summary>
+		/// Return the specified SyncServiceAddin
+		/// </summary>
+		private static SyncServiceAddin GetSyncServiceAddin (string syncServiceId)
+		{
+			SyncServiceAddin anAddin = null;
+			
+			SyncServiceAddin [] addins = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
+			foreach (SyncServiceAddin addin in addins) {
+				if (addin.Id.CompareTo (syncServiceId) == 0) {
+					anAddin = addin;
+					break;
+				}
+			}
+			
+			return anAddin;
 		}
 		#endregion // Private Methods
 	}

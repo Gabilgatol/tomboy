@@ -57,6 +57,8 @@ CSFILES = 					\
 	$(srcdir)/RecentChanges.cs		\	
 	$(srcdir)/SyncDialog.cs			\
 	$(srcdir)/SyncManager.cs		\
+	$(srcdir)/SyncServiceAddin.cs		\
+	$(srcdir)/SyncUtils.cs			\
 	$(srcdir)/Tag.cs			\
 	$(srcdir)/TagButton.cs			\
 	$(srcdir)/TagManager.cs			\

@@ -8,6 +8,15 @@ namespace Tomboy
 {
 	public class PreferencesDialog : Gtk.Dialog
 	{
+		Gtk.ListStore syncAddinStore;
+		Dictionary<string, Gtk.TreeIter> syncAddinIters;
+		Gtk.ComboBox syncAddinCombo;
+		SyncServiceAddin selectedSyncAddin;
+		Gtk.VBox syncAddinPrefsContainer;
+		Gtk.Widget syncAddinPrefsWidget;
+		Gtk.Button resetSyncAddinButton;
+		Gtk.Button saveSyncAddinButton;
+		
 		readonly PluginManager plugin_manager;
 
 		Type current_plugin;
@@ -313,26 +322,113 @@ namespace Tomboy
 		
 		public Gtk.Widget MakeSyncPane ()
 		{
-			Gtk.HPaned pane;
+			Gtk.VBox vbox = new Gtk.VBox (false, 0);
+			vbox.Spacing = 4;
+			vbox.BorderWidth = 8;
 			
-			pane = new Gtk.HPaned ();
+			Gtk.HBox hbox = new Gtk.HBox (false, 4);
 			
-			Gtk.Label label = new Gtk.Label (Catalog.GetString ("Path:"));
-			Gtk.Entry entry = new Gtk.Entry ();
-			label.MnemonicWidget = entry;
-			entry.Show ();
-			PropertyEditorEntry peditor =
-				new PropertyEditorEntry (Preferences.SYNC_URL,
-				                         entry);
-			SetupPropertyEditor (peditor);
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("Service:"));
+			label.Xalign = 0;
+			label.Show ();
+			hbox.PackStart (label, false, false, 0);
 			
-			pane.Pack2 (entry, true, false);
-			pane.Pack1 (label, true, false);
+			// Populate the store with all the available SyncServiceAddins
+			syncAddinStore = new Gtk.ListStore (typeof (SyncServiceAddin));
+			syncAddinIters = new Dictionary<string,Gtk.TreeIter> ();
+			SyncServiceAddin [] addins = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
+			foreach (SyncServiceAddin addin in addins) {
+				Gtk.TreeIter iter = syncAddinStore.Append ();
+				syncAddinStore.SetValue (iter, 0, addin);
+				syncAddinIters [addin.Id] = iter;
+			}
 			
-			pane.BorderWidth = 6;
-			pane.ShowAll ();
+			syncAddinCombo = new Gtk.ComboBox (syncAddinStore);
+			Gtk.CellRendererText crt = new Gtk.CellRendererText ();
+			syncAddinCombo.PackStart (crt, true);
+			syncAddinCombo.SetCellDataFunc (crt, 
+					new Gtk.CellLayoutDataFunc (ComboBoxTextDataFunc));
 			
-			return pane;
+			// Read from Preferences which service is configured and select it
+			// by default.  Otherwise, just select the first one in the list.
+			string addin_id = Preferences.Get (
+				Preferences.SYNC_SELECTED_SERVICE_ADDIN) as String;
+			
+			Gtk.TreeIter active_iter;
+			if (addin_id != null && syncAddinIters.ContainsKey (addin_id)) {
+				active_iter = syncAddinIters [addin_id];
+				syncAddinCombo.SetActiveIter (active_iter);
+				syncAddinCombo.Sensitive = false;
+			} else {
+				if (syncAddinStore.GetIterFirst (out active_iter) == true) {
+					syncAddinCombo.SetActiveIter (active_iter);
+				}
+			}
+			
+			syncAddinCombo.Changed += OnSyncAddinComboChanged;
+			
+			syncAddinCombo.Show ();
+			hbox.PackStart (syncAddinCombo, true, true, 0);
+			
+			hbox.Show ();
+			vbox.PackStart (hbox, false, false, 0);
+			
+			// Get the preferences GUI for the Sync Addin
+			selectedSyncAddin = syncAddinStore.GetValue (active_iter, 0) as SyncServiceAddin;
+			
+			syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
+			if (syncAddinPrefsWidget == null) {
+				Gtk.Label l = new Gtk.Label (Catalog.GetString ("Not configurable"));
+				l.Yalign = 0.5f;
+				l.Yalign = 0.5f;
+				syncAddinPrefsWidget = l;
+			}
+			
+			syncAddinPrefsWidget.Show ();
+			syncAddinPrefsContainer = new Gtk.VBox (false, 0);
+			syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, true, true, 0);
+			syncAddinPrefsContainer.Show ();
+			vbox.PackStart (syncAddinPrefsContainer, true, true, 0);
+			
+			Gtk.HButtonBox bbox = new Gtk.HButtonBox ();
+			bbox.Spacing = 4;
+			bbox.LayoutStyle = Gtk.ButtonBoxStyle.End;
+			
+			resetSyncAddinButton = new Gtk.Button (Gtk.Stock.Clear);
+			resetSyncAddinButton.Clicked += OnResetSyncAddinButton;
+			resetSyncAddinButton.Show ();
+			bbox.PackStart (resetSyncAddinButton, false, false, 0);
+			
+			saveSyncAddinButton = new Gtk.Button (Gtk.Stock.Save);
+			saveSyncAddinButton.Clicked += OnSaveSyncAddinButton;
+			saveSyncAddinButton.Show ();
+			bbox.PackStart (saveSyncAddinButton, false, false, 0);
+			
+			if (selectedSyncAddin.IsConfigured) {
+				saveSyncAddinButton.Sensitive = false;
+				resetSyncAddinButton.Sensitive = true;
+			} else {
+				saveSyncAddinButton.Sensitive = true;
+				resetSyncAddinButton.Sensitive = false;
+			}
+			
+			bbox.Show ();
+			vbox.PackStart (bbox, false, false, 0);
+
+			vbox.ShowAll ();
+			return vbox;
+		}
+		
+		private void ComboBoxTextDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
+			Gtk.TreeModel tree_model, Gtk.TreeIter iter)
+		{
+			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
+			SyncServiceAddin addin = tree_model.GetValue (iter, 0) as SyncServiceAddin;
+			if (addin == null) {
+				crt.Text = string.Empty;
+			} else {
+				crt.Text = addin.Name;
+			}
 		}
 
 		// Page 3
@@ -724,6 +820,100 @@ namespace Tomboy
 			font_face.Markup = String.Format ("<span font_desc='{0}'>{1}</span>",
 							  font_desc,
 							  desc.ToString ());
+		}
+		
+		void OnSyncAddinComboChanged (object sender, EventArgs args)
+		{
+			Logger.Debug ("OnSyncAddinComboChanged");
+			
+			if (syncAddinPrefsWidget != null) {
+				syncAddinPrefsContainer.Remove (syncAddinPrefsWidget);
+				syncAddinPrefsWidget.Hide ();
+				syncAddinPrefsWidget.Destroy ();
+				syncAddinPrefsWidget = null;
+			}
+			
+			Gtk.TreeIter iter;
+			if (syncAddinCombo.GetActiveIter (out iter)) {
+				SyncServiceAddin newAddin =
+					syncAddinStore.GetValue (iter, 0) as SyncServiceAddin;
+				if (newAddin != null) {
+					syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
+					if (syncAddinPrefsWidget == null) {
+						Gtk.Label l = new Gtk.Label (Catalog.GetString ("Not configurable"));
+						l.Yalign = 0.5f;
+						l.Yalign = 0.5f;
+						syncAddinPrefsWidget = l;
+					}
+			
+					syncAddinPrefsWidget.Show ();
+					syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, true, true, 0);
+				}
+			}
+		}
+		
+		void OnResetSyncAddinButton (object sender, EventArgs args)
+		{
+			Logger.Debug ("OnResetSyncAddinButton");
+			if (selectedSyncAddin == null)
+				return;
+			
+			try {
+				selectedSyncAddin.ResetConfiguration ();
+			} catch (Exception e) {
+				Logger.Debug ("Error calling {0}.ResetConfiguration: {1}\n{2}",
+					selectedSyncAddin.Id, e.Message, e.StackTrace);
+			}
+
+			Preferences.Set (
+				Preferences.SYNC_SELECTED_SERVICE_ADDIN,
+				String.Empty);
+				
+			syncAddinCombo.Sensitive = true;
+			syncAddinPrefsWidget.Sensitive = true;
+			resetSyncAddinButton.Sensitive = false;
+			saveSyncAddinButton.Sensitive = true;
+		}
+		
+		/// <summary>
+		/// Attempt to save/test the connection to the sync addin.
+		/// </summary>
+		void OnSaveSyncAddinButton (object sender, EventArgs args)
+		{
+			Logger.Debug ("OnSaveSyncAddinButton");
+			if (selectedSyncAddin == null)
+				return;
+			
+			bool saved = false;
+			try {
+				saved = selectedSyncAddin.SaveConfiguration ();
+			} catch (Exception e) {
+				Logger.Debug ("Error calling {0}.SaveConfiguration: {1}\n{2}",
+					selectedSyncAddin.Id, e.Message, e.StackTrace);
+			}
+			
+			if (saved) {
+				Preferences.Set (
+					Preferences.SYNC_SELECTED_SERVICE_ADDIN,
+					selectedSyncAddin.Id);
+				
+				syncAddinCombo.Sensitive = false;
+				syncAddinPrefsWidget.Sensitive = false;
+				resetSyncAddinButton.Sensitive = true;
+				saveSyncAddinButton.Sensitive = false;
+			} else {
+				// TODO: Change the SyncServiceAddin API so the call to
+				// SaveConfiguration has a way of passing back an exception
+				// or other text so it can be displayed to the user.
+				Preferences.Set (
+					Preferences.SYNC_SELECTED_SERVICE_ADDIN,
+					String.Empty);
+				
+				syncAddinCombo.Sensitive = true;
+				syncAddinPrefsWidget.Sensitive = true;
+				resetSyncAddinButton.Sensitive = false;
+				saveSyncAddinButton.Sensitive = true;
+			}
 		}
 	}
 }

@@ -23,12 +23,13 @@ namespace Tomboy
 		InterruptableTimeout lockTimeout;
 		SyncLockInfo syncLock;
 		
-		public FileSystemSyncServer ()
+		public FileSystemSyncServer (string localSyncPath)
 		{			
 			// TODO: Handle changes to serverPath...
 			//       Should there be a new instance of this class
-			//       for each sync?			
-			serverPath = (string) Preferences.Get (Preferences.SYNC_URL);
+			//       for each sync?
+//			serverPath = (string) Preferences.Get (Preferences.SYNC_URL);
+			serverPath = localSyncPath;
 			
 			if (!Directory.Exists (serverPath))
 				throw new DirectoryNotFoundException (serverPath);
