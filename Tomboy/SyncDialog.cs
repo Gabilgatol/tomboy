@@ -393,7 +393,7 @@ namespace Tomboy
 				note.Data.Title = newTitle;
 			string oldContent = note.XmlContent;
 			int i = oldContent.IndexOf (oldTitle);
-			string newContent = oldContent.Remove (i, newTitle.Length).Insert (i, newTitle);
+			string newContent = oldContent.Remove (i, oldTitle.Length).Insert (i, newTitle);
 			note.XmlContent = newContent;
 		}
 #endregion // Private Methods
@@ -437,7 +437,7 @@ namespace Tomboy
 			renameHBox.PackStart (renameOptionsVBox);
 			VBox.PackStart (renameHBox);
 			
-			deleteExistingRadio = new Gtk.RadioButton (renameRadio, "Delete existing note");
+			deleteExistingRadio = new Gtk.RadioButton (renameRadio, "Delete local note");
 			VBox.PackStart (deleteExistingRadio);
 			
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
