@@ -155,7 +155,10 @@ namespace Tomboy
 					Catalog.GetString ("_Tools"), null, null, null),
 				new Gtk.ActionEntry ("SyncNotesAction", null,
 					Catalog.GetString ("Synchronize Notes"), null, null,
-					delegate { SyncManager.OpenNoteSyncWindow (); })
+				    delegate {
+						Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
+					})
+//					delegate { SyncManager.OpenNoteSyncWindow (); })
 			});
 			
 			Tomboy.ActionManager.UI.AddUiFromString (@"
@@ -186,29 +189,11 @@ namespace Tomboy
 			}
 		}
 		
-		// TODO: Move?
-		public static void OpenNoteSyncWindow ()
-		{
-			if (sync_dlg == null) {
-				sync_dlg = new SyncDialog ();
-				sync_dlg.Response += OnSyncDialogResponse;
-			}
-			sync_dlg.Present ();
-		}
-
-		static SyncDialog sync_dlg;
-		
-		static void OnSyncDialogResponse (object sender, Gtk.ResponseArgs args)
-		{
-			((Gtk.Widget) sender).Destroy ();
-			sync_dlg = null;
-		}
-		
 		public static void PerformSynchronization ()
 		{
 			if (syncThread != null) {
 				// A synchronization thread is already running
-				sync_dlg.Present ();
+				Tomboy.SyncDialog.Present ();
 				return;
 			}
 			
@@ -495,7 +480,7 @@ if (note.Title.CompareTo ("Start Here") == 0) {
 		/// <summary>
 		/// The state of the SyncManager (lame comment, duh!)
 		/// </summary>
-		public SyncState State
+		public static SyncState State
 		{
 			get { return state; }
 		}

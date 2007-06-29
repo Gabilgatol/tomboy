@@ -12,6 +12,7 @@ namespace Tomboy
 		static bool tray_icon_showing = false;
 		static bool is_panel_applet = false;
 		static PreferencesDialog prefs_dlg;
+		static SyncDialog sync_dlg;
 #if ENABLE_DBUS
 		static RemoteControl remote_control;
 #endif
@@ -172,6 +173,7 @@ namespace Tomboy
 			am ["ShowAboutAction"].Activated += OnShowAboutAction;
 			am ["TrayNewNoteAction"].Activated += OnNewNoteAction;
 			am ["ShowSearchAllNotesAction"].Activated += OpenSearchAll;
+			am ["NoteSynchronizationAction"].Activated += OpenNoteSyncWindow;
 		}
 		
 		static void OnNewNoteAction (object sender, EventArgs args)
@@ -193,7 +195,23 @@ namespace Tomboy
 			}
 		}
 		
-		static void OnQuitTomboyAction (object sender, EventArgs args)
+		static void OpenNoteSyncWindow (object sender, EventArgs args)
+		{
+			if (sync_dlg == null) {
+				sync_dlg = new SyncDialog ();
+				sync_dlg.Response += OnSyncDialogResponse;
+			}
+			
+			sync_dlg.Present ();
+		}
+		
+		static void OnSyncDialogResponse (object sender, Gtk.ResponseArgs args)
+		{
+			((Gtk.Widget) sender).Destroy ();
+			sync_dlg = null;
+		}
+	                 
+	    static void OnQuitTomboyAction (object sender, EventArgs args)
 		{
 			if (Tomboy.IsPanelApplet)
 				return; // Ignore the quit action
@@ -286,6 +304,11 @@ namespace Tomboy
 		public static TomboyTray Tray
 		{
 			get { return tray_icon.TomboyTray; }
+		}
+		
+		public static SyncDialog SyncDialog
+		{
+			get { return sync_dlg; }
 		}
 	}
 

@@ -113,7 +113,7 @@ namespace Tomboy
 				
 				new Gtk.ActionEntry ("NoteSynchronizationAction", null,
 					Catalog.GetString ("S_ynchronize Notes"), null,
-					Catalog.GetString ("Show the Synchronization Window"), null)
+					Catalog.GetString ("Start synchronizing notes"), null)
 			});
 
 			main_window_actions.GetAction ("OpenNoteAction").Sensitive = false;

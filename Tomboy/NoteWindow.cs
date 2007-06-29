@@ -488,7 +488,8 @@ namespace Tomboy
 		
 		void SyncItemSelected (object sender, EventArgs args)
 		{
-			SyncManager.OpenNoteSyncWindow ();
+			Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
+//			SyncManager.OpenNoteSyncWindow ();
 		}
  
 		//

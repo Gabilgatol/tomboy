@@ -1,3 +1,13 @@
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/SyncDialog.cs: Clean up the dialog so it's a little more
+	  clean.  Update the text and hide progress bar properly.
+	* Tomboy/SyncManager.cs: Use ActionManager to open sync.
+	* Tomboy/Tomboy.cs: Moved the open sync dialog action back into
+	  Tomboy.cs.
+	* Tomboy/NoteWindow.cs: Use ActionManager to open the sync.
+	* Tomboy/ActionManager.cs: Change text.
+
 2007-06-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/PreferencesDialog.cs: Get preferences widget from newly

@@ -1,34 +1,82 @@
 using System;
 using Mono.Unix;
 
+using Gtk;
+
 namespace Tomboy
 {
 	public class SyncDialog : Gtk.Dialog
 	{
-		private Gtk.Button syncButton;
+		private Gtk.Image image;
+		private Gtk.Label headerLabel;
+		private Gtk.Label messageLabel;
 		private Gtk.ProgressBar progressBar;
+		private Gtk.Label progressLabel;
+		
 		private Gtk.Expander expander;
 		private Gtk.Button closeButton;
+		private uint progressBarTimeoutId;
 		
 		private Gtk.ListStore model;
 		
 		// TODO: Possible to make Tomboy not crash if quit while dialog is up?
-		public SyncDialog () : base ("Synchronization Progress", null, Gtk.DialogFlags.DestroyWithParent)
+		public SyncDialog ()
+			: base (string.Empty, 
+					null,
+					Gtk.DialogFlags.DestroyWithParent)
 		{
+			progressBarTimeoutId = 0;
+			
 			SetSizeRequest (400, -1);
 			
-			VBox.PackStart (new Gtk.Label ("Tomboy synchronization is currently in progress"),
-			                false, false, 5);
+			VBox.BorderWidth = 12;
+			VBox.Spacing = 8;
 			
-			syncButton = new Gtk.Button (new Gtk.Label (Catalog.GetString ("Synchronize Now")));
-			syncButton.Clicked += OnSynchronizeButton;
-			syncButton.Show ();
-			VBox.PackStart (syncButton, false, false, 0);
+			HBox hbox = new HBox (false, 8);
+			
+			image = new Image (GuiUtils.GetIcon ("tomboy", 48));
+			image.Show ();
+			hbox.PackStart (image, false, false, 0);
+			
+			VBox vbox = new VBox (false, 8);
+			
+			headerLabel = new Label ();
+			headerLabel.UseMarkup = true;
+			headerLabel.Xalign = 0;
+			headerLabel.UseUnderline = false;
+			headerLabel.Show ();
+			vbox.PackStart (headerLabel, false, false, 0);
+			
+			messageLabel = new Label ();
+			messageLabel.Xalign = 0;
+			messageLabel.UseUnderline = false;
+			messageLabel.LineWrap = true;
+			messageLabel.Wrap = true;
+			messageLabel.Show ();
+			vbox.PackStart (messageLabel, false, false, 0);
+			
+			vbox.Show ();
+			hbox.PackStart (vbox, true, true, 0);
+			
+			hbox.Show ();
+			VBox.PackStart (hbox, false, false, 0);
 			
 			progressBar = new Gtk.ProgressBar ();
 			//progressBar.Text = "Contacting Server...";
-			progressBar.Orientation = Gtk.ProgressBarOrientation.LeftToRight;				
+			progressBar.Orientation = Gtk.ProgressBarOrientation.LeftToRight;
+			progressBar.BarStyle = ProgressBarStyle.Continuous;
+			progressBar.ActivityBlocks = 30;
+			progressBar.Show ();
 			VBox.PackStart (progressBar, false, false, 0);
+			
+			progressLabel = new Label ();
+			progressLabel.UseMarkup = true;
+			progressLabel.Xalign = 0;
+			progressLabel.UseUnderline = false;
+			progressLabel.LineWrap = true;
+			progressLabel.Wrap = true;
+			progressLabel.Show ();
+			VBox.PackStart (progressLabel, false, false, 0);
 			
 			// Create model for TreeView
 			model = new Gtk.ListStore (typeof (string), typeof (string));
@@ -75,10 +123,6 @@ namespace Tomboy
 			
 			expander.Activated += OnExpanderActivated;
 			
-			SyncManager.StateChanged += OnSyncStateChanged;
-			SyncManager.NoteSynchronized += OnNoteSynchronized;
-			SyncManager.NoteConflictDetected += OnNoteConflictDetected;
-			
 			VBox.ShowAll ();
 		}
 		
@@ -89,7 +133,28 @@ namespace Tomboy
 			SyncManager.NoteConflictDetected -= OnNoteConflictDetected;
 			base.Destroy ();
 		}
+		
+		protected override void OnRealized ()
+		{
+			base.OnRealized ();
+			
+			SyncManager.StateChanged += OnSyncStateChanged;
+			SyncManager.NoteSynchronized += OnNoteSynchronized;
+			SyncManager.NoteConflictDetected += OnNoteConflictDetected;
 
+			SyncState state = SyncManager.State;
+			if (state == SyncState.Idle) {
+				// Kick off a timer to keep the progress bar going
+				progressBarTimeoutId = GLib.Timeout.Add (500, OnPulseProgressBar);
+			
+				// Kick off a new synchronization
+				SyncManager.PerformSynchronization ();
+			} else {
+				// Adjust the GUI accordingly
+				OnSyncStateChanged (state);
+			}
+		}
+		
 		private void OnExpanderActivated (object sender, EventArgs e)
 		{
 			if (expander.Expanded)
@@ -98,23 +163,41 @@ namespace Tomboy
 				this.Resizable = false;
 		}
 		
+		public string HeaderText
+		{
+			set {
+				headerLabel.Markup = string.Format (
+					"<span size=\"large\" weight=\"bold\">{0}</span>",
+					value);
+			}
+		}
+		
+		public string MessageText
+		{
+			set { messageLabel.Text = value; }
+		}
+		
 		public string ProgressText
 		{
-			get { return progressBar.Text; }
-			set { progressBar.Text = value; }
+			get { return progressLabel.Text; }
+			set {
+				progressLabel.Markup =
+					string.Format ("<span style=\"italic\">{0}</span>",
+						value);
+			}
 		}
 		
-		public double ProgressFraction
-		{
-			get { return progressBar.Fraction; }
-			set { progressBar.Fraction = value;}
-		}
+//		public double ProgressFraction
+//		{
+//			get { return progressBar.Fraction; }
+//			set { progressBar.Fraction = value;}
+//		}
 		
-		public bool CloseSensitive
-		{
-			get { return closeButton.Sensitive; }
-			set { closeButton.Sensitive = value; }
-		}
+//		public bool CloseSensitive
+//		{
+//			get { return closeButton.Sensitive; }
+//			set { closeButton.Sensitive = value; }
+//		}
 		
 		public void AddUpdateItem (string title, string status)
 		{
@@ -122,11 +205,17 @@ namespace Tomboy
 		}
 
 		#region Private Event Handlers
-		void OnSynchronizeButton (object sender, EventArgs args)
+		bool OnPulseProgressBar ()
 		{
-			SyncManager.PerformSynchronization ();
+			if (SyncManager.State == SyncState.Idle)
+				return false;
+			
+			progressBar.Pulse ();
+			
+			// Return true to keep things going well
+			return true;
 		}
-		
+
 		void OnSyncStateChanged (SyncState state)
 		{
 			// This event handler will be called by the synchronization thread
@@ -136,56 +225,70 @@ namespace Tomboy
 				switch (state) {
 				case SyncState.AcquiringLock:
 					ProgressText = Catalog.GetString ("Acquiring sync lock");
-					progressBar.Pulse ();
 					break;
 				case SyncState.CommittingChanges:
 					ProgressText = Catalog.GetString ("Committing changes");
-					progressBar.Pulse ();
 					break;
 				case SyncState.Connecting:
+					Title = Catalog.GetString ("Synchronizing Notes");
+					HeaderText = Catalog.GetString ("Synchronizing your notes...");
+					MessageText = Catalog.GetString ("This may take a while, kick back and enjoy!");
 					model.Clear ();
-					syncButton.Sensitive = false;
-					ProgressText = Catalog.GetString ("Connecting to the server");
+					ProgressText = Catalog.GetString ("Connecting to the server...");
+					progressBar.Show ();
 					progressBar.Fraction = 0;
 					break;
 				case SyncState.DeleteServerNotes:
-					ProgressText = Catalog.GetString ("Deleting notes off of the server");
+					ProgressText = Catalog.GetString ("Deleting notes off of the server...");
 					progressBar.Pulse ();
 					break;
 				case SyncState.Downloading:
-					ProgressText = Catalog.GetString ("Downloading new/updated notes");
+					ProgressText = Catalog.GetString ("Downloading new/updated notes...");
 					progressBar.Pulse ();
 					break;
 				case SyncState.Idle:
+					GLib.Source.Remove (progressBarTimeoutId);
+					progressBarTimeoutId = 0;
 					progressBar.Fraction = 0;
-					syncButton.Sensitive = true;
+					closeButton.Sensitive = true;
 					break;
 				case SyncState.Locked:
-					ProgressText = Catalog.GetString ("Another client is synchronizing, please try again.");
+					Title = Catalog.GetString ("Server Locked");
+					HeaderText = Catalog.GetString ("Server is locked");
+					MessageText = Catalog.GetString ("One of your other computers is currently synchronizing.  Please wait and try again.");
+					ProgressText = string.Empty;
 					progressBar.Fraction = 0;
-					syncButton.Sensitive = true;
 					break;
 				case SyncState.PrepareDownload:
-					ProgressText = Catalog.GetString ("Preparing to download updates from server");
-					progressBar.Pulse ();
+					ProgressText = Catalog.GetString ("Preparing to download updates from server...");
 					break;
 				case SyncState.PrepareUpload:
-					ProgressText = Catalog.GetString ("Preparing to upload updates from server");
-					progressBar.Pulse ();
+					ProgressText = Catalog.GetString ("Preparing to upload updates from server...");
 					break;
 				case SyncState.Uploading:
-					ProgressText = Catalog.GetString ("Uploading notes to server");
-					progressBar.Pulse ();
+					ProgressText = Catalog.GetString ("Uploading notes to server...");
 					break;
 				case SyncState.Failed:
-					ProgressText = Catalog.GetString ("Failed");
+					progressBar.Hide ();
+					Title = Catalog.GetString ("Synchronization Failed");
+					HeaderText = Catalog.GetString ("Failed to synchronize");
+					MessageText = Catalog.GetString ("Could not synchronize notes.  Check the details below and try again.");
+					ProgressText = string.Empty;
 					break;
 				case SyncState.Succeeded:
-					ProgressText = Catalog.GetString ("Succeeded");
+					progressBar.Hide ();
+					Title = Catalog.GetString ("Synchronization Complete");
+					HeaderText = Catalog.GetString ("Synchronization is complete");
+					MessageText = Catalog.GetString ("Your notes are up to date.  See the details below or close the window.");
+					ProgressText = string.Empty;
 					break;
 				case SyncState.UserCancelled:
+					progressBar.Hide ();
 					progressBar.Fraction = 0;
-					ProgressText = Catalog.GetString ("Cancelled by user");
+					Title = Catalog.GetString ("Synchronization Canceled");
+					HeaderText = Catalog.GetString ("Synchronization was canceled");
+					MessageText = Catalog.GetString ("You canceled the synchronization.  You may close the window now.");
+					ProgressText = string.Empty;
 					break;
 				}
 			});
