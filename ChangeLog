@@ -1,3 +1,8 @@
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Bump to 0.7.1.5 since we released 0.7.1.4 as the
+	  version we demo'd at the end of hack week.
+
 2007-06-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/SyncDialog.cs: Fixing typo in note renaming.
