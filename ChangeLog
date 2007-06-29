@@ -1,5 +1,10 @@
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/Mono.Addins: Moved to root of project in hopes that it will
+	  solve the problem of make distcheck.
+
+2007-06-29  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/PreferencesDialog.cs: Added a TODO comment about removing
 	  ~/.tomboy/manifest.xml.
 	* Tomboy/Tomboy.cs: Added code to allow note files to be added/opened
