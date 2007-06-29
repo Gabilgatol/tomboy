@@ -193,6 +193,7 @@ libtomboy/Makefile
 Tomboy/Makefile
 Tomboy/Addins/Makefile
 Tomboy/Addins/Backlinks/Makefile
+Tomboy/Addins/FileSystemSyncService/Makefile
 Tomboy/Addins/Tasks/Makefile
 Tomboy/Addins/WebDavSyncService/Makefile
 Tomboy/Mono.Addins/Makefile

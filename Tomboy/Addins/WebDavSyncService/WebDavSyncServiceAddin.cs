@@ -157,6 +157,8 @@ namespace Tomboy.Sync
 			Preferences.Set ("/apps/tomboy/sync_wdfs_url", string.Empty);
 			Preferences.Set ("/apps/tomboy/sync_wdfs_username", string.Empty);
 			Preferences.Set ("/apps/tomboy/sync_wdfs_password", string.Empty);
+			
+			// TODO: Unmount the FUSE mount!
 		}
 		
 		/// <summary>

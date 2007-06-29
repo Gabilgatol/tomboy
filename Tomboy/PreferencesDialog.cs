@@ -858,6 +858,25 @@ namespace Tomboy
 			if (selectedSyncAddin == null)
 				return;
 			
+			// Prompt the user about what they're about to do since
+			// it's not really recommended to switch back and forth
+			// between sync services.
+			// Prompt the user first about enabling fuse
+			HIGMessageDialog dialog = 
+				new HIGMessageDialog (null,
+						      Gtk.DialogFlags.Modal,
+						      Gtk.MessageType.Question,
+						      Gtk.ButtonsType.YesNo,
+						      Catalog.GetString ("WARNING: Are you sure?"),
+						      Catalog.GetString (
+					"Clearing your synchronization settings is not recommended.  " +
+					"You may be forced to synchronize all of your notes again " +
+					"when you save new settings."));
+			int response = dialog.Run ();
+			dialog.Destroy ();
+			if (response == (int) Gtk.ResponseType.No)
+				return;
+			
 			try {
 				selectedSyncAddin.ResetConfiguration ();
 			} catch (Exception e) {
