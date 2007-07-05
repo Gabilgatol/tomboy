@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using System.Text.RegularExpressions;
 using Mono.Unix;
 
 namespace Tomboy
@@ -561,8 +562,7 @@ namespace Tomboy
 				if (buffer != null) {
 					buffer.SetText("");
 					NoteBufferArchiver.Deserialize (buffer, value);
-				}
-				else
+				} else
 					data.Text = value; 
 			}
 		}
@@ -573,9 +573,16 @@ namespace Tomboy
 		{
 			if (foreignNoteXml == null)
 				throw new ArgumentNullException ("foreignNoteXml");
+
+			// Arguments to this method cannot be trusted.  If this method
+			// were to throw an XmlException in the middle of processing,
+			// a note could be damaged.  Therefore, we check for parseability
+			// ahead of time, and throw early.
+			XmlDocument xmlDoc = new XmlDocument ();
+			// This will throw an XmlException if foreignNoteXml is not parseable
+			xmlDoc.LoadXml (foreignNoteXml);
+			xmlDoc = null;
 			
-			// TODO: Handle non-XML, bad XML, etc
-			//       Remember, this string is NOT to be overly trusted!
 			StringReader reader = new StringReader (foreignNoteXml);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
@@ -1083,6 +1090,48 @@ namespace Tomboy
 			}
 			
 			return tags;
+		}
+		
+		public virtual string GetRenamedNoteXml (string noteXml, string oldTitle, string newTitle)
+		{
+			string updatedXml;
+			
+			// Replace occurences of oldTitle with newTitle in noteXml
+			string titleTagPattern =
+				string.Format ("<title>{0}</title>", oldTitle);
+			string titleTagReplacement =
+				string.Format ("<title>{0}</title>", newTitle);
+			updatedXml = Regex.Replace (noteXml, titleTagPattern, titleTagReplacement);
+			
+			string titleContentPattern =
+				string.Format ("<note-content([^>]*)>\\s*{0}", oldTitle);
+			string titleContentReplacement =
+				string.Format ("<note-content$1>{0}", newTitle);
+			updatedXml = Regex.Replace (updatedXml, titleContentPattern, titleContentReplacement);
+			
+			return updatedXml;
+		}
+		
+		public virtual string GetTitleFromNoteXml (string noteXml)
+		{
+			if (noteXml != null && noteXml.Length > 0) {
+				XmlTextReader xml = new XmlTextReader (new StringReader (noteXml));
+				xml.Namespaces = false;
+
+				while (xml.Read ()) {
+					switch (xml.NodeType) {
+					case XmlNodeType.Element:
+						switch (xml.Name) {
+					case "title":
+						return xml.ReadString ();
+						break;
+					}
+						break;
+					}
+				}
+			}
+			
+			return null;
 		}
 	}
 

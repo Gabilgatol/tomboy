@@ -1,3 +1,13 @@
+2007-07-04  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/SyncDialog.cs: Use new NoteArchvier.GetRenamedNoteXml method
+	  in RenameNote.
+	* Tomboy/Tomboy.cs: Safer XML loading and note creations using new
+	  NoteArchiver methods.
+	* Tomboy/Note.cs: Adding NoteArchiver.GetRenamedNoteXml and
+	  NoteArchiver.GetTitleFromNoteXml.  In Note.LoadForeignNoteXml,
+	  check that XML is parseable before processing.
+
 2007-06-29  Boyd Timothy <btimothy@gmail.com> 
 
 	* configure.in: Bump to 0.7.1.5 since we released 0.7.1.4 as the

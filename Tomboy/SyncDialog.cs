@@ -377,11 +377,8 @@ namespace Tomboy
 		#endregion // Private Event Handlers
 		
 #region Private Methods
-		
-			
 		// TODO: This appears to add <link:internal> around the note title
-		//       in the content, and it removes the newline between title
-		//       and rest of content.
+		//       in the content.
 		private void RenameNote (Note note, string newTitle, bool updateReferencingNotes)
 		{
 			string oldTitle = note.Title;
@@ -390,9 +387,7 @@ namespace Tomboy
 			else
 				note.Data.Title = newTitle;
 			string oldContent = note.XmlContent;
-			int i = oldContent.IndexOf (oldTitle);
-			string newContent = oldContent.Remove (i, oldTitle.Length).Insert (i, newTitle);
-			note.XmlContent = newContent;
+			note.XmlContent = NoteArchiver.Instance.GetRenamedNoteXml (oldContent, oldTitle, newTitle);
 		}
 #endregion // Private Methods
 		
