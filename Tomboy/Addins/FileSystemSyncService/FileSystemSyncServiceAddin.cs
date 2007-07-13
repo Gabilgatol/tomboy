@@ -73,6 +73,8 @@ namespace Tomboy.Sync
 			if (GetConfigSettings (out syncPath) == false)
 				syncPath = string.Empty;
 			
+			bool activeSyncService = syncPath != string.Empty;
+			
 			// TODO: Use a FileChooserDialog to allow the user to choose a path more easily
 			Label l = new Label (Catalog.GetString ("Path:"));
 			l.Xalign = 1;
@@ -80,10 +82,11 @@ namespace Tomboy.Sync
 			table.Attach (l, 0, 1, 0, 1);
 			
 			pathEntry = new Entry ();
-			pathEntry.Text = path;
+			pathEntry.Text = syncPath;
 			pathEntry.Show ();
 			table.Attach (pathEntry, 1, 2, 0, 1);
 			
+			table.Sensitive = !activeSyncService;
 			table.Show ();
 			return table;
 		}

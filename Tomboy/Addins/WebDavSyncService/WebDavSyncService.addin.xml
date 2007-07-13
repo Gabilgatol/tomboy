@@ -3,6 +3,8 @@
 	name="WebDav Sync Service Add-in"
 	author="Tomboy Project"
 	description="Synchronize Tomboy Notes to a WebDav URL"
+	category="Synchronization"
+	defaultEnabled="true"
 	version="0.1">
 
 	<Runtime>

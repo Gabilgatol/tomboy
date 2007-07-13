@@ -1,3 +1,13 @@
+2007-07-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncService.addin.xml,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncService.addin.xml,
+	  Tomboy/Addins/SshSyncService/SshSyncService.addin.xml: Setting sync
+	  addins to be enabled by default, and to be in the "Synchronization"
+	  category.
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:
+	  Fixing preferences dialog behavior to match other sync addins.
+
 2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Plugins, Tomboy/Plugins/Makefile.am,

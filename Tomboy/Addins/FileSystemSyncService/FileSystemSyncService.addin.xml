@@ -3,6 +3,8 @@
 	name="Local Directory Sync Service Add-in"
 	author="Tomboy Project"
 	description="Synchronize Tomboy Notes to a local file system path"
+	category="Synchronization"
+	defaultEnabled="true"
 	version="0.1">
 
 	<Runtime>
