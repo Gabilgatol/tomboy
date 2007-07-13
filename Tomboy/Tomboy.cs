@@ -35,7 +35,7 @@ namespace Tomboy
 
 			Initialize ("tomboy", "Tomboy", "tomboy", args);
 
-			PluginManager.CheckPluginUnloading = cmd_line.CheckPluginUnloading;
+//			PluginManager.CheckPluginUnloading = cmd_line.CheckPluginUnloading;
 
 			// Create the default note manager instance.
 			string note_path = GetNotePath (cmd_line.NotePath);
@@ -224,7 +224,7 @@ namespace Tomboy
 		static void OnShowPreferencesAction (object sender, EventArgs args)
 		{
 			if (prefs_dlg == null) {
-				prefs_dlg = new PreferencesDialog (manager.PluginManager);
+				prefs_dlg = new PreferencesDialog (manager.AddinManager);
 				prefs_dlg.Response += OnPreferencesResponse;
 			}
 			prefs_dlg.Present ();
@@ -326,7 +326,7 @@ namespace Tomboy
 		string note_path;
 		string search_text;
 		bool open_search;
-		bool check_plugin_unloading;
+//		bool check_plugin_unloading;
 
 		public TomboyCommandLine (string [] args)
 		{
@@ -355,10 +355,10 @@ namespace Tomboy
 			get { return note_path; }
 		}
 
-		public bool CheckPluginUnloading
-		{
-			get { return check_plugin_unloading; }
-		}
+//		public bool CheckPluginUnloading
+//		{
+//			get { return check_plugin_unloading; }
+//		}
 
 		public static void PrintAbout () 
 		{
@@ -397,10 +397,11 @@ namespace Tomboy
 					"in the opened note.\n");
 #endif
 
-			usage +=
-				Catalog.GetString (
-					"  --check-plugin-unloading\tCheck if plugins are " +
-					"unloaded properly.\n");
+// TODO: Restore this functionality with addins
+//			usage +=
+//				Catalog.GetString (
+//					"  --check-plugin-unloading\tCheck if plugins are " +
+//					"unloaded properly.\n");
 
 #if !ENABLE_DBUS
 			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
@@ -527,9 +528,9 @@ namespace Tomboy
 					open_search = true;
 					break;
 
-				case "--check-plugin-unloading":
-					check_plugin_unloading = true;
-					break;
+//				case "--check-plugin-unloading":
+//					check_plugin_unloading = true;
+//					break;
 
 				case "--version":
 					PrintAbout ();

@@ -1,6 +1,6 @@
 include $(top_srcdir)/Makefile.include
 
-SUBDIRS = . Addins Plugins
+SUBDIRS = . Addins
 
 TARGET = Tomboy.exe
 WRAPPER = tomboy
@@ -40,6 +40,7 @@ CSFILES = 					\
 	$(srcdir)/AbstractAddin.cs		\
 	$(srcdir)/ActionManager.cs		\
 	$(srcdir)/AddinManager.cs		\
+	$(srcdir)/AddinPreferenceFactory.cs \
 	$(srcdir)/Applet.cs 			\
 	$(srcdir)/ApplicationAddin.cs		\
 	$(srcdir)/FileSystemSyncServer.cs	\
@@ -51,7 +52,6 @@ CSFILES = 					\
 	$(srcdir)/NoteWindow.cs 		\
 	$(srcdir)/NoteBuffer.cs 		\
 	$(srcdir)/NoteTag.cs 			\
-	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/Preferences.cs		\
 	$(srcdir)/PreferencesDialog.cs		\
 	$(srcdir)/RecentChanges.cs		\

@@ -1,3 +1,390 @@
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Plugins, Tomboy/Plugins/Makefile.am,
+	  Tomboy/Plugins/checkbox-done.png, Tomboy/Plugins/checkbox-todo.png,
+	  Tomboy/Plugins/.cvsignore: Removing Tomboy/Plugins/.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in: Bump version to 0.7.3.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* NEWS: Updated NEWS for 0.7.2.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/GalagoPresence/GalagoPresence.addin.xml,
+	  Tomboy/Addins/Evolution/Evolution.addin.xml,
+	  Tomboy/Addins/PrintNotes/PrintNotes.addin.xml,
+	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml: Changing category to
+	  "Desktop Integration".  Categories could still use some love.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Preferences.cs, data/tomboy.schemas.in: Removing use of
+	  enabled_plugins GConf key.
+
+2007-07-11  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Reverting this because it was accidentally checked-in
+	  with references.
+
+2007-07-11  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Added a missing semi-colon in a string.
+	* po/POTFILES.in: Commented out many of the Mono.Addins code since we
+	  don't really use them directly in Tomboy.  Also added the
+	  *.addin.xml files.  I don't any strings are being extracted at this
+	  point, but hopefully eventually.
+
+2007-07-11  Boyd Timothy <btimothy@gmail.com> 
+
+	Fixes for make distcheck:
+	
+	* Tomboy/Addins/ExportToHtml/Makefile.am: Include ExportToHtml.xsl in
+	  EXTRA_DIST.
+	* po/POTFILES.in: Added EvolutionNoteAddin.cs,
+	  GalagoPresenceNoteAddin.cs, and removed PluginManager.cs.
+
+2007-07-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in, Tomboy.mdp,
+	  Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs,
+	  Tomboy/Addins/GalagoPresence/Makefile.am,
+	  Tomboy/Addins/GalagoPresence/GalagoPresence.addin.xml,
+	  Tomboy/Addins/Makefile.am: Migrating GalagoPresencePlugin to
+	  GalagoPresenceNoteAddin, using Mono.Addins.
+
+2007-07-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in, Tomboy.mdp, Tomboy/Plugins/Evolution.cs,
+	  Tomboy/Addins/Evolution,
+	  Tomboy/Addins/Evolution/Evolution.addin.xml,
+	  Tomboy/Addins/Evolution/Makefile.am,
+	  Tomboy/Addins/Evolution/EvolutionNoteAddin.cs,
+	  Tomboy/Addins/Makefile.am: Migrate EvolutionPlugin to
+	  EvolutionNoteAddin, using Mono.Addins.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Add in AddinInfoDialog so a user can
+	  view the information about an addin in a separate dialog when they
+	  click the information button.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Create Makefile for StickyNoteImport addin.
+	* Tomboy.mdp: Remove the old StickyNoteImport plugin and replace it
+	  with the addin.
+	* Tomboy/Plugins/StickyNoteImport.cs: Moved this code to the new
+	  StickNoteImport addin.
+	* Tomboy/Addins/StickyNoteImport,
+	  Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs,
+	  Tomboy/Addins/StickyNoteImport/StickyNoteImport.addin.xml,
+	  Tomboy/Addins/StickyNoteImport/Makefile.am: The new
+	  StickyNoteImport addin.
+	* Tomboy/Addins/Makefile.am: Add StickyNoteImport to SUBDIRS.
+	* po/POTFILES.in: Change the path for the StickyNoteImport addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Addd PrintNotes addin Makefile.
+	* Tomboy.mdp: Remove the old PrintNotes plugin and replace it with the
+	  PrintNotes addin.
+	* Tomboy/Plugins/PrintNotes.cs: Moved this to
+	  Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs.
+	* Tomboy/Addins/PrintNotes,
+	  Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs,
+	  Tomboy/Addins/PrintNotes/PrintNotes.addin.xml,
+	  Tomboy/Addins/PrintNotes/Makefile.am: The new PrintNotes addin.
+	* Tomboy/Addins/Makefile.am: Add PrintNotes to SUBDIRS and also split
+	  it out onto a separate line since it was beginning to be too long.
+	* po/POTFILES.in: Replace the old PrintNotes plugin source with the new
+	  addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Added makefile for NoteOfTheDay addin.
+	* Tomboy.mdp: Moved NoteOfTheDay from a plugin to an addin.
+	* Tomboy/Plugins/NoteOfTheDay.cs: Moved the NoteOfTheDay plugin to be
+	  an addin.
+	* Tomboy/Addins/Makefile.am: Added NoteOfTheDay to SUBDIRS.
+	* Tomboy/Addins/NoteOfTheDay,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDayApplicationAddin.cs,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.addin.xml,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferencesFactory.cs,
+	  Tomboy/Addins/NoteOfTheDay/Makefile.am,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs: The new NoteOfTheDay
+	  ApplicationAddin.
+	* po/POTFILES.in: Updating references from old NoteOfTheDay plugin to
+	  NoteOfTheDay addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/AddinManager.cs: Don't use the non-existence of an addin
+	  category to determine a built-in addin.  It turns out that the
+	  built-in (root) addin isn''t returned in this call anyhow.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Add Tomboy/Addins/FixedWidth/Makefile.
+	* Tomboy.mdp: Added the files needed for the FixedWidth addin.
+	* Tomboy/Plugins/FixedWidth.cs: Moved FixedWidth.cs (old plugin) to be
+	  an addin.
+	* Tomboy/Addins/FixedWidth, Tomboy/Addins/FixedWidth/FixedWidthTag.cs,
+	  Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs,
+	  Tomboy/Addins/FixedWidth/FixedWidthNoteAddin.cs,
+	  Tomboy/Addins/FixedWidth/Makefile.am,
+	  Tomboy/Addins/FixedWidth/FixedWidth.addin.xml: The new FixedWidth
+	  addin.
+	* Tomboy/Addins/Makefile.am: Added FixedWidth to SUBDIRS.
+	* po/POTFILES.in: Fixed the path for the translatable strings for the
+	  FixedWidth addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Backlinks/Backlinks.addin.xml,
+	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml: Changed the category
+	  name to "Tools".
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Changed the category name to
+	  "Experimental".
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/ExportToHTML: Renaming to ExportToHtml.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Added Tomboy/Addins/ExportToHtml/Makefile.
+	* Tomboy.mdp: Remove the old ExportToHTML reference and include the
+	  source files for the new ExportToHtml addin.
+	* Tomboy/Plugins/ExportToHTML.cs, Tomboy/Plugins/ExportToHTML.xsl:
+	  Moved these files to Tomboy/Addins/ExportToHtml/.
+	* Tomboy/Addins/Makefile.am: Add ExportToHtml to SUBDIRS.
+	* Tomboy/Addins/ExportToHtml,
+	  Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtml.addin.xml,
+	  Tomboy/Addins/ExportToHtml/Makefile.am,
+	  Tomboy/Addins/ExportToHtml/NoteNameResolver.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: The new ExportToHtml
+	  addin.
+	* po/POTFILES.in: Look in the new addin path for ExportToHtml strings.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> Unless note is created using the "Link"
+	  button, select title when create new notes (instead of content). 
+	  Fixes bug #449478 (patch from Yonatan Oren).
+
+	* Tomboy/Addins/Backlinks/Makefile.am: Use an "ADDIN_NAME" variable to
+	  be consistent with the other addins.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Removed the old reference to Tomboy/Plugins/Bugzilla.cs.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Add Tomboy/Addins/Bugzilla/Makefile
+	* Tomboy.mdp: Added all the individual Bugzilla Addin source files.
+	* Tomboy/Plugins/Bugzilla.cs, Tomboy/Addins/Makefile.am,
+	  Tomboy/Addins/Bugzilla,
+	  Tomboy/Addins/Bugzilla/BugzillaPreferences.cs,
+	  Tomboy/Addins/Bugzilla/BugzillaNoteAddin.cs,
+	  Tomboy/Addins/Bugzilla/InsertBugAction.cs,
+	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml,
+	  Tomboy/Addins/Bugzilla/BugzillaPreferencesFactory.cs,
+	  Tomboy/Addins/Bugzilla/Makefile.am,
+	  Tomboy/Addins/Bugzilla/BugzillaLink.cs: New Bugzilla Addin created
+	  in Tomboy/Addins/Bugzilla/ (formerly Tomboy/Plugins/Bugzilla.cs).
+	* po/POTFILES.in: Moved translatable strings from
+	  Tomboy/Plugins/Bugzilla.cs ->
+	  Tomboy/Addins/Bugzilla/BugzillaPreferences.cs
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Removed references to "plugin" and "Plugin".  Don't
+	  create the Tomboy/Plugins/Makefile anymore.
+	* Tomboy.mdp: Don't build PluginManager.cs anymore since it's not used.
+	* Tomboy/PluginManager.cs: Removing old PluginManager.cs.
+	* Tomboy/Tomboy.cs: Removed the "--check-plugin-unloading" cmd-line
+	  option for now.
+	* Tomboy/AddinManager.cs: Only return addins in the GetAllAddins ()
+	  call that have a category specified.  This allows us to leave the
+	  category off of built-in addins (all the addins in Watchers.cs).
+	* Tomboy/Watchers.cs: Changed the watcher plugins to be addins.
+	* Tomboy/Tomboy.addin.xml: Added extension information for all the
+	  built-in addins in Watchers.cs.
+	* Tomboy/NoteManager.cs: Removed all PluginManager references.
+	* Tomboy/Makefile.am: Don't build PluginManager.cs anymore.
+	* data/tomboy-addins.pc.in: New file (used to be tomboy-plugins.pc.in).
+	* data/Makefile.am: Build tomboy-addins.pc instead of
+	  tomboy-plugins.pc.
+	* data/tomboy-plugins.pc.in: Renamed to tomboy-addins.pc.in.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Added AddinPreferenceFactory.cs.
+	* Tomboy/PreferencesDialog.cs: Changed to use the AddinManager instead
+	  of the PluginManager.  Replaced the "Plugins" tab with a new
+	  "Add-ins" tab.
+	* Tomboy/ApplicationAddin.cs: Added an Initialized:bool property to
+	  allow the addin manager to know whether to initialize again.
+	* Tomboy/AddinPreferenceFactory.cs: New class to allow addins to
+	  provide a preferences dialog.
+	* Tomboy/Tomboy.cs: Pass in the AddinManager to the PreferencesDialog
+	  instead of the old PluginManager.
+	* Tomboy/AddinManager.cs: Added code to track app addins and note
+	  addins so that they can be enabled and disabled at runtime and be
+	  properly initialized and shut down.
+	* Tomboy/Tomboy.addin.xml: Added a new extension point to allow addins
+	  to provide preferences.
+	* Tomboy/Addins/Backlinks/Backlinks.addin.xml: Set a category and
+	  enable this addin by default.
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Set a category and disable this
+	  addin by default.
+	* Tomboy/Addins/Tasks/TasksApplicationAddin.cs: Added code to signal
+	  when this addin is initialized.
+	* Tomboy/Makefile.am: Don't compile the Plugins directory anymore.  We
+	  need to transition these over to addins ASAP.  Also added
+	  AddinPreferenceFactory.cs.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Mono.Addins.Setup/AssemblyInfo.cs,
+	  Mono.Addins.Setup/Mono.Addins.Setup/ConsoleAddinInstaller.cs,
+	  Mono.Addins/Mono.Addins/IAddinInstaller.cs,
+	  Mono.Addins/Mono.Addins/InstanceExtensionNode.cs,
+	  Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallerDialog.cs,
+	  Mono.Addins.Gui/Mono.Addins.Gui/AddinInstaller.cs
+	  Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallerDialog.cs: Missed these
+	  new files that are also part of the Mono.Addins 0.2 release.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/ConsoleProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/ProgressStatusMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/NullProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/SetupService.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/IProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinInfo.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinStore.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/SetupTool.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinRepositoryEntry.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/RepositoryRegistry.cs,
+	  Mono.Addins/Mono.Addins/AssemblyInfo.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Serialization/BinaryXmlReader.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/Addin.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/GettextCatalog.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionContext.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/IProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/RuntimeAddin.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/TypeExtensionNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ConsoleProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinInfo.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionTree.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/NodeAttributeAttribute.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/TreeNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinRegistry.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinManager.cs,
+	  Mono.Addins/Mono.Addins/Makefile.am,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/NodeTypeAttribute.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/Extension.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/AddinDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionNodeType.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionPoint.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionNodeDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ObjectDescriptionCollection.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ConditionTypeDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinUpdateData.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/DatabaseConfiguration.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/Util.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/SetupProcess.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinScanResult.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinDatabase.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/FileDatabase.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinHostIndex.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/ProcessProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinScanner.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/NewSiteDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ManageSitesDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinManagerWindow.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/Services.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ErrorDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinManagerDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/AssemblyInfo.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/generated.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/gui.stetic,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:
+	  Upgraded the embedded Mono.Addins to Mono.Addins 0.2.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/ConsoleProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/ProgressStatusMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/NullProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/SetupService.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/IProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinInfo.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinStore.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/SetupTool.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinRepositoryEntry.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/RepositoryRegistry.cs,
+	  Mono.Addins/Mono.Addins/AssemblyInfo.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Serialization/BinaryXmlReader.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/Addin.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/GettextCatalog.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionContext.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/IProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/RuntimeAddin.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/TypeExtensionNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ConsoleProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinInfo.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionTree.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/NodeAttributeAttribute.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/TreeNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinRegistry.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinManager.cs,
+	  Mono.Addins/Mono.Addins/Makefile.am,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/NodeTypeAttribute.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/Extension.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/AddinDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionNodeType.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionPoint.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionNodeDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ObjectDescriptionCollection.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ConditionTypeDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinUpdateData.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/DatabaseConfiguration.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/Util.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/SetupProcess.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinScanResult.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinDatabase.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/FileDatabase.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinHostIndex.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/ProcessProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinScanner.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/NewSiteDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ManageSitesDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinManagerWindow.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/Services.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ErrorDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinManagerDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/AssemblyInfo.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/generated.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/gui.stetic,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:
+	  Upgraded the embedded Mono.Addins to Mono.Addins 0.2.
+
 2007-07-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/NoteManager.cs: Unless note is created using the "Link"

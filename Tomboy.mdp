@@ -22,7 +22,6 @@
     <File name="./Tomboy/NoteManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/NoteTag.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/NoteWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/PluginManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Preferences.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/RecentChanges.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/RemoteControl.cs" subtype="Code" buildaction="Compile" />
@@ -34,14 +33,6 @@
     <File name="./Tomboy/Utils.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Watchers.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/XKeybinder.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Plugins/Bugzilla.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Plugins/Evolution.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Plugins/ExportToHTML.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Plugins/FixedWidth.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Plugins/GalagoPresence.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Plugins/NoteOfTheDay.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Plugins/PrintNotes.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Plugins/StickyNoteImport.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/TagManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Tag.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/TagButton.cs" subtype="Code" buildaction="Compile" />
@@ -81,6 +72,26 @@
     <File name="./Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/FileSystemSyncService" subtype="Directory" buildaction="Compile" />
     <File name="./Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/AddinPreferenceFactory.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/Bugzilla/BugzillaNoteAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/Bugzilla/InsertBugAction.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/Bugzilla/BugzillaLink.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/Bugzilla/BugzillaPreferences.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/Bugzilla/BugzillaPreferencesFactory.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/ExportToHtml/NoteNameResolver.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/FixedWidth/FixedWidthNoteAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/FixedWidth/FixedWidthTag.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/NoteOfTheDay/NoteOfTheDayApplicationAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferencesFactory.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/Evolution/EvolutionNoteAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/GalagoPresence" subtype="Directory" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
