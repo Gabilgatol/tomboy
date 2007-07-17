@@ -52,32 +52,27 @@ namespace Tomboy
 		
 		private static bool SetUpTools ()
 		{
-			// TODO: Write another method that calls "which" to discover these programs?
-			if (File.Exists ("/sbin/lsmod") == true)
-				lsmodTool = "/sbin/lsmod";
-			else
-				Logger.Warn ("/sbin/lsmod not found");
+			lsmodTool = FindFirstExecutableInPath ("lsmod");
+			if (lsmodTool == null)
+				Logger.Warn ("lsmod not found");
 			
-			if (File.Exists ("/sbin/modprobe") == true)
-				modprobeTool = "/sbin/modprobe";
-			else
-				Logger.Warn ("/sbin/modprobe not found");
+			modprobeTool = FindFirstExecutableInPath ("modprobe");
+			if (modprobeTool == null)
+				Logger.Warn ("modprobe not found");
 			
-			if (File.Exists ("/opt/gnome/bin/gnomesu") == true)
-				guisuTool = "/opt/gnome/bin/gnomesu";
-			else if (File.Exists ("/usr/bin/gnomesu") == true)
-				guisuTool = "/usr/bin/gnomesu";
-			else if (File.Exists ("/usr/bin/gksu") == true)
-				guisuTool = "/usr/bin/gksu";
-			else if (File.Exists ("/usr/bin/kdesu") == true)
-				guisuTool = "/usr/bin/kdesu";
+			guisuTool = FindFirstExecutableInPath (
+			                                       "gnomesu",
+			                                       "gksu",
+			                                       "gksudo",
+			                                       "kdesu");
+			if (guisuTool != null)
+				Logger.Debug (string.Format ("Using '{0}' as GUI 'su' tool", guisuTool));
 			else
-				Logger.Warn ("No GUI \"su\" tool found");
+				Logger.Warn ("No GUI 'su' tool found");
 			
-			if (File.Exists ("/bin/echo") == true)
-				echoTool = "/bin/echo";
-			else
-				Logger.Warn ("/bin/echo tool not found");
+			echoTool = FindFirstExecutableInPath ("echo");
+			if (echoTool == null)
+				Logger.Warn ("echo tool not found");
 			
 			// bootLocalFile, SUSE: /etc/init.d/boot.local
 			// bootLocalFile, Ubuntu: /etc/modules
@@ -195,6 +190,25 @@ namespace Tomboy
 			}
 
 			return false;
+		}
+		
+		/// <summary>
+		/// Search in $PATH for the given executables.  Return full executable path
+		/// of first executable found.  If none found, return null.
+		/// </summary>
+		public static string FindFirstExecutableInPath (params string[] executableNames)
+		{
+			foreach (string executableName in executableNames) {
+				string pathVar = System.Environment.GetEnvironmentVariable ("PATH");
+				foreach (string path in pathVar.Split (Path.PathSeparator)) {
+					string testExecutablePath = Path.Combine (path, executableName);
+					if (File.Exists (testExecutablePath))
+						return testExecutablePath;
+				}
+				Logger.Debug ("Unable to locate '" + executableName + "' in your PATH");
+			}
+			// TODO: Any reason to extend search outside of $PATH?
+			return null;
 		}
 	}
 }

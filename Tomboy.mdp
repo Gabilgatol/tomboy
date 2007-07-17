@@ -67,7 +67,6 @@
     <File name="./Tomboy/SyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/WebDavSyncService" subtype="Directory" buildaction="Compile" />
     <File name="./Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/Addins/WebDavSyncService/WebDavSyncServer.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/SshSyncService" subtype="Directory" buildaction="Compile" />
     <File name="./Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/FileSystemSyncService" subtype="Directory" buildaction="Compile" />
@@ -92,6 +91,8 @@
     <File name="./Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Evolution/EvolutionNoteAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/GalagoPresence" subtype="Directory" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization" subtype="Directory" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/FuseSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
@@ -100,6 +101,8 @@
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
     <ProjectReference type="Gac" localcopy="True" refto="glib-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="gnome-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
   </References>
   <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
     <BuildFilesVar />

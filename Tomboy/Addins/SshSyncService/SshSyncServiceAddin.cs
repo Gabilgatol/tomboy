@@ -11,91 +11,12 @@ using Tomboy;
 
 namespace Tomboy.Sync
 {
-	public class SshSyncServiceAddin : SyncServiceAddin
+	public class SshSyncServiceAddin : FuseSyncServiceAddin
 	{
-		// TODO: Extract most of the code here and build GenericSyncServiceAddin
-		// that supports a field, a username, and password.  This could be useful
-		// in quickly building SshSyncServiceAddin, FtpSyncServiceAddin, etc.
-		
 		Entry serverEntry;
 		Entry folderEntry;
 		Entry usernameEntry;
 		Entry passwordEntry;
-		
-		string mountPath;
-		
-		InterruptableTimeout unmountTimeout;
-		
-		/// <summary>
-		/// Called as soon as Tomboy needs to do anything with the service
-		/// </summary>
-		public override void Initialize ()
-		{
-//			if (IsConfigured) {
-				// Make sure the mount is loaded
-				SetUpMountPath ();
-//			}
-			unmountTimeout = new InterruptableTimeout ();
-			unmountTimeout.Timeout += UnmountTimeout;
-		}
-
-		/// <summary>
-		/// Creates a SyncServer instance that the SyncManager can use to
-		/// synchronize with this service.  This method is called during
-		/// every synchronization process.  If the same SyncServer object
-		/// is returned here, it should be reset as if it were new.
-		/// </summary>
-		public override SyncServer CreateSyncServer ()
-		{
-			unmountTimeout.Cancel (); // Prevent unmount during sync
-			SyncServer server = null;
-			
-			string url, folder, username, password;
-			if (GetConfigSettings (out url, out folder, out username, out password)) {
-				if (IsMounted () == false) {
-					if (MountSshfs (url, folder, username, password) == false) {
-						throw new Exception ("Could not mount " + mountPath);
-					}
-				}
-
-				server = new FileSystemSyncServer (mountPath);
-			} else {
-				throw new InvalidOperationException ("SshSyncServiceAddin.CreateSyncServer () called without being configured");
-			}
-			
-			return server;
-		}
-		
-		public override void PostSyncCleanup ()
-		{
-			// Try unmounting in five minutes
-			// TODO: Ensure that this happens before Tomboy shuts down
-			unmountTimeout.Reset (1000 * 60 * 5);
-		}
-		
-		private void UnmountTimeout (object sender, System.EventArgs e)
-		{
-			Process p = new Process ();
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.RedirectStandardOutput = false;
-			p.StartInfo.FileName = "/usr/bin/fusermount";
-			p.StartInfo.Arguments =
-				string.Format (
-					"-u {0}",
-					mountPath);
-			p.StartInfo.CreateNoWindow = true;
-			p.Start ();
-			p.WaitForExit ();
-			
-			if (p.ExitCode == 1) {
-				Logger.Debug ("Error unmounting " + Id);
-				unmountTimeout.Reset (1000 * 60 * 5); // Try again in five minutes
-			}
-			else {
-				Logger.Debug ("Successfully unmounted " + Id);
-				unmountTimeout.Cancel ();
-			}
-		}
 		
 		/// <summary>
 		/// Creates a Gtk.Widget that's used to configure the service.  This
@@ -171,47 +92,36 @@ namespace Tomboy.Sync
 			table.Show ();
 			return table;
 		}
-		
-		/// <summary>
-		/// The Addin should verify and check the connection to the service
-		/// when this is called.  If verification and connection is successful,
-		/// the addin should save the configuration and return true.
-		/// </summary>
-		public override bool SaveConfiguration ()
+
+		protected override bool VerifyConfiguration ()
 		{
-			string server = serverEntry.Text.Trim ();
-			string folder = folderEntry.Text.Trim ();
-			string username = usernameEntry.Text.Trim ();
-			string password = passwordEntry.Text.Trim ();
+			string server, folder, username, password;
 			
-			if (server == string.Empty
-						|| username == string.Empty) {
+			if (!GetPrefWidgetSettings (out server, out folder, out username, out password)) {
 				// TODO: Figure out a way to send the error back to the client
 				Logger.Debug ("One of url, username was empty");
 				return false;
 			}
 			
-			SetUpMountPath ();
+			return true;
+		}
+		
+		protected override void SaveConfigurationValues ()
+		{
+			string server, folder, username, password;
+			GetPrefWidgetSettings (out server, out folder, out username, out password);
 			
-			// TODO: Check to see if the mount is already mounted
-			bool mounted = MountSshfs (server, folder, username, password);
-			
-			if (mounted) {
-				PostSyncCleanup ();
-				Preferences.Set ("/apps/tomboy/sync_sshfs_server", server);
-				Preferences.Set ("/apps/tomboy/sync_sshfs_folder", folder);
-				Preferences.Set ("/apps/tomboy/sync_sshfs_username", username);
-				// TODO: MUST FIX THIS.  DO NOT STORE CLEAR TEXT PASSWORD IN GCONF!
-				Preferences.Set ("/apps/tomboy/sync_sshfs_password", password);
-			}
-			
-			return mounted;
+			Preferences.Set ("/apps/tomboy/sync_sshfs_server", server);
+			Preferences.Set ("/apps/tomboy/sync_sshfs_folder", folder);
+			Preferences.Set ("/apps/tomboy/sync_sshfs_username", username);
+			// TODO: MUST FIX THIS.  DO NOT STORE CLEAR TEXT PASSWORD IN GCONF!
+			Preferences.Set ("/apps/tomboy/sync_sshfs_password", password);
 		}
 
 		/// <summary>
 		/// Reset the configuration so that IsConfigured will return false.
 		/// </summary>
-		public override void ResetConfiguration ()
+		protected override void ResetConfigurationValues ()
 		{
 			Preferences.Set ("/apps/tomboy/sync_sshfs_server", string.Empty);
 			Preferences.Set ("/apps/tomboy/sync_sshfs_folder", string.Empty);
@@ -225,17 +135,8 @@ namespace Tomboy.Sync
 		public override bool IsConfigured
 		{
 			get {
-				string server = Preferences.Get ("/apps/tomboy/sync_sshfs_server") as String;
-				string folder = Preferences.Get ("/apps/tomboy/sync_sshfs_folder") as String;
-				string username = Preferences.Get ("/apps/tomboy/sync_sshfs_username") as String;
-				string password = Preferences.Get ("/apps/tomboy/sync_sshfs_password") as String;
-				
-				if (server != null && server != string.Empty
-						&& username != null && username != string.Empty) {
-					return true;
-				}
-				
-				return false;
+				string server, folder, username, password;				
+				return GetConfigSettings (out server, out folder, out username, out password);
 			}
 		}
 		
@@ -261,123 +162,26 @@ namespace Tomboy.Sync
 			}
 		}
 		
-		/// <summary>
-		/// Returns true if the addin has all the supporting libraries installed
-		/// on the machine or false if the proper environment is not available.
-		/// If false, the preferences dialog will still call
-		/// CreatePreferencesControl () when the service is selected.  It's up
-		/// to the addin to present the user with what they should install/do so
-		/// IsSupported will be true.
-		/// </summary>
-		public override bool IsSupported
+		protected override string GetFuseMountExeArgs (string mountPath, bool fromStoredValues)
 		{
-			get {
-				// TODO: Figure out a better way to do this!
-				if (System.IO.File.Exists ("/usr/bin/sshfs") == true)
-					return true;
-				
-				return false;
-			}
-		}
-		
-		#region Private Methods
-		private void SetUpMountPath ()
-		{
-			string notesPath = Tomboy.DefaultNoteManager.NoteDirectoryPath;
-			mountPath = Path.Combine (notesPath, "sync-sshfs");
-		}
-		
-		private void CreateMountPath ()
-		{
-			if (Directory.Exists (mountPath) == false) {
-				try {
-					Directory.CreateDirectory (mountPath);
-				} catch (Exception e) {
-					throw new Exception (
-						string.Format (
-							"Couldn't create \"{0}\" directory: {1}",
-							mountPath, e.Message));
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Checks to see if the mount is actually mounted and alive
-		/// </summary>
-		private bool IsMounted ()
-		{
-			Process p = new Process ();
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.RedirectStandardOutput = true;
-			// TODO: Fix the following because this command might not be in /bin/mount
-			p.StartInfo.FileName = "/bin/mount";
-			p.StartInfo.CreateNoWindow = true;
-			p.Start ();
-			List<string> outputLines = new List<string> ();
-			string line;
-			while (!p.StandardOutput.EndOfStream) {
-				line = p.StandardOutput.ReadLine ();
-				outputLines.Add (line);
-			}
-			p.WaitForExit ();
-			
-			if (p.ExitCode == 1) {
-				Logger.Debug ("Error calling /bin/mount");
-				return false;
-			}
-			
-			foreach (string outputLine in outputLines)
-				if (outputLine.StartsWith ("sshfs") &&
-				    outputLine.IndexOf (string.Format ("on {0} ", mountPath)) > -1)
-					return true;
-			
-			return false;
-		}
-		
-		/// <summary>
-		/// Actually attempt to mount the sshfs URL
-		///
-		/// Execute: TODO
-		/// </summary>
-		private bool MountSshfs (string server, string folder, string username, string password)
-		{
-			if (mountPath == null)
-				return false;
-			
-			if (SyncUtils.IsFuseEnabled () == false) {
-				if (SyncUtils.EnableFuse () == false) {
-					Logger.Debug ("User canceled or something went wrong enabling fuse in SshSyncServiceAddin.MountSshfs");
-					return false;
-				}
-			}
-			
-			CreateMountPath ();
-
-			Process p = new Process ();
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.RedirectStandardOutput = false;
-			p.StartInfo.FileName = "/usr/bin/sshfs";
-			p.StartInfo.Arguments =
-				string.Format (
+			string server, folder, username, password;
+			if (fromStoredValues)
+				GetConfigSettings (out server, out folder, out username, out password);
+			else
+				GetPrefWidgetSettings (out server, out folder, out username, out password);
+			return string.Format (
 					"{0}@{1}:{2} {3}",
 					username,
 					server,
 				        folder,
 					mountPath);
-			p.StartInfo.CreateNoWindow = true;
-			p.Start ();
-			p.WaitForExit ();
-	
-			
-			// TODO: Handle password
-			
-			if (p.ExitCode == 1) {
-				Logger.Debug ("Error calling sshfs");
-				return false;
-			}
-			return true;
+		}
+
+		protected override string FuseMountExeName {
+			get { return "sshfs"; }
 		}
 		
+		#region Private Methods
 		/// <summary>
 		/// Get config settings
 		/// </summary>
@@ -388,12 +192,22 @@ namespace Tomboy.Sync
 			username = Preferences.Get ("/apps/tomboy/sync_sshfs_username") as String;
 			password = Preferences.Get ("/apps/tomboy/sync_sshfs_password") as String;
 			
-			if (server != null && server != string.Empty
-					&& username != null && username != string.Empty) {
-				return true;
-			}
-			
-			return false;
+			return !string.IsNullOrEmpty (server) && !string.IsNullOrEmpty (username);
+		}
+
+		
+		/// <summary>
+		/// Get config settings
+		/// </summary>
+		private bool GetPrefWidgetSettings (out string server, out string folder, out string username, out string password)
+		{
+			server = serverEntry.Text.Trim ();
+			folder = folderEntry.Text.Trim ();
+			username = usernameEntry.Text.Trim ();
+			password = passwordEntry.Text.Trim ();
+				
+			return !string.IsNullOrEmpty (server)
+					&& !string.IsNullOrEmpty (username);
 		}
 		#endregion // Private Methods
 	}

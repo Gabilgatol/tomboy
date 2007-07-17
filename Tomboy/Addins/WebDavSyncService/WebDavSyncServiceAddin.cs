@@ -11,90 +11,11 @@ using Tomboy;
 
 namespace Tomboy.Sync
 {
-	public class WebDavSyncServiceAddin : SyncServiceAddin
+	public class WebDavSyncServiceAddin : FuseSyncServiceAddin
 	{
-		// TODO: Extract most of the code here and build GenericSyncServiceAddin
-		// that supports a field, a username, and password.  This could be useful
-		// in quickly building SshSyncServiceAddin, FtpSyncServiceAddin, etc.
-		
 		Entry urlEntry;
 		Entry usernameEntry;
 		Entry passwordEntry;
-		
-		string mountPath;
-		
-		InterruptableTimeout unmountTimeout;
-		
-		/// <summary>
-		/// Called as soon as Tomboy needs to do anything with the service
-		/// </summary>
-		public override void Initialize ()
-		{
-//			if (IsConfigured) {
-				// Make sure the mount is loaded
-				SetUpMountPath ();
-//			}
-			unmountTimeout = new InterruptableTimeout ();
-			unmountTimeout.Timeout += UnmountTimeout;
-		}
-
-		/// <summary>
-		/// Creates a SyncServer instance that the SyncManager can use to
-		/// synchronize with this service.  This method is called during
-		/// every synchronization process.  If the same SyncServer object
-		/// is returned here, it should be reset as if it were new.
-		/// </summary>
-		public override SyncServer CreateSyncServer ()
-		{
-			unmountTimeout.Cancel (); // Prevent unmount during sync
-			SyncServer server = null;
-			
-			string url, username, password;
-			if (GetConfigSettings (out url, out username, out password)) {
-				if (IsMounted () == false) {
-					if (MountWebDav (url, username, password) == false) {
-						throw new Exception ("Could not mount " + mountPath);
-					}
-				}
-
-				server = new WebDavSyncServer (mountPath);
-			} else {
-				throw new InvalidOperationException ("WebDavSyncServiceAddin.CreateSyncServer () called without being configured");
-			}
-			
-			return server;
-		}
-		
-		public override void PostSyncCleanup ()
-		{
-			// Try unmounting in five minutes
-			// TODO: Ensure that this happens before Tomboy shuts down
-			unmountTimeout.Reset (1000 * 60 * 5);
-		}
-		
-		private void UnmountTimeout (object sender, System.EventArgs e)
-		{
-			Process p = new Process ();
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.RedirectStandardOutput = false;
-			p.StartInfo.FileName = "/usr/bin/fusermount";
-			p.StartInfo.Arguments =
-				string.Format (
-					"-u {0}",
-					mountPath);
-			p.StartInfo.CreateNoWindow = true;
-			p.Start ();
-			p.WaitForExit ();
-			
-			if (p.ExitCode == 1) {
-				Logger.Debug ("Error unmounting " + Id);
-				unmountTimeout.Reset (1000 * 60 * 5); // Try again in five minutes
-			}
-			else {
-				Logger.Debug ("Successfully unmounted " + Id);
-				unmountTimeout.Cancel ();
-			}
-		}
 		
 		/// <summary>
 		/// Creates a Gtk.Widget that's used to configure the service.  This
@@ -156,45 +77,34 @@ namespace Tomboy.Sync
 			return table;
 		}
 		
-		/// <summary>
-		/// The Addin should verify and check the connection to the service
-		/// when this is called.  If verification and connection is successful,
-		/// the addin should save the configuration and return true.
-		/// </summary>
-		public override bool SaveConfiguration ()
+		protected override bool VerifyConfiguration ()
 		{
-			string url = urlEntry.Text.Trim ();
-			string username = usernameEntry.Text.Trim ();
-			string password = passwordEntry.Text.Trim ();
+			string url, username, password;
 			
-			if (url == string.Empty
-						|| username == string.Empty
-						|| password == string.Empty) {
+			if (!GetPrefWidgetSettings (out url, out username, out password)) {
 				// TODO: Figure out a way to send the error back to the client
 				Logger.Debug ("One of url, username, or password was empty");
 				return false;
 			}
 			
-			SetUpMountPath ();
+			return true;
+		}
+		
+		protected override void SaveConfigurationValues ()
+		{
+			string url, username, password;
+			GetPrefWidgetSettings (out url, out username, out password);
 			
-			// TODO: Check to see if the mount is already mounted
-			bool mounted = MountWebDav (url, username, password);
-			
-			if (mounted) {
-				PostSyncCleanup ();
-				Preferences.Set ("/apps/tomboy/sync_wdfs_url", url);
-				Preferences.Set ("/apps/tomboy/sync_wdfs_username", username);
-				// TODO: MUST FIX THIS.  DO NOT STORE CLEAR TEXT PASSWORD IN GCONF!
-				Preferences.Set ("/apps/tomboy/sync_wdfs_password", password);
-			}
-			
-			return mounted;
+			Preferences.Set ("/apps/tomboy/sync_wdfs_url", url);
+			Preferences.Set ("/apps/tomboy/sync_wdfs_username", username);
+			// TODO: MUST FIX THIS.  DO NOT STORE CLEAR TEXT PASSWORD IN GCONF!
+			Preferences.Set ("/apps/tomboy/sync_wdfs_password", password);
 		}
 
 		/// <summary>
 		/// Reset the configuration so that IsConfigured will return false.
 		/// </summary>
-		public override void ResetConfiguration ()
+		protected override void ResetConfigurationValues ()
 		{
 			Preferences.Set ("/apps/tomboy/sync_wdfs_url", string.Empty);
 			Preferences.Set ("/apps/tomboy/sync_wdfs_username", string.Empty);
@@ -209,17 +119,8 @@ namespace Tomboy.Sync
 		public override bool IsConfigured
 		{
 			get {
-				string url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
-				string username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
-				string password = Preferences.Get ("/apps/tomboy/sync_wdfs_password") as String;
-				
-				if (url != null && url != string.Empty
-						&& username != null && username != string.Empty
-						&& password != null && password != string.Empty) {
-					return true;
-				}
-				
-				return false;
+				string url, username, password;				
+				return GetConfigSettings (out url, out username, out password);
 			}
 		}
 		
@@ -245,123 +146,25 @@ namespace Tomboy.Sync
 			}
 		}
 		
-		/// <summary>
-		/// Returns true if the addin has all the supporting libraries installed
-		/// on the machine or false if the proper environment is not available.
-		/// If false, the preferences dialog will still call
-		/// CreatePreferencesControl () when the service is selected.  It's up
-		/// to the addin to present the user with what they should install/do so
-		/// IsSupported will be true.
-		/// </summary>
-		public override bool IsSupported
+		protected override string GetFuseMountExeArgs (string mountPath, bool fromStoredValues)
 		{
-			get {
-				// TODO: Figure out a better way to do this!
-				if (System.IO.File.Exists ("/usr/bin/wdfs") == true)
-					return true;
-				
-				return false;
-			}
+			string url, username, password;
+			if (fromStoredValues)
+				GetConfigSettings (out url, out username, out password);
+			else
+				GetPrefWidgetSettings (out url, out username, out password);
+			return string.Format ("{0} -a {1} -u {2} -p {3} -o fsname=tomboywdfs",
+			                      mountPath,
+			                      url,
+			                      username,
+			                      password);
+		}
+
+		protected override string FuseMountExeName {
+			get { return "wdfs"; }
 		}
 		
 		#region Private Methods
-		private void SetUpMountPath ()
-		{
-			string notesPath = Tomboy.DefaultNoteManager.NoteDirectoryPath;
-			mountPath = Path.Combine (notesPath, "sync-wdfs");
-		}
-		
-		private void CreateMountPath ()
-		{
-			if (Directory.Exists (mountPath) == false) {
-				try {
-					Directory.CreateDirectory (mountPath);
-				} catch (Exception e) {
-					throw new Exception (
-						string.Format (
-							"Couldn't create \"{0}\" directory: {1}",
-							mountPath, e.Message));
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Checks to see if the mount is actually mounted and alive
-		/// </summary>
-		private bool IsMounted ()
-		{
-			Process p = new Process ();
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.RedirectStandardOutput = true;
-			// TODO: Fix the following because this command might not be in /bin/mount
-			p.StartInfo.FileName = "/bin/mount";
-			p.StartInfo.CreateNoWindow = true;
-			p.Start ();
-			List<string> outputLines = new List<string> ();
-			string line;
-			while (!p.StandardOutput.EndOfStream) {
-				line = p.StandardOutput.ReadLine ();
-				outputLines.Add (line);
-			}
-			p.WaitForExit ();
-			
-			if (p.ExitCode == 1) {
-				Logger.Debug ("Error calling /bin/mount");
-				return false;
-			}
-			
-			foreach (string outputLine in outputLines)
-				if (outputLine.StartsWith ("wdfs") &&
-				    outputLine.IndexOf (string.Format ("on {0} ", mountPath)) > -1)
-					return true;
-			
-			return false;
-		}
-		
-		/// <summary>
-		/// Actually attempt to mount the WebDav URL
-		///
-		/// Execute: wdfs <mount-path> -a <url> -u <username> -p <password> -o fsname=tomboywdfs
-		/// </summary>
-		private bool MountWebDav (string url, string username, string password)
-		{
-			if (mountPath == null)
-				return false;
-			
-			if (IsMounted ())
-				return true;
-			
-			if (SyncUtils.IsFuseEnabled () == false) {
-				if (SyncUtils.EnableFuse () == false) {
-					Logger.Debug ("User canceled or something went wrong enabling fuse in WebDavSyncServiceAddin.MountWebDav");
-					return false;
-				}
-			}
-			
-			CreateMountPath ();
-
-			Process p = new Process ();
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.RedirectStandardOutput = false;
-			p.StartInfo.FileName = "/usr/bin/wdfs";
-			p.StartInfo.Arguments =
-				string.Format (
-					"{0} -a {1} -u {2} -p {3} -o fsname=tomboywdfs",
-					mountPath,
-					url,
-					username,
-					password);
-			p.StartInfo.CreateNoWindow = true;
-			p.Start ();
-			p.WaitForExit ();
-			
-			if (p.ExitCode == 1) {
-				Logger.Debug ("Error calling wdfs");
-				return false;
-			}
-			return true;
-		}
-		
 		/// <summary>
 		/// Get config settings
 		/// </summary>
@@ -370,14 +173,25 @@ namespace Tomboy.Sync
 			url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
 			username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
 			password = Preferences.Get ("/apps/tomboy/sync_wdfs_password") as String;
-			
-			if (url != null && url != string.Empty
-					&& username != null && username != string.Empty
-					&& password != null && password != string.Empty) {
-				return true;
-			}
-			
-			return false;
+				
+			return !string.IsNullOrEmpty (url)
+					&& !string.IsNullOrEmpty (username)
+					&& !string.IsNullOrEmpty (password);
+		}
+
+		
+		/// <summary>
+		/// Get config settings
+		/// </summary>
+		private bool GetPrefWidgetSettings (out string url, out string username, out string password)
+		{
+			url = urlEntry.Text.Trim ();
+			username = usernameEntry.Text.Trim ();
+			password = passwordEntry.Text.Trim ();
+				
+			return !string.IsNullOrEmpty (url)
+					&& !string.IsNullOrEmpty (username)
+					&& !string.IsNullOrEmpty (password);
 		}
 		#endregion // Private Methods
 	}

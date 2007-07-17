@@ -17,7 +17,6 @@ ASSEMBLIES = 					\
 
 TARGET = WebDavSyncService.dll
 CSFILES = \
-	$(srcdir)/WebDavSyncServer.cs		\
 	$(srcdir)/WebDavSyncServiceAddin.cs
 RESOURCES = \
 	-resource:$(srcdir)/WebDavSyncService.addin.xml

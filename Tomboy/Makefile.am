@@ -70,6 +70,7 @@ CSFILES = 					\
 	$(srcdir)/Watchers.cs			\
 	$(srcdir)/WrapBox.cs			\
 	$(srcdir)/XKeybinder.cs			\
+	$(srcdir)/Synchronization/*.cs		\
 	\
 	$(srcdir)/panelapplet/*.cs		\
 	\

@@ -1,3 +1,20 @@
+2007-07-17  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.mdp: Adding Synchronization/FuseSyncServiceAddin, removing
+	  Addins/WebDavSyncService/WebDavSyncServer, and tossing in
+	  references to System and Mono.Posix (if these references are
+	  causing people problems, we can go ahead and remove them).
+	* Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs,
+	  Tomboy/Synchronization/FuseSyncServiceAddin.cs,
+	  Tomboy/Synchronization, Tomboy/Makefile.am,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:
+	  Extracted abstract FuseSyncServiceAddin base class from
+	  SshSyncServiceAddin and WebDavSyncServiceAddin.
+	* Tomboy/Addins/WebDavSyncService/Makefile.am,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncServer.cs: Not using
+	  WebDavSyncServer anymore.
+	* Tomboy/SyncUtils.cs: Added FindFirstExecutableInPath utility method.
+
 2007-07-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncService.addin.xml,
