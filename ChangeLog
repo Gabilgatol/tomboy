@@ -1,3 +1,16 @@
+2007-07-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/SyncDialog.cs: Testing some half-baked conflict handling
+	  ideas.  Will probably end up just having different process for
+	  handling title conflicts (independently created notes) vs content
+	  conflicts (modifications to note with same GUID).
+	* Tomboy/SyncManager.cs: Cleanup, comments.  Beginning refactoring of
+	  SynchronizationThread.  Some half-baked conflict handling code. 
+	  More accurate note revision handling.  Only calling UploadNotes if
+	  there are notes to upload.
+	* Tomboy/FileSystemSyncServer.cs, Tomboy/AddinManager.cs: Comment
+	  cleanup.
+
 2007-07-17  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy.mdp: Adding Synchronization/FuseSyncServiceAddin, removing

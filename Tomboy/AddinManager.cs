@@ -70,6 +70,7 @@ namespace Tomboy
 			Mono.Addins.AddinManager.Registry.Rebuild (null);
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/ApplicationAddins", OnApplicationAddinExtensionChanged);
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/NoteAddins", OnNoteAddinExtensionChanged);
+			// TODO: Need to call AddExtensionNodeHandler for sync addins?
 		}
 		
 		void OnAddinLoaded (object sender, Mono.Addins.AddinEventArgs args)

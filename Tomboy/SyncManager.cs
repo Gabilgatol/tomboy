@@ -204,6 +204,7 @@ namespace Tomboy
 		
 		/// <summary>
 		/// The function that does all of the work
+		/// TODO: Factor some nice methods out of here; this is just garbage to read right now
 		/// </summary>
 		public static void SynchronizationThread ()
 		{
@@ -233,6 +234,9 @@ namespace Tomboy
 				return;
 				// TODO: Figure out a clever way to get the specific error up to the GUI
 			}
+				
+			// TODO: Call something that processes all queued note saves!
+			//       For now, only saving before uploading (not sufficient for note conflict handling)
 			
 			SetState (SyncState.AcquiringLock);
 			// TODO: We should really throw exceptions from BeginSyncTransaction ()
@@ -249,8 +253,6 @@ Logger.Debug ("8");
 			int newRevision = latestServerRevision + 1;
 			
 			SetState (SyncState.PrepareDownload);
-//			syncDialog.ProgressText = "Getting note updates...";
-//			syncDialog.ProgressFraction = 0.1;
 			
 			// Handle notes modified or added on server
 			Logger.Debug ("Sync: GetNoteUpdatesSince rev " + client.LastSynchronizedRevision.ToString ());
@@ -305,39 +307,50 @@ Logger.Debug ("8");
 				}
 			}
 			
-			double updateProgressInterval = 0.4 / (double)noteUpdates.Count;
-			
 			if (noteUpdates.Count > 0)
 				SetState (SyncState.Downloading);
 
 			// The following loop may need to update GUIs in the main thread
 			// TODO: Extract a method here
-			AutoResetEvent evt = new AutoResetEvent (false);
-			Gtk.Application.Invoke (delegate {
+			// TODO: Don't wrap whole thing in Invoke...only wrap things
+			//       that will update GUI.  We keep getting 97 rename windows...
+			//       need suspends, etc, like above
 
 			foreach (NoteUpdate note in noteUpdates.Values) {
-//				syncDialog.ProgressFraction += updateProgressInterval;
 				Note existingNote = FindNoteByUUID (note.UUID);
+				NoteSyncType syncType;
 
-				if (existingNote == null) {// TODO: not so simple...what if I deleted the note?
-					
-					existingNote = NoteMgr.CreateWithGuid (note.Title, note.UUID);
-					existingNote.LoadForeignNoteXml (note.XmlContent);
-					client.SetRevision (existingNote, note.LatestRevision);
-					
-					if (NoteSynchronized != null)
-						NoteSynchronized (existingNote.Title, NoteSyncType.DownloadNew);
-//					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading new note"));
+				if (existingNote == null) {
+					CreateNoteInMainThread (note);
 				} else if (existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {
-					existingNote.LoadForeignNoteXml (note.XmlContent);
-					client.SetRevision (existingNote, note.LatestRevision);
-					if (NoteSynchronized != null)
-						NoteSynchronized (existingNote.Title, NoteSyncType.DownloadModified);
-//					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Downloading update"));
+					// Existing note hasn't been modified since last sync; simply update it from server
+					UpdateNoteInMainThread (existingNote, note);
 				} else {
-					// TODO: handle conflicts (may include notes modified on one client, deleted on another)
+					Logger.Debug (string.Format (
+					"SyncManager: Content conflict in note update for note '{0}'",
+				        note.Title));
+					// Note already exists locally, but has been modified since last sync; prompt user
+					// TODO: Thread stuff may be wonky here (already in invoke):
+					// TODO: Rename here should create a note with a new GUID!
+					if (NoteConflictDetected != null) // TODO: How to handle if this were ever null?
+						NoteConflictDetected (NoteMgr, existingNote);
+						
+					// Suspend this thread while the GUI is presented to
+					// the user.
+					syncThread.Suspend ();
+						
+						// TODO: Figure this all out!!!
+						
+					// Note should have been deleted (TODO: Does this make any sense?)
+					existingNote = FindNoteByUUID (note.UUID);
+					if (existingNote == null)
+						existingNote = NoteMgr.CreateWithGuid (note.Title, note.UUID);
+					syncType = NoteSyncType.DownloadModified;
 				}
 			}
+
+			AutoResetEvent evt = new AutoResetEvent (false);
+			Gtk.Application.Invoke (delegate {
 				// Make list of all local notes
 				List<Note> localNotes = new List<Note> ();
 				foreach (Note note in NoteMgr.Notes)
@@ -346,13 +359,13 @@ Logger.Debug ("8");
 				// Get all notes currently on server
 				IList<string> serverNotes = server.GetAllNoteUUIDs ();
 				
+				// Delete notes locally that have been deleted on the server
 				foreach (Note note in localNotes) {
 					if (client.GetRevision (note) != -1 &&
 					    !serverNotes.Contains (note.Id)) {
 
 						if (NoteSynchronized != null)
 							NoteSynchronized (note.Title, NoteSyncType.DeleteFromClient);
-//					syncDialog.AddUpdateItem (existingNote.Title, Catalog.GetString ("Deleting note on client"));
 						NoteMgr.Delete (note);
 					}
 				}
@@ -370,28 +383,24 @@ Logger.Debug ("8");
 			foreach (Note note in NoteMgr.Notes) {
 				if (client.GetRevision (note) == -1) {
 					// This is a new note that has never been synchronized to the server
+					note.Save ();
 					newOrModifiedNotes.Add (note);
 					if (NoteSynchronized != null)
 						NoteSynchronized (note.Title, NoteSyncType.UploadNew);
 				} else if (client.GetRevision (note) <= client.LastSynchronizedRevision &&
 				    	note.ChangeDate > client.LastSyncDate) {
+					note.Save ();
 					newOrModifiedNotes.Add (note);
 					if (NoteSynchronized != null)
 						NoteSynchronized (note.Title, NoteSyncType.UploadModified);
 				}
 			}
-			// Apply this revision number to all new/modified notes since last sync
-			// TODO: Should revision info be stored in note, or a seperate file?
-			// TODO: This may actually cause future problems if our network connection
-			// dies after changing the revision but never really gets uploaded to the
-			// server.
-			foreach (Note note in newOrModifiedNotes) {
-				client.SetRevision (note, newRevision);
-				note.Save ();
-			}
+
 			Logger.Debug ("Sync: Uploading " + newOrModifiedNotes.Count.ToString () + " note updates");
-			SetState (SyncState.Uploading);
-			server.UploadNotes (newOrModifiedNotes);
+			if (newOrModifiedNotes.Count > 0) {
+				SetState (SyncState.Uploading);
+				server.UploadNotes (newOrModifiedNotes); // TODO: Callbacks to update GUI as upload progresses
+			}
 			
 			// Handle notes deleted on client
 			List<string> locallyDeletedUUIDs = new List<string> ();			
@@ -414,6 +423,11 @@ Logger.Debug ("8");
 			SetState (SyncState.CommittingChanges);
 			bool commitResult = server.CommitSyncTransaction ();
 			if (commitResult) {
+				// Apply this revision number to all new/modified notes since last sync
+				// TODO: Is this the best place to do this (after successful server commit)
+				foreach (Note note in newOrModifiedNotes) {
+					client.SetRevision (note, newRevision);
+				}
 				SetState (SyncState.Succeeded);
 			} else {
 				SetState (SyncState.Failed);
@@ -436,13 +450,49 @@ Logger.Debug ("8");
 		/// The GUI should call this after having the user resolve a conflict
 		/// so the synchronization thread can continue.
 		/// </summary>
-		public static void ResolveConflict (Note conflictNote,
+		public static void ResolveConflict (/*Note conflictNote,*/
 				SyncTitleConflictResolution resolution)
 		{
 			if (syncThread != null) {
 				conflictResolution = resolution;
 				syncThread.Resume ();
 			}
+		}
+			
+		private static void CreateNoteInMainThread (NoteUpdate noteUpdate)
+		{
+			AutoResetEvent evt = new AutoResetEvent (false);
+			Gtk.Application.Invoke (delegate {
+				Note existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
+				UpdateLocalNote (existingNote, noteUpdate);
+						
+				evt.Set ();
+			});
+			
+			evt.WaitOne ();
+		}
+		
+		private static void UpdateNoteInMainThread (Note existingNote, NoteUpdate noteUpdate)
+		{
+			AutoResetEvent evt = new AutoResetEvent (false);
+			Gtk.Application.Invoke (delegate {
+				UpdateLocalNote (existingNote, noteUpdate);
+
+				evt.Set ();
+			});
+			
+			evt.WaitOne ();				
+		}
+		
+		private static void UpdateLocalNote (Note localNote, NoteUpdate serverNote)
+		{
+			// In each case, update existingNote's content and revision
+			localNote.LoadForeignNoteXml (serverNote.XmlContent);
+			client.SetRevision (localNote, serverNote.LatestRevision);
+
+			// Update dialog's sync status
+			if (NoteSynchronized != null)
+				NoteSynchronized (localNote.Title, NoteSyncType.DownloadModified);
 		}
 		
 		private static Note FindNoteByUUID (string uuid)

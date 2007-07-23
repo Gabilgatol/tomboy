@@ -24,11 +24,7 @@ namespace Tomboy
 		SyncLockInfo syncLock;
 		
 		public FileSystemSyncServer (string localSyncPath)
-		{			
-			// TODO: Handle changes to serverPath...
-			//       Should there be a new instance of this class
-			//       for each sync?
-//			serverPath = (string) Preferences.Get (Preferences.SYNC_URL);
+		{
 			serverPath = localSyncPath;
 			
 			if (!Directory.Exists (serverPath))
@@ -208,6 +204,8 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 
 		public virtual bool CommitSyncTransaction ()
 		{
+			bool commitSucceeded = false;
+			
 			if (updatedNotes.Count > 0 || deletedNotes.Count > 0)
 			{
 				// TODO: error-checking, etc
@@ -289,6 +287,13 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 					File.Move (manifestPath, oldManifestPath);
 				}
 				
+				// * * * Begin Cleanup Code * * *
+				// TODO: Consider completely discarding cleanup code, in favor
+				//       of period thorough server consistency checks (say every 30 revs)
+				//       Even if we do continue providing some cleanup, consistency
+				//       checks should be implemented.
+				// TODO: If this cleanup fails, transaction should not be considered a failure!
+				
 				// Copy the /${parent}/${rev}/manifest.xml -> /manifest.xml
 				File.Copy (manifestFilePath, manifestPath);
 				AdjustPermissions (manifestPath);
@@ -316,11 +321,13 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 					//       when you can guarantee the existence of each intermediate directory?
 	
 				}
+				// * * * End Cleanup Code * * *
 			}
 			
 			lockTimeout.Cancel ();
-			File.Delete (lockPath);//TODO: Errors?  When return false?
-			return true;
+			File.Delete (lockPath);// TODO: Errors?
+			commitSucceeded = true;// TODO: When return false?
+			return commitSucceeded;
 		}
 		
 		// TODO: Return false if this is a bad time to cancel sync?

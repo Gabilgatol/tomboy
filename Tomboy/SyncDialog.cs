@@ -370,7 +370,7 @@ namespace Tomboy
 				conflictDlg.Destroy ();
 			
 				// Let the SyncManager continue
-				SyncManager.ResolveConflict (localConflictNote, resolution);
+				SyncManager.ResolveConflict (/*localConflictNote, */resolution);
 			});
 		}
 
@@ -388,6 +388,16 @@ namespace Tomboy
 				note.Data.Title = newTitle;
 			string oldContent = note.XmlContent;
 			note.XmlContent = NoteArchiver.Instance.GetRenamedNoteXml (oldContent, oldTitle, newTitle);
+			
+			// Testing... (the idea being that if the renamed note has a new GUID, conflict handling is easy)
+			Logger.Debug ("Entering the realm of testing in RenameNote");
+			//bool noteOpen = note.IsOpened;
+			string newContent = note.XmlContent;
+			Tomboy.DefaultNoteManager.Delete (note);
+			Note renamedNote = Tomboy.DefaultNoteManager.Create (newTitle, newContent); // TODO: Doesn't handle tags, etc!
+			//if (noteOpen)
+			//	renamedNote.Window.Present ();
+			
 		}
 #endregion // Private Methods
 		
