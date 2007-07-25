@@ -1,5 +1,11 @@
 2007-07-24  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/SyncDialog.cs: Improved SyncTitleConflictDialog content,
+	  layout, and widget sensitivity behavior.  It no longer looks quite
+	  like ass, though it still needs work.
+
+2007-07-24  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/PreferencesDialog.cs, Tomboy/SyncDialog.cs,
 	  Tomboy/SyncManager.cs: Wrapping some strings in Catalog.GetString,
 	  plus some small comments/cleanups.

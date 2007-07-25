@@ -414,6 +414,9 @@ namespace Tomboy
 		private Gtk.CheckButton renameUpdateCheck;
 		private Gtk.RadioButton renameRadio;
 		private Gtk.RadioButton deleteExistingRadio;
+		
+		private Gtk.Label headerLabel;
+		private Gtk.Label messageLabel;
 
 		public SyncTitleConflictDialog (Note existingNote) :
 			base (Catalog.GetString ("Note Title Conflict"), null, Gtk.DialogFlags.Modal)
@@ -424,19 +427,48 @@ namespace Tomboy
 			for (int i = 1; existingNote.Manager.Find (suggestedRename) != null; i++)
 				suggestedRename = suggestedRenameBase + " " + i.ToString();
 			
-			Label label = new Gtk.Label (string.Format (Catalog.GetString ("The server already has a note called \"{0}\"."
-			                                                               + "  What do you want to do with your local note?"),
-			                                            existingNote.Title));
-			label.LineWrap = true;
-			VBox.PackStart (label);
+			VBox outerVBox = new VBox (false, 12);
+			outerVBox.BorderWidth = 12;
+			outerVBox.Spacing = 8;
+			
+			HBox hbox = new HBox (false, 8);
+			Image image = new Image (GuiUtils.GetIcon (Gtk.Stock.DialogWarning, 48)); // TODO: Is this the right icon?
+			image.Show ();
+			hbox.PackStart (image, false, false, 0);
+			
+			VBox vbox = new VBox (false, 8);
+			
+			headerLabel = new Label ();
+			headerLabel.UseMarkup = true;
+			headerLabel.Xalign = 0;
+			headerLabel.UseUnderline = false;
+			headerLabel.Show ();
+			vbox.PackStart (headerLabel, false, false, 0);
+			
+			messageLabel = new Label ();
+			messageLabel.Xalign = 0;
+			messageLabel.UseUnderline = false;
+			messageLabel.LineWrap = true;
+			messageLabel.Wrap = true;
+			messageLabel.Show ();
+			vbox.PackStart (messageLabel, false, false, 0);
+			
+			vbox.Show ();
+			hbox.PackStart (vbox, true, true, 0);
+			
+			hbox.Show ();
+			//VBox.PackStart (hbox);
+			outerVBox.PackStart (hbox);
+			VBox.PackStart (outerVBox);
 			
 			Gtk.HBox renameHBox = new Gtk.HBox ();
 			renameRadio = new Gtk.RadioButton ("Rename local note");
+			renameRadio.Toggled += radio_Toggled;
 			Gtk.VBox renameOptionsVBox = new Gtk.VBox ();
 			
 			renameEntry = new Gtk.Entry (suggestedRename);
 			renameEntry.Changed += renameEntry_Changed;
-			renameUpdateCheck = new Gtk.CheckButton (Catalog.GetString ("Update referencing notes to match new note title"));
+			renameUpdateCheck = new Gtk.CheckButton (Catalog.GetString ("Update links in referencing notes"));
 			renameOptionsVBox.PackStart (renameEntry);
 			renameOptionsVBox.PackStart (renameUpdateCheck);
 			renameHBox.PackStart (renameRadio);
@@ -444,20 +476,53 @@ namespace Tomboy
 			VBox.PackStart (renameHBox);
 			
 			deleteExistingRadio = new Gtk.RadioButton (renameRadio, Catalog.GetString ("Delete existing note"));
+			deleteExistingRadio.Toggled += radio_Toggled;
 			VBox.PackStart (deleteExistingRadio);
 			
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
 			continueButton = (Gtk.Button) AddButton (Gtk.Stock.GoForward, Gtk.ResponseType.Accept);
+			
+			// Set initial dialog text
+			HeaderText = Catalog.GetString ("Note conflict detected");
+			MessageText = string.Format (Catalog.GetString ("The server already has a note called \"{0}\"."
+			                                                + "  What do you want to do with your local note?"),
+			                             existingNote.Title);
 			
 			ShowAll ();
 		}
 		
 		private void renameEntry_Changed (object sender, System.EventArgs e)
 		{
-			if (existingNote.Manager.Find (RenamedTitle) != null)
+			if (renameRadio.Active &&
+			    existingNote.Manager.Find (RenamedTitle) != null)
 				continueButton.Sensitive = false;
 			else
 				continueButton.Sensitive = true;
+		}
+		
+		// Handler for each radio button's Toggled event
+		private void radio_Toggled (object sender, System.EventArgs e)
+		{
+			// Make sure Continue button has the right sensitivity
+			renameEntry_Changed (renameEntry, null);
+
+			// Update sensitivity of rename-related widgets
+			renameEntry.Sensitive = renameRadio.Active;
+			renameUpdateCheck.Sensitive = renameRadio.Active;
+		}
+		
+		public string HeaderText
+		{
+			set {
+				headerLabel.Markup = string.Format (
+					"<span size=\"large\" weight=\"bold\">{0}</span>",
+					value);
+			}
+		}
+		
+		public string MessageText
+		{
+			set { messageLabel.Text = value; }
 		}
 		
 		public string RenamedTitle
