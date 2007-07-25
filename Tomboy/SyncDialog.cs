@@ -112,7 +112,7 @@ namespace Tomboy
 			expandVBox.PackStart (scrolledWindow, true, true, 5);
 			
 			// Drop all that into into the Expander
-			expander = new Gtk.Expander ("Details");
+			expander = new Gtk.Expander (Catalog.GetString ("Details"));
 			expander.Add (expandVBox);
 			expander.Show ();
 			outerVBox.PackStart (expander, true, true, 5);
@@ -416,7 +416,7 @@ namespace Tomboy
 		private Gtk.RadioButton deleteExistingRadio;
 
 		public SyncTitleConflictDialog (Note existingNote) :
-			base ("Note Title Conflict", null, Gtk.DialogFlags.Modal)
+			base (Catalog.GetString ("Note Title Conflict"), null, Gtk.DialogFlags.Modal)
 		{
 			this.existingNote = existingNote;
 			string suggestedRenameBase = existingNote.Title + Catalog.GetString (" (old)");
@@ -424,8 +424,11 @@ namespace Tomboy
 			for (int i = 1; existingNote.Manager.Find (suggestedRename) != null; i++)
 				suggestedRename = suggestedRenameBase + " " + i.ToString();
 			
-			VBox.PackStart (new Gtk.Label ("The server already has a note called \"" +
-			                               existingNote.Title + "\".  What do you want to do with your local note?"));
+			Label label = new Gtk.Label (string.Format (Catalog.GetString ("The server already has a note called \"{0}\"."
+			                                                               + "  What do you want to do with your local note?"),
+			                                            existingNote.Title));
+			label.LineWrap = true;
+			VBox.PackStart (label);
 			
 			Gtk.HBox renameHBox = new Gtk.HBox ();
 			renameRadio = new Gtk.RadioButton ("Rename local note");
@@ -433,14 +436,14 @@ namespace Tomboy
 			
 			renameEntry = new Gtk.Entry (suggestedRename);
 			renameEntry.Changed += renameEntry_Changed;
-			renameUpdateCheck = new Gtk.CheckButton ("Update referencing notes to match new note title");
+			renameUpdateCheck = new Gtk.CheckButton (Catalog.GetString ("Update referencing notes to match new note title"));
 			renameOptionsVBox.PackStart (renameEntry);
 			renameOptionsVBox.PackStart (renameUpdateCheck);
 			renameHBox.PackStart (renameRadio);
 			renameHBox.PackStart (renameOptionsVBox);
 			VBox.PackStart (renameHBox);
 			
-			deleteExistingRadio = new Gtk.RadioButton (renameRadio, "Delete existing note");
+			deleteExistingRadio = new Gtk.RadioButton (renameRadio, Catalog.GetString ("Delete existing note"));
 			VBox.PackStart (deleteExistingRadio);
 			
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);

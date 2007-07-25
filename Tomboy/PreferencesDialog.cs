@@ -804,8 +804,6 @@ namespace Tomboy
 		
 		void OnSyncAddinComboChanged (object sender, EventArgs args)
 		{
-			Logger.Debug ("OnSyncAddinComboChanged");
-			
 			if (syncAddinPrefsWidget != null) {
 				syncAddinPrefsContainer.Remove (syncAddinPrefsWidget);
 				syncAddinPrefsWidget.Hide ();
@@ -835,7 +833,6 @@ namespace Tomboy
 		
 		void OnResetSyncAddinButton (object sender, EventArgs args)
 		{
-			Logger.Debug ("OnResetSyncAddinButton");
 			if (selectedSyncAddin == null)
 				return;
 			
@@ -894,7 +891,6 @@ namespace Tomboy
 		/// </summary>
 		void OnSaveSyncAddinButton (object sender, EventArgs args)
 		{
-			Logger.Debug ("OnSaveSyncAddinButton");
 			if (selectedSyncAddin == null)
 				return;
 			

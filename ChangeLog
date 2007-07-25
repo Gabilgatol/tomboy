@@ -1,3 +1,9 @@
+2007-07-24  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs, Tomboy/SyncDialog.cs,
+	  Tomboy/SyncManager.cs: Wrapping some strings in Catalog.GetString,
+	  plus some small comments/cleanups.
+
 2007-07-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/SyncDialog.cs: Testing some half-baked conflict handling

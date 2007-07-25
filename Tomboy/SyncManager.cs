@@ -492,7 +492,7 @@ Logger.Debug ("8");
 
 			// Update dialog's sync status
 			if (NoteSynchronized != null)
-				NoteSynchronized (localNote.Title, NoteSyncType.DownloadModified);
+				NoteSynchronized (localNote.Title, NoteSyncType.DownloadModified); // TODO: Not always this NoteSyncType!
 		}
 		
 		private static Note FindNoteByUUID (string uuid)
