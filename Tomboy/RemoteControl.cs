@@ -207,7 +207,7 @@ namespace Tomboy
 			return true;
 		}
 		
-		public bool SetNoteContentsCompleteXml (string uri, string xml_contents)
+		public bool SetNoteCompleteXml (string uri, string xml_contents)
 		{
 			Note note;
 			note = note_manager.FindByUri (uri);
@@ -215,6 +215,55 @@ namespace Tomboy
 				return false;
 			note.LoadForeignNoteXml (xml_contents);
 			return true;
+		}
+		
+		public bool GetNoteCompleteXml (string uri)
+		{
+			// TODO
+			return false;
+		}
+
+		public string[] GetTagsForNote (string uri)
+		{
+			Note note = note_manager.FindByUri (uri);
+			if (note == null)
+				return new string [0];
+			string [] tags = new string [note.Tags.Count];
+			for (int i = 0; i < tags.Length; i++)
+				tags [i] = note.Tags [i].NormalizedName;
+			return tags;
+		}
+		
+		public bool AddTagToNote (string uri, string tag_name)
+		{
+			Note note = note_manager.FindByUri (uri);
+			if (note == null)
+				return false;
+			Tag tag = TagManager.GetOrCreateTag (tag_name);
+			note.AddTag (tag);
+			return true;
+		}
+		
+		public bool RemoveTagFromNote (string uri, string tag_name)
+		{
+			Note note = note_manager.FindByUri (uri);
+			if (note == null)
+				return false;
+			Tag tag = TagManager.GetTag (tag_name);
+			if (tag != null)
+				note.RemoveTag (tag);
+			return true;
+		}
+		
+		public string[] GetAllNotesWithTag (string tag_name)
+		{
+			Tag tag = TagManager.GetTag (tag_name);
+			if (tag == null)
+				return new string [0];
+			string [] tagged_note_uris = new string [tag.Notes.Count];
+			for (int i = 0; i < tagged_note_uris.Length; i++)
+				tagged_note_uris [i] = tag.Notes [i].Uri;
+			return tagged_note_uris;
 		}
 	}
 }

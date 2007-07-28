@@ -633,7 +633,7 @@ namespace Tomboy
 
 									if (note_uri != null) {
 										// Load in the XML contents of the note file
-										if (remote.SetNoteContentsCompleteXml (note_uri, noteXml))
+										if (remote.SetNoteCompleteXml (note_uri, noteXml))
 											remote.DisplayNote (note_uri);
 									}
 								}
