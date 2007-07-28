@@ -206,10 +206,13 @@ Tomboy/Addins/GalagoPresence/Makefile
 Tomboy/Addins/NoteOfTheDay/Makefile
 Tomboy/Addins/PrintNotes/Makefile
 Tomboy/Addins/StickyNoteImport/Makefile
-Tomboy/Addins/Tasks/Makefile
 Tomboy/Addins/FileSystemSyncService/Makefile
 Tomboy/Addins/WebDavSyncService/Makefile
 Tomboy/Addins/SshSyncService/Makefile
 test/Makefile
 po/Makefile.in
 ])
+
+# Commenting out the Tasks Addin since it's not really ready for 0.8.
+#Tomboy/Addins/Tasks/Makefile
+

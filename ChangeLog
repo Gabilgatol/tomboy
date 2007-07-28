@@ -50,6 +50,27 @@
 	* Tomboy/FileSystemSyncServer.cs, Tomboy/AddinManager.cs: Comment
 	  cleanup.
 
+2007-07-21  Boyd Timothy <btimothy@gmail.com> 
+
+	Removing the Tasks Addin from being built/compiled
+	for 0.8.  It's not ready and this should prevent users
+	corrupting their notes.
+	
+	* configure.in: Commented out the line to build
+	  Tomboy/Addins/Tasks/Makefile.
+	* Tomboy/Addins/Makefile.am: Removed Tasks from the SUBDIRS line.
+
+2007-07-20  Jakub Steiner <jimmac@ximian.com>
+
+	* data/images/tag-22.png
+	* data/images/tag-32.png
+	* data/images/tag-24.png
+	* data/images/tag-16.png
+	* data/images/tag-48.png
+	* data/images/tag.svg: make the icon look less 'inactive'
+	* data/images/artwork.svg: use one canvas for all "source" in
+		future.
+
 2007-07-17  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy.mdp: Adding Synchronization/FuseSyncServiceAddin, removing
