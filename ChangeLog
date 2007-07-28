@@ -1,3 +1,30 @@
+2007-07-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.mdp, Tomboy/Makefile.am, Tomboy/Gnome.Keyring/NoteItemData.cs,
+	  Tomboy/Gnome.Keyring/sync-tree.sh, Tomboy/Gnome.Keyring/ItemACL.cs,
+	  Tomboy/Gnome.Keyring/AccessRights.cs,
+	  Tomboy/Gnome.Keyring/KeyringInfo.cs,
+	  Tomboy/Gnome.Keyring/GenericItemData.cs,
+	  Tomboy/Gnome.Keyring/KeyringException.cs,
+	  Tomboy/Gnome.Keyring/ItemData.cs,
+	  Tomboy/Gnome.Keyring/RequestMessage.cs,
+	  Tomboy/Gnome.Keyring/NetItemData.cs, Tomboy/Gnome.Keyring/Ring.cs,
+	  Tomboy/Gnome.Keyring/ItemType.cs,
+	  Tomboy/Gnome.Keyring/Operation.cs,
+	  Tomboy/Gnome.Keyring/ResponseMessage.cs,
+	  Tomboy/Gnome.Keyring/AttributeType.cs,
+	  Tomboy/Gnome.Keyring/ResultCode.cs: Bundling gnome-keyring-sharp. 
+	  Still need to set up makefiles so that we favor an
+	  already-installed Gnome.Keyring.dll.  Tomboy will work without a
+	  keyring daemon installed, but your passwords will not be saved.
+	* Tomboy/PreferencesDialog.cs: Fix syncAddinCombo sensitivity behavior.
+	* Tomboy/SyncDialog.cs: Double-clicking note entry in sync dialog now
+	  opens the associated note.
+	* Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Store all
+	  connection credentials in the GNOME keyring.  Need to add fallback
+	  support for GConf in the case where there is no keyring daemon, and
+	  prompt the user (repeatedly) for their password.
+
 2007-07-24  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/SyncDialog.cs: Improved SyncTitleConflictDialog content,

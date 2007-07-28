@@ -101,6 +101,8 @@ namespace Tomboy
 			column.Resizable = true;
 			treeView.AppendColumn (column);
 			
+			treeView.RowActivated += OnRowActivated;
+			
 			treeView.Show ();
 			
 			// Drop TreeView into a ScrolledWindow into a VBox
@@ -165,6 +167,20 @@ namespace Tomboy
 				this.Resizable = true;
 			else
 				this.Resizable = false;
+		}
+
+		void OnRowActivated (object sender, Gtk.RowActivatedArgs args)
+		{
+			// TODO: Store GUID hidden in model; use instead of title
+			Gtk.TreeIter iter;
+			if (!model.GetIter (out iter, args.Path)) 
+				return;
+
+			string noteTitle = (string) model.GetValue (iter, 0 /* note title */);
+			
+			Note note = Tomboy.DefaultNoteManager.Find (noteTitle); 
+			if (note != null)
+				note.Window.Present ();
 		}
 		
 		public string HeaderText

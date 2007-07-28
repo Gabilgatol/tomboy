@@ -73,6 +73,7 @@ CSFILES = 					\
 	$(srcdir)/Synchronization/*.cs		\
 	\
 	$(srcdir)/panelapplet/*.cs		\
+	$(srcdir)/Gnome.Keyring/*.cs		\
 	\
 	$(DBUS_CSFILES)	
 

@@ -367,7 +367,6 @@ namespace Tomboy
 			if (addin_id != null && syncAddinIters.ContainsKey (addin_id)) {
 				active_iter = syncAddinIters [addin_id];
 				syncAddinCombo.SetActiveIter (active_iter);
-				syncAddinCombo.Sensitive = false;
 			} else {
 				if (syncAddinStore.GetIterFirst (out active_iter) == true) {
 					syncAddinCombo.SetActiveIter (active_iter);
@@ -416,9 +415,11 @@ namespace Tomboy
 			if (selectedSyncAddin.IsConfigured) {
 				saveSyncAddinButton.Sensitive = false;
 				resetSyncAddinButton.Sensitive = true;
+				syncAddinCombo.Sensitive = false;
 			} else {
 				saveSyncAddinButton.Sensitive = true;
 				resetSyncAddinButton.Sensitive = false;
+				syncAddinCombo.Sensitive = true;
 			}
 			
 			bbox.Show ();

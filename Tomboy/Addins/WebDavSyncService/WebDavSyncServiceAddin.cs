@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,14 +9,23 @@ using Gtk;
 using Mono.Unix;
 
 using Tomboy;
+using Gnome.Keyring;
 
 namespace Tomboy.Sync
 {
 	public class WebDavSyncServiceAddin : FuseSyncServiceAddin
 	{
-		Entry urlEntry;
-		Entry usernameEntry;
-		Entry passwordEntry;
+		private Entry urlEntry;
+		private Entry usernameEntry;
+		private Entry passwordEntry;
+		
+		private const string keyring_item_name = "Tomboy sync WebDAV account";
+		private static Hashtable request_attributes = new Hashtable();
+		
+		static WebDavSyncServiceAddin ()
+		{
+			request_attributes ["name"] = keyring_item_name;
+		}
 		
 		/// <summary>
 		/// Creates a Gtk.Widget that's used to configure the service.  This
@@ -28,9 +38,9 @@ namespace Tomboy.Sync
 			Gtk.Table table = new Gtk.Table (3, 2, false);
 			
 			// Read settings out of gconf
-			string url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
-			string username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
-			string password = Preferences.Get ("/apps/tomboy/sync_wdfs_password") as String;
+			string url, username, password;			
+			GetConfigSettings (out url, out username, out password);
+			
 			if (url == null)
 				url = string.Empty;
 			if (username == null)
@@ -95,10 +105,7 @@ namespace Tomboy.Sync
 			string url, username, password;
 			GetPrefWidgetSettings (out url, out username, out password);
 			
-			Preferences.Set ("/apps/tomboy/sync_wdfs_url", url);
-			Preferences.Set ("/apps/tomboy/sync_wdfs_username", username);
-			// TODO: MUST FIX THIS.  DO NOT STORE CLEAR TEXT PASSWORD IN GCONF!
-			Preferences.Set ("/apps/tomboy/sync_wdfs_password", password);
+			SaveConfigSettings (url, username, password);
 		}
 
 		/// <summary>
@@ -106,9 +113,7 @@ namespace Tomboy.Sync
 		/// </summary>
 		protected override void ResetConfigurationValues ()
 		{
-			Preferences.Set ("/apps/tomboy/sync_wdfs_url", string.Empty);
-			Preferences.Set ("/apps/tomboy/sync_wdfs_username", string.Empty);
-			Preferences.Set ("/apps/tomboy/sync_wdfs_password", string.Empty);
+			SaveConfigSettings (string.Empty, string.Empty, string.Empty);
 			
 			// TODO: Unmount the FUSE mount!
 		}
@@ -170,15 +175,72 @@ namespace Tomboy.Sync
 		/// </summary>
 		private bool GetConfigSettings (out string url, out string username, out string password)
 		{
-			url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
-			username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
-			password = Preferences.Get ("/apps/tomboy/sync_wdfs_password") as String;
-				
+			// Retrieve configuration from the GNOME Keyring
+			url = null;
+			username = null;
+			password = null;
+			
+			try {
+				foreach (ItemData result in Ring.Find (ItemType.NetworkPassword, request_attributes)) {
+					if (result.Attributes ["name"] as string != keyring_item_name)
+						continue;
+
+					username = ((string) result.Attributes ["user"]).Trim ();
+					url = ((string) result.Attributes ["url"]).Trim ();
+					password = result.Secret.Trim ();
+				}
+			} catch (KeyringException ke) {
+				Logger.Warn ("Getting configuration from the GNOME " +
+				              "keyring failed with the following message: " +
+				              ke.Message);
+				// TODO: If the following fails, retrieve all but password from GConf,
+				//       and prompt user for password. (some password caching would be nice, too)
+				// Retrieve configuration from GConf
+				//url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
+				//username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
+				//password = null; // TODO: Prompt user for password
+				throw;
+			}
+			
 			return !string.IsNullOrEmpty (url)
 					&& !string.IsNullOrEmpty (username)
 					&& !string.IsNullOrEmpty (password);
 		}
+		
+		/// <summary>
+		/// Save config settings
+		/// </summary>
+		private void SaveConfigSettings (string url, string username, string password)
+		{
+			// Save configuration into the GNOME Keyring
+			try {
+				Hashtable update_request_attributes = request_attributes.Clone () as Hashtable;
+				update_request_attributes ["user"] = username;
+				update_request_attributes ["url"] = url;
 
+				ItemData [] items = Ring.Find (ItemType.NetworkPassword, request_attributes);
+				string keyring = Ring.GetDefaultKeyring ();
+
+				if (items.Length == 0)
+					Ring.CreateItem (keyring, ItemType.NetworkPassword, keyring_item_name, 
+					                update_request_attributes, password, true);
+				else {
+					Ring.SetItemInfo (keyring, items [0].ItemID, ItemType.NetworkPassword, 
+					                 keyring_item_name, password);
+					Ring.SetItemAttributes (keyring, items [0].ItemID, update_request_attributes);
+				}
+			} catch (KeyringException ke) {
+				Logger.Warn ("Saving configuration to the GNOME " +
+				              "keyring failed with the following message: " +
+				              ke.Message);
+				// TODO: If the above fails (no keyring daemon), save all but password
+				//       to GConf, and notify user.
+				// Save configuration into GConf
+				//Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+				//Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+				throw;
+			}
+		}
 		
 		/// <summary>
 		/// Get config settings
