@@ -1,5 +1,14 @@
 2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/PreferencesDialog.cs,
+	  Tomboy/Addins/Evolution/Evolution.addin.xml,
+	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml: Wrapping description
+	  text in AddinInfoDialog.
+	* Tomboy/Addins/SshSyncService/SshSyncService.addin.xml: Disabling by
+	  default.
+
+2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncDialog.cs: Better conflict handling; also added "Always
 	  perform this action" check button.
 	* Tomboy/SyncManager.cs: Conflict handling and other fixes.

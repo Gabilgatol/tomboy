@@ -982,6 +982,7 @@ namespace Tomboy
 			info_label.Yalign = 0;
 			info_label.UseMarkup = true;
 			info_label.UseUnderline = false;
+			info_label.Wrap = true;
 			
 			Gtk.HBox hbox = new Gtk.HBox (false, 6);
 			Gtk.VBox vbox = new Gtk.VBox (false, 12);

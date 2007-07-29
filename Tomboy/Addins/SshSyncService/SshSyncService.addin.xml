@@ -4,7 +4,7 @@
 	author="Tomboy Project"
 	description="Synchronize Tomboy Notes to a SSH share"
 	category="Synchronization"
-	defaultEnabled="true"
+	defaultEnabled="false"
 	version="0.1">
 
 	<Runtime>
