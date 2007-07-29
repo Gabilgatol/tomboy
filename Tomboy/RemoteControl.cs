@@ -186,6 +186,15 @@ namespace Tomboy
 				return "";
 			return note.XmlContent;
 		}
+		
+		public string GetNoteCompleteXml (string uri)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return "";
+			return note.GetCompleteNoteXml () ?? string.Empty;
+		}
 
 		public bool SetNoteContents (string uri, string text_contents)
 		{
@@ -215,12 +224,6 @@ namespace Tomboy
 				return false;
 			note.LoadForeignNoteXml (xml_contents);
 			return true;
-		}
-		
-		public bool GetNoteCompleteXml (string uri)
-		{
-			// TODO
-			return false;
 		}
 
 		public string[] GetTagsForNote (string uri)

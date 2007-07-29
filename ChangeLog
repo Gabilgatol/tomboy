@@ -1,3 +1,19 @@
+2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/SyncDialog.cs: Better conflict handling; also added "Always
+	  perform this action" check button.
+	* Tomboy/SyncManager.cs: Conflict handling and other fixes.
+	* Tomboy/Watchers.cs: In the NoteRenameWatcher, handle a rename when
+	  the editor widget loses focus.
+	* Tomboy/RemoteControl.cs: Implemented GetNoteCompleteXml.
+	* Tomboy/NoteManager.cs: Updated conflicting title exception messages
+	  to say what the title is.
+	* Tomboy/Preferences.cs: Added SYNC_CONFIGURED_CONFLICT_BEHAVIOR. 
+	  Still need to expose in preferences dialog.
+	* Tomboy/Note.cs: Added GetCompleteNoteXml and RenameWithoutLinkUpdate
+	  methods.  Ensuring that any time the note title is changed, a save
+	  is queued.
+
 2007-07-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Tomboy.cs, Tomboy/RemoteControl.cs: Renaming

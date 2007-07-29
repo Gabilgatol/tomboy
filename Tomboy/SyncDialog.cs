@@ -63,7 +63,6 @@ namespace Tomboy
 			outerVBox.PackStart (hbox, false, false, 0);
 			
 			progressBar = new Gtk.ProgressBar ();
-			//progressBar.Text = "Contacting Server...";
 			progressBar.Orientation = Gtk.ProgressBarOrientation.LeftToRight;
 			progressBar.BarStyle = ProgressBarStyle.Continuous;
 			progressBar.ActivityBlocks = 30;
@@ -207,18 +206,6 @@ namespace Tomboy
 			}
 		}
 		
-//		public double ProgressFraction
-//		{
-//			get { return progressBar.Fraction; }
-//			set { progressBar.Fraction = value;}
-//		}
-		
-//		public bool CloseSensitive
-//		{
-//			get { return closeButton.Sensitive; }
-//			set { closeButton.Sensitive = value; }
-//		}
-		
 		public void AddUpdateItem (string title, string status)
 		{
 			model.AppendValues (title, status);
@@ -357,30 +344,50 @@ namespace Tomboy
 		
 		void OnNoteConflictDetected (NoteManager manager, Note localConflictNote)
 		{
+			SyncTitleConflictResolution savedBehavior = SyncTitleConflictResolution.Cancel;
+			object dlgBehaviorPref = Preferences.Get (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR);
+			if (dlgBehaviorPref != null && dlgBehaviorPref is int) // TODO: Check range of this int
+				savedBehavior = (SyncTitleConflictResolution)dlgBehaviorPref;
+			
 			SyncTitleConflictResolution resolution = SyncTitleConflictResolution.DeleteExisting;
 			// This event handler will be called by the synchronization thread
 			// so we have to use the delegate here to manipulate the GUI.
 			Gtk.Application.Invoke (delegate {
 				SyncTitleConflictDialog conflictDlg =
 					new SyncTitleConflictDialog (localConflictNote);
-				Gtk.ResponseType reponse = (Gtk.ResponseType) conflictDlg.Run ();
+				Gtk.ResponseType reponse = Gtk.ResponseType.Ok;
+				if (savedBehavior == 0)
+					reponse = (Gtk.ResponseType) conflictDlg.Run ();
+					
 				
 				if (reponse == Gtk.ResponseType.Cancel)
 					resolution = SyncTitleConflictResolution.Cancel;
 				else {
-					resolution = conflictDlg.Resolution;
+					if (savedBehavior == 0)
+						resolution = conflictDlg.Resolution;
+					else
+						resolution = savedBehavior;
 					switch (resolution) {
 					case SyncTitleConflictResolution.DeleteExisting:
+						if (conflictDlg.AlwaysPerformThisAction)
+							savedBehavior = resolution;
 						manager.Delete (localConflictNote);
 						break;
 					case SyncTitleConflictResolution.RenameExistingAndUpdate:
+						if (conflictDlg.AlwaysPerformThisAction)
+							savedBehavior = resolution;
 						RenameNote (localConflictNote, conflictDlg.RenamedTitle, true);
 						break;
 					case SyncTitleConflictResolution.RenameExistingNoUpdate:
+						if (conflictDlg.AlwaysPerformThisAction)
+							savedBehavior = resolution;
 						RenameNote (localConflictNote, conflictDlg.RenamedTitle, false);
 						break;
 					}
 				}
+				
+				Preferences.Set (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR,
+				                 (int) savedBehavior); // TODO: Clean up
 				
 				conflictDlg.Hide ();
 				conflictDlg.Destroy ();
@@ -397,23 +404,30 @@ namespace Tomboy
 		//       in the content.
 		private void RenameNote (Note note, string newTitle, bool updateReferencingNotes)
 		{
+			// Rename the note
 			string oldTitle = note.Title;
-			if (updateReferencingNotes)
+			if (updateReferencingNotes) // NOTE: This might never work, or lead to a ton of conflicts
 				note.Title = newTitle;
 			else
-				note.Data.Title = newTitle;
+				note.RenameWithoutLinkUpdate (newTitle);
 			string oldContent = note.XmlContent;
 			note.XmlContent = NoteArchiver.Instance.GetRenamedNoteXml (oldContent, oldTitle, newTitle);
-			
-			// Testing... (the idea being that if the renamed note has a new GUID, conflict handling is easy)
-			Logger.Debug ("Entering the realm of testing in RenameNote");
-			//bool noteOpen = note.IsOpened;
+
+			// Preserve note information
+			note.Save (); // Write to file
+			bool noteOpen = note.IsOpened;
 			string newContent = note.XmlContent;
-			Tomboy.DefaultNoteManager.Delete (note);
-			Note renamedNote = Tomboy.DefaultNoteManager.Create (newTitle, newContent); // TODO: Doesn't handle tags, etc!
-			//if (noteOpen)
-			//	renamedNote.Window.Present ();
+			string newCompleteContent = note.GetCompleteNoteXml ();
 			
+			// We delete and recreate the note to simplify content conflict handling
+			Tomboy.DefaultNoteManager.Delete (note);
+			
+			// Create note with old XmlContent just in case GetCompleteNoteXml failed
+			Note renamedNote = Tomboy.DefaultNoteManager.Create (newTitle, newContent);
+			if (newCompleteContent != null) // TODO: Anything to do if it is null?
+				renamedNote.LoadForeignNoteXml (newCompleteContent);
+			if (noteOpen)
+				renamedNote.Window.Present ();
 		}
 #endregion // Private Methods
 		
@@ -430,6 +444,7 @@ namespace Tomboy
 		private Gtk.CheckButton renameUpdateCheck;
 		private Gtk.RadioButton renameRadio;
 		private Gtk.RadioButton deleteExistingRadio;
+		private Gtk.CheckButton alwaysDoThisCheck;
 		
 		private Gtk.Label headerLabel;
 		private Gtk.Label messageLabel;
@@ -438,6 +453,7 @@ namespace Tomboy
 			base (Catalog.GetString ("Note Title Conflict"), null, Gtk.DialogFlags.Modal)
 		{
 			this.existingNote = existingNote;
+			// Suggest renaming note by appending " (old)" to the existing title
 			string suggestedRenameBase = existingNote.Title + Catalog.GetString (" (old)");
 			string suggestedRename = suggestedRenameBase;
 			for (int i = 1; existingNote.Manager.Find (suggestedRename) != null; i++)
@@ -473,12 +489,11 @@ namespace Tomboy
 			hbox.PackStart (vbox, true, true, 0);
 			
 			hbox.Show ();
-			//VBox.PackStart (hbox);
 			outerVBox.PackStart (hbox);
 			VBox.PackStart (outerVBox);
 			
 			Gtk.HBox renameHBox = new Gtk.HBox ();
-			renameRadio = new Gtk.RadioButton ("Rename local note");
+			renameRadio = new Gtk.RadioButton (Catalog.GetString ("Rename local note:"));
 			renameRadio.Toggled += radio_Toggled;
 			Gtk.VBox renameOptionsVBox = new Gtk.VBox ();
 			
@@ -486,7 +501,7 @@ namespace Tomboy
 			renameEntry.Changed += renameEntry_Changed;
 			renameUpdateCheck = new Gtk.CheckButton (Catalog.GetString ("Update links in referencing notes"));
 			renameOptionsVBox.PackStart (renameEntry);
-			renameOptionsVBox.PackStart (renameUpdateCheck);
+			//renameOptionsVBox.PackStart (renameUpdateCheck); // This seems like a superfluous option
 			renameHBox.PackStart (renameRadio);
 			renameHBox.PackStart (renameOptionsVBox);
 			VBox.PackStart (renameHBox);
@@ -494,6 +509,9 @@ namespace Tomboy
 			deleteExistingRadio = new Gtk.RadioButton (renameRadio, Catalog.GetString ("Delete existing note"));
 			deleteExistingRadio.Toggled += radio_Toggled;
 			VBox.PackStart (deleteExistingRadio);
+			
+			alwaysDoThisCheck = new Gtk.CheckButton (Catalog.GetString ("Always perform this action"));
+			VBox.PackStart (alwaysDoThisCheck);
 			
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
 			continueButton = (Gtk.Button) AddButton (Gtk.Stock.GoForward, Gtk.ResponseType.Accept);
@@ -546,6 +564,11 @@ namespace Tomboy
 			get { return renameEntry.Text; }
 		}
 		
+		public bool AlwaysPerformThisAction
+		{
+			get { return alwaysDoThisCheck.Active; }
+		}
+		
 		public SyncTitleConflictResolution Resolution
 		{
 			get
@@ -562,11 +585,12 @@ namespace Tomboy
 		}
 	}	
 
+	// NOTE: These enum int values are used to save the default behavior for this dialog
 	public enum SyncTitleConflictResolution
 	{
-		Cancel,
-		RenameExistingNoUpdate,
-		RenameExistingAndUpdate,
-		DeleteExisting
+		Cancel = 0,
+		DeleteExisting = 1,
+		RenameExistingNoUpdate = 2,
+		RenameExistingAndUpdate = 3 // Hidden option, not exposed in UI
 	}
 }

@@ -31,6 +31,7 @@ namespace Tomboy
 		public const string SYNC_CLIENT_ID = "/apps/tomboy/sync_guid"; // TODO: Rename, put in schema, etc.
 		public const string SYNC_LOCAL_PATH = "/apps/tomboy/sync_local_path"; // TODO: Rename, put in schema, etc.
 		public const string SYNC_SELECTED_SERVICE_ADDIN = "/apps/tomboy/sync_selected_service_addin"; // TODO: Rename, put in schema, etc.
+		public const string SYNC_CONFIGURED_CONFLICT_BEHAVIOR = "/apps/tomboy/sync_conflict_behavior"; // TODO: Rename, put in schema, etc.
 
 		static GConf.Client client;
 		static GConf.NotifyEventHandler changed_handler;
@@ -106,6 +107,9 @@ namespace Tomboy
 			
 			case SYNC_LOCAL_PATH:
 				return string.Empty;
+
+			case SYNC_CONFIGURED_CONFLICT_BEHAVIOR:
+				return 0;
 			}
 
 			return null;

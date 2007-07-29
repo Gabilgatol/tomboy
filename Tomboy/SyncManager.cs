@@ -193,6 +193,7 @@ namespace Tomboy
 		{
 			if (syncThread != null) {
 				// A synchronization thread is already running
+				// TODO: Start new sync if existing dlg is for finished sync
 				Tomboy.SyncDialog.Present ();
 				return;
 			}
@@ -208,6 +209,8 @@ namespace Tomboy
 		/// </summary>
 		public static void SynchronizationThread ()
 		{
+			// TODO: Try/finally this entire method so GUI doesn't hang?
+
 			SyncServiceAddin addin = GetConfiguredSyncService ();
 			if (addin == null) {
 				SetState (SyncState.NoConfiguredSyncService);
@@ -311,41 +314,35 @@ Logger.Debug ("8");
 				SetState (SyncState.Downloading);
 
 			// The following loop may need to update GUIs in the main thread
-			// TODO: Extract a method here
-			// TODO: Don't wrap whole thing in Invoke...only wrap things
-			//       that will update GUI.  We keep getting 97 rename windows...
-			//       need suspends, etc, like above
+			// TODO: Figure out why GUI doesn't always update smoothly
 
-			foreach (NoteUpdate note in noteUpdates.Values) {
-				Note existingNote = FindNoteByUUID (note.UUID);
-				NoteSyncType syncType;
+			foreach (NoteUpdate noteUpdate in noteUpdates.Values) {
+				Note existingNote = FindNoteByUUID (noteUpdate.UUID);
 
 				if (existingNote == null) {
-					CreateNoteInMainThread (note);
+					CreateNoteInMainThread (noteUpdate);
 				} else if (existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {
 					// Existing note hasn't been modified since last sync; simply update it from server
-					UpdateNoteInMainThread (existingNote, note);
+					UpdateNoteInMainThread (existingNote, noteUpdate);
 				} else {
 					Logger.Debug (string.Format (
 					"SyncManager: Content conflict in note update for note '{0}'",
-				        note.Title));
+				        noteUpdate.Title));
 					// Note already exists locally, but has been modified since last sync; prompt user
-					// TODO: Thread stuff may be wonky here (already in invoke):
-					// TODO: Rename here should create a note with a new GUID!
-					if (NoteConflictDetected != null) // TODO: How to handle if this were ever null?
+					if (NoteConflictDetected != null) {
 						NoteConflictDetected (NoteMgr, existingNote);
 						
-					// Suspend this thread while the GUI is presented to
-					// the user.
-					syncThread.Suspend ();
-						
-						// TODO: Figure this all out!!!
-						
-					// Note should have been deleted (TODO: Does this make any sense?)
-					existingNote = FindNoteByUUID (note.UUID);
+						// Suspend this thread while the GUI is presented to
+						// the user.
+						syncThread.Suspend ();
+					}
+	
+					// Note should have been deleted so we create; updated either way
+					existingNote = FindNoteByUUID (noteUpdate.UUID);
 					if (existingNote == null)
-						existingNote = NoteMgr.CreateWithGuid (note.Title, note.UUID);
-					syncType = NoteSyncType.DownloadModified;
+						CreateNoteInMainThread (noteUpdate);
+					else
+						UpdateNoteInMainThread (existingNote, noteUpdate);
 				}
 			}
 
@@ -464,7 +461,7 @@ Logger.Debug ("8");
 			AutoResetEvent evt = new AutoResetEvent (false);
 			Gtk.Application.Invoke (delegate {
 				Note existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
-				UpdateLocalNote (existingNote, noteUpdate);
+				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
 						
 				evt.Set ();
 			});
@@ -476,7 +473,7 @@ Logger.Debug ("8");
 		{
 			AutoResetEvent evt = new AutoResetEvent (false);
 			Gtk.Application.Invoke (delegate {
-				UpdateLocalNote (existingNote, noteUpdate);
+				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadModified);
 
 				evt.Set ();
 			});
@@ -484,7 +481,7 @@ Logger.Debug ("8");
 			evt.WaitOne ();				
 		}
 		
-		private static void UpdateLocalNote (Note localNote, NoteUpdate serverNote)
+		private static void UpdateLocalNote (Note localNote, NoteUpdate serverNote, NoteSyncType syncType)
 		{
 			// In each case, update existingNote's content and revision
 			localNote.LoadForeignNoteXml (serverNote.XmlContent);
@@ -492,7 +489,7 @@ Logger.Debug ("8");
 
 			// Update dialog's sync status
 			if (NoteSynchronized != null)
-				NoteSynchronized (localNote.Title, NoteSyncType.DownloadModified); // TODO: Not always this NoteSyncType!
+				NoteSynchronized (localNote.Title, syncType);
 		}
 		
 		private static Note FindNoteByUUID (string uuid)

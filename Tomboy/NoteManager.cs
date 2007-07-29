@@ -400,7 +400,7 @@ namespace Tomboy
 				throw new Exception ("Invalid title");
 
 			if (Find (title) != null)
-				throw new Exception ("A note with this title already exists");
+				throw new Exception ("A note with this title already exists: " + title);
 
 			string filename;
 			if (guid != null)
