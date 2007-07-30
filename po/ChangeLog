@@ -1,3 +1,43 @@
+2007-07-27  Claude Paroz <claude@2xlibre.net>
+
+	* POTFILES.skip: Added three more files ommitted from the previous commit.
+
+2007-07-26  Claude Paroz <claude@2xlibre.net>
+
+	reviewed by: Sanford Armstrong
+
+	* POTFILES.in:
+	* POTFILES.skip: Moved some Mono.Addins files from .in (commented) to .skip.
+	Fixes bug #458966.
+
+2007-07-25  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation by aka.ape <aka.ape@gmail.com>.
+
+2007-07-21 Gabor Kelemen  <kelemeng@gnome.hu>
+
+	* hu.po: Translation updated.
+
+2007-07-20  Takeshi AIHANA <takeshi.aihana@gmail.com>
+
+	* ja.po: Updated Japanese translation.
+
+2007-07-17  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-07-16  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-07-16  Vincent van Adrighem  <adrighem@gnome.org>
+
+	* nl.po: Translation updated by Tino Meinen.
+
+2007-07-15  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation update by Ivar Smolin.
+
 2007-07-13  Priit Laes  <plaes@svn.gnome.org>
 
 	* et.po: Estonian translation update by Ivar Smolin.
