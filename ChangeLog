@@ -1,3 +1,7 @@
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/TomboySyncClient.cs: "Fixed" manifest parsing code.
+
 2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Don't

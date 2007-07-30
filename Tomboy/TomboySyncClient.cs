@@ -16,7 +16,8 @@ namespace Tomboy
 		private Dictionary<string, string> deletedNotes;
 		
 		public TomboySyncClient ()
-		{			
+		{
+			// TODO: Why doesn't OnChanged ever get fired?!
 			FileSystemWatcher w = new FileSystemWatcher ();
 			w.Path = Tomboy.DefaultNoteManager.NoteDirectoryPath;
 			w.Filter = localManifestFileName;
@@ -61,29 +62,33 @@ namespace Tomboy
 			doc.Load (fs);
 			
 			// TODO: Error checking
-			foreach (XmlNode noteNode in doc.SelectNodes ("//note-revisions/note")) {
-				string guid = noteNode.Attributes ["guid"].InnerXml;
-				int revision = -1;
-				try {
-					revision = int.Parse (noteNode.Attributes ["latest-revision"].InnerXml);
-				} catch { }
-				
-				fileRevisions [guid] = revision;
+			foreach (XmlNode revisionsNode in doc.GetElementsByTagName ("note-revisions")) {
+				foreach (XmlNode noteNode in revisionsNode.ChildNodes) {
+					string guid = noteNode.Attributes ["guid"].InnerXml;
+					int revision = -1;
+					try {
+						revision = int.Parse (noteNode.Attributes ["latest-revision"].InnerXml);
+					} catch { }
+					
+					fileRevisions [guid] = revision;
+					Logger.Debug ("Manifest says: revision " + revision.ToString ()
+					              + " for guid " + guid);
+				}
 			}
 
-			foreach (XmlNode noteNode in doc.SelectNodes ("//note-deletions/note")) {
-				string guid = noteNode.Attributes ["guid"].InnerXml;
-				string title = noteNode.Attributes ["title"].InnerXml;
+			foreach (XmlNode deletionsNode in doc.GetElementsByTagName ("note-deletions")) {
+				foreach (XmlNode noteNode in deletionsNode.ChildNodes) {
+					string guid = noteNode.Attributes ["guid"].InnerXml;
+					string title = noteNode.Attributes ["title"].InnerXml;
 
-				deletedNotes [guid] = title;
+					deletedNotes [guid] = title;
+				}
 			}
 
-			XmlNode node = doc.SelectSingleNode ("//last-sync-rev/text ()");
-			if (node != null)
+			foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-rev"))
 				lastSyncRev = int.Parse (node.InnerText);
 
-			node = doc.SelectSingleNode ("//last-sync-date/text ()");
-			if (node != null)
+			foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-date"))
 				lastSyncDate = XmlConvert.ToDateTime (node.InnerText);
 			
 			fs.Close ();
