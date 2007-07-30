@@ -342,7 +342,7 @@ namespace Tomboy
 			});
 		}
 		
-		void OnNoteConflictDetected (NoteManager manager, Note localConflictNote)
+		void OnNoteConflictDetected (NoteManager manager, Note localConflictNote, NoteUpdate remoteNote)
 		{
 			SyncTitleConflictResolution savedBehavior = SyncTitleConflictResolution.Cancel;
 			object dlgBehaviorPref = Preferences.Get (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR);
@@ -356,17 +356,27 @@ namespace Tomboy
 				SyncTitleConflictDialog conflictDlg =
 					new SyncTitleConflictDialog (localConflictNote);
 				Gtk.ResponseType reponse = Gtk.ResponseType.Ok;
-				if (savedBehavior == 0)
+				
+				bool noteSyncBitsMatch =
+					SyncManager.SynchronizedNoteXmlMatches (localConflictNote.GetCompleteNoteXml (),
+					                                        remoteNote.XmlContent);
+				
+				// If the synchronized note content is in conflict
+				// and there is no saved conflict handling behavior, show the dialog
+				if (!noteSyncBitsMatch && savedBehavior == 0)
 					reponse = (Gtk.ResponseType) conflictDlg.Run ();
 					
 				
 				if (reponse == Gtk.ResponseType.Cancel)
 					resolution = SyncTitleConflictResolution.Cancel;
 				else {
-					if (savedBehavior == 0)
+					if (noteSyncBitsMatch)
+						resolution = SyncTitleConflictResolution.DeleteExisting;
+					else if (savedBehavior == 0)
 						resolution = conflictDlg.Resolution;
 					else
 						resolution = savedBehavior;
+
 					switch (resolution) {
 					case SyncTitleConflictResolution.DeleteExisting:
 						if (conflictDlg.AlwaysPerformThisAction)

@@ -1,5 +1,12 @@
 2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/SyncDialog.cs, Tomboy/SyncManager.cs: Smarter conflict/content
+	  handling.  If note title/content/tags aren't in conflict, it's not
+	  really a conflict, and there's no point in prompting the user. 
+	  Just overwrite with server version.
+
+2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/PreferencesDialog.cs,
 	  Tomboy/Addins/Evolution/Evolution.addin.xml,
 	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml: Wrapping description

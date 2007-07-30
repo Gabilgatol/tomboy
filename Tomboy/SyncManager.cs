@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 using System.Threading;
 
@@ -109,7 +110,7 @@ namespace Tomboy
 	/// <summary>
 	/// Handle a note conflict
 	/// </summary>
-	public delegate void NoteConflictHandler (NoteManager manager, Note localConflictNote);
+	public delegate void NoteConflictHandler (NoteManager manager, Note localConflictNote, NoteUpdate remoteNote);
 	
 	public class SyncManager
 	{
@@ -288,7 +289,7 @@ Logger.Debug ("8");
 					Note existingNote = NoteMgr.Find (noteUpdate.Title);
 					if (existingNote != null) {
 						if (NoteConflictDetected != null) {
-							NoteConflictDetected (NoteMgr, existingNote);
+							NoteConflictDetected (NoteMgr, existingNote, noteUpdate);
 							
 							// Suspend this thread while the GUI is presented to
 							// the user.
@@ -330,7 +331,7 @@ Logger.Debug ("8");
 				        noteUpdate.Title));
 					// Note already exists locally, but has been modified since last sync; prompt user
 					if (NoteConflictDetected != null) {
-						NoteConflictDetected (NoteMgr, existingNote);
+						NoteConflictDetected (NoteMgr, existingNote, noteUpdate);
 						
 						// Suspend this thread while the GUI is presented to
 						// the user.
@@ -500,6 +501,63 @@ Logger.Debug ("8");
 		private static NoteManager NoteMgr
 		{
 			get { return Tomboy.DefaultNoteManager; }
+		}
+		
+		public static bool SynchronizedNoteXmlMatches (string noteXml1, string noteXml2)
+		{
+			try {
+				// TODO: I prefer XPath code.  Why doesn't this work? (SelectSingleNode returns null)
+				/*XmlDocument doc1 = new XmlDocument ();
+				XmlDocument doc2 = new XmlDocument ();
+
+				doc1.LoadXml (noteXml1);
+				doc2.LoadXml (noteXml2);
+
+				// Check parts of XML that truly differentiate note content
+				// (enough that we don't need to prompt the user)
+				return (XmlNodesMatch (doc1.SelectSingleNode ("//tags"), doc2.SelectSingleNode ("//tags")) &&
+				        XmlNodesMatch (doc1.SelectSingleNode ("//title"), doc2.SelectSingleNode ("//title")) &&
+					XmlNodesMatch (doc1.SelectSingleNode ("//text"), doc2.SelectSingleNode ("//text")));
+				*/
+
+				string title1, tags1, content1;
+				string title2, tags2, content2;
+				
+				GetSynchronizedXmlBits (noteXml1, out title1, out tags1, out content1);
+				GetSynchronizedXmlBits (noteXml2, out title2, out tags2, out content2);
+				
+				return title1 == title2 && tags1 == tags2 && content1 == content2;
+			} catch (Exception e){
+				Logger.Debug ("SynchronizedNoteXmlMatches threw exception with message: " + e.Message);
+				return false;
+			}
+		}
+		
+		private static void GetSynchronizedXmlBits (string noteXml, out string title, out string tags, out string content)
+		{
+			title = null;
+			tags = null;
+			content = null;
+
+			XmlTextReader xml = new XmlTextReader (new StringReader (noteXml));
+			while (xml.Read ()) {
+				switch (xml.NodeType) {
+				case XmlNodeType.Element:
+					switch (xml.Name) {
+					case "title":
+						title = xml.ReadString ();
+						break;
+					case "tags":
+						tags = xml.ReadInnerXml ();
+						Logger.Debug ("In the bits: tags = " + tags); // TODO: Delete
+						break;
+					case "text":
+						content = xml.ReadInnerXml ();
+						break;
+					}
+					break;
+				}
+			}
 		}
 		
 //		private static void OnSyncDialogResponse (object sender, Gtk.ResponseArgs args)
