@@ -460,7 +460,7 @@ namespace Tomboy
 		private Gtk.Label messageLabel;
 
 		public SyncTitleConflictDialog (Note existingNote) :
-			base (Catalog.GetString ("Note Title Conflict"), null, Gtk.DialogFlags.Modal)
+			base (Catalog.GetString ("Note Conflict"), null, Gtk.DialogFlags.Modal)
 		{
 			this.existingNote = existingNote;
 			// Suggest renaming note by appending " (old)" to the existing title
@@ -516,19 +516,19 @@ namespace Tomboy
 			renameHBox.PackStart (renameOptionsVBox);
 			VBox.PackStart (renameHBox);
 			
-			deleteExistingRadio = new Gtk.RadioButton (renameRadio, Catalog.GetString ("Delete existing note"));
+			deleteExistingRadio = new Gtk.RadioButton (renameRadio, Catalog.GetString ("Overwrite local note"));
 			deleteExistingRadio.Toggled += radio_Toggled;
 			VBox.PackStart (deleteExistingRadio);
 			
 			alwaysDoThisCheck = new Gtk.CheckButton (Catalog.GetString ("Always perform this action"));
 			VBox.PackStart (alwaysDoThisCheck);
 			
-			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
+			//AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel); // Simplifying...user doesn't need cancel option
 			continueButton = (Gtk.Button) AddButton (Gtk.Stock.GoForward, Gtk.ResponseType.Accept);
 			
 			// Set initial dialog text
 			HeaderText = Catalog.GetString ("Note conflict detected");
-			MessageText = string.Format (Catalog.GetString ("The server already has a note called \"{0}\"."
+			MessageText = string.Format (Catalog.GetString ("The server version of \"{0}\" conflicts with your local note."
 			                                                + "  What do you want to do with your local note?"),
 			                             existingNote.Title);
 			

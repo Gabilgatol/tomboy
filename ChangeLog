@@ -1,5 +1,10 @@
 2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy.mdp: Adding Mono.Addins just like trunk.
+	* Tomboy/SyncDialog.cs: Simplifying conflict UI.
+
+2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncDialog.cs, Tomboy/SyncManager.cs: Smarter conflict/content
 	  handling.  If note title/content/tags aren't in conflict, it's not
 	  really a conflict, and there's no point in prompting the user. 
