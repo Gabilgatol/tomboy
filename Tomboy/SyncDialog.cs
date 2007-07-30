@@ -349,7 +349,7 @@ namespace Tomboy
 			if (dlgBehaviorPref != null && dlgBehaviorPref is int) // TODO: Check range of this int
 				savedBehavior = (SyncTitleConflictResolution)dlgBehaviorPref;
 			
-			SyncTitleConflictResolution resolution = SyncTitleConflictResolution.DeleteExisting;
+			SyncTitleConflictResolution resolution = SyncTitleConflictResolution.OverwriteExisting;
 			// This event handler will be called by the synchronization thread
 			// so we have to use the delegate here to manipulate the GUI.
 			Gtk.Application.Invoke (delegate {
@@ -371,17 +371,19 @@ namespace Tomboy
 					resolution = SyncTitleConflictResolution.Cancel;
 				else {
 					if (noteSyncBitsMatch)
-						resolution = SyncTitleConflictResolution.DeleteExisting;
+						resolution = SyncTitleConflictResolution.OverwriteExisting;
 					else if (savedBehavior == 0)
 						resolution = conflictDlg.Resolution;
 					else
 						resolution = savedBehavior;
 
 					switch (resolution) {
-					case SyncTitleConflictResolution.DeleteExisting:
+					case SyncTitleConflictResolution.OverwriteExisting:
 						if (conflictDlg.AlwaysPerformThisAction)
 							savedBehavior = resolution;
-						manager.Delete (localConflictNote);
+						// No need to delete if sync will overwrite
+						if (localConflictNote.Id != remoteNote.UUID)
+							manager.Delete (localConflictNote);
 						break;
 					case SyncTitleConflictResolution.RenameExistingAndUpdate:
 						if (conflictDlg.AlwaysPerformThisAction)
@@ -414,25 +416,30 @@ namespace Tomboy
 		//       in the content.
 		private void RenameNote (Note note, string newTitle, bool updateReferencingNotes)
 		{
-			// Rename the note
 			string oldTitle = note.Title;
-			if (updateReferencingNotes) // NOTE: This might never work, or lead to a ton of conflicts
-				note.Title = newTitle;
-			else
-				note.RenameWithoutLinkUpdate (newTitle);
-			string oldContent = note.XmlContent;
-			note.XmlContent = NoteArchiver.Instance.GetRenamedNoteXml (oldContent, oldTitle, newTitle);
+			// Rename the note (skip for now...never using updateReferencingNotes option)
+			//if (updateReferencingNotes) // NOTE: This might never work, or lead to a ton of conflicts
+			//	note.Title = newTitle;
+			//else
+			//	note.RenameWithoutLinkUpdate (newTitle);
+			//string oldContent = note.XmlContent;
+			//note.XmlContent = NoteArchiver.Instance.GetRenamedNoteXml (oldContent, oldTitle, newTitle);
 
 			// Preserve note information
 			note.Save (); // Write to file
 			bool noteOpen = note.IsOpened;
-			string newContent = note.XmlContent;
-			string newCompleteContent = note.GetCompleteNoteXml ();
+			string newContent = //note.XmlContent;
+				NoteArchiver.Instance.GetRenamedNoteXml (note.XmlContent, oldTitle, newTitle);
+			string newCompleteContent = //note.GetCompleteNoteXml ();
+				NoteArchiver.Instance.GetRenamedNoteXml (note.GetCompleteNoteXml (), oldTitle, newTitle);
+			Logger.Debug ("RenameNote: newContent: " + newContent);
+			Logger.Debug ("RenameNote: newCompleteContent: " + newCompleteContent);
 			
 			// We delete and recreate the note to simplify content conflict handling
 			Tomboy.DefaultNoteManager.Delete (note);
 			
 			// Create note with old XmlContent just in case GetCompleteNoteXml failed
+			Logger.Debug ("RenameNote: about to create " + newTitle);
 			Note renamedNote = Tomboy.DefaultNoteManager.Create (newTitle, newContent);
 			if (newCompleteContent != null) // TODO: Anything to do if it is null?
 				renamedNote.LoadForeignNoteXml (newCompleteContent);
@@ -590,7 +597,7 @@ namespace Tomboy
 						return SyncTitleConflictResolution.RenameExistingNoUpdate;
 				}
 				else
-					return SyncTitleConflictResolution.DeleteExisting;
+					return SyncTitleConflictResolution.OverwriteExisting;
 			}
 		}
 	}	
@@ -599,7 +606,7 @@ namespace Tomboy
 	public enum SyncTitleConflictResolution
 	{
 		Cancel = 0,
-		DeleteExisting = 1,
+		OverwriteExisting = 1,
 		RenameExistingNoUpdate = 2,
 		RenameExistingAndUpdate = 3 // Hidden option, not exposed in UI
 	}

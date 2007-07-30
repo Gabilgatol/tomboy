@@ -263,23 +263,9 @@ Logger.Debug ("8");
 			IDictionary<string, NoteUpdate> noteUpdates =
 				server.GetNoteUpdatesSince (client.LastSynchronizedRevision);
 			Logger.Debug ("Sync: " + noteUpdates.Count + " updates since rev " + client.LastSynchronizedRevision.ToString ());
-			// TODO: Before actually doing updates, do this:
-			//      1. Loop through NoteUpdates, look for instances where
-			//         there is an existing note with the same title but
-			//         different UUID.
-			//      2. For each note like this, prompt the user to do either:
-			//              a. Rename existing note (should this work like
-			//                 a normal rename and update links, or no?
-			//                 No seems like a good choice if you're getting
-			//                 a new note with that name)
-			//              b. Delete existing note (server copy replaces)
-			//              c. Delete server note? (how would this work?)
-			//              d. Cancel sync (remember, no updates have happened yet)
-			//      This way, it should be impossible to upload two notes
-			//      with the same name.  Still not sure how irritating this
-			//      might be for NotD users.  And will the Start Note be
-			//      OK with this?  (apparently it's OK to delete 
-			
+
+			// First, check for new local notes that might have title conflicts
+			// with the updates coming from the server.  Prompt the user if necessary.
 			// TODO: Lots of searching here and in the next foreach...
 			//       Want this stuff to happen all at once first, but
 			//       maybe there's a way to store this info and pass it on?
@@ -314,9 +300,9 @@ Logger.Debug ("8");
 			if (noteUpdates.Count > 0)
 				SetState (SyncState.Downloading);
 
-			// The following loop may need to update GUIs in the main thread
 			// TODO: Figure out why GUI doesn't always update smoothly
 
+			// Process updates from the server; the bread and butter of sync!
 			foreach (NoteUpdate noteUpdate in noteUpdates.Values) {
 				Note existingNote = FindNoteByUUID (noteUpdate.UUID);
 
@@ -338,7 +324,7 @@ Logger.Debug ("8");
 						syncThread.Suspend ();
 					}
 	
-					// Note should have been deleted so we create; updated either way
+					// Note has been deleted or okay'd for overwrite
 					existingNote = FindNoteByUUID (noteUpdate.UUID);
 					if (existingNote == null)
 						CreateNoteInMainThread (noteUpdate);
