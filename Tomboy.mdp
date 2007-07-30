@@ -40,7 +40,6 @@
     <File name="./Tomboy/Defines.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/NoteEditor.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/SyncManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Backlinks" subtype="Directory" buildaction="Compile" />
     <File name="./Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Tasks" subtype="Directory" buildaction="Compile" />
@@ -133,11 +132,6 @@
     <File name="./Mono.Addins/Mono.Addins/Mono.Addins.Serialization/BinaryXmlTypeMap.cs" subtype="Code" buildaction="Compile" />
     <File name="./Mono.Addins/Mono.Addins/Mono.Addins.Serialization/BinaryXmlWriter.cs" subtype="Code" buildaction="Compile" />
     <File name="./Mono.Addins/Mono.Addins/Mono.Addins.Serialization/IBinaryXmlElement.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/SyncDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/FileSystemSyncServer.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/TomboySyncClient.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/SyncUtils.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Tomboy/SyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/WebDavSyncService" subtype="Directory" buildaction="Compile" />
     <File name="./Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/SshSyncService" subtype="Directory" buildaction="Compile" />
@@ -181,6 +175,12 @@
     <File name="./Tomboy/Gnome.Keyring/ResponseMessage.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Gnome.Keyring/ResultCode.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Gnome.Keyring/Ring.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/SyncDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/SyncManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/SyncUtils.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/TomboySyncClient.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/FileSystemSyncServer.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/SyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />

@@ -3,7 +3,7 @@ using Mono.Unix;
 
 using Gtk;
 
-namespace Tomboy
+namespace Tomboy.Sync
 {
 	public class SyncDialog : Gtk.Dialog
 	{

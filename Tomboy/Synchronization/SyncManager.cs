@@ -8,7 +8,7 @@ using System.Threading;
 
 using Mono.Unix;
 
-namespace Tomboy
+namespace Tomboy.Sync
 {
 	public enum SyncState {
 		/// <summary>

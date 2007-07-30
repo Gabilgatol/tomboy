@@ -3,7 +3,6 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 
-// TODO: Change namespace to Tomboy.Synchronization?
 namespace Tomboy.Sync
 {
 	public abstract class FuseSyncServiceAddin : SyncServiceAddin

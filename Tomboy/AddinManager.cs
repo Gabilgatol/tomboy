@@ -8,6 +8,8 @@ using System.IO;
 using Mono.Unix;
 using Mono.Unix.Native;
 
+using Tomboy.Sync;
+
 namespace Tomboy
 {
 	public class AddinManager

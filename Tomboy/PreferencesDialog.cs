@@ -5,6 +5,8 @@ using System.Text;
 using GConf.PropertyEditors;
 using Mono.Unix;
 
+using Tomboy.Sync;
+
 namespace Tomboy
 {
 	public class PreferencesDialog : Gtk.Dialog

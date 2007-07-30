@@ -1,5 +1,21 @@
 2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy.mdp, Tomboy/PreferencesDialog.cs, Tomboy/SyncDialog.cs,
+	  Tomboy/SyncUtils.cs, Tomboy/SyncServiceAddin.cs,
+	  Tomboy/SyncManager.cs, Tomboy/FileSystemSyncServer.cs,
+	  Tomboy/Tomboy.cs, Tomboy/AddinManager.cs,
+	  Tomboy/Synchronization/SyncDialog.cs,
+	  Tomboy/Synchronization/SyncUtils.cs,
+	  Tomboy/Synchronization/SyncServiceAddin.cs,
+	  Tomboy/Synchronization/FuseSyncServiceAddin.cs,
+	  Tomboy/Synchronization/TomboySyncClient.cs,
+	  Tomboy/Synchronization/SyncManager.cs,
+	  Tomboy/Synchronization/FileSystemSyncServer.cs, Tomboy/Makefile.am,
+	  Tomboy/TomboySyncClient.cs: Moving sync source files into
+	  Tomboy/Synchronization, namespace Tomboy.Sync.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/SyncDialog.cs, Tomboy/SyncManager.cs: Apparently better
 	  conflict handling.  No need to delete if sync can overwrite, no
 	  need to rename old note if it's being deleted anyway, etc.  Need to

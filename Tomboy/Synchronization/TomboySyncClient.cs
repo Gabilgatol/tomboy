@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 
-namespace Tomboy
+namespace Tomboy.Sync
 {
 	public class TomboySyncClient : SyncClient
 	{

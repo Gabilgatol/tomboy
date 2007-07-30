@@ -1,6 +1,6 @@
 using System;
 
-namespace Tomboy
+namespace Tomboy.Sync
 {
 	/// <summary>
 	/// A SyncServiceAddin provides Tomboy Note Synchronization to a

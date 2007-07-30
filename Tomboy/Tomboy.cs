@@ -4,6 +4,8 @@ using System.IO;
 using System.Xml;
 using Mono.Unix;
 
+using Tomboy.Sync;
+
 namespace Tomboy 
 {
 	public class Tomboy : Application
