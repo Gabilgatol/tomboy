@@ -71,8 +71,6 @@ namespace Tomboy.Sync
 					} catch { }
 					
 					fileRevisions [guid] = revision;
-					Logger.Debug ("Manifest says: revision " + revision.ToString ()
-					              + " for guid " + guid);
 				}
 			}
 

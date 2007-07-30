@@ -1,5 +1,12 @@
 2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Synchronization/TomboySyncClient.cs: Removing extraneous debug
+	  statement.
+	* po/POTFILES.in: Adding sync code to POTFILES.in, commenting out tasks
+	  addin code.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy.mdp, Tomboy/PreferencesDialog.cs, Tomboy/SyncDialog.cs,
 	  Tomboy/SyncUtils.cs, Tomboy/SyncServiceAddin.cs,
 	  Tomboy/SyncManager.cs, Tomboy/FileSystemSyncServer.cs,
