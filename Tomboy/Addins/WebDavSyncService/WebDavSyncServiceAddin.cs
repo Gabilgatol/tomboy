@@ -199,7 +199,7 @@ namespace Tomboy.Sync
 				//url = Preferences.Get ("/apps/tomboy/sync_wdfs_url") as String;
 				//username = Preferences.Get ("/apps/tomboy/sync_wdfs_username") as String;
 				//password = null; // TODO: Prompt user for password
-				throw;
+				//throw;
 			}
 			
 			return !string.IsNullOrEmpty (url)
@@ -238,7 +238,7 @@ namespace Tomboy.Sync
 				// Save configuration into GConf
 				//Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 				//Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-				throw;
+				//throw;
 			}
 		}
 		

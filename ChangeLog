@@ -1,5 +1,11 @@
 2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Don't
+	  throw if get/set configuration into keyring fails (still need to
+	  prompt user, etc).
+
+2007-07-29  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy.mdp: Adding Mono.Addins just like trunk.
 	* Tomboy/SyncDialog.cs: Simplifying conflict UI.
 
