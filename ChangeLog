@@ -1,3 +1,8 @@
+2007-11-21  ahmad riza h nst  <rizahnst@gnome.org>
+
+	* configure.in: Added id in to ALL_LINGUAS line.
+	* po/id.po: Added id, Indonesian translation.
+
 2007-04-09  Boyd Timothy  <btimothy@gmail.com>
 
 	* configure.in: Bump version to 0.6.3.

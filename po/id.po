@@ -1,0 +1,1149 @@
+# translation of tomboy.
+# Copyright (C) 2007 THE tomboy'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the tomboy package.
+# ahmad riza h nst <rizahnst@gnome.org>, 2007.
+# 
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: tomboy gnome-2-18\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-11-12 17:31+0000\n"
+"PO-Revision-Date: 2007-11-21 20:29+0700\n"
+"Last-Translator: ahmad riza h nst <rizahnst@gnome.org>\n"
+"Language-Team: Indonesian <kontak@id.gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:1
+msgid "Default Plugins"
+msgstr "Program Default"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:2
+msgid "Directory containing system-installed Plugins"
+msgstr "Direktori berisi program terpasang-oleh-system"
+
+#: ../data/GNOME_TomboyApplet.server.in.in.h:1
+msgid "Accessories"
+msgstr "Aksesori"
+
+#: ../data/GNOME_TomboyApplet.server.in.in.h:2 ../data/tomboy.desktop.in.h:2
+msgid "Simple and easy to use note-taking"
+msgstr "Pengambil catatan yang sederhana dan mudah digunakan"
+
+#: ../data/GNOME_TomboyApplet.server.in.in.h:3
+msgid "Tomboy Applet Factory"
+msgstr "Applet Pabrikan Tomboy"
+
+#: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
+#: ../Tomboy/Applet.cs:154 ../Tomboy/Tray.cs:147
+msgid "Tomboy Notes"
+msgstr "Catatan Tomboy"
+
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:100
+msgid "_About"
+msgstr "Tent_ang"
+
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
+#: ../Tomboy/Applet.cs:199
+msgid "_Help"
+msgstr "_Bantuan"
+
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
+#: ../Tomboy/NoteWindow.cs:652 ../Tomboy/Preferences.cs:646
+msgid "_Open Plugins Folder"
+msgstr "_Buka Map Program"
+
+#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:89
+#: ../Tomboy/Applet.cs:194
+msgid "_Preferences"
+msgstr "_Ketetapan"
+
+#: ../data/tomboy.desktop.in.h:1
+msgid "Note-taker"
+msgstr "Pengambil-catatan"
+
+#: ../data/tomboy.schemas.in.h:1
+msgid "Create a new Note"
+msgstr "Buat Catatan baru"
+
+#: ../data/tomboy.schemas.in.h:2
+msgid "Currently enabled plugins."
+msgstr "Program yang lagi aktif."
+
+#: ../data/tomboy.schemas.in.h:3
+msgid "Custom Font Face"
+msgstr "Jenis Huruf Sesuaian"
+
+#: ../data/tomboy.schemas.in.h:4
+msgid "Enable WikiWord highlighting"
+msgstr "Aktifkan penandaan WikiWord"
+
+#: ../data/tomboy.schemas.in.h:5
+msgid "Enable custom font"
+msgstr "Aktifkan huruf sesuaian"
+
+#: ../data/tomboy.schemas.in.h:6
+msgid "Enable global keybindings"
+msgstr "Aktifkan keybinding umum"
+
+#: ../data/tomboy.schemas.in.h:7
+msgid "Enable spellchecking"
+msgstr "Aktifkan pemeriksaan ejaan"
+
+#: ../data/tomboy.schemas.in.h:8
+msgid ""
+"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
+"will create a note with that name."
+msgstr ""
+"Aktifkan untuk menandai kata YangKelihatanSepertiIni. Mengklik kata akan "
+"membuat catatan dengan kata itu."
+
+#: ../data/tomboy.schemas.in.h:9
+msgid "HTML Export All Linked Notes"
+msgstr "HTML Ekspor Seluruh Catatan Bertaut"
+
+#: ../data/tomboy.schemas.in.h:10
+msgid "HTML Export Last Directory"
+msgstr "HTML Ekspor Direktori Akhir"
+
+#: ../data/tomboy.schemas.in.h:11
+msgid "HTML Export Linked Notes"
+msgstr "HTML Ekspor Catatan Bertaut"
+
+#: ../data/tomboy.schemas.in.h:12
+msgid ""
+"If enable_custom_font is true, the font name set here will be used as the "
+"font when displaying notes."
+msgstr ""
+"Jika enable_custom_font benar, nama jenis huruf disini akan digunakan "
+"sebagai huruf menampilan catatan."
+
+#: ../data/tomboy.schemas.in.h:13
+msgid ""
+"If true, misspellings will be underlined in red, and correct spelling "
+"suggestions shown in the right-click menu."
+msgstr ""
+"Jika benar, salah ejaan akan digaris bawahi merah, dan saran ejaan "
+"benar tampil pada menu klik kanan."
+
+#: ../data/tomboy.schemas.in.h:14
+msgid ""
+"If true, the desktop-global keybindings set in /apps/tomboy/"
+"global_keybindings will be enabled, allowing for useful Tomboy actions to be "
+"available from any application."
+msgstr ""
+"Jka benar, ketentuan umum keybinding desktop di /apps/tomboy/global_keybindings "
+"akan aktif, mengizinkan aksi Tomboy yang berguna tersedia dari aplikasi mana "
+"saja."
+
+#: ../data/tomboy.schemas.in.h:15
+msgid ""
+"If true, the font name set in custom_font_face will be used as the font when "
+"displaying notes. Otherwise the desktop default font will be used."
+msgstr ""
+"Jika benar, nama huruf pada custom_font_face akan digunakan sebagai huruf "
+"ketika menampilkan catatan. Kalau tidak huruf default desktop digunakan."
+
+#: ../data/tomboy.schemas.in.h:16
+msgid ""
+"Indicates that the Sticky Note Importer plugin has not been run, so it "
+"should run automatically the next time Tomboy starts."
+msgstr ""
+"Menandakan bahwa program pengimpor Catatan Tempel tidak jalan, jadi "
+"harus jalan otomatis selanjutnya ketika Tomboy mulai."
+
+#: ../data/tomboy.schemas.in.h:17
+msgid ""
+"Integer determining the minimum number of notes to show in the Tomboy note "
+"menu."
+msgstr ""
+"Interger menentukan jumlah terkecil catatan yang ditampilkan pada menu Tomboy."
+
+#: ../data/tomboy.schemas.in.h:18
+msgid "List containing the names of currently enabled plugins."
+msgstr "Daftar berisi nama program yang sedang aktif."
+
+#: ../data/tomboy.schemas.in.h:19
+msgid "List of pinned notes."
+msgstr "Daftar catatan tusuk."
+
+#: ../data/tomboy.schemas.in.h:20
+msgid "Minimum number of notes to show in menu"
+msgstr "Jumlah terkecil catatan ditampilkan dalam menu"
+
+#: ../data/tomboy.schemas.in.h:21
+msgid "Open Recent Changes"
+msgstr "Buka Perubahan Terakhir"
+
+#: ../data/tomboy.schemas.in.h:22
+msgid "Open Search Dialog"
+msgstr "Buka Dialog Pencarian"
+
+#: ../data/tomboy.schemas.in.h:23
+msgid "Open Start Here"
+msgstr "Buka Mulai Disini"
+
+#: ../data/tomboy.schemas.in.h:24
+msgid "Set to TRUE to activate"
+msgstr "Buat ke BENAR untuk aktif"
+
+#: ../data/tomboy.schemas.in.h:25
+msgid "Show applet menu"
+msgstr "Tampilkan menu applet"
+
+#: ../data/tomboy.schemas.in.h:26
+msgid "Start Here Note"
+msgstr "Catatan Mulai Disini"
+
+#: ../data/tomboy.schemas.in.h:27
+msgid "Sticky Note Importer First Run"
+msgstr "Pengimpor Catatan Tempel Jalan Pertama"
+
+#: ../data/tomboy.schemas.in.h:28
+msgid ""
+"The global keybinding for creating and displaying a new Note. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+msgstr ""
+"Keybinding umum untuk membuat dan menampilkan Catatan baru. Bentuknya "
+"kelihatan seperti \"&lt;Control&gt;a\" atau \"&lt;Shift&gt;&lt;Alt&gt;F1\". Pengurai "
+"cukup bebas dan mengizinkan huruf besar atau kecil dan juga kependekan seperti "
+"\"&lt;Ctl&gt;\" dan \"&lt;Ctrl&gt;\". Jika anda menentukan pilihan ke frasa istimewa "
+"\"matikan\", maka tidak akan ada keybinding untuk aksi ini."
+
+#: ../data/tomboy.schemas.in.h:29
+msgid ""
+"The global keybinding for opening the \"Start Here\" note. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+"Keybinding umum untuk membuka catatan \"Mulai di Sini\". Bentuknya "
+"kelihatan seperti \"&lt;Control&gt;a\" atau \"&lt;Shift&gt;&lt;Alt&gt;F1\". "
+"Pengurainya cukup bebas dan mengizinkan huruf besar atau kecil dan juga "
+"kependekan seperti \"&lt;Ctl&gt;\" dan \"&lt;Ctrl&gt;\". Jika anda menentukan "
+"pilihan menjadi frasa istimewa \"matikan\", maka tidak akan ada keybindings "
+"untuk aksi ini."
+
+#: ../data/tomboy.schemas.in.h:30
+msgid ""
+"The global keybinding for opening the Note Search dialog. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+"Keybinding umum untuk membuka percakapan Cari Catatan. Bentuknya "
+"kelihatan seperti \"&lt;Control&gt;a\" atau \"&lt;Shift&gt;&lt;Alt&gt;F1\". "
+"Pengurainya cukup bebas dan mengizinkan huruf besar atau kecil dan juga "
+"kependekan seperti \"&lt;Ctl&gt;\" dan \"&lt;Ctrl&gt;\". Jika anda menentukan "
+"pilihan menjadi frasa istimewa \"matikan\", maka tidak akan ada keybindings "
+"untuk aksi ini."
+
+#: ../data/tomboy.schemas.in.h:31
+msgid ""
+"The global keybinding for opening the Recent Changes dialog. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+msgstr ""
+"Keybinding umum untuk membuka percakapan Perubahan Terakhir. Bentuknya "
+"kelihatan seperti \"&lt;Control&gt;a\" atau \"&lt;Shift&gt;&lt;Alt&gt;F1\". "
+"Pengurainya cukup bebas dan mengizinkan huruf besar atau kecil dan juga "
+"kependekan seperti \"&lt;Ctl&gt;\" dan \"&lt;Ctrl&gt;\". Jika anda menentukan "
+"pilihan menjadi frasa istimewa \"matikan\", maka tidak akan ada keybindings "
+"untuk aksi ini."
+
+#: ../data/tomboy.schemas.in.h:32
+msgid ""
+"The global keybinding for showing the Tomboy applet's menu. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+"Keybinding umum untuk membuka menu applet Tomboy. Bentuknya "
+"kelihatan seperti \"&lt;Control&gt;a\" atau \"&lt;Shift&gt;&lt;Alt&gt;F1\". "
+"Pengurainya cukup bebas dan mengizinkan huruf besar atau kecil dan juga "
+"kependekan seperti \"&lt;Ctl&gt;\" dan \"&lt;Ctrl&gt;\". Jika anda menentukan "
+"pilihan menjadi frasa istimewa \"matikan\", maka tidak akan ada keybindings "
+"untuk aksi ini."
+
+#: ../data/tomboy.schemas.in.h:33
+msgid "The handler for \"note://\" URLs"
+msgstr "Yang menangani URL \"note://\""
+
+#: ../data/tomboy.schemas.in.h:34
+msgid ""
+"The last directory a note was exported to using the Export To HTML plugin."
+msgstr ""
+"Direktori terakhir catatan diekspor menggunakan program Expor Ke HTML."
+
+#: ../data/tomboy.schemas.in.h:35
+msgid ""
+"The last setting for the 'Export linked notes' checkbox in the Export to "
+"HTML plugin."
+msgstr ""
+"Ketetapan akhir untuk centang 'Ekspor catatan bertaut' pada program "
+"Ekspor ke HTML."
+
+#: ../data/tomboy.schemas.in.h:36
+msgid ""
+"The last setting for the 'Include all other linked notes' checkbox in the "
+"Export to HTML plugin. This setting is used in conjunction with the 'HTML "
+"Export Linked Notes' setting and is used to specify whether all notes (found "
+"recursively) should be included during an export to HTML."
+msgstr ""
+"Ketetapan akhir untuk centang 'Ikutkan catatan bertaut lainnya' pada progam "
+"Ekspor ke HTML. Ketetapan dipergunakan dalam hubungan dengan ketetapan "
+"'Ekspor Catatan Bertaut HTML' dan dipergunakan untuk menentukan apakah "
+"seluruh catatan (yg ditemukan sampai ke seluk beluk) akan diikut sertakan."
+
+#: ../data/tomboy.schemas.in.h:37
+msgid ""
+"The note URI of the note that should be considered the \"Start Here\" note, "
+"which is always placed at the bottom of the Tomboy note menu and also "
+"accessible by hotkey."
+msgstr ""
+"URI catatan yang harus dikenali sebagai Catatan \"Mulai Disini\", yang selalu "
+"ditempatkan pada bagian bawah menu catatan Tomboy dan juga dapat diakses "
+"dengan jalan pintas."
+
+#: ../data/tomboy.schemas.in.h:38
+msgid ""
+"Whitespace-separated list of note URIs for notes that should always appear "
+"in the Tomboy note menu."
+msgstr ""
+"Daftar URI catatan yang terpisah-spasi yang harus selalu muncul pada menu "
+"catatan Tomboy."
+
+#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:22
+msgid "Print"
+msgstr "Cetak"
+
+#: ../libtomboy/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "Menyiapkan halaman..."
+
+#: ../libtomboy/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Membaca halaman %d dari %d..."
+
+#: ../libtomboy/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Mencetak halaman %d dari %d..."
+
+#: ../libtomboy/gedit-print.c:291
+msgid "Print preview"
+msgstr "Pracetak"
+
+#: ../libtomboy/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "Halaman %N dari %Q"
+
+#: ../libtomboy/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/ActionManager.cs:63
+msgid "_File"
+msgstr "_Berkas"
+
+#: ../Tomboy/ActionManager.cs:66
+msgid "_New"
+msgstr "_Baru"
+
+#: ../Tomboy/ActionManager.cs:67 ../Tomboy/ActionManager.cs:108
+msgid "Create a new note"
+msgstr "Buat catatan baru"
+
+#: ../Tomboy/ActionManager.cs:70
+msgid "_Open..."
+msgstr "_Buka..."
+
+#: ../Tomboy/ActionManager.cs:71
+msgid "Open the selected note"
+msgstr "Buka catatan terpilih"
+
+#: ../Tomboy/ActionManager.cs:74
+msgid "_Delete"
+msgstr "_Hapus"
+
+#: ../Tomboy/ActionManager.cs:75
+msgid "Delete the selected note"
+msgstr "Hapus catatan terpilih"
+
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:546
+msgid "_Close"
+msgstr "_Tutup"
+
+#: ../Tomboy/ActionManager.cs:79
+msgid "Close this window"
+msgstr "Tutup jendela ini"
+
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:211
+msgid "_Quit"
+msgstr "_Keluar"
+
+#: ../Tomboy/ActionManager.cs:83
+msgid "Quit Tomboy"
+msgstr "Keluar Tomboy"
+
+#: ../Tomboy/ActionManager.cs:86
+msgid "_Edit"
+msgstr "_Sunting"
+
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:169
+msgid "Tomboy Preferences"
+msgstr "Ketetapan Tomboy"
+
+#: ../Tomboy/ActionManager.cs:96
+msgid "_Contents"
+msgstr "_Isi"
+
+#: ../Tomboy/ActionManager.cs:97
+msgid "Tomboy Help"
+msgstr "Bantuan Tomboy"
+
+#: ../Tomboy/ActionManager.cs:101
+msgid "About Tomboy"
+msgstr "Tentang Tomboy"
+
+#: ../Tomboy/ActionManager.cs:104
+msgid "TrayIcon"
+msgstr ""
+
+#: ../Tomboy/ActionManager.cs:107
+msgid "Create _New Note"
+msgstr "Buat Catata_n Baru"
+
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:489
+msgid "_Search All Notes"
+msgstr "Cari _Seluruh Catatan"
+
+#: ../Tomboy/ActionManager.cs:112
+msgid "Open the Search All Notes window"
+msgstr "Buka jendela Cari Seluruh Catatan"
+
+#: ../Tomboy/Applet.cs:204
+msgid "_About Tomboy"
+msgstr "Tent_ang Tomboy"
+
+#: ../Tomboy/Note.cs:879
+msgid "Really delete this note?"
+msgstr "Bener hapus catatan ini?"
+
+#: ../Tomboy/Note.cs:880
+msgid "If you delete a note it is permanently lost."
+msgstr "Jika anda hapus catatan, maka akan lenyap selamanya."
+
+#: ../Tomboy/NoteManager.cs:144
+msgid ""
+"<note-content>Start Here\n"
+"\n"
+"<bold>Welcome to Tomboy!</bold>\n"
+"\n"
+"Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
+"\n"
+"You can create new notes to hold your ideas by selecting the \"Create New "
+"Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will "
+"be saved automatically.\n"
+"\n"
+"Then organize the notes you create by linking related notes and ideas "
+"together!\n"
+"\n"
+"We've created a note called <link:internal>Using Links in Tomboy</link:"
+"internal>.  Notice how each time we type <link:internal>Using Links in "
+"Tomboy</link:internal> it automatically gets underlined?  Click on the link "
+"to open the note.</note-content>"
+msgstr ""
+"<note-content>Mulai di Sini\n"
+"\n"
+"<bold>Selamat Datang di Tomboy!</bold>\n"
+"\n"
+"Gunakan catatan \"Mulai di Sini\" ini untuk mulai mengelola ide dan pikiran anda.\n"
+"\n"
+"Anda dapat membuat catatan baru untuk menampung ide anda dengan memilih "
+"\"Buat Catatan Baru\" dari menut Catatan Tomboy pada Panel GNOME anda. Catatan "
+"anda akan disimpan otomatis.\n"
+"\n"
+"Kemudian kelola catatan yang anda buat dengan menautkan catatan dan ide "
+"terkait bersamaan!\n"
+"\n"
+"Kami membuat catatan <link:internal>Menggunakan Tautan di Tmboy</link:"
+"internal>.  Perhatikan bagaimana setiap kali kami ketik <link:internal>Menggunakan "
+"Tautan di Tomboy</link:internal>secara otomatis digaris bawahi?  Klik pada tautan "
+"untuk membuka catatan.</note-content>"
+
+#: ../Tomboy/NoteManager.cs:163
+msgid ""
+"<note-content>Using Links in Tomboy\n"
+"\n"
+"Notes in Tomboy can be linked together by highlighting text in the current "
+"note and clicking the <bold>Link</bold> button above in the toolbar.  Doing "
+"so will create a new note and also underline the note's title in the current "
+"note.\n"
+"\n"
+"Changing the title of a note will update links present in other notes.  This "
+"prevents broken links from occurring when a note is renamed.\n"
+"\n"
+"Also, if you type the name of another note in your current note, it will "
+"automatically be linked for you.</note-content>"
+msgstr ""
+"<note-content>Menggunakan Tautan di Tomboy\n"
+"\n"
+"Catatan di Tomboy dapat ditautkan bersamaan dengan menandai teks pada catatan "
+"saat ini dan mengklik tombol <bold>Link</bold> di toolbar.  Maka akan membuat "
+"suatu catatan baru dan juga menggaris bawahi judul catatan pada catatan "
+"saat ini.\n"
+"Mengganti judul catatan akan memperbarui tautan pada catatan lain.  Ini "
+"menghindari tautan rusak ketika suatu catatan dirubah namanya.\n"
+"\n"
+"Juga, jika anda mengetik nama catatan lain pada catatan anda, maka akan "
+"secara otomatis bertaut untuk anda.</note-content>"
+
+#. Attempt to find an existing Start Here note
+#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:229
+msgid "Start Here"
+msgstr "Mulai di Sini"
+
+#: ../Tomboy/NoteManager.cs:183
+msgid "Using Links in Tomboy"
+msgstr "Menggunakan Tautan di Tomboy"
+
+#: ../Tomboy/NoteManager.cs:284
+#, csharp-format
+msgid "New Note {0}"
+msgstr "Catatan Baru {0}"
+
+#: ../Tomboy/NoteManager.cs:330
+msgid "Describe your new note here."
+msgstr "Jelaskan catan baru anda di sini."
+
+#: ../Tomboy/NoteWindow.cs:233
+msgid "Find in This Note"
+msgstr "Temukan pada Catatan Ini"
+
+#: ../Tomboy/NoteWindow.cs:501
+msgid "_Link to New Note"
+msgstr "_Taut ke Catatan Baru"
+
+#: ../Tomboy/NoteWindow.cs:513
+msgid "Te_xt"
+msgstr "Te_ks"
+
+#: ../Tomboy/NoteWindow.cs:521
+msgid "_Find in This Note"
+msgstr "_Temukan pada Catatan Ini"
+
+#: ../Tomboy/NoteWindow.cs:536
+msgid "Clos_e All Notes"
+msgstr "Tutup S_eluruh Catatan"
+
+#: ../Tomboy/NoteWindow.cs:574
+msgid "Search"
+msgstr "Cari"
+
+#: ../Tomboy/NoteWindow.cs:575
+msgid "Search your notes (Ctrl-Shift-F)"
+msgstr "Cari catatan anda (Ctrl-Shift-F)"
+
+#: ../Tomboy/NoteWindow.cs:588
+msgid "Link"
+msgstr "Taut"
+
+#: ../Tomboy/NoteWindow.cs:590
+msgid "Link selected text to a new note (Ctrl-L)"
+msgstr "Taut terks terpilih ke catatan baru (Ctrl-L)"
+
+#: ../Tomboy/NoteWindow.cs:604
+msgid "_Text"
+msgstr "_Teks"
+
+#: ../Tomboy/NoteWindow.cs:609
+msgid "Set properties of text"
+msgstr "Tentukan info teks"
+
+#: ../Tomboy/NoteWindow.cs:615
+msgid "T_ools"
+msgstr "A_lat"
+
+#: ../Tomboy/NoteWindow.cs:619
+msgid "Use tools on this note"
+msgstr "Gunakan alat pada catatan ini"
+
+#: ../Tomboy/NoteWindow.cs:626
+msgid "Delete"
+msgstr "Hapus"
+
+#: ../Tomboy/NoteWindow.cs:627
+msgid "Delete this note"
+msgstr "Hapus catatan ini"
+
+#: ../Tomboy/NoteWindow.cs:684
+msgid "_Find..."
+msgstr "_Temukan..."
+
+#: ../Tomboy/NoteWindow.cs:695 ../Tomboy/NoteWindow.cs:897
+msgid "Find _Next"
+msgstr "Temuka_n Lagi"
+
+#: ../Tomboy/NoteWindow.cs:708
+msgid "Find _Previous"
+msgstr "Temukan _Sebelumnya"
+
+#: ../Tomboy/NoteWindow.cs:796
+msgid "Cannot create note"
+msgstr "Tidak bisa buat catatan"
+
+#: ../Tomboy/NoteWindow.cs:877
+msgid "_Find:"
+msgstr "_Temukan:"
+
+#: ../Tomboy/NoteWindow.cs:888
+msgid "_Previous"
+msgstr "_Sebelum"
+
+#: ../Tomboy/NoteWindow.cs:907
+msgid "Case _sensitive"
+msgstr "Huruf _sensitif"
+
+#: ../Tomboy/NoteWindow.cs:1383
+msgid "_Bold"
+msgstr "Te_bal"
+
+#: ../Tomboy/NoteWindow.cs:1395
+msgid "_Italic"
+msgstr "M_iring"
+
+#: ../Tomboy/NoteWindow.cs:1407
+msgid "_Strikeout"
+msgstr "_Coret"
+
+#: ../Tomboy/NoteWindow.cs:1419
+msgid "_Highlight"
+msgstr "_Tandai"
+
+#: ../Tomboy/NoteWindow.cs:1432
+msgid "Font Size"
+msgstr "Ukuran Huruf"
+
+#: ../Tomboy/NoteWindow.cs:1435
+msgid "_Normal"
+msgstr "_Normal"
+
+#: ../Tomboy/NoteWindow.cs:1442
+msgid "Hu_ge"
+msgstr "Be_sar"
+
+#: ../Tomboy/NoteWindow.cs:1450
+msgid "_Large"
+msgstr "_Besar"
+
+#: ../Tomboy/NoteWindow.cs:1458
+msgid "S_mall"
+msgstr "K_ecil"
+
+#: ../Tomboy/NoteWindow.cs:1469
+msgid "Bullets"
+msgstr "Peluru"
+
+#: ../Tomboy/PluginManager.cs:60
+msgid "Tomboy Project"
+msgstr "Proyek Tomboy"
+
+#: ../Tomboy/PluginManager.cs:612
+#, csharp-format
+msgid "Cannot fully disable {0}."
+msgstr "Tidak bisa mati sepenuhnya {0}."
+
+#: ../Tomboy/PluginManager.cs:615
+#, csharp-format
+msgid ""
+"Cannot fully disable {0} as there still are at least {1} reference to this "
+"plugin. This indicates a programming error. Contact the plugin's author and "
+"report this problem.\n"
+"\n"
+"<b>Developer Information:</b> This problem usually occurs when the plugin's "
+"Dispose method fails to disconnect all event handlers. The heap-shot "
+"profiler ({2}) can help to identify leaking references."
+msgstr "Tidak bisa mati sepenuhnya {0} sebagaimana masih ada paling tidak {1} referensi "
+"ke program ini. Ini menandakan kesalahan pemrograman. Hubungi penulis program "
+"dan laporkan masalah ini.\n"
+"\n"
+"<b>Informasi Pengembang</b> Masalah ini biasanya terjadi ketika metode "
+"program gagal memutuskan seluruh hubungan. Profiler heap-shot ({2}) dapat "
+"membantu mengenali referensi masalah."
+
+#: ../Tomboy/Preferences.cs:183
+msgid "Editing"
+msgstr "Penyuntingan"
+
+#: ../Tomboy/Preferences.cs:185
+msgid "Hotkeys"
+msgstr ""
+
+#: ../Tomboy/Preferences.cs:187
+msgid "Plugins"
+msgstr "Program"
+
+#: ../Tomboy/Preferences.cs:229
+msgid "_Spell check while typing"
+msgstr "Periksa ejaan _selagi mengetik"
+
+#: ../Tomboy/Preferences.cs:238
+msgid ""
+"Misspellings will be underlined in red, with correct spelling suggestions "
+"shown in the context menu."
+msgstr ""
+"Salah ejaan akan digaris bawahi merah, dengan saran ejaan yang benar "
+"ditampilkan pada menu konteks."
+
+#. WikiWords...
+#: ../Tomboy/Preferences.cs:248
+msgid "Highlight _WikiWords"
+msgstr "Tandai _WikiWords"
+
+#: ../Tomboy/Preferences.cs:256
+msgid ""
+"Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
+"word will create a note with that name."
+msgstr ""
+"Aktifkan pilihan ini untuk menandai kata <b>YangKelihatanSepertiIni</b>. Mengklik "
+"kata akan membuat catatan dengan nama itu."
+
+#. Custom font...
+#: ../Tomboy/Preferences.cs:265
+msgid "Use custom _font"
+msgstr "Pergunakan huru_f sesuaian"
+
+#. Hotkeys...
+#: ../Tomboy/Preferences.cs:335
+msgid "Listen for _Hotkeys"
+msgstr "Dengarkan _Hotkey"
+
+#: ../Tomboy/Preferences.cs:344
+msgid ""
+"Hotkeys allow you to quickly access your notes from anywhere with a "
+"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
+"Alt&gt;N</b>"
+msgstr ""
+"Hotkey mengizinkan anda untuk mengakses catatan anda dengan cepat dari manapun "
+"dengan suatu pencetan kunci. Contoh Hotkey: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, "
+"<b>&lt;Alt&gt;N</b>"
+
+#. Show notes menu keybinding...
+#: ../Tomboy/Preferences.cs:364
+msgid "Show notes _menu"
+msgstr "Tampilkan _menu catatan"
+
+#. Open Start Here keybinding...
+#: ../Tomboy/Preferences.cs:381
+msgid "Open \"_Start Here\""
+msgstr "Buka \"Buka di _Sini\""
+
+#. Create new note keybinding...
+#: ../Tomboy/Preferences.cs:398
+msgid "Create _new note"
+msgstr "Buat catata_n baru"
+
+#. Open Search All Notes window keybinding...
+#: ../Tomboy/Preferences.cs:415
+msgid "Open \"Search _All Notes\""
+msgstr "Buka \"Cari Seluruh C_atatan\""
+
+#: ../Tomboy/Preferences.cs:561
+msgid "Not available"
+msgstr "Tidak tersedia"
+
+#: ../Tomboy/Preferences.cs:619
+msgid "Description:"
+msgstr "Penjelasan:"
+
+#: ../Tomboy/Preferences.cs:621
+msgid "Written by:"
+msgstr "Ditulis oleh:"
+
+#: ../Tomboy/Preferences.cs:623
+msgid "Web site:"
+msgstr "Situs web:"
+
+#: ../Tomboy/Preferences.cs:625
+msgid "File name:"
+msgstr "Nama berkas:"
+
+#: ../Tomboy/Preferences.cs:639
+msgid "Settings"
+msgstr "Ketetapan"
+
+#: ../Tomboy/Preferences.cs:698
+#, csharp-format
+msgid "{0} Settings"
+msgstr "{0} Ketetapan"
+
+#: ../Tomboy/Preferences.cs:759
+msgid "Choose Note Font"
+msgstr "Pilih Huruf Catatan"
+
+#: ../Tomboy/RecentChanges.cs:64
+msgid "Search All Notes"
+msgstr "Cari Seluruh Catatan"
+
+#: ../Tomboy/RecentChanges.cs:77
+msgid "_Search:"
+msgstr "_Cari:"
+
+#: ../Tomboy/RecentChanges.cs:98
+msgid "C_ase Sensitive"
+msgstr "H_uruf Sensitif"
+
+#: ../Tomboy/RecentChanges.cs:236
+msgid "Note"
+msgstr "Catatan"
+
+#: ../Tomboy/RecentChanges.cs:255
+msgid "Last Changed"
+msgstr "Terakhir Diubah"
+
+#: ../Tomboy/RecentChanges.cs:312 ../Tomboy/RecentChanges.cs:468
+#, csharp-format
+msgid "Total: {0} note"
+msgstr "Total: {0} catatan"
+
+#: ../Tomboy/RecentChanges.cs:402
+msgid "Matches"
+msgstr "Cocok"
+
+#: ../Tomboy/RecentChanges.cs:454 ../Tomboy/RecentChanges.cs:474
+#, csharp-format
+msgid "{0} match"
+msgstr "{0} cocok"
+
+#: ../Tomboy/RecentChanges.cs:724
+#, csharp-format
+msgid "Today, {0}"
+msgstr "Hari ini, {0}"
+
+#: ../Tomboy/RecentChanges.cs:727
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "Kemarin, {0}"
+
+#: ../Tomboy/RecentChanges.cs:731
+#, csharp-format
+msgid "{0} days ago, {1}"
+msgstr "{0} hari lalu, {1}"
+
+#: ../Tomboy/RecentChanges.cs:736
+msgid "MMMM d, h:mm tt"
+msgstr "MMMM d, h:mm tt"
+
+#: ../Tomboy/RecentChanges.cs:738
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "MMMM d yyyy, h:mm tt"
+
+#: ../Tomboy/Tomboy.cs:181
+msgid "Cannot create new note"
+msgstr "Tidak bisa buat catatan baru"
+
+#: ../Tomboy/Tomboy.cs:236
+msgid "translator-credits"
+msgstr "Ahmad Riza H Nst  <rizahnst@gnome.org>"
+
+#: ../Tomboy/Tomboy.cs:246
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "Aplikasi pengambil-catatan desktop yang sederhana dan mudah digunakan."
+
+#: ../Tomboy/Tomboy.cs:249
+msgid "Homepage & Donations"
+msgstr "Halaman rumah dan Sumbangan"
+
+#: ../Tomboy/Tomboy.cs:333
+msgid ""
+"Tomboy: A simple, easy to use desktop note-taking application.\n"
+"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
+"\n"
+msgstr ""
+"Tomboy: Aplikasi pengambil-catatan desktop yang sederhana dan mudah "
+"digunakan.\n"
+"Hakcipta (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
+"\n"
+
+#: ../Tomboy/Tomboy.cs:345
+msgid ""
+"Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
+msgstr ""
+"Penggunaan:\n"
+"  --version\t\t\tCetak informasi versi.\n"
+"  --help\t\t\tCetak pesan penggunaan ini.\n"
+"  --note-path [path]\t\tBaca/simpan data catatan dalam direktori ini.\n"
+"  --search [teks]\t\tBuka jendela cari seluruh catatan dengan teks pencarian.\n"
+
+#: ../Tomboy/Tomboy.cs:356
+msgid ""
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+msgstr ""
+"  -new-note\t\t\tBuat dan tampilkan catatan baru.\n"
+"  -new-note [title]\t\tBuat dan tampilkan catatan baru, dengan judul.\n"
+"  --open-note [title/url]\tTampilkan catatan yang judulnya cocok.\n"
+"  --start-here\t\t\tTampilkan catatan 'Mulai di Sini'.\n"
+"  --highlight-search [teks]\tCari dan tandai teks pada catatan yang lagi dibuka.\n"
+
+#: ../Tomboy/Tomboy.cs:368
+msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
+msgstr "  --check-plugin-unloading\tPeriksa jika program tidak diaktifkan dengan baik.\n"
+
+#: ../Tomboy/Tomboy.cs:372
+msgid "D-BUS remote control disabled.\n"
+msgstr "Kendali jarak jauh D-BUS tidak aktif.\n"
+
+#: ../Tomboy/Tomboy.cs:380
+#, csharp-format
+msgid "Version {0}"
+msgstr "Versi {0}"
+
+#: ../Tomboy/Tomboy.cs:447
+#, csharp-format
+msgid ""
+"Tomboy: unsupported option '{0}'\n"
+"Try 'tomboy --help' for more information.\n"
+"D-BUS remote control disabled."
+msgstr ""
+"Pilihan Tomboy yang tidak didukung '{0}'\n"
+"Coba 'tomboy --help' untuk informasi lanjut.\n"
+"Kendali jarak jauh D-BUS tidak aktif."
+
+#: ../Tomboy/Tray.cs:64
+msgid " (new)"
+msgstr " (baru)"
+
+#. initial newline
+#: ../Tomboy/Tray.cs:193
+msgid "dddd, MMMM d, h:mm tt"
+msgstr "dddd, MMMM d, h:mm tt"
+
+#: ../Tomboy/Utils.cs:119
+msgid ""
+"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
+"installation has been completed successfully."
+msgstr ""
+"\"Manual Catatan Tomboy\" tidak ditemukan.  Silahkan pastikan bahwa "
+"pemasangan anda telah benar-benar selesai."
+
+#: ../Tomboy/Utils.cs:128
+msgid "Help not found"
+msgstr "Bantuan tidak ditemukan"
+
+#: ../Tomboy/Watchers.cs:137
+#, csharp-format
+msgid "(Untitled {0})"
+msgstr "(Tak berjudul {0})"
+
+#: ../Tomboy/Watchers.cs:169
+#, csharp-format
+msgid ""
+"A note with the title <b>{0}</b> already exists. Please choose another name "
+"for this note before continuing."
+msgstr ""
+"Catatan dengan judul <b>{0}</b> sudah ada. Silahkan pilih nama lain untuk catatan "
+"ini sebelum melanjut."
+
+#: ../Tomboy/Watchers.cs:181
+msgid "Note title taken"
+msgstr "Judul catatan diambil"
+
+#: ../Tomboy/Watchers.cs:422
+msgid "Cannot open location"
+msgstr "Tidak bisa buka lokasi"
+
+#: ../Tomboy/Watchers.cs:516
+msgid "_Copy Link Address"
+msgstr "_Salin Alamat Tautan"
+
+#: ../Tomboy/Watchers.cs:521
+msgid "_Open Link"
+msgstr "_Buka Tautan"
+
+#: ../Tomboy/Plugins/Backlinks.cs:79
+msgid "What links here?"
+msgstr "Tautan apa di sini?"
+
+#: ../Tomboy/Plugins/Backlinks.cs:137
+msgid "(none)"
+msgstr "(tidak-ada)"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:181
+msgid "Use the following:"
+msgstr "Pergunakan berikut:"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:197
+msgid "Host Name"
+msgstr "Nama Host"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:214
+msgid "Icon"
+msgstr "Icon"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:337
+msgid "Select an icon..."
+msgstr "Pilih sebuah icon..."
+
+#. Extra Widget
+#: ../Tomboy/Plugins/Bugzilla.cs:352
+msgid "_Host name:"
+msgstr "Nama _host:"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:381
+msgid "No host name specified"
+msgstr "Tiada nama host ditentukan"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:382
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "Anda harus menentukan nama host Bugzilla untuk dipergunakan dengan icon ini."
+
+#: ../Tomboy/Plugins/Bugzilla.cs:408
+msgid "Error saving icon"
+msgstr "Kesalahan menyimpan icon"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:409
+msgid "Could not save the icon file.  "
+msgstr "Tidak bisa menyimpan berkas icon.  "
+
+#: ../Tomboy/Plugins/Bugzilla.cs:457
+msgid "Really remove this icon?"
+msgstr "Yakin hapus icon ini?"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:458
+msgid "If you remove an icon it is permanently lost."
+msgstr "Jika anda hapus suatu icon maka akan hilang selamanya."
+
+#: ../Tomboy/Plugins/Evolution.cs:265
+msgid "Cannot open email"
+msgstr "Tidak bisa buka surat"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:55
+msgid "Export to HTML"
+msgstr "Ekspor ke HTML"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:114
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "Catatan anda diekspor ke \"{0}\"."
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:125
+msgid "Note exported successfully"
+msgstr "Catatan dieksport dengan sukses"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:131
+msgid "Access denied."
+msgstr "Akses ditolak."
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:133
+msgid "Folder does not exist."
+msgstr "Map tidak ada."
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:148
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "Tidak bisa menyimpan berkas \"{0}\""
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:267
+msgid "Destination for HTML Export"
+msgstr "Tujuan untuk Ekspor HTML"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:277
+msgid "Export linked notes"
+msgstr "Ekpor catatan bertaut"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:282
+msgid "Include all other linked notes"
+msgstr "Ikutkan seluruh catatan bertaut"
+
+#: ../Tomboy/Plugins/FixedWidth.cs:34
+msgid "_Fixed Width"
+msgstr "Lebar _Tetap"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:235
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "Tidak bisa menghubungi '{0}'"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:238
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "Gagal menjalan gaim-remote: {0}"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
+msgid "Today: "
+msgstr "Hari ini: "
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:14
+msgid "Today: Template"
+msgstr "Hari ini: Template"
+
+#. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:19
+msgid "dddd, MMMM d yyyy"
+msgstr "dddd, MMMM d yyyy"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:40
+msgid "Tasks"
+msgstr "Tugas"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:41
+msgid "Appointments"
+msgstr "Penunjukan"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:52
+msgid "Import from Sticky Notes"
+msgstr "Impor dari Catatan Tempel"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:134
+msgid "No Sticky Notes found"
+msgstr "Tidak menemukan Catatan Tempel"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:135
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "Tidak menemukan berkas Catatan Tempel pada \"{0}\"."
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:144
+msgid "Sticky Notes import completed"
+msgstr "Impor Catatan Tempel selesai"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:145
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr "<b>{0}</b> dari <b>{1}</b> Catatan tempel selesai diimpor."
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:157
+msgid "Untitled"
+msgstr "Tanpa judul"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:185
+msgid "Sticky Note: "
+msgstr "Catatan Tempel: "
+
