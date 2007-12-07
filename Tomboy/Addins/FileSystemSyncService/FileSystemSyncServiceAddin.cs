@@ -13,11 +13,11 @@ namespace Tomboy.Sync
 		// TODO: Extract most of the code here and build GenericSyncServiceAddin
 		// that supports a field, a username, and password.  This could be useful
 		// in quickly building SshSyncServiceAddin, FtpSyncServiceAddin, etc.
-		
+
 		private Entry pathEntry;
 		private string path;
 		private bool initialized = false;
-		
+
 		/// <summary>
 		/// Called as soon as Tomboy needs to do anything with the service
 		/// </summary>
@@ -25,14 +25,14 @@ namespace Tomboy.Sync
 		{
 			initialized = true;
 		}
-		
+
 		public override void Shutdown ()
 		{
 			// Do nothing for now
 		}
-		
+
 		public override bool Initialized {
-			get { return initialized; }
+		        get { return initialized; }
 		}
 
 
@@ -46,7 +46,7 @@ namespace Tomboy.Sync
 		public override SyncServer CreateSyncServer ()
 		{
 			SyncServer server = null;
-			
+
 			string syncPath;
 			if (GetConfigSettings (out syncPath)) {
 				path = syncPath;
@@ -62,15 +62,15 @@ namespace Tomboy.Sync
 			} else {
 				throw new InvalidOperationException ("FileSystemSyncServiceAddin.CreateSyncServer () called without being configured");
 			}
-			
+
 			return server;
 		}
-		
+
 		public override void PostSyncCleanup ()
 		{
 			// Nothing to do
 		}
-		
+
 		/// <summary>
 		/// Creates a Gtk.Widget that's used to configure the service.  This
 		/// will be used in the Synchronization Preferences.  Preferences should
@@ -80,7 +80,7 @@ namespace Tomboy.Sync
 		public override Gtk.Widget CreatePreferencesControl ()
 		{
 			Gtk.Table table = new Gtk.Table (1, 3, false);
-			
+
 			// Read settings out of gconf
 			string syncPath;
 			if (GetConfigSettings (out syncPath) == false)
@@ -89,46 +89,46 @@ namespace Tomboy.Sync
 			Label l = new Label (Catalog.GetString ("Folder Path:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 0, 1);
-			
+
 			pathEntry = new Entry ();
 			pathEntry.Text = syncPath;
 			table.Attach (pathEntry, 1, 2, 0, 1);
-			
+
 			Image browseImage = new Image (Stock.Open, IconSize.Button);
 			Label browseLabel = new Label (Catalog.GetString ("Browse..."));
-			
+
 			HBox browseBox = new HBox (false, 0);
 			browseBox.PackStart (browseImage);
-			browseBox.PackStart (browseLabel);			
-			
+			browseBox.PackStart (browseLabel);
+
 			Button browseButton = new Button ();
 			browseButton.Add (browseBox);
 			browseButton.Clicked += OnBrowseButtonClicked;
 			table.Attach (browseButton, 2, 3, 0, 1, AttachOptions.Shrink, AttachOptions.Expand, 0, 0);
-			
+
 			table.ShowAll ();
 			return table;
 		}
-		
+
 		private void OnBrowseButtonClicked (object sender, EventArgs args)
 		{
 			FileChooserDialog chooserDlg =
-				new FileChooserDialog (Catalog.GetString ("Select Synchronization Folder..."),
-				                       null,
-				                       FileChooserAction.SelectFolder,
-				                       Stock.Cancel, ResponseType.Cancel,
-				                       Stock.Ok, ResponseType.Ok);
+			        new FileChooserDialog (Catalog.GetString ("Select Synchronization Folder..."),
+			                               null,
+			                               FileChooserAction.SelectFolder,
+			                               Stock.Cancel, ResponseType.Cancel,
+			                               Stock.Ok, ResponseType.Ok);
 			chooserDlg.DefaultResponse = ResponseType.Cancel;
 			chooserDlg.SetFilename (pathEntry.Text);
-			
+
 			ResponseType response = (ResponseType) chooserDlg.Run ();
-			
+
 			if (response == ResponseType.Ok)
 				pathEntry.Text = chooserDlg.Filename;
-			
+
 			chooserDlg.Destroy ();
 		}
-		
+
 		/// <summary>
 		/// The Addin should verify and check the connection to the service
 		/// when this is called.  If verification and connection is successful,
@@ -137,13 +137,13 @@ namespace Tomboy.Sync
 		public override bool SaveConfiguration ()
 		{
 			string syncPath = pathEntry.Text.Trim ();
-			
+
 			if (syncPath == string.Empty) {
 				// TODO: Figure out a way to send the error back to the client
 				Logger.Debug ("The path is empty");
 				throw new TomboySyncException (Catalog.GetString ("Folder path field is empty."));
 			}
-			
+
 			// Attempt to create the path and fail if we can't
 			if (Directory.Exists (syncPath) == false) {
 				try {
@@ -151,7 +151,7 @@ namespace Tomboy.Sync
 				} catch (Exception e) {
 					Logger.Debug ("Could not create \"{0}\": {1}", path, e.Message);
 					throw new TomboySyncException (Catalog.GetString ("Specified folder path does not exist, " +
-					                                                  "and Tomboy was unable to create it."));
+					                               "and Tomboy was unable to create it."));
 				}
 			} else {
 				// Test creating/writing/deleting a file
@@ -159,41 +159,41 @@ namespace Tomboy.Sync
 				string testPathBase = Path.Combine (syncPath, "test");
 				string testPath = testPathBase;
 				int count = 0;
-				
+
 				// Get unique new file name
 				while (File.Exists (testPath))
 					testPath = testPathBase + (++count).ToString ();
-				
+
 				// Test ability to create and write
 				string testLine = "Testing write capabilities.";
 				using (FileStream fs = File.Create (testPath)) {
 					StreamWriter writer = new StreamWriter (fs);
 					writer.WriteLine (testLine);
 				}
-				
+
 				// Test ability to read
 				bool testFileFound = false;
 				foreach (string filePath in Directory.GetFiles (syncPath))
-					if (filePath == testPath) {
-						testFileFound = true;
-						break;
-					}
+				if (filePath == testPath) {
+					testFileFound = true;
+					break;
+				}
 				if (!testFileFound)
 					; // TODO: Throw TomboySyncException
 				using (StreamReader reader = new StreamReader (testPath)) {
 					if (reader.ReadLine () != testLine)
 						; // TODO: Throw TomboySyncException
 				}
-				
+
 				// Test ability to delete
 				File.Delete (testPath);
 			}
-			
+
 			path = syncPath;
-			
+
 			// TODO: Try to create and delete a file.  If it fails, this should fail
 			Preferences.Set (Preferences.SYNC_LOCAL_PATH, path);
-			
+
 			return true;
 		}
 
@@ -204,32 +204,32 @@ namespace Tomboy.Sync
 		{
 			Preferences.Set (Preferences.SYNC_LOCAL_PATH, string.Empty);
 		}
-		
+
 		/// <summary>
 		/// Returns whether the addin is configured enough to actually be used.
 		/// </summary>
 		public override bool IsConfigured
 		{
-			get {
-				string syncPath = Preferences.Get (Preferences.SYNC_LOCAL_PATH) as String;
-				
-				if (syncPath != null && syncPath != string.Empty) {
-					return true;
-				}
-				
-				return false;
-			}
+		        get {
+			        string syncPath = Preferences.Get (Preferences.SYNC_LOCAL_PATH) as String;
+
+			        if (syncPath != null && syncPath != string.Empty) {
+				        return true;
+			        }
+
+			        return false;
+		        }
 		}
-		
+
 		/// <summary>
 		/// The name that will be shown in the preferences to distinguish
 		/// between this and other SyncServiceAddins.
 		/// </summary>
 		public override string Name
 		{
-			get {
-				return Mono.Unix.Catalog.GetString ("Local Folder");
-			}
+		        get {
+			        return Mono.Unix.Catalog.GetString ("Local Folder");
+		        }
 		}
 
 		/// <summary>
@@ -238,11 +238,11 @@ namespace Tomboy.Sync
 		/// </summary>
 		public override string Id
 		{
-			get {
-				return "local";
-			}
+		        get {
+			        return "local";
+		        }
 		}
-		
+
 		/// <summary>
 		/// Returns true if the addin has all the supporting libraries installed
 		/// on the machine or false if the proper environment is not available.
@@ -253,10 +253,10 @@ namespace Tomboy.Sync
 		/// </summary>
 		public override bool IsSupported
 		{
-			get { return true; }
+		        get { return true; }
 		}
-		
-		#region Private Methods
+
+#region Private Methods
 		/// <summary>
 		/// Get config settings
 		/// </summary>
@@ -267,9 +267,9 @@ namespace Tomboy.Sync
 			if (syncPath != null && syncPath != string.Empty) {
 				return true;
 			}
-			
+
 			return false;
 		}
-		#endregion // Private Methods
+#endregion // Private Methods
 	}
 }

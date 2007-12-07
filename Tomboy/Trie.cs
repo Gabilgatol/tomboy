@@ -4,7 +4,7 @@
 //  identify substrings that match Tomboy note titles as the user types.
 //
 //  To test, compile with:
-//     mcs -g -o testtrie.exe -define:TEST Trie.cs 
+//     mcs -g -o testtrie.exe -define:TEST Trie.cs
 //
 
 using System;
@@ -28,7 +28,7 @@ namespace Tomboy
 		}
 	}
 
-	public class TrieTree 
+	public class TrieTree
 	{
 		class TrieState
 		{
@@ -137,7 +137,7 @@ namespace Tomboy
 			// Step 2: compute failure graph...
 
 			for (int idx = 0; idx < fail_states.Count; idx++) {
-				q = (TrieState) fail_states [idx]; 
+				q = (TrieState) fail_states [idx];
 
 				while (q != null) {
 					TrieMatch m = q.FirstMatch;
@@ -149,7 +149,7 @@ namespace Tomboy
 
 						while (r != null) {
 							n = FindMatchAtState (r, m.Value);
-							if (n == null) 
+							if (n == null)
 								r = r.Fail;
 							else
 								break;
@@ -229,10 +229,10 @@ namespace Tomboy
 
 					// Got a match!
 					if (q.Final != 0) {
-						string key = haystack.Substring (start_idx, 
-										 idx - start_idx);
-						TrieHit hit = 
-							new TrieHit (start_idx, idx, key, q.Id);
+						string key = haystack.Substring (start_idx,
+						                                 idx - start_idx);
+						TrieHit hit =
+						        new TrieHit (start_idx, idx, key, q.Id);
 						matches.Add (hit);
 					}
 				}
@@ -254,7 +254,7 @@ namespace Tomboy
 
 		public int MaxLength
 		{
-			get { return max_length; }
+	        get { return max_length; }
 		}
 	}
 
@@ -275,9 +275,9 @@ namespace Tomboy
 			Logger.Log ("Starting search...");
 			foreach (TrieHit hit in trie.FindMatches (src)) {
 				Logger.Log ("*** Match: '{0}' at {1}-{2}",
-						   hit.Key,
-						   hit.Start,
-						   hit.End);
+				            hit.Key,
+				            hit.Start,
+				            hit.End);
 			}
 			Logger.Log ("Search finished!");
 		}

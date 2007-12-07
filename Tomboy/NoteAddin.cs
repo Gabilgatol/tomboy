@@ -32,12 +32,12 @@ namespace Tomboy
 			if (disposing) {
 				if (tools_menu_items != null) {
 					foreach (Gtk.Widget item in tools_menu_items)
-						item.Destroy ();
+					item.Destroy ();
 				}
 
 				if (text_menu_items != null) {
 					foreach (Gtk.Widget item in text_menu_items)
-						item.Destroy ();
+					item.Destroy ();
 				}
 
 				Shutdown ();
@@ -45,18 +45,18 @@ namespace Tomboy
 
 			note.Opened -= OnNoteOpenedEvent;
 		}
-		
+
 		/// <summary>
 		/// Called when the NoteAddin is attached to a Note
 		/// </summary>
 		public abstract void Initialize ();
-		
+
 		/// <summary>
 		/// Called when a note is deleted and also when
 		/// the addin is disabled.
 		/// </summary>
 		public abstract void Shutdown ();
-		
+
 		/// <summary>
 		/// Called when the note is opened.
 		/// </summary>
@@ -64,44 +64,44 @@ namespace Tomboy
 
 		public Note Note
 		{
-			get { return note; }
+		        get { return note; }
 		}
 
 		public bool HasBuffer
 		{
-			get { return note.HasBuffer; }
+		        get { return note.HasBuffer; }
 		}
 
 		public NoteBuffer Buffer
 		{
-			get
-			{
-				if (IsDisposing && !HasBuffer)
-					throw new InvalidOperationException ("Plugin is disposing already");
+		        get
+		        {
+			        if (IsDisposing && !HasBuffer)
+				        throw new InvalidOperationException ("Plugin is disposing already");
 
-				return note.Buffer; 
-			}
+			        return note.Buffer;
+		        }
 		}
 
 		public bool HasWindow
 		{
-			get { return note.HasWindow; }
+	        get { return note.HasWindow; }
 		}
 
 		public NoteWindow Window
 		{
-			get
-			{
-				if (IsDisposing && !HasWindow)
-					throw new InvalidOperationException ("Plugin is disposing already");
+		        get
+		        {
+			        if (IsDisposing && !HasWindow)
+				        throw new InvalidOperationException ("Plugin is disposing already");
 
-				return note.Window; 
-			}
+			        return note.Window;
+		        }
 		}
 
 		public NoteManager Manager
 		{
-			get { return note.Manager; }
+	        get { return note.Manager; }
 		}
 
 		void OnNoteOpenedEvent (object sender, EventArgs args)
@@ -110,16 +110,16 @@ namespace Tomboy
 
 			if (tools_menu_items != null) {
 				foreach (Gtk.Widget item in tools_menu_items) {
-					if (item.Parent == null || 
-					    item.Parent != Window.PluginMenu)
+					if (item.Parent == null ||
+					                item.Parent != Window.PluginMenu)
 						Window.PluginMenu.Add (item);
 				}
 			}
 
 			if (text_menu_items != null) {
 				foreach (Gtk.Widget item in text_menu_items) {
-					if (item.Parent == null || 
-					    item.Parent != Window.TextMenu) {
+					if (item.Parent == null ||
+					                item.Parent != Window.TextMenu) {
 						Window.TextMenu.Add (item);
 						Window.TextMenu.ReorderChild (item, 7);
 					}

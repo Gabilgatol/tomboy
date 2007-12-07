@@ -13,7 +13,7 @@ namespace Tomboy.Tasks
 	public class TaskArchiver
 	{
 		public const string CURRENT_VERSION = "1.2";
-		
+
 		public const string DATE_TIME_FORMAT = "yyyy-MM-ddTHH:mm:ss.fffffffzzz";
 
 		static TaskArchiver instance = null;
@@ -25,21 +25,21 @@ namespace Tomboy.Tasks
 
 		public static TaskArchiver Instance
 		{
-			get
-			{
-				lock (lock_)
-				{
-					if (instance == null)
-						instance = new TaskArchiver ();
-					return instance;
-				}
-			}
-			set {
-				lock (lock_)
-				{
-					instance = value;
-				}
-			}
+		        get
+		        {
+			        lock (lock_)
+			        {
+				        if (instance == null)
+					        instance = new TaskArchiver ();
+				        return instance;
+			        }
+		        }
+		        set {
+			        lock (lock_)
+			        {
+				        instance = value;
+			        }
+		        }
 		}
 
 		public static TaskData Read (string read_file, string uri)
@@ -47,13 +47,13 @@ namespace Tomboy.Tasks
 			return Instance.ReadFile (read_file, uri);
 		}
 
-		public virtual TaskData ReadFile (string read_file, string uri) 
+		public virtual TaskData ReadFile (string read_file, string uri)
 		{
 			TaskData data = new TaskData (uri);
 			string version = string.Empty;
 
-			StreamReader reader = new StreamReader (read_file, 
-								System.Text.Encoding.UTF8);
+			StreamReader reader = new StreamReader (read_file,
+			                                        System.Text.Encoding.UTF8);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
 
@@ -71,20 +71,20 @@ namespace Tomboy.Tasks
 						data.Details = xml.ReadInnerXml ();
 						break;
 					case "create-date":
-						data.CreateDate = 
-							XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						data.CreateDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "last-change-date":
-						data.LastChangeDate = 
-							XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						data.LastChangeDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "due-date":
-						data.DueDate = 
-							XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						data.DueDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "completion-date":
-						data.CompletionDate = 
-							XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						data.CompletionDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "priority":
 						string priority_str = xml.ReadString ();
@@ -132,7 +132,7 @@ namespace Tomboy.Tasks
 			Instance.WriteFile (write_file, data);
 		}
 
-		public virtual void WriteFile (string write_file, TaskData data) 
+		public virtual void WriteFile (string write_file, TaskData data)
 		{
 			string tmp_file = write_file + ".tmp";
 
@@ -177,10 +177,10 @@ namespace Tomboy.Tasks
 
 			xml.WriteStartDocument ();
 			xml.WriteStartElement (null, "task", "http://gnome.org/tomboy");
-			xml.WriteAttributeString(null, 
-						 "version", 
-						 null, 
-						 CURRENT_VERSION);
+			xml.WriteAttributeString(null,
+			                         "version",
+			                         null,
+			                         CURRENT_VERSION);
 
 			xml.WriteStartElement (null, "summary", null);
 			xml.WriteString (data.Summary);
@@ -197,37 +197,37 @@ namespace Tomboy.Tasks
 			if (data.CreateDate != DateTime.MinValue) {
 				xml.WriteStartElement (null, "create-date", null);
 				xml.WriteString (
-						XmlConvert.ToString (data.CreateDate, DATE_TIME_FORMAT));
+				        XmlConvert.ToString (data.CreateDate, DATE_TIME_FORMAT));
 				xml.WriteEndElement ();
 			}
-			
+
 			if (data.LastChangeDate != DateTime.MinValue) {
 				xml.WriteStartElement (null, "last-change-date", null);
 				xml.WriteString (
-							XmlConvert.ToString (data.LastChangeDate, DATE_TIME_FORMAT));
+				        XmlConvert.ToString (data.LastChangeDate, DATE_TIME_FORMAT));
 				xml.WriteEndElement ();
 			}
-			
+
 			if (data.DueDate != DateTime.MinValue) {
 				xml.WriteStartElement (null, "due-date", null);
 				xml.WriteString (
-							XmlConvert.ToString (data.DueDate, DATE_TIME_FORMAT));
+				        XmlConvert.ToString (data.DueDate, DATE_TIME_FORMAT));
 				xml.WriteEndElement ();
 			}
-			
+
 			if (data.CompletionDate != DateTime.MinValue) {
 				xml.WriteStartElement (null, "completion-date", null);
 				xml.WriteString (
-							XmlConvert.ToString (data.CompletionDate, DATE_TIME_FORMAT));
+				        XmlConvert.ToString (data.CompletionDate, DATE_TIME_FORMAT));
 				xml.WriteEndElement ();
 			}
-			
+
 			if (data.Priority != TaskPriority.Undefined) {
 				xml.WriteStartElement (null, "priority", null);
 				xml.WriteString (data.Priority.ToString ().ToLower ());
 				xml.WriteEndElement ();
 			}
-			
+
 			if (data.OriginNoteUri != string.Empty) {
 				xml.WriteStartElement (null, "origin-note-uri", null);
 				xml.WriteString (data.OriginNoteUri);

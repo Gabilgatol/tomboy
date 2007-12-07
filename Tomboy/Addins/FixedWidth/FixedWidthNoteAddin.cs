@@ -30,7 +30,7 @@ namespace Tomboy.FixedWidth
 				Note.TagTable.Remove (tag);
 		}
 
-		public override void OnNoteOpened () 
+		public override void OnNoteOpened ()
 		{
 			// Add here instead of in Initialize to avoid creating unopened
 			// notes' windows/buffers.

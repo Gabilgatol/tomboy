@@ -9,21 +9,21 @@ namespace _Gnome {
 
 	public class ChangeBackgroundArgs : GLib.SignalArgs {
 		public Gnome.PanelAppletBackgroundType Type{
-			get {
-				return (Gnome.PanelAppletBackgroundType) Args[0];
-			}
+		        get {
+			        return (Gnome.PanelAppletBackgroundType) Args[0];
+		        }
 		}
 
 		public Gdk.Color Color{
-			get {
-				return (Gdk.Color) Args[1];
-			}
+		        get {
+			        return (Gdk.Color) Args[1];
+		        }
 		}
 
 		public Gdk.Pixmap Pixmap{
-			get {
-				return (Gdk.Pixmap) Args[2];
-			}
+		        get {
+			        return (Gdk.Pixmap) Args[2];
+		        }
 		}
 
 	}

@@ -26,7 +26,7 @@ namespace Tomboy
 
 		public bool IsDisposing
 		{
-			get { return disposing; }
+		        get { return disposing; }
 		}
 	}
 }

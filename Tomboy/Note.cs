@@ -28,7 +28,7 @@ namespace Tomboy
 		int width, height;
 		int x, y;
 		bool open_on_startup;
-		
+
 		Dictionary<string, Tag> tags;
 
 		const int noPosition = -1;
@@ -39,40 +39,40 @@ namespace Tomboy
 			this.text = "";
 			x = noPosition;
 			y = noPosition;
-			
+
 			tags = new Dictionary<string, Tag> ();
-			
+
 			create_date = DateTime.MinValue;
 			change_date = DateTime.MinValue;
 		}
 
 		public string Uri
 		{
-			get { return uri; }
+		        get { return uri; }
 		}
 
 		public string Title
 		{
-			get { return title; }
-			set { title = value; }
+		        get { return title; }
+		        set { title = value; }
 		}
 
 		public string Text
 		{
-			get { return text; }
-			set { text = value; }
+		        get { return text; }
+		        set { text = value; }
 		}
 
 		public DateTime CreateDate
 		{
-			get { return create_date; }
-			set { create_date = value; }
+		        get { return create_date; }
+		        set { create_date = value; }
 		}
 
 		public DateTime ChangeDate
 		{
-			get { return change_date; }
-			set { change_date = value; }
+		        get { return change_date; }
+		        set { change_date = value; }
 		}
 
 		// FIXME: the next five attributes don't belong here (the data
@@ -81,45 +81,45 @@ namespace Tomboy
 
 		public int CursorPosition
 		{
-			get { return cursor_pos; }
-			set { cursor_pos = value; }
+		        get { return cursor_pos; }
+		        set { cursor_pos = value; }
 		}
 
 		public int Width
 		{
-			get { return width; }
-			set { width = value; }
+		        get { return width; }
+		        set { width = value; }
 		}
 
 		public int Height
 		{
-			get { return height; }
-			set { height = value; }
+		        get { return height; }
+		        set { height = value; }
 		}
 
 		public int X
 		{
-			get { return x; }
-			set { x = value; }
+		        get { return x; }
+		        set { x = value; }
 		}
 
 		public int Y
 		{
-			get { return y; }
-			set { y = value; }
+		        get { return y; }
+		        set { y = value; }
 		}
-		
+
 		public Dictionary<string, Tag> Tags
 		{
-			get { return tags; }
+		        get { return tags; }
 		}
-		
+
 		public bool IsOpenOnStartup
 		{
-			get { return open_on_startup; }
-			set { open_on_startup = value; }
+		        get { return open_on_startup; }
+		        set { open_on_startup = value; }
 		}
-		
+
 		public void SetPositionExtent (int x, int y, int width, int height)
 		{
 			Debug.Assert (x >= 0 && y >= 0);
@@ -166,35 +166,35 @@ namespace Tomboy
 
 		public NoteData Data
 		{
-			get { return data; }
+		        get { return data; }
 		}
 
 		public NoteBuffer Buffer
 		{
-			get { return buffer; }
-			set {
-				buffer = value;
-				buffer.Changed += BufferChanged;
-				buffer.TagApplied += BufferTagApplied;
-				buffer.TagRemoved += BufferTagRemoved;
+		        get { return buffer; }
+		        set {
+			        buffer = value;
+			        buffer.Changed += BufferChanged;
+			        buffer.TagApplied += BufferTagApplied;
+			        buffer.TagRemoved += BufferTagRemoved;
 
-				SynchronizeBuffer ();
+			        SynchronizeBuffer ();
 
-				InvalidateText ();
-			}
+			        InvalidateText ();
+		        }
 		}
 
 		//Text is actually an Xml formatted string
 		public string Text
 		{
-			get {
-				SynchronizeText ();
-				return data.Text;
-			}
-			set {
-				data.Text = value;
-				SynchronizeBuffer ();
-			}
+		        get {
+			        SynchronizeText ();
+			        return data.Text;
+		        }
+		        set {
+			        data.Text = value;
+			        SynchronizeBuffer ();
+		        }
 		}
 
 		// Custom Methods
@@ -212,7 +212,7 @@ namespace Tomboy
 		void SynchronizeText ()
 		{
 			if (TextInvalid () && buffer != null) {
-				data.Text = NoteBufferArchiver.Serialize (buffer); 
+				data.Text = NoteBufferArchiver.Serialize (buffer);
 			}
 		}
 
@@ -225,9 +225,9 @@ namespace Tomboy
 				buffer.Clear ();
 
 				// Load the stored xml text
-				NoteBufferArchiver.Deserialize (buffer, 
-								buffer.StartIter, 
-								data.Text);
+				NoteBufferArchiver.Deserialize (buffer,
+				                                buffer.StartIter,
+				                                data.Text);
 				buffer.Modified = false;
 
 				Gtk.TextIter cursor;
@@ -267,7 +267,7 @@ namespace Tomboy
 		}
 	}
 
-	public class Note 
+	public class Note
 	{
 		readonly NoteDataBufferSynchronizer data;
 
@@ -301,13 +301,13 @@ namespace Tomboy
 			this.data = new NoteDataBufferSynchronizer (data);
 			this.filepath = filepath;
 			this.manager = manager;
-			
+
 			// Make sure each of the tags that NoteData found point to the
 			// instance of this note.
 			foreach (Tag tag in data.Tags.Values) {
 				AddTag (tag);
 			}
-			
+
 			save_timeout = new InterruptableTimeout ();
 			save_timeout.Timeout += SaveTimeout;
 
@@ -317,12 +317,12 @@ namespace Tomboy
 		static string UrlFromPath (string filepath)
 		{
 			return "note://tomboy/" +
-				Path.GetFileNameWithoutExtension (filepath);
+			       Path.GetFileNameWithoutExtension (filepath);
 		}
 
 		public static Note CreateNewNote (string title,
-						  string filepath,
-						  NoteManager manager)
+		                                  string filepath,
+		                                  NoteManager manager)
 		{
 			NoteData data = new NoteData (UrlFromPath (filepath));
 			data.Title = title;
@@ -332,8 +332,8 @@ namespace Tomboy
 		}
 
 		public static Note CreateExistingNote (NoteData data,
-						       string filepath,
-						       NoteManager manager)
+		                                       string filepath,
+		                                       NoteManager manager)
 		{
 			if (data.CreateDate == DateTime.MinValue)
 				data.CreateDate = File.GetCreationTime (filepath);
@@ -345,7 +345,7 @@ namespace Tomboy
 		public void Delete ()
 		{
 			save_timeout.Cancel ();
-			
+
 			// Remove the note from all the tags
 			foreach (Tag tag in Tags) {
 				RemoveTag (tag);
@@ -355,7 +355,7 @@ namespace Tomboy
 				window.Hide ();
 				window.Destroy ();
 			}
-			
+
 			// Remove note URI from GConf entry menu_pinned_notes
 			IsPinned = false;
 		}
@@ -369,7 +369,7 @@ namespace Tomboy
 			return note;
 		}
 
-		public void Save () 
+		public void Save ()
 		{
 			// Do nothing if we don't need to save.  Avoids unneccessary saves
 			// e.g on forced quit when we call save for every note.
@@ -379,7 +379,7 @@ namespace Tomboy
 			Logger.Log ("Saving '{0}'...", data.Data.Title);
 
 			NoteArchiver.Write (filepath, data.GetDataSynchronized ());
-			
+
 			if (Saved != null)
 				Saved (this);
 		}
@@ -440,20 +440,20 @@ namespace Tomboy
 			window.GetPosition (out cur_x, out cur_y);
 			window.GetSize (out cur_width, out cur_height);
 
-			if (data.Data.X == cur_x && 
-			    data.Data.Y == cur_y &&
-			    data.Data.Width == cur_width && 
-			    data.Data.Height == cur_height)
+			if (data.Data.X == cur_x &&
+			                data.Data.Y == cur_y &&
+			                data.Data.Width == cur_width &&
+			                data.Data.Height == cur_height)
 				return;
 
 			data.Data.SetPositionExtent (cur_x, cur_y, cur_width, cur_height);
-			
+
 			DebugSave ("WindowConfigureEvent queueing save");
 			QueueSave (false);
 		}
 
 		[GLib.ConnectBefore]
-		void WindowDestroyed (object sender, EventArgs args) 
+		void WindowDestroyed (object sender, EventArgs args)
 		{
 			window = null;
 		}
@@ -491,14 +491,14 @@ namespace Tomboy
 				Logger.Log ("Error while saving: {0}", e);
 			}
 		}
-		
+
 		public void AddTag (Tag tag)
 		{
 			if (tag == null)
 				throw new ArgumentNullException ("Note.AddTag () called with a null tag.");
 
 			tag.AddNote (this);
-			
+
 			if (!data.Data.Tags.ContainsKey (tag.NormalizedName)) {
 				data.Data.Tags [tag.NormalizedName] = tag;
 
@@ -509,21 +509,21 @@ namespace Tomboy
 				QueueSave (true);
 			}
 		}
-		
+
 		public void RemoveTag (Tag tag)
 		{
 			if (tag == null)
 				throw new ArgumentException ("Note.RemoveTag () called with a null tag.");
-			
+
 			if (!data.Data.Tags.ContainsKey (tag.NormalizedName))
 				return;
-			
+
 			if (TagRemoving != null)
 				TagRemoving (this, tag);
-			
+
 			data.Data.Tags.Remove (tag.NormalizedName);
 			tag.RemoveNote (this);
-			
+
 			if (TagRemoved != null)
 				TagRemoved (this, tag.NormalizedName);
 
@@ -559,67 +559,67 @@ namespace Tomboy
 
 		public string Uri
 		{
-			get { return data.Data.Uri; }
+		        get { return data.Data.Uri; }
 		}
-		
+
 		public string Id
 		{
-			get { return data.Data.Uri.Replace ("note://tomboy/",""); }// TODO: Store on Note instantiation
+		        get { return data.Data.Uri.Replace ("note://tomboy/",""); }// TODO: Store on Note instantiation
 		}
 
-		public string FilePath 
+		public string FilePath
 		{
-			get { return filepath; }
-			set { filepath = value; }
+		        get { return filepath; }
+		        set { filepath = value; }
 		}
 
-		public string Title 
+		public string Title
 		{
-			get { return data.Data.Title; }
-			set {
-				if (data.Data.Title != value) {
-					if (window != null)
-						window.Title = value;
+		        get { return data.Data.Title; }
+		        set {
+			        if (data.Data.Title != value) {
+				        if (window != null)
+					        window.Title = value;
 
-					string old_title = data.Data.Title;
-					data.Data.Title = value;
+				        string old_title = data.Data.Title;
+				        data.Data.Title = value;
 
-					if (Renamed != null)
-						Renamed (this, old_title);
-					
-					QueueSave (true); // TODO: Right place for this?
-				}
-			}
+				        if (Renamed != null)
+					        Renamed (this, old_title);
+
+				        QueueSave (true); // TODO: Right place for this?
+			        }
+		        }
 		}
-		
+
 		public void RenameWithoutLinkUpdate (string newTitle)
 		{
 			if (data.Data.Title != newTitle) {
 				if (window != null)
 					window.Title = newTitle;
-				
+
 				data.Data.Title = newTitle;
-				
-				// HACK: 
+
+				// HACK:
 				if (Renamed != null)
 					Renamed (this, newTitle);
-				
+
 				QueueSave (true); // TODO: Right place for this?
 			}
 		}
 
-		public string XmlContent 
+		public string XmlContent
 		{
-			get { return data.Text; }
-			set { 
-				if (buffer != null) {
-					buffer.SetText("");
-					NoteBufferArchiver.Deserialize (buffer, value);
-				} else
-					data.Text = value; 
-			}
+	        get { return data.Text; }
+		        set {
+			        if (buffer != null) {
+				        buffer.SetText("");
+				        NoteBufferArchiver.Deserialize (buffer, value);
+			        } else
+				        data.Text = value;
+		        }
 		}
-		
+
 		/// <summary>
 		/// Return the complete contents of this note's .note XML file
 		/// In case of any error, null is returned.
@@ -628,7 +628,7 @@ namespace Tomboy
 		{
 			if (!File.Exists (filepath))
 				return null;
-			
+
 			// Make sure file contents are up to date
 			save_needed = true; // HACK: Catches newly created notes
 			Save ();
@@ -646,7 +646,7 @@ namespace Tomboy
 					reader.Close ();
 			}
 		}
-		
+
 		// Reload note data from a complete note XML string
 		// Should referesh note window, too
 		public void LoadForeignNoteXml (string foreignNoteXml)
@@ -662,15 +662,15 @@ namespace Tomboy
 			// This will throw an XmlException if foreignNoteXml is not parseable
 			xmlDoc.LoadXml (foreignNoteXml);
 			xmlDoc = null;
-			
+
 			StringReader reader = new StringReader (foreignNoteXml);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
-			
+
 			// Remove tags now, since a note with no tags has
 			// no "tags" element in the XML
 			foreach (Tag tag in Tags)
-				RemoveTag (tag);
+			RemoveTag (tag);
 
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
@@ -683,12 +683,12 @@ namespace Tomboy
 						XmlContent = xml.ReadInnerXml ();
 						break;
 					case "last-change-date":
-						data.Data.ChangeDate = 
-							XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						data.Data.ChangeDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
 						break;
 					case "create-date":
-						data.Data.CreateDate = 
-							XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						data.Data.CreateDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
 						break;
 					case "tags":
 						XmlDocument doc = new XmlDocument ();
@@ -707,72 +707,72 @@ namespace Tomboy
 			}
 
 			xml.Close ();
-			
+
 			// TODO: Any reason to queue a save here?  Maybe not for sync but for others?
 		}
-		
+
 		// TODO: CODE DUPLICATION SUCKS
 		List<string> ParseTags (XmlNode tagNodes)
 		{
 			List<string> tags = new List<string> ();
-			
+
 			foreach (XmlNode node in tagNodes.SelectNodes ("//tag")) {
 				string tag = node.InnerText;
 				tags.Add (tag);
 			}
-			
+
 			return tags;
 		}
 
 		public string TextContent
 		{
-			get {
-				if (buffer != null)
-					return buffer.GetSlice (buffer.StartIter, 
-								buffer.EndIter, 
-								false /* hidden_chars */);
-				else 
-					return XmlDecoder.Decode (XmlContent);
-			}
-			set {
-				if (buffer != null)
-					buffer.SetText (value);
-				else
-					Logger.Log ("Setting text content for closed notes not supported");
-			}
-				
+		        get {
+			        if (buffer != null)
+				        return buffer.GetSlice (buffer.StartIter,
+				                                buffer.EndIter,
+				                                false /* hidden_chars */);
+			        else
+				        return XmlDecoder.Decode (XmlContent);
+		        }
+		        set {
+			        if (buffer != null)
+				        buffer.SetText (value);
+			        else
+				        Logger.Log ("Setting text content for closed notes not supported");
+		        }
+
 		}
 
 		public NoteData Data
 		{
-			get { return data.GetDataSynchronized (); }
+	        get { return data.GetDataSynchronized (); }
 		}
 
-		public DateTime CreateDate 
+		public DateTime CreateDate
 		{
-			get { return data.Data.CreateDate; }
+		        get { return data.Data.CreateDate; }
 		}
 
-		public DateTime ChangeDate 
+		public DateTime ChangeDate
 		{
-			get { return data.Data.ChangeDate; }
+		        get { return data.Data.ChangeDate; }
 		}
 
 		public NoteManager Manager
 		{
-			get { return manager; }
-			set { manager = value; }
+		        get { return manager; }
+		        set { manager = value; }
 		}
 
 		public NoteTagTable TagTable
 		{
-			get {
-				if (tag_table == null) {
+		        get {
+			        if (tag_table == null) {
 #if FIXED_GTKSPELL
-					// NOTE: Sharing the same TagTable means
-					// that formatting is duplicated between
-					// buffers.
-					tag_table = NoteTagTable.Instance;
+				        // NOTE: Sharing the same TagTable means
+				        // that formatting is duplicated between
+				        // buffers.
+				        tag_table = NoteTagTable.Instance;
 #else
 					// NOTE: GtkSpell chokes on shared
 					// TagTables because it blindly tries to
@@ -781,137 +781,137 @@ namespace Tomboy
 					// exists in the table.
 					tag_table = new NoteTagTable ();
 #endif
-				}
-				return tag_table;
-			}
+			        }
+			        return tag_table;
+		        }
 		}
 
 		public bool HasBuffer
 		{
-			get { return null != buffer; }
+		        get { return null != buffer; }
 		}
 
 		public NoteBuffer Buffer
 		{
-			get {
-				if (buffer == null) {
-					Logger.Log ("Creating Buffer for '{0}'...", 
-						    data.Data.Title);
+		        get {
+			        if (buffer == null) {
+				        Logger.Log ("Creating Buffer for '{0}'...",
+				                    data.Data.Title);
 
-					buffer = new NoteBuffer (TagTable, this);
-					data.Buffer = buffer;
+				        buffer = new NoteBuffer (TagTable, this);
+				        data.Buffer = buffer;
 
-					// Listen for further changed signals
-					buffer.Changed += BufferChanged;
-					buffer.TagApplied += BufferTagApplied;
-					buffer.TagRemoved += BufferTagRemoved;
-					buffer.MarkSet += BufferInsertMarkSet;
-				}
-				return buffer;
-			}
+				        // Listen for further changed signals
+				        buffer.Changed += BufferChanged;
+				        buffer.TagApplied += BufferTagApplied;
+				        buffer.TagRemoved += BufferTagRemoved;
+				        buffer.MarkSet += BufferInsertMarkSet;
+			        }
+			        return buffer;
+		        }
 		}
 
 		public bool HasWindow
 		{
-			get { return null != window; }
+		        get { return null != window; }
 		}
 
-		public NoteWindow Window 
+		public NoteWindow Window
 		{
-			get {
-				if (window == null) {
-					window = new NoteWindow (this);
-					window.Destroyed += WindowDestroyed;
-					window.ConfigureEvent += WindowConfigureEvent;
-					
-					if (data.Data.HasExtent ())
-						window.SetDefaultSize (data.Data.Width, 
-								       data.Data.Height);
+		        get {
+			        if (window == null) {
+				        window = new NoteWindow (this);
+				        window.Destroyed += WindowDestroyed;
+				        window.ConfigureEvent += WindowConfigureEvent;
 
-					if (data.Data.HasPosition ())
-						window.Move (data.Data.X, data.Data.Y);
+				        if (data.Data.HasExtent ())
+					        window.SetDefaultSize (data.Data.Width,
+					                               data.Data.Height);
 
-					// This is here because emiting inside
-					// OnRealized causes segfaults.
-					if (Opened != null)
-						Opened (this, new EventArgs ());
+				        if (data.Data.HasPosition ())
+					        window.Move (data.Data.X, data.Data.Y);
 
-					// Add any child widgets if any exist now that
-					// the window is showing.
-					ProcessChildWidgetQueue ();
-				}
-				return window; 
-			}
+				        // This is here because emiting inside
+				        // OnRealized causes segfaults.
+				        if (Opened != null)
+					        Opened (this, new EventArgs ());
+
+				        // Add any child widgets if any exist now that
+				        // the window is showing.
+				        ProcessChildWidgetQueue ();
+			        }
+			        return window;
+		        }
 		}
 
-		public bool IsSpecial 
+		public bool IsSpecial
 		{
-			get { return NoteManager.StartNoteUri == data.Data.Uri; }
+	        get { return NoteManager.StartNoteUri == data.Data.Uri; }
 		}
 
-		public bool IsNew 
+		public bool IsNew
 		{
-			get { 
-				// Note is new if created in the last 24 hours.
-				return data.Data.CreateDate > DateTime.Now.AddHours (-24);
-			}
+		        get {
+			        // Note is new if created in the last 24 hours.
+			        return data.Data.CreateDate > DateTime.Now.AddHours (-24);
+		        }
 		}
 
-		public bool IsLoaded 
+		public bool IsLoaded
 		{
-			get { return buffer != null; }
+		        get { return buffer != null; }
 		}
 
-		public bool IsOpened 
+		public bool IsOpened
 		{
-			get { return window != null; }
+		        get { return window != null; }
 		}
 
 		public bool IsPinned
 		{
-			get {
-				string pinned_uris = (string)
-					Preferences.Get (Preferences.MENU_PINNED_NOTES);
-				return pinned_uris.IndexOf (Uri) > -1;
-			}
-			set {
-				string new_pinned = "";
-				string old_pinned = (string)
-					Preferences.Get (Preferences.MENU_PINNED_NOTES);
-				bool pinned = old_pinned.IndexOf (Uri) > -1;
+		        get {
+			        string pinned_uris = (string)
+			                             Preferences.Get (Preferences.MENU_PINNED_NOTES);
+			        return pinned_uris.IndexOf (Uri) > -1;
+		        }
+		        set {
+			        string new_pinned = "";
+			        string old_pinned = (string)
+			                            Preferences.Get (Preferences.MENU_PINNED_NOTES);
+			        bool pinned = old_pinned.IndexOf (Uri) > -1;
 
-				if (value == pinned) 
-					return;
+			        if (value == pinned)
+				        return;
 
-				if (value) {
-					new_pinned = Uri + " " + old_pinned;
-				} else {
-					string [] pinned_split = old_pinned.Split (' ', '\t', '\n');
-					foreach (string pin in pinned_split) {
-						if (pin != "" && pin != Uri) {
-							new_pinned += pin + " ";
-						}
-					}
-				}
+			        if (value) {
+				        new_pinned = Uri + " " + old_pinned;
+			        } else {
+				        string [] pinned_split = old_pinned.Split (' ', '\t', '\n');
+				        foreach (string pin in pinned_split) {
+					        if (pin != "" && pin != Uri) {
+						        new_pinned += pin + " ";
+					        }
+				        }
+			        }
 
-				Preferences.Set (Preferences.MENU_PINNED_NOTES, new_pinned);
-			}
+			        Preferences.Set (Preferences.MENU_PINNED_NOTES, new_pinned);
+		        }
 		}
-		
+
 		public bool IsOpenOnStartup
 		{
-			get { return Data.IsOpenOnStartup; }
-			set {
-				if (Data.IsOpenOnStartup != value) {
-					Data.IsOpenOnStartup = value;
-					save_needed = true;
-				}
-			}
+		        get { return Data.IsOpenOnStartup; }
+		        set {
+			        if (Data.IsOpenOnStartup != value) {
+				        Data.IsOpenOnStartup = value;
+				        save_needed = true;
+			        }
+		        }
 		}
-		
+
 		public List<Tag> Tags
 		{
-			get { return new List<Tag> (data.Data.Tags.Values); }
+		        get { return new List<Tag> (data.Data.Tags.Values); }
 		}
 
 		public event EventHandler Opened;
@@ -928,7 +928,7 @@ namespace Tomboy
 	public class NoteArchiver
 	{
 		public const string CURRENT_VERSION = "0.2";
-		
+
 		public const string DATE_TIME_FORMAT = "yyyy-MM-ddTHH:mm:ss.fffffffzzz";
 
 		static NoteArchiver instance = null;
@@ -940,21 +940,21 @@ namespace Tomboy
 
 		public static NoteArchiver Instance
 		{
-			get
-			{
-				lock (lock_)
-				{
-					if (instance == null)
-						instance = new NoteArchiver ();
-					return instance;
-				}
-			}
-			set {
-				lock (lock_)
-				{
-					instance = value;
-				}
-			}
+		        get
+		        {
+			        lock (lock_)
+			        {
+				        if (instance == null)
+					        instance = new NoteArchiver ();
+				        return instance;
+			        }
+		        }
+		        set {
+			        lock (lock_)
+			        {
+				        instance = value;
+			        }
+		        }
 		}
 
 		public static NoteData Read (string read_file, string uri)
@@ -962,13 +962,13 @@ namespace Tomboy
 			return Instance.ReadFile (read_file, uri);
 		}
 
-		public virtual NoteData ReadFile (string read_file, string uri) 
+		public virtual NoteData ReadFile (string read_file, string uri)
 		{
 			NoteData note = new NoteData (uri);
 			string version = "";
 
-			StreamReader reader = new StreamReader (read_file, 
-								System.Text.Encoding.UTF8);
+			StreamReader reader = new StreamReader (read_file,
+			                                        System.Text.Encoding.UTF8);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
 
@@ -988,12 +988,12 @@ namespace Tomboy
 						note.Text = xml.ReadInnerXml ();
 						break;
 					case "last-change-date":
-						note.ChangeDate = 
-							XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						note.ChangeDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "create-date":
-						note.CreateDate = 
-							XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						note.CreateDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "cursor-position":
 						note.CursorPosition = int.Parse (xml.ReadString ());
@@ -1043,7 +1043,7 @@ namespace Tomboy
 			Instance.WriteFile (write_file, note);
 		}
 
-		public virtual void WriteFile (string write_file, NoteData note) 
+		public virtual void WriteFile (string write_file, NoteData note)
 		{
 			string tmp_file = write_file + ".tmp";
 
@@ -1088,18 +1088,18 @@ namespace Tomboy
 
 			xml.WriteStartDocument ();
 			xml.WriteStartElement (null, "note", "http://beatniksoftware.com/tomboy");
-			xml.WriteAttributeString(null, 
-						 "version", 
-						 null, 
-						 CURRENT_VERSION);
-			xml.WriteAttributeString("xmlns", 
-						 "link", 
-						 null, 
-						 "http://beatniksoftware.com/tomboy/link");
-			xml.WriteAttributeString("xmlns", 
-						 "size", 
-						 null, 
-						 "http://beatniksoftware.com/tomboy/size");
+			xml.WriteAttributeString(null,
+			                         "version",
+			                         null,
+			                         CURRENT_VERSION);
+			xml.WriteAttributeString("xmlns",
+			                         "link",
+			                         null,
+			                         "http://beatniksoftware.com/tomboy/link");
+			xml.WriteAttributeString("xmlns",
+			                         "size",
+			                         null,
+			                         "http://beatniksoftware.com/tomboy/size");
 
 			xml.WriteStartElement (null, "title", null);
 			xml.WriteString (note.Title);
@@ -1113,13 +1113,13 @@ namespace Tomboy
 
 			xml.WriteStartElement (null, "last-change-date", null);
 			xml.WriteString (
-						XmlConvert.ToString (note.ChangeDate, DATE_TIME_FORMAT));
+			        XmlConvert.ToString (note.ChangeDate, DATE_TIME_FORMAT));
 			xml.WriteEndElement ();
 
 			if (note.CreateDate != DateTime.MinValue) {
 				xml.WriteStartElement (null, "create-date", null);
 				xml.WriteString (
-						XmlConvert.ToString (note.CreateDate, DATE_TIME_FORMAT));
+				        XmlConvert.ToString (note.CreateDate, DATE_TIME_FORMAT));
 				xml.WriteEndElement ();
 			}
 
@@ -1142,7 +1142,7 @@ namespace Tomboy
 			xml.WriteStartElement (null, "y", null);
 			xml.WriteString (note.Y.ToString ());
 			xml.WriteEndElement ();
-			
+
 			if (note.Tags.Count > 0) {
 				xml.WriteStartElement (null, "tags", null);
 				foreach (Tag tag in note.Tags.Values) {
@@ -1152,7 +1152,7 @@ namespace Tomboy
 				}
 				xml.WriteEndElement ();
 			}
-			
+
 			xml.WriteStartElement (null, "open-on-startup", null);
 			xml.WriteString (note.IsOpenOnStartup.ToString ());
 			xml.WriteEndElement ();
@@ -1160,42 +1160,42 @@ namespace Tomboy
 			xml.WriteEndElement (); // Note
 			xml.WriteEndDocument ();
 		}
-		
+
 		// <summary>
 		// Parse the tags from the <tags> element
 		// </summary>
 		List<string> ParseTags (XmlNode tagNodes)
 		{
 			List<string> tags = new List<string> ();
-			
+
 			foreach (XmlNode node in tagNodes.SelectNodes ("//tag")) {
 				string tag = node.InnerText;
 				tags.Add (tag);
 			}
-			
+
 			return tags;
 		}
-		
+
 		public virtual string GetRenamedNoteXml (string noteXml, string oldTitle, string newTitle)
 		{
 			string updatedXml;
-			
+
 			// Replace occurences of oldTitle with newTitle in noteXml
 			string titleTagPattern =
-				string.Format ("<title>{0}</title>", oldTitle);
+			        string.Format ("<title>{0}</title>", oldTitle);
 			string titleTagReplacement =
-				string.Format ("<title>{0}</title>", newTitle);
+			        string.Format ("<title>{0}</title>", newTitle);
 			updatedXml = Regex.Replace (noteXml, titleTagPattern, titleTagReplacement);
-			
+
 			string titleContentPattern =
-				string.Format ("<note-content([^>]*)>\\s*{0}", oldTitle);
+			        string.Format ("<note-content([^>]*)>\\s*{0}", oldTitle);
 			string titleContentReplacement =
-				string.Format ("<note-content$1>{0}", newTitle);
+			        string.Format ("<note-content$1>{0}", newTitle);
 			updatedXml = Regex.Replace (updatedXml, titleContentPattern, titleContentReplacement);
-			
+
 			return updatedXml;
 		}
-		
+
 		public virtual string GetTitleFromNoteXml (string noteXml)
 		{
 			if (noteXml != null && noteXml.Length > 0) {
@@ -1206,32 +1206,32 @@ namespace Tomboy
 					switch (xml.NodeType) {
 					case XmlNodeType.Element:
 						switch (xml.Name) {
-					case "title":
-						return xml.ReadString ();
-						break;
-					}
+						case "title":
+							return xml.ReadString ();
+							break;
+						}
 						break;
 					}
 				}
 			}
-			
+
 			return null;
 		}
 	}
 
 	public class NoteUtils
 	{
-		public static void ShowDeletionDialog (Note note, Gtk.Window parent) 
+		public static void ShowDeletionDialog (Note note, Gtk.Window parent)
 		{
-			HIGMessageDialog dialog = 
-				new HIGMessageDialog (
-					parent,
-					Gtk.DialogFlags.DestroyWithParent,
-					Gtk.MessageType.Question,
-					Gtk.ButtonsType.None,
-					Catalog.GetString ("Really delete this note?"),
-					Catalog.GetString ("If you delete a note it is " +
-							   "permanently lost."));
+			HIGMessageDialog dialog =
+			        new HIGMessageDialog (
+			                parent,
+			                Gtk.DialogFlags.DestroyWithParent,
+			                Gtk.MessageType.Question,
+			                Gtk.ButtonsType.None,
+			                Catalog.GetString ("Really delete this note?"),
+			                Catalog.GetString ("If you delete a note it is " +
+			                                   "permanently lost."));
 
 			Gtk.Button button;
 

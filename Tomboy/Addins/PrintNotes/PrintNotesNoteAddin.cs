@@ -29,7 +29,7 @@ namespace Tomboy.PrintNotes
 			item.Activated -= PrintButtonClicked;
 		}
 
-		public override void OnNoteOpened () 
+		public override void OnNoteOpened ()
 		{
 			// Do nothing.
 		}

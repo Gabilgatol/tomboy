@@ -9,7 +9,7 @@ using Tomboy.Platform;
 
 namespace Tomboy
 {
-	public class NoteWindow : ForcedPresentWindow 
+	public class NoteWindow : ForcedPresentWindow
 	{
 		Note note;
 
@@ -26,15 +26,15 @@ namespace Tomboy
 		GlobalKeybinder global_keys;
 		InterruptableTimeout mark_set_timeout;
 
-		// 
+		//
 		// Construct a window to display a note
-		// 
+		//
 		// Currently a toolbar with Link, Search, Text, Delete buttons
 		// and a Gtk.TextView as the body.
-		// 
+		//
 
-		public NoteWindow (Note note) : 
-			base (note.Title) 
+		public NoteWindow (Note note) :
+				base (note.Title)
 		{
 			this.note = note;
 			this.IconName = "tomboy";
@@ -53,15 +53,15 @@ namespace Tomboy
 			spacer.Show ();
 			text_menu.Append (spacer);
 
-			Gtk.ImageMenuItem find_item = 
-				new Gtk.ImageMenuItem (Catalog.GetString("Find in This Note"));
+			Gtk.ImageMenuItem find_item =
+			        new Gtk.ImageMenuItem (Catalog.GetString("Find in This Note"));
 			find_item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			find_item.Activated += FindActivate;
 			find_item.AddAccelerator ("activate",
-						  accel_group,
-						  (uint) Gdk.Key.f, 
-						  Gdk.ModifierType.ControlMask,
-						  Gtk.AccelFlags.Visible);
+			                          accel_group,
+			                          (uint) Gdk.Key.f,
+			                          Gdk.ModifierType.ControlMask,
+			                          Gtk.AccelFlags.Visible);
 			find_item.Show ();
 			text_menu.Append (find_item);
 
@@ -69,12 +69,12 @@ namespace Tomboy
 
 			toolbar = MakeToolbar ();
 			toolbar.Show ();
-			
+
 //			tag_bar = new NoteTagBar (note);
 //			tag_bar.Visible = false;
 //			tag_bar.NoShowAll = true;
 //			tag_bar.Hidden += TagBarHidden;
-			
+
 			// The main editor widget
 			editor = new NoteEditor (note.Buffer);
 			editor.PopulatePopup += OnPopulatePopup;
@@ -87,7 +87,7 @@ namespace Tomboy
 
 			// FIXME: I think it would be really nice to let the
 			//        window get bigger up till it grows more than
-			//        60% of the screen, and then show scrollbars. 
+			//        60% of the screen, and then show scrollbars.
 			editor_window = new Gtk.ScrolledWindow ();
 			editor_window.HscrollbarPolicy = Gtk.PolicyType.Automatic;
 			editor_window.VscrollbarPolicy = Gtk.PolicyType.Automatic;
@@ -95,7 +95,7 @@ namespace Tomboy
 			editor_window.Show ();
 
 			FocusChild = editor;
-			
+
 			find_bar = new NoteFindBar (note);
 			find_bar.Visible = false;
 			find_bar.NoShowAll = true;
@@ -107,14 +107,14 @@ namespace Tomboy
 			box.PackStart (editor_window, true, true, 0);
 			box.PackStart (find_bar, false, false, 0);
 			box.Show ();
-			
+
 			// Don't set up Ctrl-W or Ctrl-N if Emacs is in use
 			bool using_emacs = false;
 			string gtk_key_theme = (string)
-					Preferences.Get ("/desktop/gnome/interface/gtk_key_theme");
+			                       Preferences.Get ("/desktop/gnome/interface/gtk_key_theme");
 			if (gtk_key_theme != null && gtk_key_theme.CompareTo ("Emacs") == 0)
 				using_emacs = true;
-			
+
 			// NOTE: Since some of our keybindings are only
 			// available in the context menu, and the context menu
 			// is created on demand, register them with the
@@ -124,59 +124,59 @@ namespace Tomboy
 			// Close window (Ctrl-W)
 			if (!using_emacs)
 				global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
-						    (uint) Gdk.Key.w, 
-						    Gdk.ModifierType.ControlMask,
-						    Gtk.AccelFlags.Visible);
-			
+				                            (uint) Gdk.Key.w,
+				                            Gdk.ModifierType.ControlMask,
+				                            Gtk.AccelFlags.Visible);
+
 			// Escape has been moved to be handled by a KeyPress Handler so that
 			// Escape can be used to close the FindBar.
 
 			// Close all windows on current Desktop (Ctrl-Q)
 			global_keys.AddAccelerator (new EventHandler (CloseAllWindowsHandler),
-						    (uint) Gdk.Key.q, 
-						    Gdk.ModifierType.ControlMask,
-						    Gtk.AccelFlags.Visible);
+			                            (uint) Gdk.Key.q,
+			                            Gdk.ModifierType.ControlMask,
+			                            Gtk.AccelFlags.Visible);
 
 			// Find Next (Ctrl-G)
 			global_keys.AddAccelerator (new EventHandler (FindNextActivate),
-						    (uint) Gdk.Key.g, 
-						    Gdk.ModifierType.ControlMask,
-						    Gtk.AccelFlags.Visible);
+			                            (uint) Gdk.Key.g,
+			                            Gdk.ModifierType.ControlMask,
+			                            Gtk.AccelFlags.Visible);
 
 			// Find Previous (Ctrl-Shift-G)
 			global_keys.AddAccelerator (new EventHandler (FindPreviousActivate),
-						    (uint) Gdk.Key.g, 
-						    (Gdk.ModifierType.ControlMask |
-						     Gdk.ModifierType.ShiftMask),
-						    Gtk.AccelFlags.Visible);
+			                            (uint) Gdk.Key.g,
+			                            (Gdk.ModifierType.ControlMask |
+			                             Gdk.ModifierType.ShiftMask),
+			                            Gtk.AccelFlags.Visible);
 
 			// Open Help (F1)
 			global_keys.AddAccelerator (new EventHandler (OpenHelpActivate),
-						    (uint) Gdk.Key.F1, 
-						    0,
-						    0);
-			
+			                            (uint) Gdk.Key.F1,
+			                            0,
+			                            0);
+
 			// Create a new note
 			if (!using_emacs)
 				global_keys.AddAccelerator (new EventHandler (CreateNewNote),
-							(uint) Gdk.Key.n,
-							Gdk.ModifierType.ControlMask,
-							Gtk.AccelFlags.Visible);
-			
+				                            (uint) Gdk.Key.n,
+				                            Gdk.ModifierType.ControlMask,
+				                            Gtk.AccelFlags.Visible);
+
 			// Have Esc key close the note window
 			KeyPressEvent += KeyPressed;
-						   
-			// Increase Indent			    
+
+			// Increase Indent
 			global_keys.AddAccelerator (new EventHandler (ChangeDepthRightHandler),
-						    (uint) Gdk.Key.Right, 
-						    Gdk.ModifierType.Mod1Mask,
-						    Gtk.AccelFlags.Visible);
-						    
+			                            (uint) Gdk.Key.Right,
+			                            Gdk.ModifierType.Mod1Mask,
+			                            Gtk.AccelFlags.Visible);
+
 			// Decrease Indent
 			global_keys.AddAccelerator (new EventHandler (ChangeDepthLeftHandler),
-						    (uint) Gdk.Key.Left, 
-						    Gdk.ModifierType.Mod1Mask,
-						    Gtk.AccelFlags.Visible);			
+			                            (uint) Gdk.Key.Left,
+			                            Gdk.ModifierType.Mod1Mask,
+			                            Gtk.AccelFlags.Visible);
 
 			this.Add (box);
 		}
@@ -202,7 +202,7 @@ namespace Tomboy
 		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
 		{
 			args.RetVal = true;
-			
+
 			switch (args.Event.Key)
 			{
 			case Gdk.Key.Escape:
@@ -241,7 +241,7 @@ namespace Tomboy
 				// Close windows on the same workspace, or all
 				// open windows if no workspace.
 				if (workspace < 0 ||
-				    tomboy_window_get_workspace (iter.Window.Handle) == workspace) {
+				                tomboy_window_get_workspace (iter.Window.Handle) == workspace) {
 					iter.Window.CloseWindowHandler (null, null);
 				}
 			}
@@ -251,7 +251,7 @@ namespace Tomboy
 		// Delete this Note.
 		//
 
-		void DeleteButtonClicked () 
+		void DeleteButtonClicked ()
 		{
 			// Prompt for note deletion
 			NoteUtils.ShowDeletionDialog (note, this);
@@ -262,22 +262,22 @@ namespace Tomboy
 		//
 
 		public Gtk.TextView Editor {
-			get { return editor; }
+		        get { return editor; }
 		}
 
 		public Gtk.Toolbar Toolbar {
-			get { return toolbar; }
+		        get { return toolbar; }
 		}
 
 		public Gtk.Menu PluginMenu {
-			get { return plugin_menu; }
+		        get { return plugin_menu; }
 		}
 
 		public Gtk.Menu TextMenu {
-			get { return text_menu; }
+		        get { return text_menu; }
 		}
 
-		// 
+		//
 		// Sensitize the Link toolbar button on text selection
 		//
 
@@ -308,47 +308,47 @@ namespace Tomboy
 			// Remove the lame-o gigantic Insert Unicode Control
 			// Characters menu item.
 			Gtk.Widget lame_unicode;
-			lame_unicode = (Gtk.Widget) 
-				args.Menu.Children [args.Menu.Children.Length - 1];
+			lame_unicode = (Gtk.Widget)
+			               args.Menu.Children [args.Menu.Children.Length - 1];
 			args.Menu.Remove (lame_unicode);
 
 			Gtk.MenuItem spacer1 = new Gtk.SeparatorMenuItem ();
 			spacer1.Show ();
 
 			Gtk.ImageMenuItem search = new Gtk.ImageMenuItem (
-				Catalog.GetString ("_Search All Notes"));
+			                                   Catalog.GetString ("_Search All Notes"));
 			search.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			search.Activated += SearchActivate;
 			search.AddAccelerator ("activate",
-					       accel_group,
-					       (uint) Gdk.Key.f, 
-					       (Gdk.ModifierType.ControlMask | 
-						Gdk.ModifierType.ShiftMask),
-					       Gtk.AccelFlags.Visible);
+			                       accel_group,
+			                       (uint) Gdk.Key.f,
+			                       (Gdk.ModifierType.ControlMask |
+			                        Gdk.ModifierType.ShiftMask),
+			                       Gtk.AccelFlags.Visible);
 			search.Show ();
 
-			Gtk.ImageMenuItem link = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Link to New Note"));
+			Gtk.ImageMenuItem link =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("_Link to New Note"));
 			link.Image = new Gtk.Image (Gtk.Stock.JumpTo, Gtk.IconSize.Menu);
 			link.Sensitive = (note.Buffer.Selection != null);
 			link.Activated += LinkToNoteActivate;
 			link.AddAccelerator ("activate",
-					     accel_group,
-					     (uint) Gdk.Key.l, 
-					     Gdk.ModifierType.ControlMask,
-					     Gtk.AccelFlags.Visible);
+			                     accel_group,
+			                     (uint) Gdk.Key.l,
+			                     Gdk.ModifierType.ControlMask,
+			                     Gtk.AccelFlags.Visible);
 			link.Show ();
 
-			Gtk.ImageMenuItem text_item = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("Te_xt"));
+			Gtk.ImageMenuItem text_item =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("Te_xt"));
 			text_item.Image = new Gtk.Image (Gtk.Stock.SelectFont, Gtk.IconSize.Menu);
-			text_item.Submenu = new NoteTextMenu (accel_group, 
-							      note.Buffer, 
-							      note.Buffer.Undoer);
+			text_item.Submenu = new NoteTextMenu (accel_group,
+			                                      note.Buffer,
+			                                      note.Buffer.Undoer);
 			text_item.Show ();
 
-			Gtk.ImageMenuItem find_item = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Find in This Note"));
+			Gtk.ImageMenuItem find_item =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("_Find in This Note"));
 			find_item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			find_item.Submenu = MakeFindMenu ();
 			find_item.Show ();
@@ -362,25 +362,25 @@ namespace Tomboy
 			args.Menu.Prepend (link);
 			args.Menu.Prepend (search);
 
-			Gtk.MenuItem close_all = 
-				new Gtk.MenuItem (Catalog.GetString ("Clos_e All Notes"));
+			Gtk.MenuItem close_all =
+			        new Gtk.MenuItem (Catalog.GetString ("Clos_e All Notes"));
 			close_all.Activated += CloseAllWindowsHandler;
 			close_all.AddAccelerator ("activate",
-						  accel_group,
-						  (uint) Gdk.Key.q, 
-						  Gdk.ModifierType.ControlMask,
-						  Gtk.AccelFlags.Visible);
+			                          accel_group,
+			                          (uint) Gdk.Key.q,
+			                          Gdk.ModifierType.ControlMask,
+			                          Gtk.AccelFlags.Visible);
 			close_all.Show ();
 
-			Gtk.ImageMenuItem close_window = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Close"));
+			Gtk.ImageMenuItem close_window =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("_Close"));
 			close_window.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
 			close_window.Activated += CloseWindowHandler;
 			close_window.AddAccelerator ("activate",
-						     accel_group,
-						     (uint) Gdk.Key.w, 
-						     Gdk.ModifierType.ControlMask,
-						     Gtk.AccelFlags.Visible);
+			                             accel_group,
+			                             (uint) Gdk.Key.w,
+			                             Gdk.ModifierType.ControlMask,
+			                             Gtk.AccelFlags.Visible);
 			close_window.Show ();
 
 			args.Menu.Append (close_all);
@@ -399,46 +399,46 @@ namespace Tomboy
 			Gtk.Toolbar toolbar = new Gtk.Toolbar ();
 			toolbar.Tooltips = true;
 
-			Gtk.Widget search = 
-				toolbar.AppendItem (
-					Catalog.GetString ("Search"), 
-					Catalog.GetString ("Search your notes (Ctrl-Shift-F)"),
-					null, 
-					new Gtk.Image (Gtk.Stock.Find, toolbar.IconSize),
-					new Gtk.SignalFunc (SearchButtonClicked));
+			Gtk.Widget search =
+			        toolbar.AppendItem (
+			                Catalog.GetString ("Search"),
+			                Catalog.GetString ("Search your notes (Ctrl-Shift-F)"),
+			                null,
+			                new Gtk.Image (Gtk.Stock.Find, toolbar.IconSize),
+			                new Gtk.SignalFunc (SearchButtonClicked));
 			search.AddAccelerator ("activate",
-					       accel_group,
-					       (uint) Gdk.Key.f, 
-					       (Gdk.ModifierType.ControlMask | 
-						Gdk.ModifierType.ShiftMask),
-					       Gtk.AccelFlags.Visible);
+			                       accel_group,
+			                       (uint) Gdk.Key.f,
+			                       (Gdk.ModifierType.ControlMask |
+			                        Gdk.ModifierType.ShiftMask),
+			                       Gtk.AccelFlags.Visible);
 
-			link_button = 
-				toolbar.AppendItem (
-					Catalog.GetString ("Link"), 
-					Catalog.GetString (
-						"Link selected text to a new note (Ctrl-L)"), 
-					null, 
-					new Gtk.Image (Gtk.Stock.JumpTo, toolbar.IconSize),
-					new Gtk.SignalFunc (LinkButtonClicked));
+			link_button =
+			        toolbar.AppendItem (
+			                Catalog.GetString ("Link"),
+			                Catalog.GetString (
+			                        "Link selected text to a new note (Ctrl-L)"),
+			                null,
+			                new Gtk.Image (Gtk.Stock.JumpTo, toolbar.IconSize),
+			                new Gtk.SignalFunc (LinkButtonClicked));
 			link_button.Sensitive = (note.Buffer.Selection != null);
 			link_button.AddAccelerator ("activate",
-						    accel_group,
-						    (uint) Gdk.Key.l, 
-						    Gdk.ModifierType.ControlMask,
-						    Gtk.AccelFlags.Visible);
+			                            accel_group,
+			                            (uint) Gdk.Key.l,
+			                            Gdk.ModifierType.ControlMask,
+			                            Gtk.AccelFlags.Visible);
 
-			ToolMenuButton text_button = 
-				new ToolMenuButton (toolbar,
-						    Gtk.Stock.SelectFont,
-						    Catalog.GetString ("_Text"),
-						    text_menu);
+			ToolMenuButton text_button =
+			        new ToolMenuButton (toolbar,
+			                            Gtk.Stock.SelectFont,
+			                            Catalog.GetString ("_Text"),
+			                            text_menu);
 			text_button.IsImportant = true;
 			text_button.Show ();
-			toolbar.AppendWidget (text_button, 
-					      Catalog.GetString ("Set properties of text"), 
-					      null);
-			
+			toolbar.AppendWidget (text_button,
+			                      Catalog.GetString ("Set properties of text"),
+			                      null);
+
 			// FIXME: Isn't there a better way to load an icon besides having
 			// to specify a size implicitly?  (tomboy-tag, 22)
 //			Gtk.Widget tags_button =
@@ -450,36 +450,36 @@ namespace Tomboy
 //					new Gtk.SignalFunc (TagBarClicked));
 //			tags_button.AddAccelerator ("activate",
 //						    accel_group,
-//						    (uint) Gdk.Key.t, 
+//						    (uint) Gdk.Key.t,
 //						    Gdk.ModifierType.ControlMask,
 //						    Gtk.AccelFlags.Visible);
 
-			ToolMenuButton plugin_button = 
-				new ToolMenuButton (toolbar, 
-						    Gtk.Stock.Execute,
-						    Catalog.GetString ("T_ools"),
-						    plugin_menu);
+			ToolMenuButton plugin_button =
+			        new ToolMenuButton (toolbar,
+			                            Gtk.Stock.Execute,
+			                            Catalog.GetString ("T_ools"),
+			                            plugin_menu);
 			plugin_button.Show ();
-			toolbar.AppendWidget (plugin_button, 
-					      Catalog.GetString ("Use tools on this note"), 
-					      null);
+			toolbar.AppendWidget (plugin_button,
+			                      Catalog.GetString ("Use tools on this note"),
+			                      null);
 
 			toolbar.AppendSpace ();
 
-		        Gtk.Widget delete = 
-				toolbar.AppendItem (
-					Catalog.GetString ("Delete"), 
-					Catalog.GetString ("Delete this note"), 
-					null, 
-					new Gtk.Image (Gtk.Stock.Delete, toolbar.IconSize),
-					new Gtk.SignalFunc (DeleteButtonClicked));
+			Gtk.Widget delete =
+			        toolbar.AppendItem (
+			                Catalog.GetString ("Delete"),
+			                Catalog.GetString ("Delete this note"),
+			                null,
+			                new Gtk.Image (Gtk.Stock.Delete, toolbar.IconSize),
+			                new Gtk.SignalFunc (DeleteButtonClicked));
 
 			// Don't allow deleting the "Start Here" note...
 			if (note.IsSpecial)
 				delete.Sensitive = false;
 
-			Gtk.ImageMenuItem item = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
+			Gtk.ImageMenuItem item =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
 			item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
 			item.Activated += SyncItemSelected;
 			item.Show ();
@@ -487,13 +487,13 @@ namespace Tomboy
 
 			return toolbar;
 		}
-		
+
 		void SyncItemSelected (object sender, EventArgs args)
 		{
 			Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
 //			SyncManager.OpenNoteSyncWindow ();
 		}
- 
+
 		//
 		// Plugin toolbar menu
 		//
@@ -521,42 +521,42 @@ namespace Tomboy
 			Gtk.Menu menu = new Gtk.Menu ();
 			menu.AccelGroup = accel_group;
 
-			Gtk.ImageMenuItem find = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Find..."));
+			Gtk.ImageMenuItem find =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("_Find..."));
 			find.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			find.Activated += FindActivate;
 			find.AddAccelerator ("activate",
-					     accel_group,
-					     (uint) Gdk.Key.f, 
-					     Gdk.ModifierType.ControlMask,
-					     Gtk.AccelFlags.Visible);
+			                     accel_group,
+			                     (uint) Gdk.Key.f,
+			                     Gdk.ModifierType.ControlMask,
+			                     Gtk.AccelFlags.Visible);
 			find.Show ();
 
-			Gtk.ImageMenuItem find_next = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("Find _Next"));
+			Gtk.ImageMenuItem find_next =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("Find _Next"));
 			find_next.Image = new Gtk.Image (Gtk.Stock.GoForward, Gtk.IconSize.Menu);
 			find_next.Sensitive = Find.FindNextButton.Sensitive;
 
 			find_next.Activated += FindNextActivate;
 			find_next.AddAccelerator ("activate",
-						  accel_group,
-						  (uint) Gdk.Key.g, 
-						  Gdk.ModifierType.ControlMask,
-						  Gtk.AccelFlags.Visible);
+			                          accel_group,
+			                          (uint) Gdk.Key.g,
+			                          Gdk.ModifierType.ControlMask,
+			                          Gtk.AccelFlags.Visible);
 			find_next.Show ();
 
-			Gtk.ImageMenuItem find_previous = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("Find _Previous"));
+			Gtk.ImageMenuItem find_previous =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("Find _Previous"));
 			find_previous.Image = new Gtk.Image (Gtk.Stock.GoBack, Gtk.IconSize.Menu);
 			find_previous.Sensitive = Find.FindPreviousButton.Sensitive;
 
 			find_previous.Activated += FindPreviousActivate;
 			find_previous.AddAccelerator ("activate",
-						      accel_group,
-						      (uint) Gdk.Key.g, 
-						      (Gdk.ModifierType.ControlMask | 
-						       Gdk.ModifierType.ShiftMask),
-						      Gtk.AccelFlags.Visible);
+			                              accel_group,
+			                              (uint) Gdk.Key.g,
+			                              (Gdk.ModifierType.ControlMask |
+			                               Gdk.ModifierType.ShiftMask),
+			                              Gtk.AccelFlags.Visible);
 			find_previous.Show ();
 
 			menu.Append (find);
@@ -565,15 +565,15 @@ namespace Tomboy
 
 			return menu;
 		}
-		
+
 		//
 		// Open the find dialog, passing any currently selected text
 		//
 
 		public NoteFindBar Find {
-			get {
-				return find_bar;
-			}
+		        get {
+			        return find_bar;
+		        }
 		}
 
 		void FindButtonClicked ()
@@ -597,14 +597,14 @@ namespace Tomboy
 		{
 			Find.FindPreviousButton.Click ();
 		}
-		
+
 //		void TagBarHidden (object sender, EventArgs args)
 //		{
 //			// Reposition the current focus back to the editor so the
 //			// cursor will be ready for typing.
 //			editor.GrabFocus ();
 //		}
-		
+
 		void FindBarHidden (object sender, EventArgs args)
 		{
 			// Reposition the current focus back to the editor so the
@@ -619,12 +619,12 @@ namespace Tomboy
 		// text.  Does nothing if there is no active selection.
 		//
 
-		void LinkButtonClicked () 
+		void LinkButtonClicked ()
 		{
 			string select = note.Buffer.Selection;
 			if (select == null)
 				return;
-			
+
 			string body_unused;
 			string title = NoteManager.SplitTitleFromContent (select, out body_unused);
 			if (title == null)
@@ -635,14 +635,14 @@ namespace Tomboy
 				try {
 					match = note.Manager.Create (select);
 				} catch (Exception e) {
-					HIGMessageDialog dialog = 
-						new HIGMessageDialog (
-							this,
-							Gtk.DialogFlags.DestroyWithParent,
-							Gtk.MessageType.Error,
-							Gtk.ButtonsType.Ok,
-							Catalog.GetString ("Cannot create note"),
-							e.Message);
+					HIGMessageDialog dialog =
+					        new HIGMessageDialog (
+					                this,
+					                Gtk.DialogFlags.DestroyWithParent,
+					                Gtk.MessageType.Error,
+					                Gtk.ButtonsType.Ok,
+					                Catalog.GetString ("Cannot create note"),
+					                e.Message);
 					dialog.Run ();
 					dialog.Destroy ();
 					return;
@@ -661,7 +661,7 @@ namespace Tomboy
 		{
 			GuiUtils.ShowHelp ("tomboy.xml", "editing-notes", Screen, this);
 		}
-		
+
 		void CreateNewNote (object sender, EventArgs args)
 		{
 			Tomboy.ActionManager ["NewNoteAction"].Activate ();
@@ -685,12 +685,12 @@ namespace Tomboy
 		{
 			((NoteBuffer)editor.Buffer).ChangeCursorDepthDirectional (true);
 		}
-		
+
 		void ChangeDepthLeftHandler (object sender, EventArgs args)
 		{
 			((NoteBuffer)editor.Buffer).ChangeCursorDepthDirectional (false);
 		}
-		
+
 //		void TagBarClicked ()
 //		{
 //			if (tag_bar.Visible)
@@ -700,243 +700,243 @@ namespace Tomboy
 //		}
 	}
 
-/*	
-	public class NoteTagBar : Gtk.HBox
-	{
-		private Note note;
-		
-		WrapBox tag_cloud;
-		Gtk.Entry tag_entry;
-		Gtk.Button add_tag_button;
-		
-		#region Constructors
-		public NoteTagBar (Note note) : base (false, 4)
+	/*
+		public class NoteTagBar : Gtk.HBox
 		{
-			this.note = note;
+			private Note note;
 			
-			BorderWidth = 2;
-
-			Gtk.Button button = new Gtk.Button ();
-			button.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
-			button.Relief = Gtk.ReliefStyle.None;
-			button.Clicked += HideTagBar;
-			button.Show ();
-			PackStart (button, false, false, 4);
-
-			Gtk.Label label = new Gtk.Label (
-					string.Format ("<span weight=\"bold\">{0}</span>",
-						Catalog.GetString ("Tags:")));
-			label.Xalign = 0;
-			label.UseMarkup = true;
-			label.Show ();
+			WrapBox tag_cloud;
+			Gtk.Entry tag_entry;
+			Gtk.Button add_tag_button;
 			
-			PackStart (label, false, false, 0);
+			#region Constructors
+			public NoteTagBar (Note note) : base (false, 4)
+			{
+				this.note = note;
+				
+				BorderWidth = 2;
+	 
+				Gtk.Button button = new Gtk.Button ();
+				button.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
+				button.Relief = Gtk.ReliefStyle.None;
+				button.Clicked += HideTagBar;
+				button.Show ();
+				PackStart (button, false, false, 4);
+	 
+				Gtk.Label label = new Gtk.Label (
+						string.Format ("<span weight=\"bold\">{0}</span>",
+							Catalog.GetString ("Tags:")));
+				label.Xalign = 0;
+				label.UseMarkup = true;
+				label.Show ();
+				
+				PackStart (label, false, false, 0);
+				
+				tag_cloud = new WrapBox ();
+				tag_cloud.Show ();
+				PackStart (tag_cloud, true, true, 0);
+				
+				foreach (Tag tag in note.Tags) {
+					button = MakeTagButton (tag);
+					button.Show ();
+					tag_cloud.Insert (button);
+				}
+				
+				Gtk.EntryCompletion entry_completion = new Gtk.EntryCompletion ();
+				entry_completion.InlineCompletion = true;
+				entry_completion.PopupSingleMatch = true;
+				entry_completion.Model = TagManager.Tags;
+				entry_completion.MatchFunc = TagEntryCompletionMatchFunc;
+				entry_completion.MatchSelected += TagEntryCompletionMatchSelected;
+				Gtk.CellRendererText crt = new Gtk.CellRendererText ();
+				entry_completion.PackStart (crt, true);
+				entry_completion.SetCellDataFunc (crt,
+						new Gtk.CellLayoutDataFunc (TagEntryCompletionDataFunc));
+				
+				tag_entry = new Gtk.Entry ();
+				tag_entry.Completion = entry_completion;
+				tag_entry.Activated += TagEntryActivated;
+				tag_entry.Changed += TagEntryChanged;
+				// Bind ESC to close the TagBar if it's open and has focus.
+				tag_entry.KeyPressEvent += KeyPressed;
+				tag_entry.Show ();
+				PackStart (tag_entry, false, false, 0);
+				
+				add_tag_button = new Gtk.Button (String.Empty);
+				add_tag_button.Image = new Gtk.Image (Gtk.Stock.Add, Gtk.IconSize.Menu);
+				add_tag_button.Sensitive = false;
+				add_tag_button.Clicked += AddTagButtonClicked;
+				add_tag_button.Show ();
+				PackStart (add_tag_button, false, false, 0);
+	 
+				note.TagAdded += TagAddedHandler;
+				note.TagRemoved += TagRemovedHandler;
+			}
+			#endregion
 			
-			tag_cloud = new WrapBox ();
-			tag_cloud.Show ();
-			PackStart (tag_cloud, true, true, 0);
+			#region Private Methods
+			Gtk.Button MakeTagButton (Tag tag)
+			{
+				TagButton button = new TagButton (tag);
+				button.Clicked += TagButtonClicked;
+	 
+				return button;
+			}
+	 
+			protected override void OnShown ()
+			{
+				tag_entry.GrabFocus ();
+	 
+				base.OnShown ();
+			}
 			
-			foreach (Tag tag in note.Tags) {
-				button = MakeTagButton (tag);
+			protected override void OnHidden ()
+			{
+				base.OnHidden ();
+			}
+			
+			#endregion
+	 
+			#region Event Handlers
+			// <summary>
+			// When the user presses return, call the same method that is called
+			// when the user presses the Add button.
+			// </summary>
+			void TagEntryActivated (object sender, EventArgs args)
+			{
+				AddTagButtonClicked (sender, args);
+			}
+			
+			void TagEntryChanged (object sender, EventArgs args)
+			{
+				string text = tag_entry.Text.Trim ();
+				if (text.Length == 0) {
+					add_tag_button.Sensitive = false;
+				} else {
+					add_tag_button.Sensitive = true;
+				}
+			}
+			
+			void AddTagButtonClicked (object sender, EventArgs args)
+			{
+				string text = tag_entry.Text.Trim ();
+				if (text.Length > 0) {
+					Tag tag = TagManager.GetOrCreateTag (text);
+					if (!note.Data.Tags.ContainsKey (tag.NormalizedName)) {
+						note.AddTag (tag);
+					}
+				}
+				
+				// Clear out the entry and grab the cursor focus so it's ready to
+				// have another tag typed and added.
+				tag_entry.Text = String.Empty;
+			}
+			
+			void TagButtonClicked (object sender, EventArgs args)
+			{
+				TagButton button = sender as TagButton;
+				
+				note.RemoveTag (button.Tag);
+			}
+			
+			void TagAddedHandler (Note note, Tag tag)
+			{
+				Gtk.Button button = MakeTagButton (tag);
 				button.Show ();
 				tag_cloud.Insert (button);
 			}
 			
-			Gtk.EntryCompletion entry_completion = new Gtk.EntryCompletion ();
-			entry_completion.InlineCompletion = true;
-			entry_completion.PopupSingleMatch = true;
-			entry_completion.Model = TagManager.Tags;
-			entry_completion.MatchFunc = TagEntryCompletionMatchFunc;
-			entry_completion.MatchSelected += TagEntryCompletionMatchSelected;
-			Gtk.CellRendererText crt = new Gtk.CellRendererText ();
-			entry_completion.PackStart (crt, true);
-			entry_completion.SetCellDataFunc (crt,
-					new Gtk.CellLayoutDataFunc (TagEntryCompletionDataFunc));
-			
-			tag_entry = new Gtk.Entry ();
-			tag_entry.Completion = entry_completion;
-			tag_entry.Activated += TagEntryActivated;
-			tag_entry.Changed += TagEntryChanged;
-			// Bind ESC to close the TagBar if it's open and has focus.
-			tag_entry.KeyPressEvent += KeyPressed;
-			tag_entry.Show ();
-			PackStart (tag_entry, false, false, 0);
-			
-			add_tag_button = new Gtk.Button (String.Empty);
-			add_tag_button.Image = new Gtk.Image (Gtk.Stock.Add, Gtk.IconSize.Menu);
-			add_tag_button.Sensitive = false;
-			add_tag_button.Clicked += AddTagButtonClicked;
-			add_tag_button.Show ();
-			PackStart (add_tag_button, false, false, 0);
-
-			note.TagAdded += TagAddedHandler;
-			note.TagRemoved += TagRemovedHandler;
-		}
-		#endregion
-		
-		#region Private Methods
-		Gtk.Button MakeTagButton (Tag tag)
-		{
-			TagButton button = new TagButton (tag);
-			button.Clicked += TagButtonClicked;
-
-			return button;
-		}
-
-		protected override void OnShown ()
-		{
-			tag_entry.GrabFocus ();
-
-			base.OnShown ();
-		}
-		
-		protected override void OnHidden ()
-		{
-			base.OnHidden ();
-		}
-		
-		#endregion
-
-		#region Event Handlers
-		// <summary>
-		// When the user presses return, call the same method that is called
-		// when the user presses the Add button.
-		// </summary>
-		void TagEntryActivated (object sender, EventArgs args)
-		{
-			AddTagButtonClicked (sender, args);
-		}
-		
-		void TagEntryChanged (object sender, EventArgs args)
-		{
-			string text = tag_entry.Text.Trim ();
-			if (text.Length == 0) {
-				add_tag_button.Sensitive = false;
-			} else {
-				add_tag_button.Sensitive = true;
-			}
-		}
-		
-		void AddTagButtonClicked (object sender, EventArgs args)
-		{
-			string text = tag_entry.Text.Trim ();
-			if (text.Length > 0) {
-				Tag tag = TagManager.GetOrCreateTag (text);
-				if (!note.Data.Tags.ContainsKey (tag.NormalizedName)) {
-					note.AddTag (tag);
-				}
-			}
-			
-			// Clear out the entry and grab the cursor focus so it's ready to
-			// have another tag typed and added.
-			tag_entry.Text = String.Empty;
-		}
-		
-		void TagButtonClicked (object sender, EventArgs args)
-		{
-			TagButton button = sender as TagButton;
-			
-			note.RemoveTag (button.Tag);
-		}
-		
-		void TagAddedHandler (Note note, Tag tag)
-		{
-			Gtk.Button button = MakeTagButton (tag);
-			button.Show ();
-			tag_cloud.Insert (button);
-		}
-		
-		void TagRemovedHandler (Note note, string tag_name)
-		{
-			// Remove the button from the list
-			TagButton button_to_remove = null;
-			
-			foreach (Gtk.Widget w in tag_cloud.Children) {
-				if (w is TagButton) {
-					TagButton button = w as TagButton;
-					
-					if (string.Compare (button.Tag.NormalizedName, tag_name) == 0) {
-						button_to_remove = button;
-						button.Hide ();
-						break;
+			void TagRemovedHandler (Note note, string tag_name)
+			{
+				// Remove the button from the list
+				TagButton button_to_remove = null;
+				
+				foreach (Gtk.Widget w in tag_cloud.Children) {
+					if (w is TagButton) {
+						TagButton button = w as TagButton;
+						
+						if (string.Compare (button.Tag.NormalizedName, tag_name) == 0) {
+							button_to_remove = button;
+							button.Hide ();
+							break;
+						}
 					}
 				}
+				
+				if (button_to_remove != null)
+					tag_cloud.Remove (button_to_remove);
+				else
+					Logger.Debug ("\tDid not remove a tag button");
 			}
 			
-			if (button_to_remove != null)
-				tag_cloud.Remove (button_to_remove);
-			else
-				Logger.Debug ("\tDid not remove a tag button");
-		}
-		
-		void TagEntryCompletionDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
-				Gtk.TreeModel tree_model, Gtk.TreeIter iter)
-		{
-			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
-			Tag tag = tree_model.GetValue (iter, 0) as Tag;
-			crt.Text = tag.Name;
-		}
-		
-		bool TagEntryCompletionMatchFunc (Gtk.EntryCompletion completion, string key, Gtk.TreeIter iter)
-		{
-			if (key.Length == 0)
-				return true;
+			void TagEntryCompletionDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
+					Gtk.TreeModel tree_model, Gtk.TreeIter iter)
+			{
+				Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
+				Tag tag = tree_model.GetValue (iter, 0) as Tag;
+				crt.Text = tag.Name;
+			}
 			
-			Tag tag = completion.Model.GetValue (iter, 0) as Tag;
-			if (tag == null)
+			bool TagEntryCompletionMatchFunc (Gtk.EntryCompletion completion, string key, Gtk.TreeIter iter)
+			{
+				if (key.Length == 0)
+					return true;
+				
+				Tag tag = completion.Model.GetValue (iter, 0) as Tag;
+				if (tag == null)
+					return false;
+				
+				string lower_cased_key = key.ToLower ();
+				
+				if (tag.NormalizedName.StartsWith (lower_cased_key))
+					return true;
+				
 				return false;
+			}
 			
-			string lower_cased_key = key.ToLower ();
+			[GLib.ConnectBefore]
+			void TagEntryCompletionMatchSelected (object sender, Gtk.MatchSelectedArgs args)
+			{
+				Tag tag = args.Model.GetValue (args.Iter, 0) as Tag;
+				if (tag != null) {
+					tag_entry.Text = tag.Name;
+					args.RetVal = true;
+					
+					// Press the add button for the user
+					AddTagButtonClicked (sender, EventArgs.Empty);
+				}
+			}
 			
-			if (tag.NormalizedName.StartsWith (lower_cased_key))
-				return true;
+			void HideTagBar (object sender, EventArgs args)
+			{
+				Hide ();
+			}
 			
-			return false;
-		}
-		
-		[GLib.ConnectBefore]
-		void TagEntryCompletionMatchSelected (object sender, Gtk.MatchSelectedArgs args)
-		{
-			Tag tag = args.Model.GetValue (args.Iter, 0) as Tag;
-			if (tag != null) {
-				tag_entry.Text = tag.Name;
+			void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
+			{
 				args.RetVal = true;
 				
-				// Press the add button for the user
-				AddTagButtonClicked (sender, EventArgs.Empty);
+				switch (args.Event.Key)
+				{
+				case Gdk.Key.Escape:
+					Hide ();
+					break;
+				default:
+					args.RetVal = false;
+					break;
+				}
 			}
-		}
-		
-		void HideTagBar (object sender, EventArgs args)
-		{
-			Hide ();
-		}
-		
-		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
-		{
-			args.RetVal = true;
+	 
+			#endregion
+	 
+			#region Public Methods
+			#endregion
 			
-			switch (args.Event.Key)
-			{
-			case Gdk.Key.Escape:
-				Hide ();
-				break;
-			default:
-				args.RetVal = false;
-				break;
-			}
+			#region Properties
+			#endregion
 		}
+	*/
 
-		#endregion
-
-		#region Public Methods
-		#endregion
-		
-		#region Properties
-		#endregion
-	}
-*/
-	
 	public class NoteFindBar : Gtk.HBox
 	{
 		private Note note;
@@ -945,21 +945,21 @@ namespace Tomboy
 		Gtk.Button next_button;
 		Gtk.Button prev_button;
 		Gtk.CheckButton case_sensitive;
-		
+
 		ArrayList current_matches;
 		string prev_search_text;
-		
+
 		InterruptableTimeout entry_changed_timeout;
 		InterruptableTimeout note_changed_timeout;
 
 		bool shift_key_pressed;
-		
+
 		public NoteFindBar (Note note) : base (false, 0)
 		{
 			this.note = note;
-			
+
 			BorderWidth = 2;
-			
+
 			Gtk.Button button = new Gtk.Button ();
 			button.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
 			button.Relief = Gtk.ReliefStyle.None;
@@ -970,14 +970,14 @@ namespace Tomboy
 			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Find:"));
 			label.Show ();
 			PackStart (label, false, false, 0);
-			
+
 			entry = new Gtk.Entry ();
 			label.MnemonicWidget = entry;
 			entry.Changed += OnFindEntryChanged;
 			entry.Activated += OnFindEntryActivated;
 			entry.Show ();
 			PackStart (entry, false, false, 0);
-			
+
 			prev_button = new Gtk.Button (Catalog.GetString ("_Previous"));
 			prev_button.Image = new Gtk.Image (Gtk.Stock.GoBack, Gtk.IconSize.Menu);
 			prev_button.Relief = Gtk.ReliefStyle.None;
@@ -986,7 +986,7 @@ namespace Tomboy
 			prev_button.Clicked += OnPrevClicked;
 			prev_button.Show ();
 			PackStart (prev_button, false, false, 0);
-			
+
 			next_button = new Gtk.Button (Catalog.GetString ("Find _Next"));
 			next_button.Image = new Gtk.Image (Gtk.Stock.GoForward, Gtk.IconSize.Menu);
 			next_button.Relief = Gtk.ReliefStyle.None;
@@ -995,13 +995,13 @@ namespace Tomboy
 			next_button.Clicked += OnNextClicked;
 			next_button.Show ();
 			PackStart (next_button, false, false, 0);
-			
+
 			case_sensitive = new Gtk.CheckButton (
-				Catalog.GetString ("Case _sensitive"));
+			                         Catalog.GetString ("Case _sensitive"));
 			case_sensitive.Toggled += OnCaseSensitiveToggled;
 			case_sensitive.Show ();
 			PackStart (case_sensitive, true, true, 0);
-			
+
 			// Bind ESC to close the FindBar if it's open and has
 			// focus or the window otherwise.  Also bind Return and
 			// Shift+Return to advance the search if the search
@@ -1010,14 +1010,14 @@ namespace Tomboy
 			entry.KeyPressEvent += KeyPressed;
 			entry.KeyReleaseEvent += KeyReleased;
 		}
-		
+
 		protected override void OnShown ()
 		{
 			entry.GrabFocus ();
 
 			// Highlight words from a previous existing search
 			HighlightMatches (true);
-			
+
 			// Call PerformSearch on newly inserted text when
 			// the FindBar is visible
 			note.Buffer.InsertText += OnInsertText;
@@ -1025,67 +1025,67 @@ namespace Tomboy
 
 			base.OnShown ();
 		}
-		
+
 		protected override void OnHidden ()
 		{
 			HighlightMatches (false);
-			
+
 			// Prevent searching when the FindBar is not visible
 			note.Buffer.InsertText -= OnInsertText;
 			note.Buffer.DeleteRange -= OnDeleteRange;
 
 			base.OnHidden ();
 		}
-		
+
 		void HideFindBar (object sender, EventArgs args)
 		{
 			Hide ();
 		}
-		
+
 		void OnPrevClicked (object sender, EventArgs args)
 		{
 			if (current_matches == null || current_matches.Count == 0)
 				return;
-			
+
 			for (int i = current_matches.Count; i > 0; i--) {
 				Match match = current_matches [i - 1] as Match;
-				
+
 				NoteBuffer buffer = match.Buffer;
 				Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
 				Gtk.TextIter end = buffer.GetIterAtMark (match.EndMark);
-				
+
 				if (end.Offset < cursor.Offset) {
 					JumpToMatch (match);
 					return;
 				}
 			}
-			
+
 			// Wrap to first match
 			JumpToMatch (current_matches [current_matches.Count - 1] as Match);
 		}
-		
+
 		void OnNextClicked (object sender, EventArgs args)
 		{
 			if (current_matches == null || current_matches.Count == 0)
 				return;
-				
+
 			for (int i = 0; i < current_matches.Count; i++) {
 				Match match = current_matches [i] as Match;
-				
+
 				NoteBuffer buffer = match.Buffer;
 				Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
 				Gtk.TextIter start = buffer.GetIterAtMark (match.StartMark);
-				
+
 				if (start.Offset >= cursor.Offset) {
 					JumpToMatch (match);
 					return;
 				}
 			}
-			
+
 			// Else wrap to first match
 			JumpToMatch (current_matches [0] as Match);
 		}
-		
+
 		void JumpToMatch (Match match)
 		{
 			NoteBuffer buffer = match.Buffer;
@@ -1105,48 +1105,48 @@ namespace Tomboy
 		{
 			PerformSearch (true);
 		}
-		
+
 		void OnFindEntryActivated (object sender, EventArgs args)
 		{
 			if (entry_changed_timeout != null) {
 				entry_changed_timeout.Cancel ();
 				entry_changed_timeout = null;
 			}
-			
-			if (prev_search_text != null && 
-			    SearchText != null && 
-			    prev_search_text.CompareTo (SearchText) == 0)
+
+			if (prev_search_text != null &&
+			                SearchText != null &&
+			                prev_search_text.CompareTo (SearchText) == 0)
 				next_button.Click ();
 			else
 				PerformSearch (true);
 		}
-		
+
 		void OnFindEntryChanged (object sender, EventArgs args)
 		{
 			if (entry_changed_timeout == null) {
 				entry_changed_timeout = new InterruptableTimeout ();
 				entry_changed_timeout.Timeout += EntryChangedTimeout;
 			}
-			
+
 			if (SearchText == null) {
 				PerformSearch (false);
 			} else {
 				entry_changed_timeout.Reset (500);
 			}
 		}
-		
+
 		// Called after .5 seconds of typing inactivity, or on explicit
 		// activate.  Redo the search and update the results...
 		void EntryChangedTimeout (object sender, EventArgs args)
 		{
 			entry_changed_timeout = null;
-			
+
 			if (SearchText == null)
 				return;
-			
+
 			PerformSearch (true);
 		}
-		
+
 		void PerformSearch (bool scroll_to_hit)
 		{
 			CleanupMatches ();
@@ -1160,16 +1160,16 @@ namespace Tomboy
 
 			string [] words = text.Split (' ', '\t', '\n');
 
-			current_matches = 
-				FindMatchesInBuffer (note.Buffer, 
-						     words, 
-						     case_sensitive.Active);
-			
+			current_matches =
+			        FindMatchesInBuffer (note.Buffer,
+			                             words,
+			                             case_sensitive.Active);
+
 			prev_search_text = SearchText;
 
 			if (current_matches != null) {
 				HighlightMatches (true);
-				
+
 				// Select/scroll to the first match
 				if (scroll_to_hit)
 					OnNextClicked (this, EventArgs.Empty);
@@ -1177,14 +1177,14 @@ namespace Tomboy
 
 			UpdateSensitivity ();
 		}
-		
+
 		void UpdateSensitivity ()
 		{
 			if (SearchText == null) {
 				next_button.Sensitive = false;
 				prev_button.Sensitive = false;
 			}
-			
+
 			if (current_matches != null && current_matches.Count > 0) {
 				next_button.Sensitive = true;
 				prev_button.Sensitive = true;
@@ -1193,21 +1193,21 @@ namespace Tomboy
 				prev_button.Sensitive = false;
 			}
 		}
-		
+
 		void UpdateSearch ()
 		{
 			if (note_changed_timeout == null) {
 				note_changed_timeout = new InterruptableTimeout ();
 				note_changed_timeout.Timeout += NoteChangedTimeout;
 			}
-			
+
 			if (SearchText == null) {
 				PerformSearch (false);
 			} else {
 				note_changed_timeout.Reset (500);
 			}
 		}
-		
+
 		// Called after .5 seconds of typing inactivity to update
 		// the search when the text of a note changes.  This prevents
 		// the search from running on every single change made in a
@@ -1215,31 +1215,31 @@ namespace Tomboy
 		void NoteChangedTimeout (object sender, EventArgs args)
 		{
 			note_changed_timeout = null;
-			
+
 			if (SearchText == null)
 				return;
-			
+
 			PerformSearch (false);
 		}
-		
+
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
 			UpdateSearch ();
 		}
-		
+
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
 			UpdateSearch ();
 		}
-		
+
 		//
 		// KeyPress and KeyRelease handlers
 		//
-		
+
 		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
 		{
 			args.RetVal = true;
-			
+
 			switch (args.Event.Key)
 			{
 			case Gdk.Key.Escape:
@@ -1259,11 +1259,11 @@ namespace Tomboy
 				break;
 			}
 		}
-		
+
 		void KeyReleased (object sender, Gtk.KeyReleaseEventArgs args)
 		{
 			args.RetVal = false;
-			
+
 			switch (args.Event.Key)
 			{
 			case Gdk.Key.Shift_L:
@@ -1275,45 +1275,45 @@ namespace Tomboy
 
 		public Gtk.Button FindNextButton
 		{
-			get { return next_button; }
+	        get { return next_button; }
 		}
-		
+
 		public Gtk.Button FindPreviousButton
 		{
-			get { return prev_button; }
+		        get { return prev_button; }
 		}
-		
+
 		public string SearchText
 		{
-			get {
-				string text = entry.Text;
-				if (text.Trim () == String.Empty)
-					return null;
+		        get {
+			        string text = entry.Text;
+			        if (text.Trim () == String.Empty)
+				        return null;
 
-				return text.Trim ();
-			}
-			set {
-				if (value != null && value != string.Empty)
-					entry.Text = value;
-				
-				entry.GrabFocus ();
-			}
+			        return text.Trim ();
+		        }
+		        set {
+			        if (value != null && value != string.Empty)
+				        entry.Text = value;
+
+			        entry.GrabFocus ();
+		        }
 		}
-		
+
 		void HighlightMatches (bool highlight)
 		{
 			if (current_matches == null || current_matches.Count == 0)
 				return;
-			
+
 			foreach (Match match in current_matches) {
 				NoteBuffer buffer = match.Buffer;
-				
+
 				if (match.Highlighting != highlight) {
 					Gtk.TextIter start = buffer.GetIterAtMark (match.StartMark);
 					Gtk.TextIter end = buffer.GetIterAtMark (match.EndMark);
-					
+
 					match.Highlighting = highlight;
-					
+
 					if (match.Highlighting)
 						buffer.ApplyTag ("find-match", start, end);
 					else
@@ -1321,20 +1321,20 @@ namespace Tomboy
 				}
 			}
 		}
-		
+
 		void CleanupMatches ()
 		{
 			if (current_matches != null) {
 				HighlightMatches (false /* unhighlight */);
-				
+
 				foreach (Match match in current_matches) {
 					match.Buffer.DeleteMark (match.StartMark);
 					match.Buffer.DeleteMark (match.EndMark);
 				}
-				
+
 				current_matches = null;
 			}
-			
+
 			UpdateSensitivity ();
 		}
 
@@ -1342,9 +1342,9 @@ namespace Tomboy
 		{
 			ArrayList matches = new ArrayList ();
 
-			string note_text = buffer.GetSlice (buffer.StartIter, 
-							   buffer.EndIter, 
-							   false /* hidden_chars */);
+			string note_text = buffer.GetSlice (buffer.StartIter,
+			                                    buffer.EndIter,
+			                                    false /* hidden_chars */);
 			if (!match_case)
 				note_text = note_text.ToLower ();
 
@@ -1355,7 +1355,7 @@ namespace Tomboy
 				if (word == String.Empty)
 					continue;
 
-				while (true) {					
+				while (true) {
 					idx = note_text.IndexOf (word, idx);
 
 					if (idx == -1) {
@@ -1389,7 +1389,7 @@ namespace Tomboy
 				return matches;
 		}
 
-		class Match 
+		class Match
 		{
 			public NoteBuffer   Buffer;
 			public Gtk.TextMark StartMark;
@@ -1434,10 +1434,10 @@ namespace Tomboy
 		// menuitem depending on the cursor poition.
 		//
 
-		public NoteTextMenu (Gtk.AccelGroup accel_group, 
-				     NoteBuffer     buffer, 
-				     UndoManager    undo_manager) 
-			: base ()
+		public NoteTextMenu (Gtk.AccelGroup accel_group,
+		                     NoteBuffer     buffer,
+		                     UndoManager    undo_manager)
+				: base ()
 		{
 			this.buffer = buffer;
 			this.undo_manager = undo_manager;
@@ -1446,21 +1446,21 @@ namespace Tomboy
 				undo = new Gtk.ImageMenuItem (Gtk.Stock.Undo, accel_group);
 				undo.Activated += UndoClicked;
 				undo.AddAccelerator ("activate",
-						     accel_group,
-						     (uint) Gdk.Key.z, 
-						     Gdk.ModifierType.ControlMask,
-						     Gtk.AccelFlags.Visible);
+				                     accel_group,
+				                     (uint) Gdk.Key.z,
+				                     Gdk.ModifierType.ControlMask,
+				                     Gtk.AccelFlags.Visible);
 				undo.Show ();
 				Append (undo);
 
 				redo = new Gtk.ImageMenuItem (Gtk.Stock.Redo, accel_group);
 				redo.Activated += RedoClicked;
 				redo.AddAccelerator ("activate",
-						     accel_group,
-						     (uint) Gdk.Key.z, 
-						     (Gdk.ModifierType.ControlMask | 
-						      Gdk.ModifierType.ShiftMask),
-						     Gtk.AccelFlags.Visible);
+				                     accel_group,
+				                     (uint) Gdk.Key.z,
+				                     (Gdk.ModifierType.ControlMask |
+				                      Gdk.ModifierType.ShiftMask),
+				                     Gtk.AccelFlags.Visible);
 				redo.Show ();
 				Append (redo);
 
@@ -1472,53 +1472,53 @@ namespace Tomboy
 				undo_manager.UndoChanged += UndoChanged;
 			}
 
-			bold = new Gtk.CheckMenuItem ("<b>" + 
-						      Catalog.GetString ("_Bold") + 
-						      "</b>");
+			bold = new Gtk.CheckMenuItem ("<b>" +
+			                              Catalog.GetString ("_Bold") +
+			                              "</b>");
 			MarkupLabel (bold);
 			bold.Data ["Tag"] = "bold";
 			bold.Activated += FontStyleClicked;
 			bold.AddAccelerator ("activate",
-					     accel_group,
-					     (uint) Gdk.Key.b, 
-					     Gdk.ModifierType.ControlMask,
-					     Gtk.AccelFlags.Visible);
+			                     accel_group,
+			                     (uint) Gdk.Key.b,
+			                     Gdk.ModifierType.ControlMask,
+			                     Gtk.AccelFlags.Visible);
 
-			italic = new Gtk.CheckMenuItem ("<i>" + 
-							Catalog.GetString ("_Italic") + 
-							"</i>");
+			italic = new Gtk.CheckMenuItem ("<i>" +
+			                                Catalog.GetString ("_Italic") +
+			                                "</i>");
 			MarkupLabel (italic);
 			italic.Data ["Tag"] = "italic";
 			italic.Activated += FontStyleClicked;
 			italic.AddAccelerator ("activate",
-					       accel_group,
-					       (uint) Gdk.Key.i, 
-					       Gdk.ModifierType.ControlMask,
-					       Gtk.AccelFlags.Visible);
+			                       accel_group,
+			                       (uint) Gdk.Key.i,
+			                       Gdk.ModifierType.ControlMask,
+			                       Gtk.AccelFlags.Visible);
 
-			strikeout = new Gtk.CheckMenuItem ("<s>" + 
-							   Catalog.GetString ("_Strikeout") + 
-							   "</s>");
+			strikeout = new Gtk.CheckMenuItem ("<s>" +
+			                                   Catalog.GetString ("_Strikeout") +
+			                                   "</s>");
 			MarkupLabel (strikeout);
 			strikeout.Data ["Tag"] = "strikethrough";
 			strikeout.Activated += FontStyleClicked;
 			strikeout.AddAccelerator ("activate",
-						  accel_group,
-						  (uint) Gdk.Key.s, 
-						  Gdk.ModifierType.ControlMask,
-						  Gtk.AccelFlags.Visible);
+			                          accel_group,
+			                          (uint) Gdk.Key.s,
+			                          Gdk.ModifierType.ControlMask,
+			                          Gtk.AccelFlags.Visible);
 
 			highlight = new Gtk.CheckMenuItem ("<span background='yellow'>" +
-							   Catalog.GetString ("_Highlight") +
-							   "</span>");
+			                                   Catalog.GetString ("_Highlight") +
+			                                   "</span>");
 			MarkupLabel (highlight);
 			highlight.Data ["Tag"] = "highlight";
 			highlight.Activated += FontStyleClicked;
 			highlight.AddAccelerator ("activate",
-						  accel_group,
-						  (uint) Gdk.Key.h, 
-						  Gdk.ModifierType.ControlMask,
-						  Gtk.AccelFlags.Visible);
+			                          accel_group,
+			                          (uint) Gdk.Key.h,
+			                          Gdk.ModifierType.ControlMask,
+			                          Gtk.AccelFlags.Visible);
 
 			Gtk.SeparatorMenuItem spacer1 = new Gtk.SeparatorMenuItem ();
 
@@ -1530,46 +1530,46 @@ namespace Tomboy
 			normal.Active = true;
 			normal.Activated += FontSizeActivated;
 
-			huge = new Gtk.RadioMenuItem (normal.Group, 
-						      "<span size=\"x-large\">" +
-						      Catalog.GetString ("Hu_ge") +
-						      "</span>");
+			huge = new Gtk.RadioMenuItem (normal.Group,
+			                              "<span size=\"x-large\">" +
+			                              Catalog.GetString ("Hu_ge") +
+			                              "</span>");
 			MarkupLabel (huge);
 			huge.Data ["Tag"] = "size:huge";
 			huge.Activated += FontSizeActivated;
 
-			large = new Gtk.RadioMenuItem (huge.Group, 
-						       "<span size=\"large\">" +
-						       Catalog.GetString ("_Large") +
-						       "</span>");
+			large = new Gtk.RadioMenuItem (huge.Group,
+			                               "<span size=\"large\">" +
+			                               Catalog.GetString ("_Large") +
+			                               "</span>");
 			MarkupLabel (large);
 			large.Data ["Tag"] = "size:large";
 			large.Activated += FontSizeActivated;
 
-			small = new Gtk.RadioMenuItem (large.Group, 
-						       "<span size=\"small\">" +
-						       Catalog.GetString ("S_mall") +
-						       "</span>");
+			small = new Gtk.RadioMenuItem (large.Group,
+			                               "<span size=\"small\">" +
+			                               Catalog.GetString ("S_mall") +
+			                               "</span>");
 			MarkupLabel (small);
 			small.Data ["Tag"] = "size:small";
 			small.Activated += FontSizeActivated;
 
 			hidden_no_size = new Gtk.RadioMenuItem (small.Group, string.Empty);
 			hidden_no_size.Hide ();
-			
+
 			Gtk.SeparatorMenuItem spacer2 = new Gtk.SeparatorMenuItem ();
-			
+
 			bullets = new Gtk.CheckMenuItem (Catalog.GetString ("Bullets"));
 			bullets.Activated += ToggleBulletsClicked;
 
 			increase_indent = new Gtk.ImageMenuItem (Gtk.Stock.Indent, accel_group);
 			increase_indent.Activated += IncreaseIndentClicked;
 			increase_indent.Show ();
-			
+
 			decrease_indent = new Gtk.ImageMenuItem (Gtk.Stock.Unindent, accel_group);
 			decrease_indent.Activated += DecreaseIndentClicked;
 			decrease_indent.Show ();
-			
+
 			RefreshState ();
 
 			Append (bold);
@@ -1614,7 +1614,7 @@ namespace Tomboy
 			}
 
 			bool has_size = false;
-			
+
 			has_size |= huge.Active = buffer.IsActiveTag ("size:huge");
 			has_size |= large.Active = buffer.IsActiveTag ("size:large");
 			has_size |= small.Active = buffer.IsActiveTag ("size:small");
@@ -1630,7 +1630,7 @@ namespace Tomboy
 			italic.Active = buffer.IsActiveTag ("italic");
 			strikeout.Active = buffer.IsActiveTag ("strikethrough");
 			highlight.Active = buffer.IsActiveTag ("highlight");
-			
+
 			bool inside_bullets = buffer.IsBulletedListActive ();
 			bool can_make_bulleted_list = buffer.CanMakeBulletedList ();
 			bullets.Activated -= ToggleBulletsClicked;
@@ -1650,14 +1650,14 @@ namespace Tomboy
 			event_freeze = false;
 		}
 
-		// 
+		//
 		// Font-style menu item activate
 		//
 		// Toggle the style tag for the current text.  Style tags are
 		// stored in a "Tag" member of the menuitem's Data.
 		//
 
-		void FontStyleClicked (object sender, EventArgs args) 
+		void FontStyleClicked (object sender, EventArgs args)
 		{
 			if (event_freeze)
 				return;
@@ -1669,13 +1669,13 @@ namespace Tomboy
 				buffer.ToggleActiveTag (tag);
 		}
 
-		// 
+		//
 		// Font-style menu item activate
 		//
 		// Set the font size tag for the current text.  Style tags are
 		// stored in a "Tag" member of the menuitem's Data.
 		//
-		
+
 		// FIXME: Change this back to use FontSizeToggled instead of using the
 		// Activated signal.  Fix the Text menu so it doesn't show a specific
 		// font size already selected if multiple sizes are highlighted. The
@@ -1720,7 +1720,7 @@ namespace Tomboy
 			undo.Sensitive = undo_manager.CanUndo;
 			redo.Sensitive = undo_manager.CanRedo;
 		}
-		
+
 		//
 		// Bulleted list handlers
 		//
@@ -1728,12 +1728,12 @@ namespace Tomboy
 		{
 			buffer.ToggleSelectionBullets ();
 		}
-		
+
 		void IncreaseIndentClicked (object sender, EventArgs args)
 		{
 			buffer.IncreaseCursorDepth ();
 		}
-		
+
 		void DecreaseIndentClicked (object sender, EventArgs args)
 		{
 			buffer.DecreaseCursorDepth ();

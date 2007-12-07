@@ -8,7 +8,7 @@ namespace Tomboy.Platform
 		}
 
 		public static IPropertyEditorBool CreatePropertyEditorToggleButton (
-				string key, Gtk.CheckButton sourceButton)
+		        string key, Gtk.CheckButton sourceButton)
 		{
 			return new GConfPropertyEditorToggleButton (key, sourceButton);
 		}

@@ -19,11 +19,11 @@ namespace Tomboy.Platform
 			try {
 				client.Set (key, val);
 			} catch {	// TODO: what kind?
-				throw new Exception ("Error setting key: " + key);	// TODO: can do better than this
+			        throw new Exception ("Error setting key: " + key);	// TODO: can do better than this
 			}
 		}
 
-		public object Get (string key)
+	public object Get (string key)
 		{
 			try {
 				return client.Get (key);
@@ -53,10 +53,10 @@ namespace Tomboy.Platform
 
 			NotifyWrapper wrapper_to_remove = null;
 			foreach (NotifyWrapper wrapper in wrapper_list)
-				if (wrapper.dir.Equals (dir) && wrapper.notify.Equals (notify)) {
-					wrapper_to_remove = wrapper;
-					break;
-				}
+			if (wrapper.dir.Equals (dir) && wrapper.notify.Equals (notify)) {
+				wrapper_to_remove = wrapper;
+				break;
+			}
 
 			// NOTE: For some unknown reason, the RemoveNotify call does not
 			//		 work here.  That is why we explicitly disable the wrapper,
@@ -104,8 +104,8 @@ namespace Tomboy.Platform
 		public GConfPropertyEditorToggleButton (string key, Gtk.CheckButton sourceButton) : base (key, sourceButton) {}
 	}
 
-   	public class GConfPropertyEditorEntry : GConf.PropertyEditors.PropertyEditorEntry, IPropertyEditor
+	public class GConfPropertyEditorEntry : GConf.PropertyEditors.PropertyEditorEntry, IPropertyEditor
 	{
-   		public GConfPropertyEditorEntry (string key, Gtk.Entry sourceEntry) : base (key, sourceEntry) { }
+		public GConfPropertyEditorEntry (string key, Gtk.Entry sourceEntry) : base (key, sourceEntry) { }
 	}
 }

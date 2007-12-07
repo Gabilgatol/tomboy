@@ -22,7 +22,7 @@ namespace Tomboy.NoteOfTheDay
 			Note notd = NoteOfTheDay.GetNoteByDate (manager, DateTime.Today);
 			if (notd == null) {
 				NoteOfTheDay.CleanupOld (manager);
-				
+
 				// Create a new NotD if the day has changed
 				NoteOfTheDay.Create (manager, DateTime.Now);
 			}
@@ -51,13 +51,13 @@ namespace Tomboy.NoteOfTheDay
 				timeout.Cancel();
 				timeout = null;
 			}
-			
+
 			initialized = false;
 		}
-		
+
 		public override bool Initialized
 		{
-			get { return initialized; }
+		        get { return initialized; }
 		}
 	}
 }

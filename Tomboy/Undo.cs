@@ -2,9 +2,9 @@
 using System;
 using System.Collections;
 
-namespace Tomboy 
+namespace Tomboy
 {
-	public interface EditAction 
+	public interface EditAction
 	{
 		void Undo (Gtk.TextBuffer buffer);
 		void Redo (Gtk.TextBuffer buffer);
@@ -16,7 +16,7 @@ namespace Tomboy
 	public class ChopBuffer : Gtk.TextBuffer
 	{
 		public ChopBuffer (Gtk.TextTagTable table)
-			: base (table)
+				: base (table)
 		{
 		}
 
@@ -29,8 +29,8 @@ namespace Tomboy
 			InsertRange (ref current_end, start_iter, end_iter);
 			chop_end = EndIter.Offset;
 
-			return new TextRange (GetIterAtOffset (chop_start), 
-					      GetIterAtOffset (chop_end));
+			return new TextRange (GetIterAtOffset (chop_start),
+			                      GetIterAtOffset (chop_end));
 		}
 	}
 
@@ -51,12 +51,12 @@ namespace Tomboy
 
 		public TextRange Chop
 		{
-			get { return chop; }
+		        get { return chop; }
 		}
 
 		public ArrayList SplitTags
 		{
-			get { return splitTags; }
+		        get { return splitTags; }
 		}
 
 		public void Split (Gtk.TextIter iter,
@@ -141,10 +141,10 @@ namespace Tomboy
 		int index;
 		bool is_paste;
 
-		public InsertAction (Gtk.TextIter start, 
-				     string text, 
-				     int length, 
-				     ChopBuffer chop_buf)
+		public InsertAction (Gtk.TextIter start,
+		                     string text,
+		                     int length,
+		                     ChopBuffer chop_buf)
 		{
 			this.index = start.Offset - length;
 			// GTKBUG: No way to tell a 1-char paste.
@@ -175,8 +175,8 @@ namespace Tomboy
 			buffer.InsertRange (ref idx_iter, chop.Start, chop.End);
 
 			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
-			buffer.MoveMark (buffer.InsertMark, 
-					 buffer.GetIterAtOffset (index + chop.Length));
+			buffer.MoveMark (buffer.InsertMark,
+			                 buffer.GetIterAtOffset (index + chop.Length));
 		}
 
 		public override void Merge (EditAction action)
@@ -227,16 +227,16 @@ namespace Tomboy
 		bool is_forward;
 		bool is_cut;
 
-		public EraseAction (Gtk.TextIter start_iter, 
-				    Gtk.TextIter end_iter,
-				    ChopBuffer chop_buf)
+		public EraseAction (Gtk.TextIter start_iter,
+		                    Gtk.TextIter end_iter,
+		                    ChopBuffer chop_buf)
 		{
 			this.start = start_iter.Offset;
 			this.end = end_iter.Offset;
 			this.is_cut = end - start > 1;
-			
-			Gtk.TextIter insert = 
-				start_iter.Buffer.GetIterAtMark (start_iter.Buffer.InsertMark);
+
+			Gtk.TextIter insert =
+			        start_iter.Buffer.GetIterAtMark (start_iter.Buffer.InsertMark);
 			this.is_forward = insert.Offset <= start;
 
 			this.chop = chop_buf.AddChop (start_iter, end_iter);
@@ -249,12 +249,12 @@ namespace Tomboy
 			Gtk.TextIter start_iter = buffer.GetIterAtOffset (start - tag_images);
 			buffer.InsertRange (ref start_iter, chop.Start, chop.End);
 
-			buffer.MoveMark (buffer.InsertMark, 
-					 buffer.GetIterAtOffset (is_forward ? start - tag_images
-					                                    : end - tag_images));
-			buffer.MoveMark (buffer.SelectionBound, 
-					 buffer.GetIterAtOffset (is_forward ? end - tag_images
-					                                    : start - tag_images));
+			buffer.MoveMark (buffer.InsertMark,
+			                 buffer.GetIterAtOffset (is_forward ? start - tag_images
+			                                         : end - tag_images));
+			buffer.MoveMark (buffer.SelectionBound,
+			                 buffer.GetIterAtOffset (is_forward ? end - tag_images
+			                                         : start - tag_images));
 
 			ApplySplitTags (buffer);
 		}
@@ -283,9 +283,9 @@ namespace Tomboy
 				start = erase.start;
 
 				Gtk.TextIter chop_start = chop.Start;
-				chop.Buffer.InsertRange (ref chop_start, 
-							 erase.chop.Start, 
-							 erase.chop.End);
+				chop.Buffer.InsertRange (ref chop_start,
+				                         erase.chop.Start,
+				                         erase.chop.End);
 
 				// Delete the marks and text
 				erase.Destroy ();
@@ -338,7 +338,7 @@ namespace Tomboy
 		Gtk.TextTag tag;
 		int         start;
 		int         end;
-		
+
 		public TagApplyAction (Gtk.TextTag tag, Gtk.TextIter start, Gtk.TextIter end)
 		{
 			this.tag = tag;
@@ -351,7 +351,7 @@ namespace Tomboy
 			Gtk.TextIter start_iter, end_iter;
 			start_iter = buffer.GetIterAtOffset (start);
 			end_iter = buffer.GetIterAtOffset (end);
-				
+
 			buffer.MoveMark (buffer.SelectionBound, start_iter);
 			buffer.RemoveTag (tag, start_iter, end_iter);
 			buffer.MoveMark (buffer.InsertMark, end_iter);
@@ -362,7 +362,7 @@ namespace Tomboy
 			Gtk.TextIter start_iter, end_iter;
 			start_iter = buffer.GetIterAtOffset (start);
 			end_iter = buffer.GetIterAtOffset (end);
-				
+
 			buffer.MoveMark (buffer.SelectionBound, start_iter);
 			buffer.ApplyTag (tag, start_iter, end_iter);
 			buffer.MoveMark (buffer.InsertMark, end_iter);
@@ -437,7 +437,7 @@ namespace Tomboy
 	{
 		int line;
 		bool direction;
-		
+
 		public ChangeDepthAction (int line, bool direction)
 		{
 			this.line = line;
@@ -445,9 +445,9 @@ namespace Tomboy
 		}
 
 		public void Undo (Gtk.TextBuffer buffer)
-		{		
+		{
 			Gtk.TextIter iter = buffer.GetIterAtLine (line);
-		
+
 			if (direction) {
 				((NoteBuffer) buffer).DecreaseDepth (ref iter);
 			} else {
@@ -486,13 +486,13 @@ namespace Tomboy
 		{
 		}
 	}
-	
+
 	class InsertBulletAction : EditAction
 	{
 		int offset;
 		int depth;
 		Pango.Direction direction;
-		
+
 		public InsertBulletAction (int offset, int depth, Pango.Direction direction)
 		{
 			this.offset = offset;
@@ -501,7 +501,7 @@ namespace Tomboy
 		}
 
 		public void Undo (Gtk.TextBuffer buffer)
-		{		
+		{
 			Gtk.TextIter iter = buffer.GetIterAtOffset (offset);
 			iter.ForwardLine ();
 			iter = buffer.GetIterAtLine (iter.Line);
@@ -539,7 +539,7 @@ namespace Tomboy
 		public void Destroy ()
 		{
 		}
-	}	
+	}
 
 	public class UndoManager
 	{
@@ -571,12 +571,12 @@ namespace Tomboy
 
 		public bool CanUndo
 		{
-			get { return undo_stack.Count > 0; }
+		        get { return undo_stack.Count > 0; }
 		}
 
-		public bool CanRedo 
+		public bool CanRedo
 		{
-			get { return redo_stack.Count > 0; }
+		        get { return redo_stack.Count > 0; }
 		}
 
 		public event EventHandler UndoChanged;
@@ -605,11 +605,11 @@ namespace Tomboy
 		{
 			if (pop_from.Count > 0) {
 				EditAction action = (EditAction) pop_from.Pop ();
-				
+
 				FreezeUndo ();
 				if (is_undo)
 					action.Undo (buffer);
-				else 
+				else
 					action.Redo (buffer);
 				ThawUndo ();
 
@@ -637,7 +637,7 @@ namespace Tomboy
 			ClearActionStack (undo_stack);
 			ClearActionStack (redo_stack);
 
-			if (UndoChanged != null) 
+			if (UndoChanged != null)
 				UndoChanged (this, new EventArgs ());
 		}
 
@@ -719,8 +719,8 @@ namespace Tomboy
 			if (frozen_cnt == 0) {
 				if (NoteTagTable.TagIsUndoable (args.Tag)) {
 					AddUndoAction (new TagApplyAction (args.Tag,
-									   args.StartChar,
-									   args.EndChar));
+					                                   args.StartChar,
+					                                   args.EndChar));
 				}
 			}
 		}
@@ -746,12 +746,12 @@ namespace Tomboy
 				AddUndoAction (new ChangeDepthAction (args.Line, args.Direction));
 			}
 		}
-		
+
 		void OnBulletInserted(object sender, InsertBulletEventArgs args)
 		{
 			if (frozen_cnt == 0) {
 				AddUndoAction (new InsertBulletAction (args.Offset, args.Depth, args.Direction));
 			}
-		}		
+		}
 	}
 }

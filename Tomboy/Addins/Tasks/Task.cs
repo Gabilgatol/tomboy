@@ -9,12 +9,13 @@ namespace Tomboy.Tasks
 	public delegate void TaskSavedHandler (Task task);
 	public delegate void TaskStatusChangedHandler (Task task);
 
-	public enum TaskPriority : uint
+public enum TaskPriority :
+	uint
 	{
-		Undefined = 0,
-		Low,
-		Normal,
-		High
+	        Undefined = 0,
+	        Low,
+	        Normal,
+	        High
 	};
 
 	/// <summary>
@@ -22,15 +23,15 @@ namespace Tomboy.Tasks
 	/// </summary>
 	public class Task
 	{
-		#region Fields
+#region Fields
 		string filepath;
 		TaskManager manager;
 		InterruptableTimeout save_timeout;
 		bool save_needed;
 		TaskData data;
-		#endregion // Fields
+#endregion // Fields
 
-		#region Constructors
+#region Constructors
 		/// <summary>
 		/// Construct a task object.
 		/// </summary>
@@ -39,7 +40,7 @@ namespace Tomboy.Tasks
 			this.data = data;
 			this.filepath = filepath;
 			this.manager = manager;
-			
+
 			save_timeout = new InterruptableTimeout ();
 			save_timeout.Timeout += SaveTimeout;
 
@@ -48,125 +49,125 @@ namespace Tomboy.Tasks
 			string origin_note_uri = OriginNoteUri;
 			if (origin_note_uri != null && origin_note_uri != string.Empty) {
 				Note note =
-					Tomboy.DefaultNoteManager.FindByUri (origin_note_uri);
+				        Tomboy.DefaultNoteManager.FindByUri (origin_note_uri);
 				if (note == null)
 					OriginNoteUri = String.Empty;
 			}
 		}
-		#endregion // Constructors
-		
-		#region Public Properties
+#endregion // Constructors
+
+#region Public Properties
 		public string Uri
 		{
-			get { return data.Uri; }
+	        get { return data.Uri; }
 		}
-		
+
 		public string FilePath
 		{
-			get { return filepath; }
+		        get { return filepath; }
 		}
-		
+
 		public string Summary
 		{
-			get { return data.Summary; }
-			set {
-				if (data.Summary != value) {
-					string old_summary = data.Summary;
-					data.Summary = value;
-					
-					if (Renamed != null)
-						Renamed (this, old_summary);
-					
-					QueueSave (true);
-				}
-			}
+		        get { return data.Summary; }
+		        set {
+			        if (data.Summary != value) {
+				        string old_summary = data.Summary;
+				        data.Summary = value;
+
+				        if (Renamed != null)
+					        Renamed (this, old_summary);
+
+				        QueueSave (true);
+			        }
+		        }
 		}
-		
+
 		public string Details
 		{
-			get { return data.Details; }
-			set {
-				if (data.Details != value) {
-					data.Details = value;
-					
-					QueueSave (true);
-				}
-			}
+	        get { return data.Details; }
+		        set {
+			        if (data.Details != value) {
+				        data.Details = value;
+
+				        QueueSave (true);
+			        }
+		        }
 		}
-		
+
 		public TaskData Data
 		{
-			get { return data; }
+		        get { return data; }
 		}
 
-		public DateTime CreateDate 
+		public DateTime CreateDate
 		{
-			get { return data.CreateDate; }
+		        get { return data.CreateDate; }
 		}
 
-		public DateTime LastChangeDate 
+		public DateTime LastChangeDate
 		{
-			get { return data.LastChangeDate; }
+		        get { return data.LastChangeDate; }
 		}
-		
+
 		public DateTime CompletionDate
 		{
-			get { return data.CompletionDate; }
+		        get { return data.CompletionDate; }
 		}
-		
+
 		public DateTime DueDate
 		{
-			get { return data.DueDate; }
-			set {
-				if (data.DueDate != value) {
-					data.DueDate = value;
-					
-					QueueSave (true);
-				}
-			}
+		        get { return data.DueDate; }
+		        set {
+			        if (data.DueDate != value) {
+				        data.DueDate = value;
+
+				        QueueSave (true);
+			        }
+		        }
 		}
-		
+
 		public TaskPriority Priority
 		{
-			get { return data.Priority; }
-			set {
-				if (data.Priority != value) {
-					data.Priority = value;
-					
-					QueueSave (true);
-				}
-			}
+		        get { return data.Priority; }
+		        set {
+			        if (data.Priority != value) {
+				        data.Priority = value;
+
+				        QueueSave (true);
+			        }
+		        }
 		}
-		
+
 		public string OriginNoteUri
 		{
-			get { return data.OriginNoteUri; }
-			set {
-				if (data.OriginNoteUri != value) {
-					data.OriginNoteUri = value;
-					
-					QueueSave (true);
-				}
-			}
+		        get { return data.OriginNoteUri; }
+		        set {
+			        if (data.OriginNoteUri != value) {
+				        data.OriginNoteUri = value;
+
+				        QueueSave (true);
+			        }
+		        }
 		}
 
 		public TaskManager Manager
 		{
-			get { return manager; }
-			set { manager = value; }
+		        get { return manager; }
+		        set { manager = value; }
 		}
-		
+
 		public bool IsComplete
 		{
-			get { return data.CompletionDate > DateTime.MinValue; }
+		        get { return data.CompletionDate > DateTime.MinValue; }
 		}
 
-		#endregion // Public Properties
+#endregion // Public Properties
 
-		#region Public Methods
+#region Public Methods
 		public static Task CreateNewTask (string summary,
-						  string filepath,
-						  TaskManager manager)
+		                                  string filepath,
+		                                  TaskManager manager)
 		{
 			TaskData data = new TaskData (UrlFromPath (filepath));
 			data.Summary = summary;
@@ -176,8 +177,8 @@ namespace Tomboy.Tasks
 		}
 
 		public static Task CreateExistingTask (TaskData data,
-						       string filepath,
-						       TaskManager manager)
+		                                       string filepath,
+		                                       TaskManager manager)
 		{
 			if (data.CreateDate == DateTime.MinValue)
 				data.CreateDate = File.GetCreationTime (filepath);
@@ -196,7 +197,7 @@ namespace Tomboy.Tasks
 
 			return task;
 		}
-		
+
 		/// <summary>
 		/// Mark a task as complete
 		/// </summary>
@@ -205,15 +206,15 @@ namespace Tomboy.Tasks
 			// If it's already marked complete, don't do anything
 			if (IsComplete)
 				return;
-			
+
 			data.CompletionDate = DateTime.Now;
 
 			if (StatusChanged != null)
 				StatusChanged (this);
-			
+
 			QueueSave (true);
 		}
-		
+
 		/// <summary>
 		/// Mark a task as not complete (re-open it)
 		/// </summary>
@@ -222,12 +223,12 @@ namespace Tomboy.Tasks
 			// If it's already open, don't do anything
 			if (IsComplete == false)
 				return;
-			
+
 			data.CompletionDate = DateTime.MinValue;
-			
+
 			if (StatusChanged != null)
 				StatusChanged (this);
-			
+
 			QueueSave (true);
 		}
 
@@ -236,7 +237,7 @@ namespace Tomboy.Tasks
 			save_timeout.Cancel ();
 		}
 
-		public void Save () 
+		public void Save ()
 		{
 			// Do nothing if we don't need to save.  Avoids unneccessary saves
 			// e.g on forced quit when we call save for every task.
@@ -246,11 +247,11 @@ namespace Tomboy.Tasks
 			Logger.Log ("Saving task '{0}'...", data.Summary);
 
 			TaskArchiver.Write (filepath, data);
-			
+
 			if (Saved != null)
 				Saved (this);
 		}
-		
+
 		/// <summary>
 		/// Set a 4 second timeout to execute the save.  Possibly
 		/// invalidate the text, which causes a re-serialize when the
@@ -270,20 +271,20 @@ namespace Tomboy.Tasks
 			}
 		}
 
-		#endregion // Public Methods
+#endregion // Public Methods
 
-		#region Events
+#region Events
 		public event TaskRenamedHandler Renamed;
 		public event TaskSavedHandler Saved;
-		
+
 		/// <summary>
 		/// Indicated when a task is marked as completed
 		/// or when a task is re-opened.
 		/// </summary>
 		public event TaskStatusChangedHandler StatusChanged;
-		#endregion // Events
+#endregion // Events
 
-		#region Private Methods
+#region Private Methods
 		[System.Diagnostics.Conditional ("DEBUG_SAVE")]
 		static void DebugSave (string format, params object[] args)
 		{
@@ -293,7 +294,7 @@ namespace Tomboy.Tasks
 		static string UrlFromPath (string filepath)
 		{
 			return "task://tomboy/" +
-				Path.GetFileNameWithoutExtension (filepath);
+			       Path.GetFileNameWithoutExtension (filepath);
 		}
 
 		// Save timeout to avoid constanly resaving.  Called every 4 seconds.
@@ -308,9 +309,9 @@ namespace Tomboy.Tasks
 				Logger.Log ("Error while saving task: {0}", e);
 			}
 		}
-		#endregion // Private Methods
+#endregion // Private Methods
 
-		#region Event Handlers
-		#endregion // Event Handlers
+#region Event Handlers
+#endregion // Event Handlers
 	}
 }

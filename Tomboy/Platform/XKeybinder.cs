@@ -11,11 +11,11 @@ namespace Tomboy.Platform
 
 		[DllImport("libtomboy")]
 		static extern void tomboy_keybinder_bind (string keystring,
-							  BindkeyHandler handler);
+			                BindkeyHandler handler);
 
 		[DllImport("libtomboy")]
 		static extern void tomboy_keybinder_unbind (string keystring,
-							    BindkeyHandler handler);
+			                BindkeyHandler handler);
 
 		public delegate void BindkeyHandler (string key, IntPtr user_data);
 
@@ -32,7 +32,7 @@ namespace Tomboy.Platform
 		{
 			bindings = new ArrayList ();
 			key_handler = new BindkeyHandler (KeybindingPressed);
-			
+
 			tomboy_keybinder_init ();
 		}
 
@@ -45,14 +45,14 @@ namespace Tomboy.Platform
 			}
 		}
 
-		public void Bind (string       keystring, 
-				  EventHandler handler)
+		public void Bind (string       keystring,
+		                  EventHandler handler)
 		{
 			Binding bind = new Binding ();
 			bind.keystring = keystring;
 			bind.handler = handler;
 			bindings.Add (bind);
-			
+
 			tomboy_keybinder_bind (bind.keystring, key_handler);
 		}
 
@@ -61,7 +61,7 @@ namespace Tomboy.Platform
 			foreach (Binding bind in bindings) {
 				if (bind.keystring == keystring) {
 					tomboy_keybinder_unbind (bind.keystring,
-								 key_handler);
+					                         key_handler);
 
 					bindings.Remove (bind);
 					break;

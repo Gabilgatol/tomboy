@@ -14,7 +14,7 @@ namespace Tomboy
 	{
 		bool editing_title;
 		Gtk.TextTag title_tag;
-		HIGMessageDialog title_taken_dialog = null; 
+		HIGMessageDialog title_taken_dialog = null;
 
 		public override void Initialize ()
 		{
@@ -26,18 +26,18 @@ namespace Tomboy
 			// Do nothing.
 		}
 
-		Gtk.TextIter TitleEnd 
+		Gtk.TextIter TitleEnd
 		{
-			get {
-				Gtk.TextIter line_end = Buffer.StartIter;
-				line_end.ForwardToLineEnd ();
-				return line_end;
-			}
+		        get {
+			        Gtk.TextIter line_end = Buffer.StartIter;
+			        line_end.ForwardToLineEnd ();
+			        return line_end;
+		        }
 		}
 
-		Gtk.TextIter TitleStart 
+		Gtk.TextIter TitleStart
 		{
-			get { return Buffer.StartIter; }
+		        get { return Buffer.StartIter; }
 		}
 
 		public override void OnNoteOpened ()
@@ -45,7 +45,7 @@ namespace Tomboy
 			Buffer.MarkSet += OnMarkSet;
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
-			
+
 			Window.Editor.FocusOutEvent += OnEditorFocusOut;
 
 			// FIXME: Needed because we hide on delete event, and
@@ -58,7 +58,7 @@ namespace Tomboy
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
 			Buffer.ApplyTag (title_tag, TitleStart, TitleEnd);
 		}
-		
+
 		void OnEditorFocusOut (object sender, Gtk.FocusOutEventArgs args)
 		{
 			// TODO: Duplicated from Update(); refactor instead
@@ -149,8 +149,8 @@ namespace Tomboy
 			string temp_title;
 
 			while (true) {
-				temp_title = String.Format (Catalog.GetString ("(Untitled {0})"), 
-							    ++new_num);
+				temp_title = String.Format (Catalog.GetString ("(Untitled {0})"),
+				                            ++new_num);
 				if (Manager.Find (temp_title) == null)
 					return temp_title;
 			}
@@ -181,32 +181,32 @@ namespace Tomboy
 			Buffer.MoveMark (Buffer.SelectionBound, TitleStart);
 			Buffer.MoveMark (Buffer.InsertMark, TitleEnd);
 
-			string message = 
-				String.Format (Catalog.GetString ("A note with the title " +
-								  "<b>{0}</b> already exists. " +
-								  "Please choose another name " +
-								  "for this note before " +
-								  "continuing."),
-					       title);
-			
+			string message =
+			        String.Format (Catalog.GetString ("A note with the title " +
+			                                          "<b>{0}</b> already exists. " +
+			                                          "Please choose another name " +
+			                                          "for this note before " +
+			                                          "continuing."),
+			                       title);
+
 			/// Only pop open a warning dialog when one isn't already present
 			/// Had to add this check because this method is being called twice.
 			if (title_taken_dialog == null) {
 				title_taken_dialog =
-					new HIGMessageDialog (Window,
-						      Gtk.DialogFlags.DestroyWithParent,
-						      Gtk.MessageType.Warning,
-						      Gtk.ButtonsType.Ok,
-						      Catalog.GetString ("Note title taken"),
-						      message);
+				        new HIGMessageDialog (Window,
+				                              Gtk.DialogFlags.DestroyWithParent,
+				                              Gtk.MessageType.Warning,
+				                              Gtk.ButtonsType.Ok,
+				                              Catalog.GetString ("Note title taken"),
+				                              message);
 				title_taken_dialog.Modal = true;
 				title_taken_dialog.Response +=
-					delegate (object sender, Gtk.ResponseArgs args) {
-						title_taken_dialog.Destroy ();
-						title_taken_dialog = null;
-					};
+				        delegate (object sender, Gtk.ResponseArgs args) {
+					        title_taken_dialog.Destroy ();
+					        title_taken_dialog = null;
+				        };
 			}
-			
+
 			title_taken_dialog.Present ();
 		}
 	}
@@ -220,9 +220,9 @@ namespace Tomboy
 		static bool gtkspell_available_result;
 
 		[DllImport ("libgtkspell")]
-		static extern IntPtr gtkspell_new_attach (IntPtr text_view, 
-							  string locale, 
-							  IntPtr error);
+		static extern IntPtr gtkspell_new_attach (IntPtr text_view,
+			                string locale,
+			                IntPtr error);
 
 		[DllImport ("libgtkspell")]
 		static extern void gtkspell_detach (IntPtr obj);
@@ -231,26 +231,26 @@ namespace Tomboy
 		{
 			try {
 				Gtk.TextView test_view = new Gtk.TextView ();
-				IntPtr test_ptr = gtkspell_new_attach (test_view.Handle, 
-								       null, 
-								       IntPtr.Zero);
+				IntPtr test_ptr = gtkspell_new_attach (test_view.Handle,
+				                                       null,
+				                                       IntPtr.Zero);
 				if (test_ptr != IntPtr.Zero)
 					gtkspell_detach (test_ptr);
 				return true;
 			} catch {
-				return false;
+			        return false;
 			}
 		}
 
-		public static bool GtkSpellAvailable 
-		{
-			get {
-				if (!gtkspell_available_tested) {
-					gtkspell_available_result = DetectGtkSpellAvailable ();
-					gtkspell_available_tested = true;
-				}
-				return gtkspell_available_result;
-			}
+	public static bool GtkSpellAvailable
+	{
+	        get {
+		        if (!gtkspell_available_tested) {
+				        gtkspell_available_result = DetectGtkSpellAvailable ();
+				        gtkspell_available_tested = true;
+			        }
+			        return gtkspell_available_result;
+		        }
 		}
 
 		public NoteSpellChecker ()
@@ -293,9 +293,9 @@ namespace Tomboy
 			}
 
 			if (obj_ptr == IntPtr.Zero) {
-				obj_ptr = gtkspell_new_attach (Window.Editor.Handle, 
-							       null, 
-							       IntPtr.Zero);
+				obj_ptr = gtkspell_new_attach (Window.Editor.Handle,
+				                               null,
+				                               IntPtr.Zero);
 			}
 		}
 
@@ -327,7 +327,7 @@ namespace Tomboy
 				// Remove misspelled tag for links & title
 				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
 					if (tag != args.Tag &&
-					    !NoteTagTable.TagIsSpellCheckable (tag)) {
+					                !NoteTagTable.TagIsSpellCheckable (tag)) {
 						remove = true;
 						break;
 					}
@@ -337,9 +337,9 @@ namespace Tomboy
 			}
 
 			if (remove) {
-				Buffer.RemoveTag ("gtkspell-misspelled", 
-						  args.StartChar, 
-						  args.EndChar);
+				Buffer.RemoveTag ("gtkspell-misspelled",
+				                  args.StartChar,
+				                  args.EndChar);
 			}
 		}
 	}
@@ -350,16 +350,16 @@ namespace Tomboy
 		NoteTag url_tag;
 		Gtk.TextMark click_mark;
 
-		const string URL_REGEX = 
-			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)/\S+/|(^|\s)~/\S+)\S*\b/?)";
+		const string URL_REGEX =
+		        @"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)/\S+/|(^|\s)~/\S+)\S*\b/?)";
 
 		static Regex regex;
 		static bool text_event_connected;
 
 		static NoteUrlWatcher ()
 		{
-			regex = new Regex (URL_REGEX, 
-					   RegexOptions.IgnoreCase | RegexOptions.Compiled);
+			regex = new Regex (URL_REGEX,
+			                   RegexOptions.IgnoreCase | RegexOptions.Compiled);
 			text_event_connected = false;
 		}
 
@@ -414,22 +414,22 @@ namespace Tomboy
 			// to /home/alex/foo.
 			if (url.StartsWith ("www."))
 				url = "http://" + url;
-			else if (url.StartsWith ("/") && 
-				 url.LastIndexOf ("/") > 1)
+			else if (url.StartsWith ("/") &&
+			                url.LastIndexOf ("/") > 1)
 				url = "file://" + url;
 			else if (url.StartsWith ("~/"))
-				url = "file://" + 
-					Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
-						      url.Substring (2));
+				url = "file://" +
+				      Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
+				                    url.Substring (2));
 			else if (url.IndexOf ("@") > 1 &&
-				 url.IndexOf (".") > 3 &&
-				 !url.StartsWith ("mailto:"))
+			                url.IndexOf (".") > 3 &&
+			                !url.StartsWith ("mailto:"))
 				url = "mailto:" + url;
 
 			return url;
 		}
 
-		void OpenUrl (string url) 
+		void OpenUrl (string url)
 		{
 			if (url != string.Empty) {
 				Logger.Log ("Opening url '{0}'...", url);
@@ -441,21 +441,21 @@ namespace Tomboy
 		{
 			string message = String.Format ("{0}: {1}", url, error);
 
-			HIGMessageDialog dialog = 
-				new HIGMessageDialog (Window,
-						      Gtk.DialogFlags.DestroyWithParent,
-						      Gtk.MessageType.Info,
-						      Gtk.ButtonsType.Ok,
-						      Catalog.GetString ("Cannot open location"),
-						      message);
+			HIGMessageDialog dialog =
+			        new HIGMessageDialog (Window,
+			                              Gtk.DialogFlags.DestroyWithParent,
+			                              Gtk.MessageType.Info,
+			                              Gtk.ButtonsType.Ok,
+			                              Catalog.GetString ("Cannot open location"),
+			                              message);
 			dialog.Run ();
 			dialog.Destroy ();
 		}
 
 		bool OnUrlTagActivated (NoteTag      sender,
-					NoteEditor   editor,
-					Gtk.TextIter start, 
-					Gtk.TextIter end)
+		                        NoteEditor   editor,
+		                        Gtk.TextIter start,
+		                        Gtk.TextIter end)
 		{
 			string url = GetUrl (start, end);
 			try {
@@ -470,16 +470,16 @@ namespace Tomboy
 
 		void ApplyUrlToBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			NoteBuffer.GetBlockExtents (ref start, 
-						    ref end, 
-						    256 /* max url length */,
-						    url_tag);
+			NoteBuffer.GetBlockExtents (ref start,
+			                            ref end,
+			                            256 /* max url length */,
+			                            url_tag);
 
 			Buffer.RemoveTag (url_tag, start, end);
 
-			for (Match match = regex.Match (start.GetSlice (end)); 
-			     match.Success; 
-			     match = match.NextMatch ()) {
+			for (Match match = regex.Match (start.GetSlice (end));
+			                match.Success;
+			                match = match.NextMatch ()) {
 				System.Text.RegularExpressions.Group group = match.Groups [1];
 
 				/*
@@ -517,10 +517,10 @@ namespace Tomboy
 			int x, y;
 
 			Window.Editor.WindowToBufferCoords (Gtk.TextWindowType.Text,
-							    (int) args.Event.X,
-							    (int) args.Event.Y,
-							    out x,
-							    out y);
+			                                    (int) args.Event.X,
+			                                    (int) args.Event.Y,
+			                                    out x,
+			                                    out y);
 			Gtk.TextIter click_iter = Window.Editor.GetIterAtLocation (x, y);
 
 			// Move click_mark to click location
@@ -593,7 +593,7 @@ namespace Tomboy
 
 		static bool text_event_connected;
 
-		public override void Initialize () 
+		public override void Initialize ()
 		{
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
@@ -695,9 +695,9 @@ namespace Tomboy
 				if (range.Text.ToLower () != old_title_lower)
 					continue;
 
-				Logger.Log ("Replacing '{0}' with '{1}'", 
-					    range.Text, 
-					    renamed.Title);
+				Logger.Log ("Replacing '{0}' with '{1}'",
+				            range.Text,
+				            renamed.Title);
 
 				Gtk.TextIter start_iter = range.Start;
 				Gtk.TextIter end_iter = range.End;
@@ -720,24 +720,24 @@ namespace Tomboy
 			title_end.ForwardChars (hit.End);
 
 			// Only link against whole words/phrases
-			if ((!title_start.StartsWord () && !title_start.StartsSentence ()) || 
-			    (!title_end.EndsWord() && !title_end.EndsSentence()))
+			if ((!title_start.StartsWord () && !title_start.StartsSentence ()) ||
+			                (!title_end.EndsWord() && !title_end.EndsSentence()))
 				return;
 
 			// Don't create links inside URLs
 			if (title_start.HasTag (url_tag))
 				return;
 
-			Logger.Log ("Matching Note title '{0}' at {1}-{2}...", 
-				    hit.Key,
-				    hit.Start,
-				    hit.End);
+			Logger.Log ("Matching Note title '{0}' at {1}-{2}...",
+			            hit.Key,
+			            hit.Start,
+			            hit.End);
 
 			Buffer.RemoveTag (broken_link_tag, title_start, title_end);
 			Buffer.ApplyTag (link_tag, title_start, title_end);
 		}
 
-		void HighlightNoteInBlock (Note find_note, Gtk.TextIter start, Gtk.TextIter end) 
+		void HighlightNoteInBlock (Note find_note, Gtk.TextIter start, Gtk.TextIter end)
 		{
 			string buffer_text = start.GetText (end).ToLower();
 			string find_title_lower = find_note.Title.ToLower ();
@@ -748,17 +748,17 @@ namespace Tomboy
 				if (idx < 0)
 					break;
 
-				TrieHit hit = new TrieHit (idx, 
-							   idx + find_title_lower.Length,
-							   find_title_lower,
-							   find_note);
+				TrieHit hit = new TrieHit (idx,
+				                           idx + find_title_lower.Length,
+				                           find_title_lower,
+				                           find_note);
 				DoHighlight (hit, start, end);
 
 				idx += find_title_lower.Length;
 			}
 		}
 
-		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
+		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
 			ArrayList hits = Manager.TitleTrie.FindMatches (start.GetSlice (end));
 			foreach (TrieHit hit in hits) {
@@ -766,7 +766,7 @@ namespace Tomboy
 			}
 		}
 
-		void UnhighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
+		void UnhighlightInBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
 			Buffer.RemoveTag (link_tag, start, end);
 		}
@@ -776,10 +776,10 @@ namespace Tomboy
 			Gtk.TextIter start = args.Start;
 			Gtk.TextIter end = args.End;
 
-			NoteBuffer.GetBlockExtents (ref start, 
-						    ref end, 
-						    Manager.TitleTrie.MaxLength,
-						    link_tag);
+			NoteBuffer.GetBlockExtents (ref start,
+			                            ref end,
+			                            Manager.TitleTrie.MaxLength,
+			                            link_tag);
 
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
@@ -792,10 +792,10 @@ namespace Tomboy
 
 			Gtk.TextIter end = args.Pos;
 
-			NoteBuffer.GetBlockExtents (ref start, 
-						    ref end, 
-						    Manager.TitleTrie.MaxLength,
-						    link_tag);
+			NoteBuffer.GetBlockExtents (ref start,
+			                            ref end,
+			                            Manager.TitleTrie.MaxLength,
+			                            link_tag);
 
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
@@ -809,19 +809,19 @@ namespace Tomboy
 			if (link == null) {
 				Logger.Log ("Creating note '{0}'...", link_name);
 				try {
-				    link = Manager.Create (link_name);
+					link = Manager.Create (link_name);
 				} catch {
-				    // Fail silently.
+				        // Fail silently.
 				}
 			}
-			
-			// FIXME: We used to also check here for (link != this.Note), but
-			// somehow this was causing problems receiving clicks for the
-			// wrong instance of a note (see bug #413234).  Since a
-			// link:internal tag is never applied around text that's the same
-			// as the current note's title, it's safe to omit this check and
-			// also works around the bug.
-			if (link != null) {
+
+		// FIXME: We used to also check here for (link != this.Note), but
+		// somehow this was causing problems receiving clicks for the
+		// wrong instance of a note (see bug #413234).  Since a
+		// link:internal tag is never applied around text that's the same
+		// as the current note's title, it's safe to omit this check and
+		// also works around the bug.
+		if (link != null) {
 				Logger.Log ("Opening note '{0}' on click...", link_name);
 				link.Window.Present ();
 				return true;
@@ -831,9 +831,9 @@ namespace Tomboy
 		}
 
 		bool OnLinkTagActivated (NoteTag      sender,
-					 NoteEditor   editor,
-					 Gtk.TextIter start, 
-					 Gtk.TextIter end)
+		                         NoteEditor   editor,
+		                         Gtk.TextIter start,
+		                         Gtk.TextIter end)
 		{
 			return OpenOrCreateLink (start, end);
 		}
@@ -846,7 +846,7 @@ namespace Tomboy
 		// NOTE: \p{Lu} is Unicode uppercase and \p{Ll} is lowercase.
 		const string WIKIWORD_REGEX = @"\b((\p{Lu}+[\p{Ll}0-9]+){2}([\p{Lu}\p{Ll}0-9])*)\b";
 
-		static Regex regex; 
+		static Regex regex;
 
 		static NoteWikiWatcher ()
 		{
@@ -886,14 +886,14 @@ namespace Tomboy
 			}
 		}
 
-		static string [] PatronymicPrefixes = 
-			new string [] { "Mc", "Mac", "Le", "La", "De", "Van" };
+		static string [] PatronymicPrefixes =
+		        new string [] { "Mc", "Mac", "Le", "La", "De", "Van" };
 
 		bool IsPatronymicName (string word)
 		{
 			foreach (string prefix in PatronymicPrefixes) {
 				if (word.StartsWith (prefix) &&
-				    char.IsUpper (word [prefix.Length]))
+				                char.IsUpper (word [prefix.Length]))
 					return true;
 			}
 
@@ -902,24 +902,24 @@ namespace Tomboy
 
 		void ApplyWikiwordToBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			NoteBuffer.GetBlockExtents (ref start, 
-						    ref end, 
-						    80 /* max wiki name */,
-						    broken_link_tag);
+			NoteBuffer.GetBlockExtents (ref start,
+			                            ref end,
+			                            80 /* max wiki name */,
+			                            broken_link_tag);
 
 			Buffer.RemoveTag (broken_link_tag, start, end);
 
-			for (Match match = regex.Match (start.GetText (end)); 
-			     match.Success; 
-			     match = match.NextMatch ()) {
+			for (Match match = regex.Match (start.GetText (end));
+			                match.Success;
+			                match = match.NextMatch ()) {
 				System.Text.RegularExpressions.Group group = match.Groups [1];
 
 				if (IsPatronymicName (group.ToString ()))
 					continue;
 
 				Logger.Log ("Highlighting wikiword: '{0}' at offset {1}",
-					    group,
-					    group.Index);
+				            group,
+				            group.Index);
 
 				Gtk.TextIter start_cpy = start;
 				start_cpy.ForwardChars (group.Index);
@@ -979,7 +979,7 @@ namespace Tomboy
 		}
 
 		[GLib.ConnectBefore]
-		void OnEditorKeyPress (object sender, Gtk.KeyPressEventArgs args) 
+		void OnEditorKeyPress (object sender, Gtk.KeyPressEventArgs args)
 		{
 			switch (args.Event.Key) {
 			case Gdk.Key.Shift_L:
@@ -1003,8 +1003,8 @@ namespace Tomboy
 				foreach (Gtk.TextTag tag in iter.Tags) {
 					if (NoteTagTable.TagIsActivatable (tag)) {
 						args.RetVal = tag.ProcessEvent (Window.Editor,
-										args.Event,
-										iter);
+						                                args.Event,
+						                                iter);
 						if ((bool) args.RetVal)
 							break;
 					}
@@ -1014,7 +1014,7 @@ namespace Tomboy
 		}
 
 		[GLib.ConnectBefore]
-		void OnEditorKeyRelease (object sender, Gtk.KeyReleaseEventArgs args) 
+		void OnEditorKeyRelease (object sender, Gtk.KeyReleaseEventArgs args)
 		{
 			switch (args.Event.Key) {
 			case Gdk.Key.Shift_L:
@@ -1036,23 +1036,23 @@ namespace Tomboy
 			int pointer_x, pointer_y;
 			Gdk.ModifierType pointer_mask;
 
-			Window.Editor.GdkWindow.GetPointer (out pointer_x, 
-							    out pointer_y, 
-							    out pointer_mask);
+			Window.Editor.GdkWindow.GetPointer (out pointer_x,
+			                                    out pointer_y,
+			                                    out pointer_mask);
 
 			bool hovering = false;
-			
+
 			// Figure out if we're on a link by getting the text
 			// iter at the mouse point, and checking for tags that
 			// start with "link:"...
 
 			int buffer_x, buffer_y;
 			Window.Editor.WindowToBufferCoords (Gtk.TextWindowType.Widget,
-							    pointer_x, 
-							    pointer_y,
-							    out buffer_x, 
-							    out buffer_y);
-			
+			                                    pointer_x,
+			                                    pointer_y,
+			                                    out buffer_x,
+			                                    out buffer_y);
+
 			Gtk.TextIter iter = Window.Editor.GetIterAtLocation (buffer_x, buffer_y);
 
 			foreach (Gtk.TextTag tag in iter.Tags) {
@@ -1062,9 +1062,9 @@ namespace Tomboy
 				}
 			}
 
-			// Don't show hand if Shift or Control is pressed 
+			// Don't show hand if Shift or Control is pressed
 			bool avoid_hand = (pointer_mask & (Gdk.ModifierType.ShiftMask |
-							   Gdk.ModifierType.ControlMask)) != 0;
+			                                   Gdk.ModifierType.ControlMask)) != 0;
 
 			if (hovering != hovering_on_link) {
 				hovering_on_link = hovering;
@@ -1072,12 +1072,12 @@ namespace Tomboy
 				Gdk.Window win = Window.Editor.GetWindow (Gtk.TextWindowType.Text);
 				if (hovering && !avoid_hand)
 					win.Cursor = hand_cursor;
-				else 
+				else
 					win.Cursor = normal_cursor;
 			}
 		}
 	}
-	
+
 	public class NoteTagsWatcher : NoteAddin
 	{
 		static NoteTagsWatcher ()
@@ -1106,17 +1106,17 @@ namespace Tomboy
 				Logger.Debug ("\t{0}", tag.Name);
 			}
 		}
-		
+
 		void OnTagAdded (Note note, Tag tag)
 		{
 			Logger.Debug ("Tag added to {0}: {1}", note.Title, tag.Name);
 		}
-		
+
 		void OnTagRemoving (Note note, Tag tag)
 		{
 			Logger.Debug ("Removing tag from {0}: {1}", note.Title, tag.Name);
 		}
-		
+
 		// <summary>
 		// Keep the TagManager clean by removing tags that are no longer
 		// tagging any other notes.
@@ -1124,7 +1124,7 @@ namespace Tomboy
 		void OnTagRemoved (Note note, string tag_name)
 		{
 			Tag tag = TagManager.GetTag (tag_name);
-Logger.Debug ("Watchers.OnTagRemoved popularity count: {0}", tag.Popularity);
+			Logger.Debug ("Watchers.OnTagRemoved popularity count: {0}", tag.Popularity);
 			if (tag.Popularity == 0)
 				TagManager.RemoveTag (tag);
 		}

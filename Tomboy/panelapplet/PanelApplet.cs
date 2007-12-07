@@ -67,10 +67,10 @@ namespace _Gnome {
 			case PanelAppletBackgroundType.PixmapBackground:
 				applet_managed.OnChangeBackground ((PanelAppletBackgroundType)type, Gdk.Color.Zero, (Gdk.Pixmap) GLib.Object.GetObject(pixmap));
 				break;
-                        default:
+			default:
 				applet_managed.OnChangeBackground ((PanelAppletBackgroundType)type, Gdk.Color.Zero, null);
 				break;
-                        }
+			}
 		}
 
 		private static void OverrideChangeBackground (GLib.GType gtype)
@@ -96,19 +96,19 @@ namespace _Gnome {
 			inst_and_params.Append (vals [3]);
 			g_signal_chain_from_overridden (inst_and_params.ArrayPtr, ref ret);
 			foreach (GLib.Value v in vals)
-				v.Dispose ();
+			v.Dispose ();
 		}
 
 		[GLib.Signal("change_background")]
 		public event _Gnome.ChangeBackgroundHandler ChangeBackground {
-			add {
-				GLib.Signal sig = GLib.Signal.Lookup (this, "change_background", new ChangeBackgroundSignalDelegate(ChangeBackgroundSignalCallback));
-				sig.AddDelegate (value);
-			}
-			remove {
-				GLib.Signal sig = GLib.Signal.Lookup (this, "change_background", new ChangeBackgroundSignalDelegate(ChangeBackgroundSignalCallback));
-				sig.RemoveDelegate (value);
-			}
+		        add {
+			        GLib.Signal sig = GLib.Signal.Lookup (this, "change_background", new ChangeBackgroundSignalDelegate(ChangeBackgroundSignalCallback));
+			        sig.AddDelegate (value);
+		        }
+		        remove {
+			        GLib.Signal sig = GLib.Signal.Lookup (this, "change_background", new ChangeBackgroundSignalDelegate(ChangeBackgroundSignalCallback));
+			        sig.RemoveDelegate (value);
+		        }
 		}
 
 		[GLib.CDeclCallback]
@@ -158,19 +158,19 @@ namespace _Gnome {
 			inst_and_params.Append (vals [1]);
 			g_signal_chain_from_overridden (inst_and_params.ArrayPtr, ref ret);
 			foreach (GLib.Value v in vals)
-				v.Dispose ();
+			v.Dispose ();
 		}
 
 		[GLib.Signal("move_focus_out_of_applet")]
 		public event _Gnome.MoveFocusOutOfAppletHandler MoveFocusOutOfApplet {
-			add {
-				GLib.Signal sig = GLib.Signal.Lookup (this, "move_focus_out_of_applet", new MoveFocusOutOfAppletSignalDelegate(MoveFocusOutOfAppletSignalCallback));
-				sig.AddDelegate (value);
-			}
-			remove {
-				GLib.Signal sig = GLib.Signal.Lookup (this, "move_focus_out_of_applet", new MoveFocusOutOfAppletSignalDelegate(MoveFocusOutOfAppletSignalCallback));
-				sig.RemoveDelegate (value);
-			}
+		        add {
+			        GLib.Signal sig = GLib.Signal.Lookup (this, "move_focus_out_of_applet", new MoveFocusOutOfAppletSignalDelegate(MoveFocusOutOfAppletSignalCallback));
+			        sig.AddDelegate (value);
+		        }
+		        remove {
+			        GLib.Signal sig = GLib.Signal.Lookup (this, "move_focus_out_of_applet", new MoveFocusOutOfAppletSignalDelegate(MoveFocusOutOfAppletSignalCallback));
+			        sig.RemoveDelegate (value);
+		        }
 		}
 
 		[GLib.CDeclCallback]
@@ -220,19 +220,19 @@ namespace _Gnome {
 			inst_and_params.Append (vals [1]);
 			g_signal_chain_from_overridden (inst_and_params.ArrayPtr, ref ret);
 			foreach (GLib.Value v in vals)
-				v.Dispose ();
+			v.Dispose ();
 		}
 
 		[GLib.Signal("change_size")]
 		public event _Gnome.ChangeSizeHandler ChangeSize {
-			add {
-				GLib.Signal sig = GLib.Signal.Lookup (this, "change_size", new ChangeSizeSignalDelegate(ChangeSizeSignalCallback));
-				sig.AddDelegate (value);
-			}
-			remove {
-				GLib.Signal sig = GLib.Signal.Lookup (this, "change_size", new ChangeSizeSignalDelegate(ChangeSizeSignalCallback));
-				sig.RemoveDelegate (value);
-			}
+		        add {
+			        GLib.Signal sig = GLib.Signal.Lookup (this, "change_size", new ChangeSizeSignalDelegate(ChangeSizeSignalCallback));
+			        sig.AddDelegate (value);
+		        }
+		        remove {
+			        GLib.Signal sig = GLib.Signal.Lookup (this, "change_size", new ChangeSizeSignalDelegate(ChangeSizeSignalCallback));
+			        sig.RemoveDelegate (value);
+		        }
 		}
 
 		[DllImport("panel-applet-2")]
@@ -247,12 +247,12 @@ namespace _Gnome {
 		[DllImport("panel-applet-2")]
 		static extern IntPtr panel_applet_get_type();
 
-		public static new GLib.GType GType { 
-			get {
-				IntPtr raw_ret = panel_applet_get_type();
-				GLib.GType ret = new GLib.GType(raw_ret);
-				return ret;
-			}
+		public static new GLib.GType GType {
+		        get {
+			        IntPtr raw_ret = panel_applet_get_type();
+			        GLib.GType ret = new GLib.GType(raw_ret);
+			        return ret;
+		        }
 		}
 
 		[DllImport("panel-applet-2")]
@@ -282,23 +282,23 @@ namespace _Gnome {
 		[DllImport("panel-applet-2")]
 		static extern bool panel_applet_get_locked_down(IntPtr raw);
 
-		public bool LockedDown { 
-			get {
-				bool raw_ret = panel_applet_get_locked_down(Handle);
-				bool ret = raw_ret;
-				return ret;
-			}
+		public bool LockedDown {
+		        get {
+			        bool raw_ret = panel_applet_get_locked_down(Handle);
+			        bool ret = raw_ret;
+			        return ret;
+		        }
 		}
 
 		[DllImport("panel-applet-2")]
 		static extern IntPtr panel_applet_get_preferences_key(IntPtr raw);
 
-		public string PreferencesKey { 
-			get {
-				IntPtr raw_ret = panel_applet_get_preferences_key(Handle);
-				string ret = GLib.Marshaller.PtrToStringGFree(raw_ret);
-				return ret;
-			}
+		public string PreferencesKey {
+		        get {
+			        IntPtr raw_ret = panel_applet_get_preferences_key(Handle);
+			        string ret = GLib.Marshaller.PtrToStringGFree(raw_ret);
+			        return ret;
+		        }
 		}
 
 		[DllImport("panel-applet-2")]
@@ -348,12 +348,12 @@ namespace _Gnome {
 		[DllImport("panel-applet-2")]
 		static extern uint panel_applet_get_size(IntPtr raw);
 
-		public uint Size { 
-			get {
-				uint raw_ret = panel_applet_get_size(Handle);
-				uint ret = raw_ret;
-				return ret;
-			}
+		public uint Size {
+		        get {
+			        uint raw_ret = panel_applet_get_size(Handle);
+			        uint ret = raw_ret;
+			        return ret;
+		        }
 		}
 
 		[DllImport("panel-applet-2")]
@@ -386,15 +386,15 @@ namespace _Gnome {
 		[DllImport("panel-applet-2")]
 		static extern void panel_applet_set_flags(IntPtr raw, int flags);
 
-		public new _Gnome.PanelAppletFlags Flags { 
-			get {
-				int raw_ret = panel_applet_get_flags(Handle);
-				_Gnome.PanelAppletFlags ret = (_Gnome.PanelAppletFlags) raw_ret;
-				return ret;
-			}
-			set {
-				panel_applet_set_flags(Handle, (int) value);
-			}
+		public new _Gnome.PanelAppletFlags Flags {
+		        get {
+			        int raw_ret = panel_applet_get_flags(Handle);
+			        _Gnome.PanelAppletFlags ret = (_Gnome.PanelAppletFlags) raw_ret;
+			        return ret;
+		        }
+		        set {
+			        panel_applet_set_flags(Handle, (int) value);
+		        }
 		}
 
 		[DllImport("panel-applet-2")]
@@ -442,29 +442,29 @@ namespace _Gnome {
 #endregion
 #region Customized extensions
 #line 1 "PanelApplet.custom"
-[DllImport ("panel-applet-2")]
-static extern void panel_applet_setup_menu (IntPtr handle, IntPtr xml, BonoboUIVerb[] items, IntPtr user_data);
+		[DllImport ("panel-applet-2")]
+		static extern void panel_applet_setup_menu (IntPtr handle, IntPtr xml, BonoboUIVerb[] items, IntPtr user_data);
 
-public void SetupMenu (string xml, BonoboUIVerb[] items)
-{
-	BonoboUIVerb[] nulled_items = new BonoboUIVerb[items.Length + 1];
-	Array.Copy (items, nulled_items, items.Length);
-	nulled_items[items.Length] = new BonoboUIVerb (null, null);
-	IntPtr native = GLib.Marshaller.StringToPtrGStrdup (xml);
-	panel_applet_setup_menu (Handle, native, nulled_items, IntPtr.Zero);
-	GLib.Marshaller.Free (native);
-}
+		public void SetupMenu (string xml, BonoboUIVerb[] items)
+		{
+			BonoboUIVerb[] nulled_items = new BonoboUIVerb[items.Length + 1];
+			Array.Copy (items, nulled_items, items.Length);
+			nulled_items[items.Length] = new BonoboUIVerb (null, null);
+			IntPtr native = GLib.Marshaller.StringToPtrGStrdup (xml);
+			panel_applet_setup_menu (Handle, native, nulled_items, IntPtr.Zero);
+			GLib.Marshaller.Free (native);
+		}
 
-public abstract void Creation ();
+		public abstract void Creation ();
 
-public abstract string IID {
-	get;
-}
+		public abstract string IID {
+		        get;
+			}
 
-public abstract string FactoryIID {
-	get;
-}
+			public abstract string FactoryIID {
+			        get;
+				}
 
 #endregion
-	}
+			}
 }

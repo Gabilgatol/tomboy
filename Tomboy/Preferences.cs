@@ -29,7 +29,7 @@ namespace Tomboy
 		public const string EXPORTHTML_EXPORT_LINKED_ALL = "/apps/tomboy/export_html/export_linked_all";
 
 		public const string STICKYNOTEIMPORTER_FIRST_RUN = "/apps/tomboy/sticky_note_importer/sticky_importer_first_run";
-		
+
 		public const string SYNC_CLIENT_ID = "/apps/tomboy/sync/sync_guid";
 		public const string SYNC_LOCAL_PATH = "/apps/tomboy/sync/sync_local_path";
 		public const string SYNC_SELECTED_SERVICE_ADDIN = "/apps/tomboy/sync/sync_selected_service_addin";
@@ -37,15 +37,15 @@ namespace Tomboy
 
 		static IPreferencesClient client;
 
-		public static IPreferencesClient Client 
+		public static IPreferencesClient Client
 		{
-			get {
-				if (client == null) {
-					client = PlatformFactory.CreatePreferencesClient ();
-					client.AddNotify ("/apps/tomboy", OnSettingChanged);
-				}
-				return client;
-			}
+		        get {
+			        if (client == null) {
+				        client = PlatformFactory.CreatePreferencesClient ();
+				        client.AddNotify ("/apps/tomboy", OnSettingChanged);
+			        }
+			        return client;
+		        }
 		}
 
 		// NOTE: Keep synced with tomboy.schemas.in
@@ -61,7 +61,7 @@ namespace Tomboy
 
 			case ENABLE_WIKIWORDS:
 				return false;
-			
+
 			case START_NOTE_URI:
 				return String.Empty;
 
@@ -76,7 +76,7 @@ namespace Tomboy
 
 			case KEYBINDING_SHOW_NOTE_MENU:
 				return "<Alt>F12";
-				
+
 			case KEYBINDING_OPEN_START_HERE:
 				return "<Alt>F11";
 
@@ -87,7 +87,7 @@ namespace Tomboy
 
 			case EXPORTHTML_EXPORT_LINKED:
 				return true;
-			
+
 			case EXPORTHTML_EXPORT_LINKED_ALL:
 				return false;
 
@@ -96,14 +96,14 @@ namespace Tomboy
 
 			case STICKYNOTEIMPORTER_FIRST_RUN:
 				return true;
-			
+
 			case ENABLE_STARTUP_NOTES:
 				return true;
-			
+
 			case SYNC_CLIENT_ID:
 				return System.Guid.NewGuid ().ToString ();
 				break;
-			
+
 			case SYNC_LOCAL_PATH:
 				return string.Empty;
 

@@ -9,12 +9,12 @@ namespace Tomboy.Platform
 		void RemoveNotify (string dir, NotifyEventHandler notify);
 		void SuggestSync ();
 	}
-	
+
 	public interface IPropertyEditor
 	{
 		void Setup ();
 		string Key { get; }
-	}
+		}
 
 	public interface IPropertyEditorBool : IPropertyEditor
 	{
@@ -40,8 +40,10 @@ namespace Tomboy.Platform
 			this.val = val;
 		}
 
-		public string Key { get { return key; } }
+		public string Key { get { return key; }
+		                  }
 
-		public  object Value { get { return val; } }
+		public  object Value { get { return val; }
+		                     }
 	}
 }

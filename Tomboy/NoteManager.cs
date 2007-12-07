@@ -10,14 +10,14 @@ namespace Tomboy
 {
 	public delegate void NotesChangedHandler (object sender, Note changed);
 
-	public class NoteManager 
+	public class NoteManager
 	{
 		string notes_dir;
 		string backup_dir;
 		ArrayList notes;
 		AddinManager addin_mgr;
 		TrieController trie_controller;
-		
+
 		static string start_note_uri = String.Empty;
 
 		static NoteManager ()
@@ -26,10 +26,10 @@ namespace Tomboy
 			// StartNoteUri property doesn't generate a call to
 			// Preferences.Get () each time it's accessed.
 			start_note_uri =
-				Preferences.Get (Preferences.START_NOTE_URI) as string;
+			        Preferences.Get (Preferences.START_NOTE_URI) as string;
 			Preferences.SettingChanged += OnSettingChanged;
 		}
-		
+
 		static void OnSettingChanged (object sender, NotifyEventArgs args)
 		{
 			switch (args.Key) {
@@ -39,12 +39,12 @@ namespace Tomboy
 			}
 		}
 
-		public NoteManager (string directory) : 
-			this (directory, Path.Combine (directory, "Backup")) 
+		public NoteManager (string directory) :
+				this (directory, Path.Combine (directory, "Backup"))
 		{
 		}
 
-		public NoteManager (string directory, string backup_directory) 
+		public NoteManager (string directory, string backup_directory)
 		{
 			Logger.Log ("NoteManager created with note path \"{0}\".", directory);
 
@@ -73,13 +73,13 @@ namespace Tomboy
 		{
 			return new TrieController (this);
 		}
-		
+
 		protected virtual AddinManager CreateAddinManager ()
 		{
 			string tomboy_conf_dir =
-				Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
-							".tomboy");
-			
+			        Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
+			                      ".tomboy");
+
 			return new AddinManager (tomboy_conf_dir);
 		}
 
@@ -114,14 +114,14 @@ namespace Tomboy
 			if (NoteRenamed != null)
 				NoteRenamed (note, old_title);
 		}
-		
+
 		void OnNoteSave (Note note)
 		{
 			if (NoteSaved != null)
 				NoteSaved (note);
 		}
 
-		protected virtual void CreateStartNotes () 
+		protected virtual void CreateStartNotes ()
 		{
 			// FIXME: Delay the creation of the start notes so the panel/tray
 			// icon has enough time to appear so that Tomboy.TrayIconShowing
@@ -130,54 +130,54 @@ namespace Tomboy
 			//string icon_str = Tomboy.TrayIconShowing ?
 			//					Catalog.GetString ("System Tray Icon area") :
 			//					Catalog.GetString ("GNOME Panel");
-			string start_note_content = 
-				Catalog.GetString ("<note-content>" +
-						"Start Here\n\n" +
-						"<bold>Welcome to Tomboy!</bold>\n\n" +
-						"Use this \"Start Here\" note to begin organizing " +
-						"your ideas and thoughts.\n\n" +
-						"You can create new notes to hold your ideas by " +
-						"selecting the \"Create New Note\" item from the " +
-						"Tomboy Notes menu in your GNOME Panel. " +
-						"Your note will be saved automatically.\n\n" +
-						"Then organize the notes you create by linking " +
-						"related notes and ideas together!\n\n" +
-						"We've created a note called " +
-						"<link:internal>Using Links in Tomboy</link:internal>.  " +
-						"Notice how each time we type <link:internal>Using " +
-						"Links in Tomboy</link:internal> it automatically " +
-						"gets underlined?  Click on the link to open the note." +
-						"</note-content>");
+			string start_note_content =
+			        Catalog.GetString ("<note-content>" +
+			                           "Start Here\n\n" +
+			                           "<bold>Welcome to Tomboy!</bold>\n\n" +
+			                           "Use this \"Start Here\" note to begin organizing " +
+			                           "your ideas and thoughts.\n\n" +
+			                           "You can create new notes to hold your ideas by " +
+			                           "selecting the \"Create New Note\" item from the " +
+			                           "Tomboy Notes menu in your GNOME Panel. " +
+			                           "Your note will be saved automatically.\n\n" +
+			                           "Then organize the notes you create by linking " +
+			                           "related notes and ideas together!\n\n" +
+			                           "We've created a note called " +
+			                           "<link:internal>Using Links in Tomboy</link:internal>.  " +
+			                           "Notice how each time we type <link:internal>Using " +
+			                           "Links in Tomboy</link:internal> it automatically " +
+			                           "gets underlined?  Click on the link to open the note." +
+			                           "</note-content>");
 
 			string links_note_content =
-				Catalog.GetString ("<note-content>" +
-						"Using Links in Tomboy\n\n" +
-						"Notes in Tomboy can be linked together by " +
-						"highlighting text in the current note and clicking" +
-						" the <bold>Link</bold> button above in the toolbar.  " +
-						"Doing so will create a new note and also underline " +
-						"the note's title in the current note.\n\n" +
-						"Changing the title of a note will update links " +
-						"present in other notes.  This prevents broken links " +
-						"from occurring when a note is renamed.\n\n" +
-						"Also, if you type the name of another note in your " +
-						"current note, it will automatically be linked for you." +
-						"</note-content>");
+			        Catalog.GetString ("<note-content>" +
+			                           "Using Links in Tomboy\n\n" +
+			                           "Notes in Tomboy can be linked together by " +
+			                           "highlighting text in the current note and clicking" +
+			                           " the <bold>Link</bold> button above in the toolbar.  " +
+			                           "Doing so will create a new note and also underline " +
+			                           "the note's title in the current note.\n\n" +
+			                           "Changing the title of a note will update links " +
+			                           "present in other notes.  This prevents broken links " +
+			                           "from occurring when a note is renamed.\n\n" +
+			                           "Also, if you type the name of another note in your " +
+			                           "current note, it will automatically be linked for you." +
+			                           "</note-content>");
 
 			try {
 				Note start_note = Create (Catalog.GetString ("Start Here"),
-								start_note_content);
+				                          start_note_content);
 				start_note.QueueSave (true);
 				Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
 
 				Note links_note = Create (Catalog.GetString ("Using Links in Tomboy"),
-								links_note_content);
+				                          links_note_content);
 				links_note.QueueSave (true);
-				
+
 				start_note.Window.Show ();
 			} catch (Exception e) {
 				Logger.Warn ("Error creating start notes: {0}\n{1}",
-						e.Message, e.StackTrace);
+				             e.Message, e.StackTrace);
 			}
 		}
 
@@ -195,16 +195,16 @@ namespace Tomboy
 					}
 				} catch (System.Xml.XmlException e) {
 					Logger.Log ("Error parsing note XML, skipping \"{0}\": {1}",
-						    file_path,
-						    e.Message);
+					            file_path,
+					            e.Message);
 				}
 			}
 
 			// Update the trie so addins can access it, if they want.
 			trie_controller.Update ();
-			
+
 			bool startup_notes_enabled = (bool)
-					Preferences.Get (Preferences.ENABLE_STARTUP_NOTES);
+			                             Preferences.Get (Preferences.ENABLE_STARTUP_NOTES);
 
 			// Load all the addins for our notes.
 			// Iterating through copy of notes list, because list may be
@@ -217,12 +217,12 @@ namespace Tomboy
 				if (note.IsOpenOnStartup) {
 					if (startup_notes_enabled)
 						note.Window.Show ();
-					
+
 					note.IsOpenOnStartup = false;
 					note.QueueSave (false);
 				}
 			}
-			
+
 			// Make sure that a Start Note Uri is set in the preferences.  This
 			// has to be done here for long-time Tomboy users who won't go
 			// through the CreateStartNotes () process.
@@ -242,7 +242,7 @@ namespace Tomboy
 					addin.Shutdown ();
 				} catch (Exception e) {
 					Logger.Warn ("Error calling {0}.Shutdown (): {1}",
-							addin.GetType ().ToString (), e.Message);
+					             addin.GetType ().ToString (), e.Message);
 				}
 			}
 
@@ -253,26 +253,26 @@ namespace Tomboy
 				// next startup
 				if (note.HasWindow && note.Window.Visible)
 					note.IsOpenOnStartup = true;
-				
+
 				note.Save ();
 			}
 		}
 
-		public void Delete (Note note) 
+		public void Delete (Note note)
 		{
 			if (File.Exists (note.FilePath)) {
 				if (backup_dir != null) {
 					if (!Directory.Exists (backup_dir))
 						Directory.CreateDirectory (backup_dir);
 
-					string backup_path = 
-						Path.Combine (backup_dir, 
-							      Path.GetFileName (note.FilePath));
+					string backup_path =
+					        Path.Combine (backup_dir,
+					                      Path.GetFileName (note.FilePath));
 					if (File.Exists (backup_path))
 						File.Delete (backup_path);
 
 					File.Move (note.FilePath, backup_path);
-				} else 
+				} else
 					File.Delete (note.FilePath);
 			}
 
@@ -289,7 +289,7 @@ namespace Tomboy
 		{
 			return MakeNewFileName (Guid.NewGuid ().ToString ());
 		}
-		
+
 		string MakeNewFileName (string guid)
 		{
 			return Path.Combine (notes_dir, guid + ".note");
@@ -302,8 +302,8 @@ namespace Tomboy
 			string temp_title;
 
 			while (true) {
-				temp_title = String.Format (Catalog.GetString ("New Note {0}"), 
-							    ++new_num);
+				temp_title = String.Format (Catalog.GetString ("New Note {0}"),
+				                            ++new_num);
 				if (Find (temp_title) == null)
 					break;
 			}
@@ -336,17 +336,17 @@ namespace Tomboy
 
 			return title;
 		}
-		
+
 		public Note Create (string title)
 		{
 			return CreateNewNote (title, null);
 		}
-		
+
 		public Note Create (string title, string xml_content)
 		{
 			return CreateNewNote (title, xml_content, null);
 		}
-		
+
 		public Note CreateWithGuid (string title, string guid)
 		{
 			return CreateNewNote (title, guid);
@@ -354,7 +354,7 @@ namespace Tomboy
 
 		// Create a new note with the specified title, and a simple
 		// "Describe..." body which will be selected for easy overwrite.
-		private Note CreateNewNote (string title, string guid) 
+		private Note CreateNewNote (string title, string guid)
 		{
 			string body = null;
 
@@ -366,19 +366,19 @@ namespace Tomboy
 				body = Catalog.GetString ("Describe your new note here.");
 
 			string header = title + "\n\n";
-			string content = 
-				String.Format ("<note-content>{0}{1}</note-content>",
-					       XmlEncoder.Encode (header),
-					       XmlEncoder.Encode (body));
+			string content =
+			        String.Format ("<note-content>{0}{1}</note-content>",
+			                       XmlEncoder.Encode (header),
+			                       XmlEncoder.Encode (body));
 
 			Note new_note = CreateNewNote (title, content, guid);
 
-			// Select the inital 
-         		// "Describe..." text so typing will overwrite the body text,
-			NoteBuffer buffer = new_note.Buffer;	
-                        Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
-                        buffer.MoveMark (buffer.SelectionBound, iter);
-                        buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
+			// Select the inital
+			// "Describe..." text so typing will overwrite the body text,
+			NoteBuffer buffer = new_note.Buffer;
+			Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
+			buffer.MoveMark (buffer.SelectionBound, iter);
+			buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
 			return new_note;
 		}
@@ -414,7 +414,7 @@ namespace Tomboy
 			return new_note;
 		}
 
-		public Note Find (string linked_title) 
+		public Note Find (string linked_title)
 		{
 			foreach (Note note in notes) {
 				if (note.Title.ToLower () == linked_title.ToLower ())
@@ -432,7 +432,7 @@ namespace Tomboy
 			return null;
 		}
 
-		class CompareDates : IComparer
+	class CompareDates : IComparer
 		{
 			public int Compare (object a, object b)
 			{
@@ -443,39 +443,39 @@ namespace Tomboy
 				if (note_a == null || note_b == null)
 					return -1;
 				else
-					return DateTime.Compare (note_b.ChangeDate, 
-								 note_a.ChangeDate);
+					return DateTime.Compare (note_b.ChangeDate,
+					                         note_a.ChangeDate);
 			}
-		}
-		
-		public static string StartNoteUri
-		{
-			get { return start_note_uri; }
 		}
 
-		public ArrayList Notes 
+		public static string StartNoteUri
 		{
-			get {
-				// FIXME: Only sort on change by listening to
-				//        Note.Saved or Note.Buffer.Changed
-				notes.Sort (new CompareDates ());
-				return notes; 
-			}
+	        get { return start_note_uri; }
+		}
+
+		public ArrayList Notes
+		{
+		        get {
+			        // FIXME: Only sort on change by listening to
+			        //        Note.Saved or Note.Buffer.Changed
+			        notes.Sort (new CompareDates ());
+			        return notes;
+		        }
 		}
 
 		public TrieTree TitleTrie
 		{
-			get { return trie_controller.TitleTrie; }
+		        get { return trie_controller.TitleTrie; }
 		}
-		
+
 		public AddinManager AddinManager
 		{
-			get { return addin_mgr; }
+		        get { return addin_mgr; }
 		}
-		
+
 		public string NoteDirectoryPath
 		{
-			get { return notes_dir; }
+		        get { return notes_dir; }
 		}
 
 		public event NotesChangedHandler NoteDeleted;
@@ -523,9 +523,9 @@ namespace Tomboy
 			}
 		}
 
-		public TrieTree TitleTrie 
+		public TrieTree TitleTrie
 		{
-			get { return title_trie; }
+		        get { return title_trie; }
 		}
 	}
 }

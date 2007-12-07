@@ -29,7 +29,7 @@ namespace Tomboy
 		}
 
 		public NoteMenuItem (Note note, bool show_pin)
-			: base (GetDisplayName(note))
+				: base (GetDisplayName(note))
 		{
 			this.note = note;
 			Image = new Gtk.Image (note_icon);
@@ -64,7 +64,7 @@ namespace Tomboy
 			return FormatForLabel (display_name);
 		}
 
-		protected override void OnActivated () 
+		protected override void OnActivated ()
 		{
 			if (!inhibit_activate) {
 				if (note != null)
@@ -75,8 +75,8 @@ namespace Tomboy
 		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
 		{
 			if (pin_img != null &&
-			    ev.X >= pin_img.Allocation.X && 
-			    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
+			                ev.X >= pin_img.Allocation.X &&
+			                ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
 				pinned = note.IsPinned = !pinned;
 				pin_img.Pixbuf = pinned ? pindown : pinup;
 				inhibit_activate = true;
@@ -97,8 +97,8 @@ namespace Tomboy
 		protected override bool OnMotionNotifyEvent (Gdk.EventMotion ev)
 		{
 			if (!pinned && pin_img != null) {
-				if (ev.X >= pin_img.Allocation.X && 
-				    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
+				if (ev.X >= pin_img.Allocation.X &&
+				                ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
 					if (pin_img.Pixbuf != pinup_active)
 						pin_img.Pixbuf = pinup_active;
 				} else if (pin_img.Pixbuf != pinup) {
@@ -113,12 +113,12 @@ namespace Tomboy
 			if (!pinned && pin_img != null) {
 				pin_img.Pixbuf = pinup;
 			}
-			return base.OnLeaveNotifyEvent (ev);			
+			return base.OnLeaveNotifyEvent (ev);
 		}
 	}
 
 	public enum PanelOrientation { Horizontal, Vertical };
-	
+
 	public class TomboyTray : Gtk.EventBox
 	{
 		NoteManager manager;
@@ -129,8 +129,8 @@ namespace Tomboy
 		List<Gtk.MenuItem> recent_notes = new List<Gtk.MenuItem> ();
 		int panel_size;
 
-		public TomboyTray (NoteManager manager) 
-			: base ()
+		public TomboyTray (NoteManager manager)
+				: base ()
 		{
 			this.manager = manager;
 			// Load a 16x16-sized icon to ensure we don't end up with a
@@ -146,9 +146,9 @@ namespace Tomboy
 			string tip_text = Catalog.GetString ("Tomboy Notes");
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_KEYBINDINGS)) {
-				string shortcut = 
-					PrefKeybindingToAccel.GetShortcut (
-						Preferences.KEYBINDING_SHOW_NOTE_MENU);
+				string shortcut =
+				        PrefKeybindingToAccel.GetShortcut (
+				                Preferences.KEYBINDING_SHOW_NOTE_MENU);
 				if (shortcut != null)
 					tip_text += String.Format (" ({0})", shortcut);
 			}
@@ -157,14 +157,14 @@ namespace Tomboy
 			tips.SetTip (this, tip_text, null);
 			tips.Enable ();
 			tips.Sink ();
-			
+
 			SetupDragAndDrop ();
-			
+
 			recent_menu = MakeRecentNotesMenu ();
 			recent_menu.Hidden += MenuHidden;
 		}
 
-		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
+		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args)
 		{
 			Gtk.Widget parent = (Gtk.Widget) sender;
 
@@ -229,64 +229,64 @@ namespace Tomboy
 
 			if (text == null || text.Trim() == string.Empty)
 				return false;
-			
+
 			Note link_note = manager.FindByUri (NoteManager.StartNoteUri);
 			if (link_note == null)
 				return false;
 
 			link_note.Window.Present ();
-			PrependTimestampedText (link_note, 
-						DateTime.Now, 
-						text);
+			PrependTimestampedText (link_note,
+			                        DateTime.Now,
+			                        text);
 
 			return true;
 		}
-		
+
 		Gtk.Menu MakeRecentNotesMenu ()
 		{
 			Gtk.Menu menu =
-				Tomboy.ActionManager.GetWidget ("/TrayIconMenu") as Gtk.Menu;
-			
-			bool enable_keybindings = (bool) 
-				Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
+			        Tomboy.ActionManager.GetWidget ("/TrayIconMenu") as Gtk.Menu;
+
+			bool enable_keybindings = (bool)
+			                          Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
 			if (enable_keybindings) {
 				// Create New Note Keybinding
 				Gtk.MenuItem item =
-					Tomboy.ActionManager.GetWidget (
-						"/TrayIconMenu/NewNote") as Gtk.MenuItem;
+				        Tomboy.ActionManager.GetWidget (
+				                "/TrayIconMenu/NewNote") as Gtk.MenuItem;
 				if (item != null)
 					PrefKeybindingToAccel.AddAccelerator (
-						item,
-						Preferences.KEYBINDING_CREATE_NEW_NOTE);
-				
+					        item,
+					        Preferences.KEYBINDING_CREATE_NEW_NOTE);
+
 				// Show Search All Notes Keybinding
 				item =
-					Tomboy.ActionManager.GetWidget (
-						"/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
+				        Tomboy.ActionManager.GetWidget (
+				                "/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
 				if (item != null)
 					PrefKeybindingToAccel.AddAccelerator (
-						item,
-						Preferences.KEYBINDING_CREATE_NEW_NOTE);
-				
-				// Open Start Here Keybinding			
+					        item,
+					        Preferences.KEYBINDING_CREATE_NEW_NOTE);
+
+				// Open Start Here Keybinding
 				item =
-					Tomboy.ActionManager.GetWidget (
-						"/TrayIconMenu/OpenStartHereNote") as Gtk.MenuItem;
+				        Tomboy.ActionManager.GetWidget (
+				                "/TrayIconMenu/OpenStartHereNote") as Gtk.MenuItem;
 				if (item != null)
 					PrefKeybindingToAccel.AddAccelerator (
-						item,
-						Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
-			}				
-			
+					        item,
+					        Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
+			}
+
 			return menu;
 		}
-		
+
 		void MenuHidden (object sender, EventArgs args)
 		{
 			// Remove the old dynamic items
 			RemoveRecentlyChangedNotes ();
 		}
-		
+
 		void AddRecentlyChangedNotes ()
 		{
 			int min_size = (int) Preferences.Get (Preferences.MENU_NOTE_COUNT);
@@ -294,17 +294,17 @@ namespace Tomboy
 			int list_size = 0;
 			bool menuOpensUpward = MenuOpensUpward ();
 			NoteMenuItem item;
-			
+
 			// Assume menu opens downward, move common items to top of menu
 			Gtk.MenuItem newNoteItem = Tomboy.ActionManager.GetWidget (
-				"/TrayIconMenu/TrayNewNote") as Gtk.MenuItem;			
+			                                   "/TrayIconMenu/TrayNewNote") as Gtk.MenuItem;
 			Gtk.MenuItem searchNotesItem = Tomboy.ActionManager.GetWidget (
-				"/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
+			                                       "/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
 			recent_menu.ReorderChild (newNoteItem, 0);
 			recent_menu.ReorderChild (searchNotesItem, 1);
 
 			DateTime days_ago = DateTime.Today.AddDays (-3);
-			
+
 			// List the i most recently changed notes, any currently
 			// opened notes, and any pinned notes...
 			foreach (Note note in manager.Notes) {
@@ -312,15 +312,15 @@ namespace Tomboy
 					continue;
 
 				bool show = false;
-				
+
 				// Test for note.IsPinned first so that all of the pinned notes
 				// are guaranteed to be included regardless of the size of the
 				// list.
 				if (note.IsPinned) {
 					show = true;
 				} else if ((note.IsOpened && note.Window.IsMapped) ||
-				    note.ChangeDate > days_ago ||
-				    list_size < min_size) {
+				                note.ChangeDate > days_ago ||
+				                list_size < min_size) {
 					if (list_size <= max_size)
 						show = true;
 				}
@@ -331,7 +331,7 @@ namespace Tomboy
 					recent_menu.Insert (item, list_size + 2);
 					// Keep track of this item so we can remove it later
 					recent_notes.Add (item);
-					
+
 					list_size++;
 				}
 			}
@@ -347,16 +347,16 @@ namespace Tomboy
 
 				list_size++;
 
-				bool enable_keybindings = (bool) 
-					Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
+				bool enable_keybindings = (bool)
+				                          Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
 				if (enable_keybindings)
 					PrefKeybindingToAccel.AddAccelerator (
-						item, 
-						Preferences.KEYBINDING_OPEN_START_HERE);
+					        item,
+					        Preferences.KEYBINDING_OPEN_START_HERE);
 			}
 
 			int insertion_point = 2;	// If menu opens downard
-			
+
 			// FIXME: Rearrange this stuff to have less wasteful reordering
 			if (menuOpensUpward) {
 				// Relocate common items to bottom of menu
@@ -366,42 +366,42 @@ namespace Tomboy
 			}
 
 			Gtk.SeparatorMenuItem separator = new Gtk.SeparatorMenuItem ();
-			recent_menu.Insert (separator, insertion_point);			
+			recent_menu.Insert (separator, insertion_point);
 			recent_notes.Add (separator);
 		}
-		
+
 		bool MenuOpensUpward ()
 		{
 			int x, y;
 			this.GdkWindow.GetOrigin (out x, out y);
 			return y > 100;	// FIXME: This can be better, I'm sure
 		}
-		
+
 		void RemoveRecentlyChangedNotes ()
 		{
 			foreach (Gtk.Widget item in recent_notes) {
 				recent_menu.Remove (item);
 			}
-			
+
 			recent_notes.Clear ();
 		}
-		
-		void UpdateRecentNotesMenu (Gtk.Widget parent) 
+
+		void UpdateRecentNotesMenu (Gtk.Widget parent)
 		{
 			if (!menu_added) {
 				recent_menu.AttachToWidget (parent, GuiUtils.DetachMenu);
 				menu_added = true;
 			}
-			
+
 			AddRecentlyChangedNotes ();
 
 			recent_menu.ShowAll ();
 		}
-		
+
 		// Used by TomboyApplet to modify the icon background.
 		public Gtk.Image Image
 		{
-			get { return image; }
+		        get { return image; }
 		}
 
 		public void ShowMenu (bool select_first_item)
@@ -416,16 +416,16 @@ namespace Tomboy
 		// Support dropping text/uri-lists and _NETSCAPE_URLs currently.
 		void SetupDragAndDrop ()
 		{
-			Gtk.TargetEntry [] targets = 
-				new Gtk.TargetEntry [] {
-					new Gtk.TargetEntry ("text/uri-list", 0, 0),
-					new Gtk.TargetEntry ("_NETSCAPE_URL", 0, 0)
-				};
+			Gtk.TargetEntry [] targets =
+			        new Gtk.TargetEntry [] {
+			                new Gtk.TargetEntry ("text/uri-list", 0, 0),
+			                new Gtk.TargetEntry ("_NETSCAPE_URL", 0, 0)
+			        };
 
-			Gtk.Drag.DestSet (this, 
-					  Gtk.DestDefaults.All, 
-					  targets,
-					  Gdk.DragAction.Copy);
+			Gtk.Drag.DestSet (this,
+			                  Gtk.DestDefaults.All,
+			                  targets,
+			                  Gdk.DragAction.Copy);
 
 			DragDataReceived += OnDragDataReceived;
 		}
@@ -451,23 +451,23 @@ namespace Tomboy
 				if (more_than_one)
 					insert_text.Append ("\n");
 
-				if (uri.IsFile) 
+				if (uri.IsFile)
 					insert_text.Append (uri.LocalPath);
 				else
 					insert_text.Append (uri.ToString ());
 
 				more_than_one = true;
 			}
-			
+
 			Note link_note = manager.FindByUri (NoteManager.StartNoteUri);
 			if (link_note != null) {
 				link_note.Window.Present ();
-				PrependTimestampedText (link_note, 
-							DateTime.Now, 
-							insert_text.ToString ());
+				PrependTimestampedText (link_note,
+				                        DateTime.Now,
+				                        insert_text.ToString ());
 			}
 		}
-		
+
 		void InitPixbuf ()
 		{
 			// For some reason, the first time we ask for the allocation,
@@ -476,7 +476,7 @@ namespace Tomboy
 			// to be called again anyhow.
 			if (panel_size < 16)
 				panel_size = 16;
-			
+
 			// Control specifically which icon is used at the smaller sizes
 			// so that no scaling occurs.  In the case of the panel applet,
 			// add a couple extra pixels of padding so it matches the behavior
@@ -495,7 +495,7 @@ namespace Tomboy
 			Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", icon_size);
 			image.Pixbuf = new_icon;
 		}
-		
+
 		///
 		/// Determine whether the tray is inside a horizontal or vertical
 		/// panel so the size of the icon can adjust correctly.
@@ -505,13 +505,13 @@ namespace Tomboy
 			if (this.ParentWindow == null) {
 				return PanelOrientation.Horizontal;
 			}
-			
+
 			Gdk.Window top_level_window = this.ParentWindow.Toplevel;
-			
+
 			Gdk.Rectangle rect = top_level_window.FrameExtents;
 			if (rect.Width < rect.Height)
 				return PanelOrientation.Vertical;
-			
+
 			return PanelOrientation.Horizontal;
 		}
 
@@ -523,20 +523,20 @@ namespace Tomboy
 			if (GetPanelOrientation () == PanelOrientation.Horizontal) {
 				if (panel_size == Allocation.Height)
 					return;
-				
+
 				panel_size = Allocation.Height;
 			} else {
 				if (panel_size == Allocation.Width)
 					return;
-				
+
 				panel_size = Allocation.Width;
 			}
-			
+
 			InitPixbuf ();
 		}
 	}
 
-	// 
+	//
 	// This is a helper to take the XKeybinding string from Prefs, and
 	// convert it to a widget accelerator label, so note menu items can
 	// display their global X keybinding.
@@ -558,9 +558,9 @@ namespace Tomboy
 		{
 			try {
 				string binding = (string) Preferences.Get (pref_path);
-				if (binding == null || 
-				    binding == String.Empty || 
-				    binding == "disabled")
+				if (binding == null ||
+				                binding == String.Empty ||
+				                binding == "disabled")
 					return null;
 
 				binding = binding.Replace ("<", "");
@@ -568,63 +568,63 @@ namespace Tomboy
 
 				return binding;
 			} catch {
-				return null;
+			        return null;
 			}
 		}
 
-		[DllImport("libtomboy")]
+	[DllImport("libtomboy")]
 		static extern bool egg_accelerator_parse_virtual (string keystring,
-								  out uint keysym,
-								  out uint virtual_mods);
+			                out uint keysym,
+			                out uint virtual_mods);
 
 		[DllImport("libtomboy")]
 		static extern void egg_keymap_resolve_virtual_modifiers (
-			IntPtr keymap,
-			uint virtual_mods,
-			out Gdk.ModifierType real_mods);
+			        IntPtr keymap,
+			        uint virtual_mods,
+			        out Gdk.ModifierType real_mods);
 
-		public static bool GetAccelKeys (string               pref_path, 
-						 out uint             keyval, 
-						 out Gdk.ModifierType mods)
+		public static bool GetAccelKeys (string               pref_path,
+		                                 out uint             keyval,
+		                                 out Gdk.ModifierType mods)
 		{
 			keyval = 0;
 			mods = 0;
 
 			try {
 				string binding = (string) Preferences.Get (pref_path);
-				if (binding == null || 
-				    binding == String.Empty || 
-				    binding == "disabled")
+				if (binding == null ||
+				                binding == String.Empty ||
+				                binding == "disabled")
 					return false;
 
 				uint virtual_mods = 0;
 				if (!egg_accelerator_parse_virtual (binding,
-								    out keyval,
-								    out virtual_mods))
+				                                    out keyval,
+				                                    out virtual_mods))
 					return false;
 
 				Gdk.Keymap keymap = Gdk.Keymap.Default;
 				egg_keymap_resolve_virtual_modifiers (keymap.Handle,
-								      virtual_mods,
-								      out mods);
+				                                      virtual_mods,
+				                                      out mods);
 
 				return true;
 			} catch {
-				return false;
+			        return false;
 			}
 		}
 
-		public static void AddAccelerator (Gtk.MenuItem item, string pref_path)
+	public static void AddAccelerator (Gtk.MenuItem item, string pref_path)
 		{
 			uint keyval;
 			Gdk.ModifierType mods;
 
 			if (GetAccelKeys (pref_path, out keyval, out mods))
 				item.AddAccelerator ("activate",
-						     accel_group,
-						     keyval,
-						     mods,
-						     Gtk.AccelFlags.Visible);
+				                     accel_group,
+				                     keyval,
+				                     mods,
+				                     Gtk.AccelFlags.Visible);
 		}
 	}
 }

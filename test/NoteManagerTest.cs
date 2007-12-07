@@ -12,7 +12,7 @@ namespace TomboyTest
 		public bool LoadedNotes = false;
 
 		public MyNoteManager () :
-			base ("/tmp/notes-dir")
+				base ("/tmp/notes-dir")
 		{
 		}
 
@@ -35,7 +35,7 @@ namespace TomboyTest
 		protected override void CreateStartNote ()
 		{
 			Assert.IsFalse(CreatedStartNote,
-				"CreateStartNote called twice");
+			               "CreateStartNote called twice");
 			CreatedStartNote = true;
 		}
 
@@ -70,7 +70,7 @@ namespace TomboyTest
 		{
 			MyNoteManager manager = new MyNoteManagerFirstRun ();
 			Assert.AreEqual ("/tmp/notes-dir",
-				manager.LastDirCreated);
+			                 manager.LastDirCreated);
 			Assert.IsTrue (manager.CreatedStartNote);
 		}
 	}

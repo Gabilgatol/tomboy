@@ -29,7 +29,7 @@ namespace Tomboy.ExportToHtml
 
 			if (File.Exists (stylesheet_file)) {
 				Logger.Log ("ExportToHTML: Using user-custom {0} file.",
-						   stylesheet_name);
+				            stylesheet_name);
 				xsl.Load (stylesheet_file);
 			} else {
 				Stream resource = asm.GetManifestResourceStream (stylesheet_name);
@@ -39,15 +39,15 @@ namespace Tomboy.ExportToHtml
 					resource.Close ();
 				} else {
 					Logger.Log ("Unable to find HTML export template '{0}'.",
-							   stylesheet_name);
+					            stylesheet_name);
 				}
 			}
 		}
 
 		public override void Initialize ()
 		{
-			item = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("Export to HTML"));
+			item =
+			        new Gtk.ImageMenuItem (Catalog.GetString ("Export to HTML"));
 			item.Image = new Gtk.Image (Gtk.Stock.Save, Gtk.IconSize.Menu);
 			item.Activated += ExportButtonClicked;
 			item.Show ();
@@ -61,7 +61,7 @@ namespace Tomboy.ExportToHtml
 			item.Activated -= ExportButtonClicked;
 		}
 
-		public override void OnNoteOpened () 
+		public override void OnNoteOpened ()
 		{
 			// Do nothing.
 		}
@@ -85,40 +85,40 @@ namespace Tomboy.ExportToHtml
 			try {
 				try {
 					// FIXME: Warn about file existing.  Allow overwrite.
-					File.Delete (output_path); 
+					File.Delete (output_path);
 				} catch {
 				}
 
 				writer = new StreamWriter (output_path);
 				WriteHTMLForNote (writer, Note, dialog.ExportLinked, dialog.ExportLinkedAll);
-				
+
 				// Save the dialog preferences now that the note has
 				// successfully been exported
 				dialog.SavePreferences ();
 				dialog.Destroy ();
 				dialog = null;
-				
+
 				try {
 					Uri output_uri = new Uri (output_path);
 					Gnome.Url.Show (output_uri.AbsoluteUri);
 				} catch (Exception ex) {
-					Logger.Log ("Could not open exported note in a web browser: {0}", 
-						    ex);
+					Logger.Log ("Could not open exported note in a web browser: {0}",
+					            ex);
 
 					string detail = String.Format (
-						Catalog.GetString ("Your note was exported to \"{0}\"."),
-						output_path);
+					                        Catalog.GetString ("Your note was exported to \"{0}\"."),
+					                        output_path);
 
 					// Let the user know the note was saved successfully
 					// even though showing the note in a web browser failed.
 					HIGMessageDialog msg_dialog =
-						new HIGMessageDialog (
-							Window,
-							Gtk.DialogFlags.DestroyWithParent,
-							Gtk.MessageType.Info,
-							Gtk.ButtonsType.Ok,
-							Catalog.GetString ("Note exported successfully"),
-							detail);
+					        new HIGMessageDialog (
+					                Window,
+					                Gtk.DialogFlags.DestroyWithParent,
+					                Gtk.MessageType.Info,
+					                Gtk.ButtonsType.Ok,
+					                Catalog.GetString ("Note exported successfully"),
+					                detail);
 					msg_dialog.Run ();
 					msg_dialog.Destroy ();
 				}
@@ -128,10 +128,10 @@ namespace Tomboy.ExportToHtml
 				error_message = Catalog.GetString ("Folder does not exist.");
 			} catch (Exception e) {
 				Logger.Log ("Could not export: {0}", e);
-				
+
 				error_message = e.Message;
 			} finally {
-				if (writer != null) 
+				if (writer != null)
 					writer.Close ();
 			}
 
@@ -140,17 +140,17 @@ namespace Tomboy.ExportToHtml
 				Logger.Log ("Could not export: {0}", error_message);
 
 				string msg = String.Format (
-					Catalog.GetString ("Could not save the file \"{0}\""), 
-					output_path);
+				                     Catalog.GetString ("Could not save the file \"{0}\""),
+				                     output_path);
 
-				HIGMessageDialog msg_dialog = 
-					new HIGMessageDialog (
-						dialog,
-						Gtk.DialogFlags.DestroyWithParent,
-						Gtk.MessageType.Error,
-						Gtk.ButtonsType.Ok,
-						msg,
-						error_message);
+				HIGMessageDialog msg_dialog =
+				        new HIGMessageDialog (
+				                dialog,
+				                Gtk.DialogFlags.DestroyWithParent,
+				                Gtk.MessageType.Error,
+				                Gtk.ButtonsType.Ok,
+				                msg,
+				                error_message);
 				msg_dialog.Run ();
 				msg_dialog.Destroy ();
 			}
@@ -159,10 +159,10 @@ namespace Tomboy.ExportToHtml
 				dialog.Destroy ();
 		}
 
-		public void WriteHTMLForNote (TextWriter writer, 
-				       Note note,
-				       bool export_linked,
-				       bool export_linked_all) 
+		public void WriteHTMLForNote (TextWriter writer,
+		                              Note note,
+		                              bool export_linked,
+		                              bool export_linked_all)
 		{
 			// NOTE: Don't use the XmlDocument version, which strips
 			// whitespace between elements for some reason.  Also,
@@ -181,8 +181,8 @@ namespace Tomboy.ExportToHtml
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
 				string font_face = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
-				Pango.FontDescription font_desc = 
-					Pango.FontDescription.FromString (font_face);
+				Pango.FontDescription font_desc =
+				        Pango.FontDescription.FromString (font_face);
 				string font = String.Format ("font-family:'{0}';", font_desc.Family);
 
 				args.AddParam ("font", "", font);

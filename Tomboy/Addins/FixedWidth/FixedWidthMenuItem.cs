@@ -9,10 +9,10 @@ namespace Tomboy.FixedWidth
 		NoteAddin Addin;
 		bool event_freeze;
 
-		public FixedWidthMenuItem (NoteAddin addin) 
-			: base ("<span font_family='monospace'>" +
-				Catalog.GetString ("_Fixed Width") +
-				"</span>")
+		public FixedWidthMenuItem (NoteAddin addin)
+				: base ("<span font_family='monospace'>" +
+				        Catalog.GetString ("_Fixed Width") +
+				        "</span>")
 		{
 			((Label) Child).UseUnderline = true;
 			((Label) Child).UseMarkup = true;

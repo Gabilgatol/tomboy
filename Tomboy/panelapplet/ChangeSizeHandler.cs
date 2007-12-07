@@ -9,9 +9,9 @@ namespace _Gnome {
 
 	public class ChangeSizeArgs : GLib.SignalArgs {
 		public uint Size{
-			get {
-				return (uint) Args[0];
-			}
+		        get {
+			        return (uint) Args[0];
+		        }
 		}
 
 	}

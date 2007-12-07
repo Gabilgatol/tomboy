@@ -36,7 +36,7 @@ namespace Tomboy
 		{
 			return Defines.VERSION;
 		}
-	
+
 		public bool DisplayNote (string uri)
 		{
 			Note note;
@@ -73,7 +73,7 @@ namespace Tomboy
 			Note note = note_manager.Find (linked_title);
 			return (note == null) ? String.Empty : note.Uri;
 		}
-		
+
 		public string FindStartHereNote ()
 		{
 			Note note = note_manager.FindByUri (NoteManager.StartNoteUri);
@@ -86,14 +86,14 @@ namespace Tomboy
 				Note note = note_manager.Create ();
 				return note.Uri;
 			} catch {
-				return  "";
+			        return  "";
 			}
 		}
 
-		public string CreateNamedNote (string linked_title)
+	public string CreateNamedNote (string linked_title)
 		{
 			Note note;
-			
+
 			note = note_manager.Find (linked_title);
 			if (note != null)
 				return "";
@@ -102,11 +102,11 @@ namespace Tomboy
 				note = note_manager.Create (linked_title);
 				return note.Uri;
 			} catch {
-				return "";
+			        return "";
 			}
 		}
 
-		public bool DeleteNote (string uri)
+	public bool DeleteNote (string uri)
 		{
 			Note note;
 
@@ -117,19 +117,19 @@ namespace Tomboy
 			note_manager.Delete (note);
 			return true;
 		}
-		
+
 		public void DisplaySearch ()
 		{
 			NoteRecentChanges.GetInstance (note_manager).Present ();
 		}
-		
+
 		public void DisplaySearchWithText (string search_text)
 		{
 			NoteRecentChanges recent_changes =
-				NoteRecentChanges.GetInstance (note_manager);
+			        NoteRecentChanges.GetInstance (note_manager);
 			if (recent_changes == null)
 				return;
-			
+
 			recent_changes.SearchText = search_text;
 			recent_changes.Present ();
 		}
@@ -193,7 +193,7 @@ namespace Tomboy
 				return "";
 			return note.XmlContent;
 		}
-		
+
 		public string GetNoteCompleteXml (string uri)
 		{
 			Note note;
@@ -222,7 +222,7 @@ namespace Tomboy
 			note.XmlContent = xml_contents;
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Reset the entire XML data for the given note.
 		/// NOTE: Throws exception if xml_contents is invalid.
@@ -247,7 +247,7 @@ namespace Tomboy
 				tags [i] = note.Tags [i].NormalizedName;
 			return tags;
 		}
-		
+
 		public bool AddTagToNote (string uri, string tag_name)
 		{
 			Note note = note_manager.FindByUri (uri);
@@ -257,7 +257,7 @@ namespace Tomboy
 			note.AddTag (tag);
 			return true;
 		}
-		
+
 		public bool RemoveTagFromNote (string uri, string tag_name)
 		{
 			Note note = note_manager.FindByUri (uri);
@@ -268,7 +268,7 @@ namespace Tomboy
 				note.RemoveTag (tag);
 			return true;
 		}
-		
+
 		public string[] GetAllNotesWithTag (string tag_name)
 		{
 			Tag tag = TagManager.GetTag (tag_name);

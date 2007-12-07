@@ -11,16 +11,16 @@ namespace Tomboy.Tasks
 	{
 #region Members
 		TaskTag last_removed_tag;
-		
+
 		// Each time the mouse is clicked in the TextView, update the click_mark
 		// so that when we need to popup the Task Options dialog, we'll know
 		// where to place it.
 		Gtk.TextMark click_mark;
-		
+
 		Dictionary<Task, TaskOptionsDialog> options_dialogs;
-		
-		const string TASK_REGEX = 
-			@"(^\s*{0}:.*$)";
+
+		const string TASK_REGEX =
+		        @"(^\s*{0}:.*$)";
 
 		static Regex regex;
 #endregion // Members
@@ -29,47 +29,47 @@ namespace Tomboy.Tasks
 		static TasksNoteAddin ()
 		{
 			regex = new Regex (
-					string.Format (TASK_REGEX,
-					Catalog.GetString ("todo")),
-					RegexOptions.IgnoreCase | RegexOptions.Compiled
-					   | RegexOptions.Singleline);
+			                string.Format (TASK_REGEX,
+			                               Catalog.GetString ("todo")),
+			                RegexOptions.IgnoreCase | RegexOptions.Compiled
+			                | RegexOptions.Singleline);
 		}
 #endregion // Constructors
-		
+
 #region NoteAddin Implementation
 		public override void Initialize ()
 		{
 			if (!Note.TagTable.IsDynamicTagRegistered ("task")) {
 				Note.TagTable.RegisterDynamicTag ("task", typeof (TaskTag));
 			}
-			
+
 			TaskManager.TaskDeleted += OnTaskDeleted;
 			TaskManager.TaskRenamed += OnTaskRenamed;
 			TaskManager.TaskStatusChanged += OnTaskStatusChanged;
-			
+
 			options_dialogs = new Dictionary<Task, TaskOptionsDialog> ();
 		}
-		
+
 		public override void Shutdown ()
 		{
 			TaskManager.TaskDeleted -= OnTaskDeleted;
 			TaskManager.TaskRenamed -= OnTaskRenamed;
 			TaskManager.TaskStatusChanged -= OnTaskStatusChanged;
-			
+
 			if (Note.HasBuffer) {
 				Buffer.InsertText -= OnInsertText;
 				Buffer.DeleteRange -= OnDeleteRange;
 				Buffer.DeleteRange -= OnDeleteRangeConnectBefore;
 				Buffer.TagRemoved -= OnTagRemoved;
 			}
-			
+
 			if (Note.HasWindow) {
 				Window.Editor.ButtonPressEvent -= OnButtonPress;
 				Window.Editor.PopulatePopup -= OnPopulatePopup;
 				Window.Editor.PopupMenu -= OnPopupMenu;
 			}
 		}
-		
+
 		public override void OnNoteOpened ()
 		{
 			Buffer.InsertText += OnInsertText;
@@ -80,9 +80,9 @@ namespace Tomboy.Tasks
 			Window.Editor.ButtonPressEvent += OnButtonPress;
 			Window.Editor.PopulatePopup += OnPopulatePopup;
 			Window.Editor.PopupMenu += OnPopupMenu;
-			
+
 			click_mark = Buffer.CreateMark (null, Buffer.StartIter, true);
-			
+
 			UpdateTaskTagStatuses ();
 		}
 #endregion // NoteAddin Implementation
@@ -95,17 +95,17 @@ namespace Tomboy.Tasks
 			// way in almost every method.
 			Gtk.TextIter iter = Buffer.StartIter;
 			iter.ForwardLine (); // Move past the note's title
-			
+
 			do {
 				TaskTag task_tag = (TaskTag)
-						Buffer.GetDynamicTag ("task", iter);
+				                   Buffer.GetDynamicTag ("task", iter);
 				if (task_tag == null)
 					continue;
-				
+
 				task_tag.UpdateStatus ();
 			} while (iter.ForwardLine());
 		}
-		
+
 		void ApplyTaskTagToBlock (ref Gtk.TextIter start, Gtk.TextIter end)
 		{
 			Gtk.TextIter line_end = start;
@@ -118,18 +118,18 @@ namespace Tomboy.Tasks
 			// the end of the next line.  Very strange!
 //			line_end.ForwardToLineEnd ();
 
-			
+
 			TaskTag task_tag = GetTaskTagFromLineIter (ref start);
-			
+
 			if (task_tag != null) {
 				Buffer.RemoveTag (task_tag, start, line_end);
 			} else {
 				task_tag = last_removed_tag;
 			}
-			
+
 			string text = start.GetText (line_end);
 //			Logger.Debug ("Evaluating with regex: {0}", text);
-			
+
 			TaskManager task_mgr = TasksApplicationAddin.DefaultTaskManager;
 			Task task;
 
@@ -141,7 +141,7 @@ namespace Tomboy.Tasks
 					task.QueueSave (true);
 					task.OriginNoteUri = Note.Uri;
 					task_tag = (TaskTag)
-						Note.TagTable.CreateDynamicTag ("task");
+					           Note.TagTable.CreateDynamicTag ("task");
 					task_tag.Uri = task.Uri;
 				} else {
 					task = task_mgr.FindByUri (task_tag.Uri);
@@ -164,7 +164,7 @@ namespace Tomboy.Tasks
 				last_removed_tag = null;
 			}
 		}
-		
+
 		/// <summary>
 		/// Parse the task summary from the line omitting the "todo:" prefix
 		/// </summary>
@@ -174,15 +174,15 @@ namespace Tomboy.Tasks
 			int todo_pos = line.ToLower ().IndexOf (todo_str);
 			if (todo_pos < 0)
 				return line.Trim ();
-			
+
 			// Check to see if there's any content
 			if (line.Length <= todo_str.Length)
 				return string.Empty;
-			
+
 			string summary = line.Substring (todo_str.Length);
 			return summary.Trim ();
 		}
-		
+
 		/// <summary>
 		/// Returns true if the current Note contains the specified text.
 		/// <param name="text">The text to search for in the note.</param>
@@ -194,20 +194,20 @@ namespace Tomboy.Tasks
 
 			return body.IndexOf (match) > -1;
 		}
-		
+
 		TaskTag GetTaskTagFromLineIter (ref Gtk.TextIter line_iter)
 		{
 			TaskTag task_tag = null;
-			
+
 			while (line_iter.StartsLine () == false) {
 				line_iter.BackwardChar ();
 			}
-			
+
 			task_tag = (TaskTag) Buffer.GetDynamicTag ("task", line_iter);
-			
+
 			return task_tag;
 		}
-		
+
 		/// <summary>
 		/// Each time the user enters a newline (presses enter),
 		/// evaluate the previous line to see if a new task should
@@ -219,22 +219,22 @@ namespace Tomboy.Tasks
 			Gtk.TextIter prev_line = iter;
 			if (prev_line.BackwardLine () == false)
 				return false;
-			
+
 			TaskTag task_tag = GetTaskTagFromLineIter (ref prev_line);
 			if (task_tag == null)
 				return false; // nothing to do with tasks here!
 			Task task =
-				TasksApplicationAddin.DefaultTaskManager.FindByUri (task_tag.Uri);
-			
+			        TasksApplicationAddin.DefaultTaskManager.FindByUri (task_tag.Uri);
+
 			if (task == null) {
 				// This shouldn't happen, but just in case we have a left-over
 				// TaskTag without a real task, go ahead and remove the TaskTag
-				
+
 				// FIXME: Remove TaskTag from the line
-				
+
 				return false;
 			}
-			
+
 			if (task.Summary == string.Empty) {
 				// If the previous line's task summary is empty, delete the task
 				Logger.Debug ("Previous line's task summary is empty, deleting it...");
@@ -242,7 +242,7 @@ namespace Tomboy.Tasks
 			} else {
 				// If the previous line's task summary is not empty, create a new
 				// task on the current line.
-				
+
 				// I'm disabling the following code for now.  It automatically
 				// starts up a new task on the newline.  But since this modifies
 				// the buffer, it sometimes causes problems.
@@ -251,10 +251,10 @@ namespace Tomboy.Tasks
 //						string.Format ("{0}: ",
 //								Catalog.GetString ("todo")));
 			}
-			
+
 			return true; // The buffer was modified
 		}
-		
+
 		/// <summary>
 		/// Remove the task from the line specified by the TextIter.  This
 		/// will remove the TextTag and also the "todo:" portion of the line
@@ -268,27 +268,27 @@ namespace Tomboy.Tasks
 		{
 			if (RemoveTaskTagFromLine (iter) == false)
 				return false;
-			
+
 			while (iter.StartsLine () == false) {
 				iter.BackwardChar ();
 			}
-			
+
 			Gtk.TextIter line_end = iter;
 			while (line_end.EndsLine () == false) {
 				line_end.ForwardChar ();
 			}
 //			line_end.ForwardToLineEnd ();
-			
+
 			string text = iter.GetText (line_end);
-			
+
 			Buffer.Delete (ref iter, ref line_end);
-			
+
 			text = GetTaskSummaryFromLine (text);
 			if (text.Length > 0)
 				Buffer.Insert (ref iter, text);
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Remove the task tag on the line specified by the TextIter.  This
 		/// will not remove the "todo:" text (i.e., it will not modify the
@@ -308,7 +308,7 @@ namespace Tomboy.Tasks
 			while (start.StartsLine () == false) {
 				start.BackwardChar ();
 			}
-			
+
 			while (end.EndsLine () == false) {
 				end.ForwardChar ();
 			}
@@ -317,7 +317,7 @@ namespace Tomboy.Tasks
 			Buffer.RemoveTag (task_tag, start, end);
 			return true;
 		}
-		
+
 		/// <summary>
 		/// This method should be called during a large deletion of a
 		/// range of text so it can properly remove all the task tags.
@@ -330,14 +330,14 @@ namespace Tomboy.Tasks
 			Gtk.TextIter line_end;
 			if (start.Line == end.Line) {
 				// The iters are on the same line.
-				
+
 				// If there's only one character being deleted, don't do
 				// anything here.  This condition will be taken care of
 				// in ApplyTaskTagToBlock ().
 				if (end.LineOffset - start.LineOffset == 1) {
 					return;
 				}
-				
+
 				// Determine whether this line contains a TaskTag.  If it
 				// does, determine whether deleting the range will delete
 				// the todo.
@@ -360,7 +360,7 @@ namespace Tomboy.Tasks
 				}
 			} else {
 				// The iters are on different lines
-				
+
 				line = start;
 				do {
 					task_tag = GetTaskTagFromLineIter (ref line);
@@ -416,20 +416,20 @@ namespace Tomboy.Tasks
 			// Iterate through the lines looking for tasks
 			Gtk.TextIter iter = Buffer.StartIter;
 			iter.ForwardLine (); // Move past the note's title
-			
+
 			do {
 				TaskTag task_tag = (TaskTag)
-						Buffer.GetDynamicTag ("task", iter);
+				                   Buffer.GetDynamicTag ("task", iter);
 				if (task_tag != null) {
 					if (task_tag.Uri != task.Uri)
 						continue;
-					
+
 					RemoveTaskFromLine (ref iter);
 					break;
 				}
 			} while (iter.ForwardLine());
 		}
-		
+
 		/// <summary>
 		/// If the renamed task is included inside this note, this
 		/// handler will update the task summary in the note buffer.
@@ -448,14 +448,14 @@ namespace Tomboy.Tasks
 			// Iterate through the lines looking for tasks
 			Gtk.TextIter iter = Buffer.StartIter;
 			iter.ForwardLine (); // Move past the note's title
-			
+
 			do {
 				TaskTag task_tag = (TaskTag)
-						Buffer.GetDynamicTag ("task", iter);
+				                   Buffer.GetDynamicTag ("task", iter);
 				if (task_tag != null) {
 					if (task_tag.Uri != task.Uri)
 						continue;
-					
+
 					Gtk.TextIter line_start = iter;
 					while (line_start.StartsLine () == false)
 						line_start.BackwardChar ();
@@ -464,18 +464,18 @@ namespace Tomboy.Tasks
 						line_end.ForwardChar ();
 					}
 //					line_end.ForwardToLineEnd ();
-					
+
 					Buffer.Delete (ref line_start, ref line_end);
 					last_removed_tag = task_tag;
 					Buffer.Insert (ref line_start,
-							string.Format ("{0}: {1}",
-									Catalog.GetString ("todo"),
-									task.Summary));
+					               string.Format ("{0}: {1}",
+					                              Catalog.GetString ("todo"),
+					                              task.Summary));
 					break;
 				}
 			} while (iter.ForwardLine());
 		}
-		
+
 		/// <summary>
 		/// If the specified task is included inside this note, this
 		/// handler will update the task's status representation.
@@ -491,32 +491,32 @@ namespace Tomboy.Tasks
 			// Iterate through the lines looking for tasks
 			Gtk.TextIter iter = Buffer.StartIter;
 			iter.ForwardLine (); // Move past the note's title
-			
+
 			do {
 				TaskTag task_tag = (TaskTag)
-						Buffer.GetDynamicTag ("task", iter);
+				                   Buffer.GetDynamicTag ("task", iter);
 				if (task_tag != null) {
 					if (task_tag.Uri != task.Uri)
 						continue;
-					
+
 					task_tag.Completed = task.IsComplete;
 					break;
 				}
 			} while (iter.ForwardLine());
 		}
-		
+
 		[GLib.ConnectBeforeAttribute]
 		void OnDeleteRangeConnectBefore (object sender, Gtk.DeleteRangeArgs args)
 		{
 			RemoveTaskTagsFromRange (args.Start, args.End);
 		}
-		
+
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
 			Gtk.TextIter start = args.Start;
 			ApplyTaskTagToBlock (ref start, args.End);
 		}
-		
+
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
 			Gtk.TextIter start = args.Pos;
@@ -547,14 +547,14 @@ namespace Tomboy.Tasks
 					while (prev_line.StartsLine () == false) {
 						prev_line.BackwardChar ();
 					}
-					
+
 					Gtk.TextIter prev_line_end = prev_line;
 					while (prev_line_end.EndsLine () == false) {
 						prev_line_end.ForwardChar ();
 					}
-					
+
 					string prev_line_text = prev_line.GetText (prev_line_end);
-					
+
 					Match match = regex.Match (prev_line_text);
 					if (match.Success && last_removed_tag != null) {
 						TaskManager task_mgr = TasksApplicationAddin.DefaultTaskManager;
@@ -571,7 +571,7 @@ namespace Tomboy.Tasks
 							Logger.Debug ("Shouldn't ever hit this code (hopefully)");
 						}
 					}
-					
+
 					last_removed_tag = null;
 				}
 			} else {
@@ -585,45 +585,45 @@ namespace Tomboy.Tasks
 			int x, y;
 
 			Window.Editor.WindowToBufferCoords (Gtk.TextWindowType.Text,
-							    (int) args.Event.X,
-							    (int) args.Event.Y,
-							    out x,
-							    out y);
+			                                    (int) args.Event.X,
+			                                    (int) args.Event.Y,
+			                                    out x,
+			                                    out y);
 			Gtk.TextIter click_iter = Window.Editor.GetIterAtLocation (x, y);
 
 			// Move click_mark to click location
 			Buffer.MoveMark (click_mark, click_iter);
 		}
-		
+
 		void OnPopulatePopup (object sender, Gtk.PopulatePopupArgs args)
 		{
 			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
 			TaskTag task_tag = (TaskTag)
-					Buffer.GetDynamicTag ("task", click_iter);
+			                   Buffer.GetDynamicTag ("task", click_iter);
 			if (task_tag == null)
 				return;
-			
+
 			Gtk.MenuItem item;
-			
+
 			item = new Gtk.SeparatorMenuItem ();
 			item.Show ();
 			args.Menu.Prepend (item);
-			
+
 			item = new Gtk.MenuItem (Catalog.GetString ("Open To Do List"));
 			item.Activated += OnOpenTaskListWindow;
 			item.Show ();
 			args.Menu.Prepend (item);
-			
+
 			item = new TaskMenuItem (task_tag.Uri, Catalog.GetString ("To Do Options"));
 			item.Activated += OnOpenTaskOptions;
 			item.ShowAll ();
 			args.Menu.Prepend (item);
-			
+
 			item = new TaskMenuItem (
-						task_tag.Uri,
-						task_tag.Completed ?
-								Catalog.GetString ("Mark Undone") :
-								Catalog.GetString ("Mark Complete"));
+			               task_tag.Uri,
+			               task_tag.Completed ?
+			               Catalog.GetString ("Mark Undone") :
+			               Catalog.GetString ("Mark Complete"));
 			item.Activated += OnToggleCompletionStatus;
 			item.ShowAll ();
 			args.Menu.Prepend (item);
@@ -643,59 +643,59 @@ namespace Tomboy.Tasks
 			TaskTag task_tag = args.Tag as TaskTag;
 			if (task_tag == null)
 				return;
-			
+
 			last_removed_tag = task_tag;
 		}
-		
+
 		void OnOpenTaskListWindow (object sender, EventArgs args)
 		{
 			Tomboy.ActionManager ["OpenToDoListAction"].Activate ();
 		}
-		
+
 		void OnToggleCompletionStatus (object sender, EventArgs args)
 		{
 			TaskMenuItem item = sender as TaskMenuItem;
 			if (item == null)
 				return;
-			
+
 			Task task =
-					TasksApplicationAddin.DefaultTaskManager.FindByUri (
-						item.TaskUri);
+			        TasksApplicationAddin.DefaultTaskManager.FindByUri (
+			                item.TaskUri);
 			if (task == null)
 				return;
-			
+
 			if (task.IsComplete)
 				task.ReOpen ();
 			else
 				task.Complete ();
 		}
-		
+
 		void OnOpenTaskOptions (object sender, EventArgs args)
 		{
 			TaskMenuItem item = sender as TaskMenuItem;
 			if (item == null)
 				return;
-			
+
 			Task task =
-					TasksApplicationAddin.DefaultTaskManager.FindByUri (
-						item.TaskUri);
+			        TasksApplicationAddin.DefaultTaskManager.FindByUri (
+			                item.TaskUri);
 			if (task == null)
 				return;
-			
+
 			TaskOptionsDialog dialog;
 			if (options_dialogs.ContainsKey (task)) {
 				dialog = options_dialogs [task];
 			} else {
 				dialog =
-					new TaskOptionsDialog (
-						Note.Window,
-						Gtk.DialogFlags.DestroyWithParent,
-						task);
+				        new TaskOptionsDialog (
+				                Note.Window,
+				                Gtk.DialogFlags.DestroyWithParent,
+				                task);
 				dialog.WindowPosition = Gtk.WindowPosition.CenterOnParent;
 				dialog.DeleteEvent += OnOptionsDialogDeleted;
 				options_dialogs [task] = dialog;
 			}
-			
+
 			dialog.Show ();
 			dialog.GrabFocus ();
 		}
@@ -705,19 +705,19 @@ namespace Tomboy.Tasks
 			TaskOptionsDialog dialog = sender as TaskOptionsDialog;
 			if (dialog == null)
 				return;
-			
+
 			if (options_dialogs.ContainsKey (dialog.Task))
 				options_dialogs.Remove (dialog.Task);
 		}
 #endregion // Private Event Handlers
 	}
-	
+
 	public class TaskMenuItem : Gtk.MenuItem
 	{
 		public string TaskUri;
-		
+
 		public TaskMenuItem (string uri, string label)
-			: base (label)
+				: base (label)
 		{
 			this.TaskUri = uri;
 		}

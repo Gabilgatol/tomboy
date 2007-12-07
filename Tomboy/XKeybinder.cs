@@ -11,22 +11,22 @@ namespace Tomboy
 	{
 		ArrayList bindings;
 		IKeybinder native_keybinder;
-		
+
 		public PrefsKeybinder ()
 		{
 			bindings = new ArrayList ();
 			native_keybinder = PlatformFactory.CreateKeybinder ();
 		}
 
-		public void Bind (string       pref_path, 
-				  string       default_binding, 
-				  EventHandler handler)
+		public void Bind (string       pref_path,
+		                  string       default_binding,
+		                  EventHandler handler)
 		{
 			try {
-				Binding binding = new Binding (pref_path, 
-							       default_binding,
-							       handler,
-							       native_keybinder);
+				Binding binding = new Binding (pref_path,
+				                               default_binding,
+				                               handler,
+				                               native_keybinder);
 				bindings.Add (binding);
 			} catch (Exception e) {
 				Logger.Log ("Error Adding global keybinding:");
@@ -38,7 +38,7 @@ namespace Tomboy
 		{
 			try {
 				foreach (Binding binding in bindings)
-					binding.RemoveNotify ();
+				binding.RemoveNotify ();
 				bindings.Clear ();
 				native_keybinder.UnbindAll ();
 			} catch (Exception e) {
@@ -54,10 +54,10 @@ namespace Tomboy
 			EventHandler    handler;
 			IKeybinder native_keybinder;
 
-			public Binding (string          pref_path, 
-					string          default_binding,
-					EventHandler    handler,
-					IKeybinder native_keybinder)
+			public Binding (string          pref_path,
+			                string          default_binding,
+			                EventHandler    handler,
+			                IKeybinder native_keybinder)
 			{
 				this.pref_path = pref_path;
 				this.key_sequence = default_binding;
@@ -67,30 +67,30 @@ namespace Tomboy
 				try {
 					key_sequence = (string) Preferences.Client.Get (pref_path);
 				} catch {
-					Logger.Log ("Preference key '{0}' does not exist, using default.", 
-							   pref_path);
+				        Logger.Log ("Preference key '{0}' does not exist, using default.",
+				                    pref_path);
 				}
 
 				SetBinding ();
 
 				Preferences.Client.AddNotify (
-					pref_path, 
-					BindingChanged);
+				        pref_path,
+				        BindingChanged);
 			}
 
 			public void RemoveNotify ()
 			{
 				Preferences.Client.RemoveNotify (
-					pref_path, 
-					BindingChanged);
+				        pref_path,
+				        BindingChanged);
 			}
 
 			void BindingChanged (object sender, NotifyEventArgs args)
 			{
 				if (args.Key == pref_path) {
 					Logger.Log ("Binding for '{0}' changed to '{1}'!",
-							   pref_path,
-							   args.Value);
+					            pref_path,
+					            args.Value);
 
 					UnsetBinding ();
 
@@ -101,14 +101,14 @@ namespace Tomboy
 
 			public void SetBinding ()
 			{
-				if (key_sequence == null || 
-				    key_sequence == String.Empty || 
-				    key_sequence == "disabled")
+				if (key_sequence == null ||
+				                key_sequence == String.Empty ||
+				                key_sequence == "disabled")
 					return;
 
 				Logger.Log ("Binding key '{0}' for '{1}'",
-						   key_sequence,
-						   pref_path);
+				            key_sequence,
+				            pref_path);
 
 				native_keybinder.Bind (key_sequence, handler);
 			}
@@ -119,8 +119,8 @@ namespace Tomboy
 					return;
 
 				Logger.Log ("Unbinding key '{0}' for '{1}'",
-						   key_sequence,
-						   pref_path);
+				            key_sequence,
+				            pref_path);
 
 				native_keybinder.Unbind (key_sequence);
 			}
@@ -133,7 +133,7 @@ namespace Tomboy
 		TomboyTray  tray;
 
 		public TomboyPrefsKeybinder (NoteManager manager, TomboyTray tray)
-			: base ()
+				: base ()
 		{
 			this.manager = manager;
 			this.tray = tray;
@@ -156,19 +156,19 @@ namespace Tomboy
 			Logger.Log ("EnableDisable Called: enabling... {0}", enable);
 			if (enable) {
 				BindPreference (Preferences.KEYBINDING_SHOW_NOTE_MENU,
-						new EventHandler (KeyShowMenu));
+				                new EventHandler (KeyShowMenu));
 
 				BindPreference (Preferences.KEYBINDING_OPEN_START_HERE,
-						new EventHandler (KeyOpenStartHere));
+				                new EventHandler (KeyOpenStartHere));
 
 				BindPreference (Preferences.KEYBINDING_CREATE_NEW_NOTE,
-						new EventHandler (KeyCreateNewNote));
+				                new EventHandler (KeyCreateNewNote));
 
 				BindPreference (Preferences.KEYBINDING_OPEN_SEARCH,
-						new EventHandler (KeyOpenSearch));
+				                new EventHandler (KeyOpenSearch));
 
 				BindPreference (Preferences.KEYBINDING_OPEN_RECENT_CHANGES,
-						new EventHandler (KeyOpenRecentChanges));
+				                new EventHandler (KeyOpenRecentChanges));
 			} else {
 				UnbindAll ();
 			}
@@ -176,7 +176,7 @@ namespace Tomboy
 
 		void BindPreference (string pref_path, EventHandler handler)
 		{
-			Bind (pref_path,  
+			Bind (pref_path,
 			      (string) Preferences.GetDefault (pref_path),
 			      handler);
 		}
@@ -202,11 +202,11 @@ namespace Tomboy
 				Note new_note = manager.Create ();
 				new_note.Window.Show ();
 			} catch {
-				// Fail silently.
+			        // Fail silently.
 			}
 		}
 
-		void KeyOpenSearch (object sender, EventArgs args)
+	void KeyOpenSearch (object sender, EventArgs args)
 		{
 			/* Find dialog is deprecated in favor of searcable ToC */
 			/*

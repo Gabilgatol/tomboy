@@ -10,10 +10,10 @@ namespace Tomboy
 		//GNOME desktop default document font GConf setting path
 		const string DESKTOP_GNOME_INTERFACE_PATH = "/desktop/gnome/interface";
 		const string GNOME_DOCUMENT_FONT_KEY =
-			DESKTOP_GNOME_INTERFACE_PATH + "/document_font_name";
+		        DESKTOP_GNOME_INTERFACE_PATH + "/document_font_name";
 
 		public NoteEditor (Gtk.TextBuffer buffer)
-			: base (buffer)
+				: base (buffer)
 		{
 			WrapMode = Gtk.WrapMode.Word;
 			LeftMargin = DefaultMargin;
@@ -22,7 +22,7 @@ namespace Tomboy
 
 			//Set up the GConf client to watch the default document font
 			Preferences.Client.AddNotify (DESKTOP_GNOME_INTERFACE_PATH,
-							OnFontSettingChanged);
+			                              OnFontSettingChanged);
 
 			// Make sure the cursor position is visible
 			ScrollMarkOnscreen (buffer.InsertMark);
@@ -30,13 +30,13 @@ namespace Tomboy
 			// Set Font from GConf preference
 			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
 				string font_string = (string)
-					Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+				                     Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 				ModifyFont (Pango.FontDescription.FromString (font_string));
 			}
 			else {
 				ModifyFont (GetGnomeDocumentFontDescription ());
 			}
-				
+
 			Preferences.SettingChanged += OnFontSettingChanged;
 
 			// Set extra editor drag targets supported (in addition
@@ -44,14 +44,14 @@ namespace Tomboy
 			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (this);
 			list.Add (Gdk.Atom.Intern ("text/uri-list", false), 0, 1);
 			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
-			
+
 			KeyPressEvent += KeyPressed;
 			ButtonPressEvent += ButtonPressed;
 		}
 
 		public static int DefaultMargin
 		{
-			get { return 8; }
+		        get { return 8; }
 		}
 
 		// Retrieve the GNOME document font setting
@@ -59,13 +59,14 @@ namespace Tomboy
 		{
 			try {
 				string doc_font_string = (string)
-					Preferences.Client.Get (GNOME_DOCUMENT_FONT_KEY);
-				return Pango.FontDescription.FromString (doc_font_string);				
+				                         Preferences.Client.Get (GNOME_DOCUMENT_FONT_KEY);
+				return Pango.FontDescription.FromString (doc_font_string);
 			} catch (GConf.NoSuchKeyException) {
-			} catch (System.InvalidCastException) {
+			}
+			catch (System.InvalidCastException) {
 			}
 
-			return new Pango.FontDescription ();		
+			return new Pango.FontDescription ();
 		}
 
 		//
@@ -76,12 +77,12 @@ namespace Tomboy
 		{
 			switch (args.Key) {
 			case Preferences.ENABLE_CUSTOM_FONT:
-				Logger.Log ("Switching note font {0}...", 
-					    (bool) args.Value ? "ON" : "OFF");
+				Logger.Log ("Switching note font {0}...",
+				            (bool) args.Value ? "ON" : "OFF");
 
 				if ((bool) args.Value) {
-					string font_string = (string) 
-						Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+					string font_string = (string)
+					                     Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 					ModifyFont (Pango.FontDescription.FromString (font_string));
 				} else
 					ModifyFont (GetGnomeDocumentFontDescription ());
@@ -107,18 +108,18 @@ namespace Tomboy
 		//
 		// DND Drop handling
 		//
-		protected override void OnDragDataReceived (Gdk.DragContext context, 
-							    int x,
-							    int y,
-							    Gtk.SelectionData selection_data,
-							    uint info,
-							    uint time)
+		protected override void OnDragDataReceived (Gdk.DragContext context,
+		                int x,
+		                int y,
+		                Gtk.SelectionData selection_data,
+		                uint info,
+		                uint time)
 		{
 			bool has_url = false;
 
 			foreach (Gdk.Atom target in context.Targets) {
 				if (target.Name == "text/uri-list" ||
-				    target.Name == "_NETSCAPE_URL") {
+				                target.Name == "_NETSCAPE_URL") {
 					has_url = true;
 					break;
 				}
@@ -127,7 +128,7 @@ namespace Tomboy
 			if (has_url) {
 				UriList uri_list = new UriList (selection_data);
 				bool more_than_one = false;
-				
+
 				// Place the cursor in the position where the uri was
 				// dropped, adjusting x,y by the TextView's VisibleRect.
 				Gdk.Rectangle rect = VisibleRect;
@@ -135,7 +136,7 @@ namespace Tomboy
 				int adjustedY = y + rect.Y;
 				Gtk.TextIter cursor = GetIterAtLocation (adjustedX, adjustedY);
 				Buffer.PlaceCursor (cursor);
-				
+
 				Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:url");
 
 				foreach (Uri uri in uri_list) {
@@ -145,13 +146,13 @@ namespace Tomboy
 						insert = uri.LocalPath;
 					else
 						insert = uri.ToString ();
-					
+
 					if (insert == null || insert.Trim () == String.Empty)
 						continue;
-					
+
 					if (more_than_one) {
 						cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
-						
+
 						// FIXME: The space here is a hack
 						// around a bug in the URL Regex which
 						// matches across newlines.
@@ -160,7 +161,7 @@ namespace Tomboy
 						else
 							Buffer.Insert (ref cursor, ", ");
 					}
-					
+
 					Buffer.InsertWithTags (ref cursor, insert, link_tag);
 					more_than_one = true;
 				}
@@ -170,13 +171,13 @@ namespace Tomboy
 				base.OnDragDataReceived (context, x, y, selection_data, info, time);
 			}
 		}
-		
+
 		[GLib.ConnectBefore()]
 		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
 		{
 			args.RetVal = true;
 			bool ret_value = false;
-			
+
 			switch (args.Event.Key)
 			{
 			case Gdk.Key.Return:
@@ -204,20 +205,20 @@ namespace Tomboy
 			case Gdk.Key.BackSpace:
 				ret_value = ((NoteBuffer) Buffer).BackspaceKeyHandler ();
 				break;
- 			case Gdk.Key.Left:
- 			case Gdk.Key.Right:
- 			case Gdk.Key.Up:
- 			case Gdk.Key.Down:
+			case Gdk.Key.Left:
+			case Gdk.Key.Right:
+			case Gdk.Key.Up:
+			case Gdk.Key.Down:
 				ret_value = false;
 				break;
 			default:
 				((NoteBuffer) Buffer).CheckSelection ();
 				break;
 			}
-			
+
 			args.RetVal = ret_value;
 		}
-		
+
 		[GLib.ConnectBefore()]
 		void ButtonPressed (object sender, Gtk.ButtonPressEventArgs args)
 		{

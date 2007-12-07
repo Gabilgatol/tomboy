@@ -9,9 +9,9 @@ namespace _Gnome {
 
 	public class MoveFocusOutOfAppletArgs : GLib.SignalArgs {
 		public Gtk.DirectionType Direction{
-			get {
-				return (Gtk.DirectionType) Args[0];
-			}
+		        get {
+			        return (Gtk.DirectionType) Args[0];
+		        }
 		}
 
 	}

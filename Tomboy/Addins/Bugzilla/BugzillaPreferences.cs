@@ -19,19 +19,19 @@ namespace Tomboy.Bugzilla
 
 		static BugzillaPreferences ()
 		{
-                        // TODO: Get this in a safer way
+			// TODO: Get this in a safer way
 			image_dir = IMAGE_DIR.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 		}
 
 		public BugzillaPreferences ()
-			: base (false, 12)
+				: base (false, 12)
 		{
 			last_opened_dir = Environment.GetEnvironmentVariable ("HOME");
 
 			Gtk.Label l = new Gtk.Label (Catalog.GetString (
-				"You can use any bugzilla just by dragging links " +
-				"into notes.  If you want a special icon for " +
-				"certain hosts, add them here."));
+			                                     "You can use any bugzilla just by dragging links " +
+			                                     "into notes.  If you want a special icon for " +
+			                                     "certain hosts, add them here."));
 			l.Wrap = true;
 			l.Xalign = 0;
 
@@ -106,9 +106,9 @@ namespace Tomboy.Bugzilla
 		Gtk.ListStore CreateIconStore ()
 		{
 			Gtk.ListStore store = new Gtk.ListStore (
-				typeof (Gdk.Pixbuf), // icon
-				typeof (string),     // host
-				typeof (string));    // file path
+			                              typeof (Gdk.Pixbuf), // icon
+			                              typeof (string),     // host
+			                              typeof (string));    // file path
 			store.SetSortColumnId (1, Gtk.SortType.Ascending);
 
 			return store;
@@ -176,14 +176,14 @@ namespace Tomboy.Bugzilla
 		void SelectionChanged (object sender, EventArgs args)
 		{
 			remove_button.Sensitive =
-				icon_tree.Selection.CountSelectedRows() > 0;
+			        icon_tree.Selection.CountSelectedRows() > 0;
 		}
 
 		void AddClicked (object sender, EventArgs args)
 		{
 			Gtk.FileChooserDialog dialog = new Gtk.FileChooserDialog (
-				Catalog.GetString ("Select an icon..."),
-				null, Gtk.FileChooserAction.Open, new object[] {});
+			                                       Catalog.GetString ("Select an icon..."),
+			                                       null, Gtk.FileChooserAction.Open, new object[] {});
 			dialog.AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
 			dialog.AddButton (Gtk.Stock.Open, Gtk.ResponseType.Ok);
 
@@ -211,24 +211,24 @@ namespace Tomboy.Bugzilla
 			string icon_file;
 			string host;
 
-			run_add_dialog:
+run_add_dialog:
 			response = dialog.Run ();
 			icon_file = dialog.Filename;
 			host = host_entry.Text.Trim ();
 
 			if (response == (int) Gtk.ResponseType.Ok
-					&& host == String.Empty) {
+			                && host == String.Empty) {
 				// Let the user know that they
 				// have to specify a host name.
 				HIGMessageDialog warn =
-					new HIGMessageDialog (
-						null,
-						Gtk.DialogFlags.DestroyWithParent,
-						Gtk.MessageType.Warning,
-						Gtk.ButtonsType.Ok,
-						Catalog.GetString ("No host name specified"),
-						Catalog.GetString ("You must specify the Bugzilla " +
-						                   "host name to use with this icon."));
+				        new HIGMessageDialog (
+				                null,
+				                Gtk.DialogFlags.DestroyWithParent,
+				                Gtk.MessageType.Warning,
+				                Gtk.ButtonsType.Ok,
+				                Catalog.GetString ("No host name specified"),
+				                Catalog.GetString ("You must specify the Bugzilla " +
+				                                   "host name to use with this icon."));
 				warn.Run ();
 				warn.Destroy ();
 
@@ -248,14 +248,14 @@ namespace Tomboy.Bugzilla
 			string err_msg;
 			if (!CopyToBugizllaIconsDir (icon_file, host, out err_msg)) {
 				HIGMessageDialog err =
-					new HIGMessageDialog (
-						null,
-						Gtk.DialogFlags.DestroyWithParent,
-						Gtk.MessageType.Error,
-						Gtk.ButtonsType.Ok,
-						Catalog.GetString ("Error saving icon"),
-						Catalog.GetString ("Could not save the icon file.  " +
-						                   err_msg));
+				        new HIGMessageDialog (
+				                null,
+				                Gtk.DialogFlags.DestroyWithParent,
+				                Gtk.MessageType.Error,
+				                Gtk.ButtonsType.Ok,
+				                Catalog.GetString ("Error saving icon"),
+				                Catalog.GetString ("Could not save the icon file.  " +
+				                                   err_msg));
 				err.Run ();
 				err.Destroy ();
 			}
@@ -302,14 +302,14 @@ namespace Tomboy.Bugzilla
 			string icon_path = icon_store.GetValue (iter, 2) as string;
 
 			HIGMessageDialog dialog =
-				new HIGMessageDialog (
-					null,
-					Gtk.DialogFlags.DestroyWithParent,
-					Gtk.MessageType.Question,
-					Gtk.ButtonsType.None,
-					Catalog.GetString ("Really remove this icon?"),
-					Catalog.GetString ("If you remove an icon it is " +
-					                   "permanently lost."));
+			        new HIGMessageDialog (
+			                null,
+			                Gtk.DialogFlags.DestroyWithParent,
+			                Gtk.MessageType.Question,
+			                Gtk.ButtonsType.None,
+			                Catalog.GetString ("Really remove this icon?"),
+			                Catalog.GetString ("If you remove an icon it is " +
+			                                   "permanently lost."));
 
 			Gtk.Button button;
 

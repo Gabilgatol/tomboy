@@ -12,7 +12,7 @@ namespace Tomboy
 	{
 		Image image;
 		Tag tag;
-		
+
 		public TagButton (Tag tag)
 		{
 			this.tag = tag;
@@ -20,14 +20,14 @@ namespace Tomboy
 			this.Relief = ReliefStyle.None;
 			this.EnterNotifyEvent += EnterNotifyEventHandler;
 			this.LeaveNotifyEvent += LeaveNotifyEventHandler;
-			
+
 			image = new Image ();
 			image.Visible = false;
 			image.NoShowAll = true;
-			
+
 			this.Image = image;
 		}
-		
+
 		// <summary>
 		// Show the remove image
 		// </summary>
@@ -35,7 +35,7 @@ namespace Tomboy
 		{
 			image.SetFromStock (Stock.Remove, IconSize.Menu);
 		}
-		
+
 		// <summary>
 		// Hide the remove image
 		// </summary>
@@ -43,12 +43,12 @@ namespace Tomboy
 		{
 			image.Clear ();
 		}
-		
-		#region Properties
+
+#region Properties
 		public Tag Tag
 		{
-			get { return tag; }
+		        get { return tag; }
 		}
-		#endregion
+#endregion
 	}
 }

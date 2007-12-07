@@ -18,15 +18,15 @@ namespace Tomboy.Sync
 		private Entry urlEntry;
 		private Entry usernameEntry;
 		private Entry passwordEntry;
-		
+
 		private const string keyring_item_name = "Tomboy sync WebDAV account";
 		private static Hashtable request_attributes = new Hashtable();
-		
+
 		static WebDavSyncServiceAddin ()
 		{
 			request_attributes ["name"] = keyring_item_name;
 		}
-		
+
 		/// <summary>
 		/// Creates a Gtk.Widget that's used to configure the service.  This
 		/// will be used in the Synchronization Preferences.  Preferences should
@@ -36,65 +36,65 @@ namespace Tomboy.Sync
 		public override Gtk.Widget CreatePreferencesControl ()
 		{
 			Gtk.Table table = new Gtk.Table (3, 2, false);
-			
+
 			// Read settings out of gconf
-			string url, username, password;			
+			string url, username, password;
 			GetConfigSettings (out url, out username, out password);
-			
+
 			if (url == null)
 				url = string.Empty;
 			if (username == null)
 				username = string.Empty;
 			if (password == null)
 				password = string.Empty;
-			
+
 			Label l = new Label (Catalog.GetString ("URL:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 0, 1);
-			
+
 			urlEntry = new Entry ();
 			urlEntry.Text = url;
 			table.Attach (urlEntry, 1, 2, 0, 1);
-			
+
 			l = new Label (Catalog.GetString ("Username:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 1, 2);
-			
+
 			usernameEntry = new Entry ();
 			usernameEntry.Text = username;
 			table.Attach (usernameEntry, 1, 2, 1, 2);
-			
+
 			l = new Label (Catalog.GetString ("Password:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 2, 3);
-			
+
 			passwordEntry = new Entry ();
 			passwordEntry.Text = password;
 			passwordEntry.Visibility = false;
 			table.Attach (passwordEntry, 1, 2, 2, 3);
-			
+
 			table.ShowAll ();
 			return table;
 		}
-		
+
 		protected override bool VerifyConfiguration ()
 		{
 			string url, username, password;
-			
+
 			if (!GetPrefWidgetSettings (out url, out username, out password)) {
 				// TODO: Figure out a way to send the error back to the client
 				Logger.Debug ("One of url, username, or password was empty");
 				throw new TomboySyncException (Catalog.GetString ("URL, username, or password field is empty."));
 			}
-			
+
 			return true;
 		}
-		
+
 		protected override void SaveConfigurationValues ()
 		{
 			string url, username, password;
 			GetPrefWidgetSettings (out url, out username, out password);
-			
+
 			SaveConfigSettings (url, username, password);
 		}
 
@@ -104,30 +104,30 @@ namespace Tomboy.Sync
 		protected override void ResetConfigurationValues ()
 		{
 			SaveConfigSettings (string.Empty, string.Empty, string.Empty);
-			
+
 			// TODO: Unmount the FUSE mount!
 		}
-		
+
 		/// <summary>
 		/// Returns whether the addin is configured enough to actually be used.
 		/// </summary>
 		public override bool IsConfigured
 		{
-			get {
-				string url, username, password;				
-				return GetConfigSettings (out url, out username, out password);
-			}
+		        get {
+			        string url, username, password;
+			        return GetConfigSettings (out url, out username, out password);
+		        }
 		}
-		
+
 		/// <summary>
 		/// The name that will be shown in the preferences to distinguish
 		/// between this and other SyncServiceAddins.
 		/// </summary>
 		public override string Name
 		{
-			get {
-				return Mono.Unix.Catalog.GetString ("WebDAV (wdfs FUSE)");
-			}
+		        get {
+			        return Mono.Unix.Catalog.GetString ("WebDAV (wdfs FUSE)");
+		        }
 		}
 
 		/// <summary>
@@ -136,11 +136,11 @@ namespace Tomboy.Sync
 		/// </summary>
 		public override string Id
 		{
-			get {
-				return "wdfs";
-			}
+		        get {
+			        return "wdfs";
+		        }
 		}
-		
+
 		protected override string GetFuseMountExeArgs (string mountPath, bool fromStoredValues)
 		{
 			string url, username, password;
@@ -157,21 +157,21 @@ namespace Tomboy.Sync
 
 		protected override string FuseMountExeName
 		{
-			get { return "wdfs"; }
-		}
-		
-		public override string FuseMountDirectoryError
-		{
-			get
-			{
-				return Catalog.GetString ("There was an error connecting to the server.  " +
-				                          "This may be caused by using an " +
-				                          "incorrect user name and/or password.");
-			}
+	        get { return "wdfs"; }
 		}
 
-		
-		#region Private Methods
+		public override string FuseMountDirectoryError
+		{
+		        get
+		        {
+			        return Catalog.GetString ("There was an error connecting to the server.  " +
+			                                  "This may be caused by using an " +
+			                                  "incorrect user name and/or password.");
+		        }
+		}
+
+
+#region Private Methods
 		/// <summary>
 		/// Get config settings
 		/// </summary>
@@ -181,7 +181,7 @@ namespace Tomboy.Sync
 			url = null;
 			username = null;
 			password = null;
-			
+
 			try {
 				foreach (ItemData result in Ring.Find (ItemType.NetworkPassword, request_attributes)) {
 					if (result.Attributes ["name"] as string != keyring_item_name)
@@ -193,8 +193,8 @@ namespace Tomboy.Sync
 				}
 			} catch (KeyringException ke) {
 				Logger.Warn ("Getting configuration from the GNOME " +
-				              "keyring failed with the following message: " +
-				              ke.Message);
+				             "keyring failed with the following message: " +
+				             ke.Message);
 				// TODO: If the following fails, retrieve all but password from GConf,
 				//       and prompt user for password. (some password caching would be nice, too)
 				// Retrieve configuration from GConf
@@ -203,12 +203,12 @@ namespace Tomboy.Sync
 				//password = null; // TODO: Prompt user for password
 				//throw;
 			}
-			
+
 			return !string.IsNullOrEmpty (url)
-					&& !string.IsNullOrEmpty (username)
-					&& !string.IsNullOrEmpty (password);
+			       && !string.IsNullOrEmpty (username)
+			       && !string.IsNullOrEmpty (password);
 		}
-		
+
 		/// <summary>
 		/// Save config settings
 		/// </summary>
@@ -224,28 +224,28 @@ namespace Tomboy.Sync
 				string keyring = Ring.GetDefaultKeyring ();
 
 				if (items.Length == 0)
-					Ring.CreateItem (keyring, ItemType.NetworkPassword, keyring_item_name, 
-					                update_request_attributes, password, true);
+					Ring.CreateItem (keyring, ItemType.NetworkPassword, keyring_item_name,
+					                 update_request_attributes, password, true);
 				else {
-					Ring.SetItemInfo (keyring, items [0].ItemID, ItemType.NetworkPassword, 
-					                 keyring_item_name, password);
+					Ring.SetItemInfo (keyring, items [0].ItemID, ItemType.NetworkPassword,
+					                  keyring_item_name, password);
 					Ring.SetItemAttributes (keyring, items [0].ItemID, update_request_attributes);
 				}
 			} catch (KeyringException ke) {
 				Logger.Warn ("Saving configuration to the GNOME " +
-				              "keyring failed with the following message: " +
-				              ke.Message);
+				             "keyring failed with the following message: " +
+				             ke.Message);
 				// TODO: If the above fails (no keyring daemon), save all but password
 				//       to GConf, and notify user.
 				// Save configuration into GConf
 				//Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 				//Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
 				throw new TomboySyncException (Catalog.GetString ("Saving configuration to the GNOME keyring " +
-				                                                  "failed with the following message:") +
+				                               "failed with the following message:") +
 				                               "\n\n" + ke.Message);
 			}
 		}
-		
+
 		/// <summary>
 		/// Get config settings
 		/// </summary>
@@ -254,11 +254,11 @@ namespace Tomboy.Sync
 			url = urlEntry.Text.Trim ();
 			username = usernameEntry.Text.Trim ();
 			password = passwordEntry.Text.Trim ();
-				
+
 			return !string.IsNullOrEmpty (url)
-					&& !string.IsNullOrEmpty (username)
-					&& !string.IsNullOrEmpty (password);
+			       && !string.IsNullOrEmpty (username)
+			       && !string.IsNullOrEmpty (password);
 		}
-		#endregion // Private Methods
+#endregion // Private Methods
 	}
 }

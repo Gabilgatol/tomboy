@@ -35,8 +35,8 @@ namespace Tomboy
 		{
 			try {
 				log = File.CreateText (Path.Combine (
-					Environment.GetEnvironmentVariable ("HOME"), 
-					".tomboy.log"));
+				                               Environment.GetEnvironmentVariable ("HOME"),
+				                               ".tomboy.log"));
 				log.Flush ();
 			} catch (IOException) {
 				// FIXME: Use temp file
@@ -56,10 +56,10 @@ namespace Tomboy
 			console.Log (lvl, msg, args);
 
 			if (log != null) {
-				msg = string.Format ("{0} [{1}]: {2}", 
-						     DateTime.Now.ToString(), 
-						     Enum.GetName (typeof (Level), lvl), 
-						     msg);
+				msg = string.Format ("{0} [{1}]: {2}",
+				                     DateTime.Now.ToString(),
+				                     Enum.GetName (typeof (Level), lvl),
+				                     msg);
 				log.WriteLine (msg, args);
 				log.Flush();
 			}
@@ -67,7 +67,7 @@ namespace Tomboy
 	}
 
 	// This class provides a generic logging facility. By default all
-	// information is written to standard out and a log file, but other 
+	// information is written to standard out and a log file, but other
 	// loggers are pluggable.
 	public static class Logger
 	{
@@ -79,14 +79,14 @@ namespace Tomboy
 
 		public static Level LogLevel
 		{
-			get { return log_level; }
-			set { log_level = value; }
+		        get { return log_level; }
+		        set { log_level = value; }
 		}
 
 		public static ILogger LogDevice
 		{
-			get { return log_dev; }
-			set { log_dev = value; }
+		        get { return log_dev; }
+		        set { log_dev = value; }
 		}
 
 		public static void Debug (string msg, params object[] args)

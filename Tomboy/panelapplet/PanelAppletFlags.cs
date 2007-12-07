@@ -10,10 +10,10 @@ namespace _Gnome {
 	[Flags]
 	public enum PanelAppletFlags {
 
-		FlagsNone,
-		ExpandMajor = 1 << 0,
-		ExpandMinor = 1 << 1,
-		HasHandle = 1 << 2,
+	        FlagsNone,
+	        ExpandMajor = 1 << 0,
+	        ExpandMinor = 1 << 1,
+	        HasHandle = 1 << 2,
 	}
 #endregion
 }

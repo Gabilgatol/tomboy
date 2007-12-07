@@ -5,8 +5,8 @@ namespace Tomboy.FixedWidth
 {
 	class FixedWidthTag : NoteTag
 	{
-		public FixedWidthTag () 
-			: base ("monospace") 
+		public FixedWidthTag ()
+				: base ("monospace")
 		{
 		}
 

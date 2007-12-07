@@ -5,9 +5,9 @@ namespace Tomboy.Bugzilla
 {
 	public class BugzillaLink : DynamicNoteTag
 	{
-                private const string UriAttributeName = "uri";
-                private const string StockIconFilename = "stock_bug.png";
-                
+		private const string UriAttributeName = "uri";
+		private const string StockIconFilename = "stock_bug.png";
+
 		public override void Initialize (string element_name)
 		{
 			base.Initialize (element_name);
@@ -22,36 +22,36 @@ namespace Tomboy.Bugzilla
 
 		public string BugUrl
 		{
-			get { return (string) Attributes [UriAttributeName]; }
-			set {
-                                Attributes [UriAttributeName] = value;
-                                SetImage ();
-                        }
+		        get { return (string) Attributes [UriAttributeName]; }
+		        set {
+			        Attributes [UriAttributeName] = value;
+			        SetImage ();
+		        }
 		}
-                
-                private void SetImage()
-                {
-                        System.Uri uri = null;
-                        try {
-                                uri = new System.Uri(BugUrl);
-                        } catch {}
 
-                        if (uri == null) {
-                                Image = new Gdk.Pixbuf(null, StockIconFilename);
-                                return;
-                        }
+		private void SetImage()
+		{
+			System.Uri uri = null;
+			try {
+				uri = new System.Uri(BugUrl);
+			} catch {}
 
-                        string host = uri.Host;
-                        // TODO: Get this in a safer way
-                        string imageDir = "~/.tomboy/BugzillaIcons/";
-                        string imagePath = imageDir.Replace ("~", Environment.GetEnvironmentVariable ("HOME")) + host + ".png";
+			if (uri == null) {
+					Image = new Gdk.Pixbuf(null, StockIconFilename);
+					return;
+				}
 
-                        try {
-                                Image = new Gdk.Pixbuf (imagePath);
-                        } catch (GLib.GException) {
-                                Image = new Gdk.Pixbuf(null, StockIconFilename);
-                        }
-               }
+			string host = uri.Host;
+			// TODO: Get this in a safer way
+			string imageDir = "~/.tomboy/BugzillaIcons/";
+			string imagePath = imageDir.Replace ("~", Environment.GetEnvironmentVariable ("HOME")) + host + ".png";
+
+			try {
+				Image = new Gdk.Pixbuf (imagePath);
+			} catch (GLib.GException) {
+				Image = new Gdk.Pixbuf(null, StockIconFilename);
+			}
+		}
 
 		protected override bool OnActivate (NoteEditor editor, Gtk.TextIter start, Gtk.TextIter end)
 		{
@@ -62,13 +62,13 @@ namespace Tomboy.Bugzilla
 			return true;
 		}
 
-                protected override void OnAttributeRead (string attributeName)
-                {
-                        base.OnAttributeRead (attributeName);
-                        
-                        if (attributeName == UriAttributeName)
-                                SetImage ();
-                }
+		protected override void OnAttributeRead (string attributeName)
+		{
+			base.OnAttributeRead (attributeName);
+
+			if (attributeName == UriAttributeName)
+				SetImage ();
+		}
 
 	}
 }

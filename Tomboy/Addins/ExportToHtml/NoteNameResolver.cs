@@ -15,9 +15,9 @@ namespace Tomboy.ExportToHtml
 			this.manager = manager;
 		}
 
-		public override System.Net.ICredentials Credentials 
+		public override System.Net.ICredentials Credentials
 		{
-			set { }
+		        set { }
 		}
 
 		public override object GetEntity (Uri absolute_uri, string role, Type of_object_to_return)

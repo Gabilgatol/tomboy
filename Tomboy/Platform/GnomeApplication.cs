@@ -14,37 +14,37 @@ namespace Tomboy.Platform
 	{
 		private Gnome.Program program;
 
-		public void Initialize (string locale_dir, 
-					       string display_name, 
-					       string process_name,  
-					       string [] args)
+		public void Initialize (string locale_dir,
+		                        string display_name,
+		                        string process_name,
+		                        string [] args)
 		{
 			try {
 				SetProcessName (process_name);
 			} catch {} // Ignore exception if fail (not needed to run)
 
 			Gtk.Application.Init ();
-			program = new Gnome.Program (display_name, 
-						     Defines.VERSION, 
-						     Gnome.Modules.UI, 
-						     args);
-			
+			program = new Gnome.Program (display_name,
+			                             Defines.VERSION,
+			                             Gnome.Modules.UI,
+			                             args);
+
 			// Register handler for saving session when logging out of Gnome
 			Gnome.Client client = Gnome.Global.MasterClient ();
 			client.SaveYourself += OnSaveYourself;
 		}
 
 		public void RegisterSessionManagerRestart (string executable_path,
-								  string[] args, 
-								  string[] environment)
+		                string[] args,
+		                string[] environment)
 		{
 			if (executable_path == null)
 				return;
 
 			// Restart if we are running when the session ends or at crash...
 			Gnome.Client client = Gnome.Global.MasterClient ();
-			client.RestartStyle = 
-				Gnome.RestartStyle.IfRunning | Gnome.RestartStyle.Immediately;
+			client.RestartStyle =
+			        Gnome.RestartStyle.IfRunning | Gnome.RestartStyle.Immediately;
 			client.Die += OnSessionManagerDie;
 
 			foreach (string env in environment) {
@@ -54,8 +54,8 @@ namespace Tomboy.Platform
 				}
 			}
 
-			// Get the args for session restart... 	 
-			string [] restart_args = new string [args.Length + 1]; 	 
+			// Get the args for session restart...
+			string [] restart_args = new string [args.Length + 1];
 			restart_args [0] = executable_path;
 			args.CopyTo (restart_args, 1);
 			client.SetRestartCommand (restart_args.Length, restart_args);
@@ -88,23 +88,23 @@ namespace Tomboy.Platform
 		}
 
 		[DllImport("libc")]
-		private static extern int prctl (int option, 
-						 byte [] arg2, 
-						 IntPtr arg3, 
-						 IntPtr arg4, 
-						 IntPtr arg5);
+		private static extern int prctl (int option,
+			                                 byte [] arg2,
+			                                 IntPtr arg3,
+			                                 IntPtr arg4,
+			                                 IntPtr arg5);
 
 		// From Banshee: Banshee.Base/Utilities.cs
 		private void SetProcessName (string name)
 		{
-			if (prctl (15 /* PR_SET_NAME */, 
-				   Encoding.ASCII.GetBytes (name + "\0"),
-				   IntPtr.Zero, 
-				   IntPtr.Zero, 
-				   IntPtr.Zero) != 0)
+			if (prctl (15 /* PR_SET_NAME */,
+			                Encoding.ASCII.GetBytes (name + "\0"),
+			                IntPtr.Zero,
+			                IntPtr.Zero,
+			                IntPtr.Zero) != 0)
 				throw new ApplicationException (
-					"Error setting process name: " +
-					Mono.Unix.Native.Stdlib.GetLastError ());
+				        "Error setting process name: " +
+				        Mono.Unix.Native.Stdlib.GetLastError ());
 		}
 
 		private void OnSessionManagerDie (object sender, EventArgs args)
@@ -136,7 +136,7 @@ namespace Tomboy.Platform
 		private void OnSaveYourself (object sender, Gnome.SaveYourselfArgs args)
 		{
 			Logger.Log ("Received request for saving session");
-			
+
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
 		}

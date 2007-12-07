@@ -21,18 +21,18 @@ namespace Tomboy
 		static BonoboUIVerb [] menu_verbs;
 
 		public TomboyApplet (IntPtr raw)
-			: base (raw)
+				: base (raw)
 		{
 		}
 
-		public override string IID 
+		public override string IID
 		{
-			get { return "OAFIID:TomboyApplet"; }
+		        get { return "OAFIID:TomboyApplet"; }
 		}
 
-		public override string FactoryIID 
+		public override string FactoryIID
 		{
-			get { return "OAFIID:TomboyApplet_Factory"; }
+		        get { return "OAFIID:TomboyApplet_Factory"; }
 		}
 
 		public override void Creation ()
@@ -52,18 +52,18 @@ namespace Tomboy
 
 			if (menu_verbs == null) {
 				menu_verbs = new BonoboUIVerb [] {
-					new BonoboUIVerb ("Props", ShowPreferencesVerb),
-					new BonoboUIVerb ("Help", ShowHelpVerb),
-					new BonoboUIVerb ("About", ShowAboutVerb)
-				};
+				                     new BonoboUIVerb ("Props", ShowPreferencesVerb),
+				                     new BonoboUIVerb ("Help", ShowHelpVerb),
+				                     new BonoboUIVerb ("About", ShowAboutVerb)
+				             };
 			}
 
 			SetupMenuFromResource (null, "GNOME_TomboyApplet.xml", menu_verbs);
 		}
 
-		new void SetupMenuFromResource (Assembly asm, 
-						string resource, 
-						BonoboUIVerb [] verbs)
+		new void SetupMenuFromResource (Assembly asm,
+		                                string resource,
+		                                BonoboUIVerb [] verbs)
 		{
 			if (asm == null)
 				asm = GetType ().Assembly;
@@ -96,9 +96,9 @@ namespace Tomboy
 			Tomboy.ActionManager ["ShowAboutAction"].Activate ();
 		}
 
-		protected override void OnChangeBackground (PanelAppletBackgroundType type, 
-							    Gdk.Color                 color, 
-							    Gdk.Pixmap                pixmap)
+		protected override void OnChangeBackground (PanelAppletBackgroundType type,
+		                Gdk.Color                 color,
+		                Gdk.Pixmap                pixmap)
 		{
 			if (tray == null)
 				return;
@@ -140,7 +140,7 @@ namespace Tomboy
 		private static extern IntPtr egg_tray_icon_new (string name);
 
 		public TomboyTrayIcon ()
-			: this (Tomboy.DefaultNoteManager)
+				: this (Tomboy.DefaultNoteManager)
 		{
 		}
 
@@ -158,7 +158,7 @@ namespace Tomboy
 			ShowAll ();
 		}
 
-		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
+		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args)
 		{
 			Gtk.Widget parent = (Gtk.Widget) sender;
 
@@ -224,10 +224,10 @@ namespace Tomboy
 		{
 			Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
 		}
-		
+
 		public TomboyTray TomboyTray
 		{
-			get { return tray; }
+		        get { return tray; }
 		}
 	}
 }
