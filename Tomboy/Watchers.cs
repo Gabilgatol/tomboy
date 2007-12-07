@@ -10,17 +10,18 @@ using Tomboy.Platform;
 
 namespace Tomboy
 {
-	public class NoteRenameWatcher : NotePlugin
+	public class NoteRenameWatcher : NoteAddin
 	{
 		bool editing_title;
 		Gtk.TextTag title_tag;
+		HIGMessageDialog title_taken_dialog = null; 
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			title_tag = Note.TagTable.Lookup ("note-title");
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -39,11 +40,13 @@ namespace Tomboy
 			get { return Buffer.StartIter; }
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			Buffer.MarkSet += OnMarkSet;
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
+			
+			Window.Editor.FocusOutEvent += OnEditorFocusOut;
 
 			// FIXME: Needed because we hide on delete event, and
 			// just hide on accelerator key, so we can't use delete
@@ -54,6 +57,16 @@ namespace Tomboy
 			// Clean up title line
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
 			Buffer.ApplyTag (title_tag, TitleStart, TitleEnd);
+		}
+		
+		void OnEditorFocusOut (object sender, Gtk.FocusOutEventArgs args)
+		{
+			// TODO: Duplicated from Update(); refactor instead
+			if (editing_title) {
+				Changed ();
+				UpdateNoteTitle ();
+				editing_title = false;
+			}
 		}
 
 		// This only gets called on an explicit move, not when typing
@@ -109,7 +122,7 @@ namespace Tomboy
 			Buffer.ApplyTag (title_tag, TitleStart, TitleEnd);
 
 			// NOTE: Use "(Untitled #)" for empty first lines...
-			string title = TitleStart.GetText (TitleEnd).Trim ();
+			string title = TitleStart.GetSlice (TitleEnd).Trim ();
 			if (title == string.Empty)
 				title = GetUniqueUntitled ();
 
@@ -157,6 +170,7 @@ namespace Tomboy
 				return false;
 			}
 
+			Logger.Debug ("Renaming note from {0} to {1}", Note.Title, title);
 			Note.Title = title;
 			return true;
 		}
@@ -174,21 +188,31 @@ namespace Tomboy
 								  "for this note before " +
 								  "continuing."),
 					       title);
-
-			HIGMessageDialog dialog = 
-				new HIGMessageDialog (Window,
+			
+			/// Only pop open a warning dialog when one isn't already present
+			/// Had to add this check because this method is being called twice.
+			if (title_taken_dialog == null) {
+				title_taken_dialog =
+					new HIGMessageDialog (Window,
 						      Gtk.DialogFlags.DestroyWithParent,
 						      Gtk.MessageType.Warning,
 						      Gtk.ButtonsType.Ok,
 						      Catalog.GetString ("Note title taken"),
 						      message);
-
-			dialog.Run ();
-			dialog.Destroy ();
+				title_taken_dialog.Modal = true;
+				title_taken_dialog.Response +=
+					delegate (object sender, Gtk.ResponseArgs args) {
+						title_taken_dialog.Destroy ();
+						title_taken_dialog = null;
+					};
+			}
+			
+			title_taken_dialog.Present ();
 		}
 	}
 
-	public class NoteSpellChecker : NotePlugin
+#if FIXED_GTKSPELL
+	public class NoteSpellChecker : NoteAddin
 	{
 		IntPtr obj_ptr = IntPtr.Zero;
 
@@ -236,17 +260,17 @@ namespace Tomboy
 			}
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			// Do nothing.
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			Buffer.TagApplied += TagApplied;
 			Preferences.SettingChanged += OnEnableSpellcheckChanged;
@@ -319,8 +343,9 @@ namespace Tomboy
 			}
 		}
 	}
+#endif
 
-	public class NoteUrlWatcher : NotePlugin
+	public class NoteUrlWatcher : NoteAddin
 	{
 		NoteTag url_tag;
 		Gtk.TextMark click_mark;
@@ -338,17 +363,17 @@ namespace Tomboy
 			text_event_connected = false;
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			url_tag = (NoteTag) Note.TagTable.Lookup ("link:url");
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 #if FIXED_GTKSPELL
 			// NOTE: This hack helps avoid multiple URL opens for
@@ -378,7 +403,7 @@ namespace Tomboy
 
 		string GetUrl (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			string url = start.GetText (end);
+			string url = start.GetSlice (end);
 
 			// FIXME: Needed because the file match is greedy and
 			// eats a leading space.
@@ -452,7 +477,7 @@ namespace Tomboy
 
 			Buffer.RemoveTag (url_tag, start, end);
 
-			for (Match match = regex.Match (start.GetText (end)); 
+			for (Match match = regex.Match (start.GetSlice (end)); 
 			     match.Success; 
 			     match = match.NextMatch ()) {
 				System.Text.RegularExpressions.Group group = match.Groups [1];
@@ -560,7 +585,7 @@ namespace Tomboy
 		}
 	}
 
-	public class NoteLinkWatcher : NotePlugin
+	public class NoteLinkWatcher : NoteAddin
 	{
 		NoteTag url_tag;
 		NoteTag link_tag;
@@ -568,7 +593,7 @@ namespace Tomboy
 
 		static bool text_event_connected;
 
-		protected override void Initialize () 
+		public override void Initialize () 
 		{
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
@@ -579,14 +604,14 @@ namespace Tomboy
 			broken_link_tag = (NoteTag) Note.TagTable.Lookup ("link:broken");
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			Manager.NoteDeleted -= OnNoteDeleted;
 			Manager.NoteAdded -= OnNoteAdded;
 			Manager.NoteRenamed -= OnNoteRenamed;
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 #if FIXED_GTKSPELL
 			// NOTE: This avoid multiple link opens for cases where
@@ -670,7 +695,7 @@ namespace Tomboy
 				if (range.Text.ToLower () != old_title_lower)
 					continue;
 
-				Logger.Log ("Replacing '{0}' with '{0}'", 
+				Logger.Log ("Replacing '{0}' with '{1}'", 
 					    range.Text, 
 					    renamed.Title);
 
@@ -735,7 +760,7 @@ namespace Tomboy
 
 		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 		{
-			ArrayList hits = Manager.TitleTrie.FindMatches (start.GetText (end));
+			ArrayList hits = Manager.TitleTrie.FindMatches (start.GetSlice (end));
 			foreach (TrieHit hit in hits) {
 				DoHighlight (hit, start, end);
 			}
@@ -814,7 +839,7 @@ namespace Tomboy
 		}
 	}
 
-	public class NoteWikiWatcher : NotePlugin
+	public class NoteWikiWatcher : NoteAddin
 	{
 		Gtk.TextTag broken_link_tag;
 
@@ -828,17 +853,17 @@ namespace Tomboy
 			regex = new Regex (WIKIWORD_REGEX, RegexOptions.Compiled);
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			broken_link_tag = Note.TagTable.Lookup ("link:broken");
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			if ((bool) Preferences.Get (Preferences.ENABLE_WIKIWORDS)) {
 				Buffer.InsertText += OnInsertText;
@@ -922,7 +947,7 @@ namespace Tomboy
 		}
 	}
 
-	public class MouseHandWatcher : NotePlugin
+	public class MouseHandWatcher : NoteAddin
 	{
 		bool hovering_on_link;
 
@@ -935,17 +960,17 @@ namespace Tomboy
 			hand_cursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			// Do nothing.
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			Gtk.TextView editor = Window.Editor;
 			editor.MotionNotifyEvent += OnEditorMotion;
@@ -1050,6 +1075,58 @@ namespace Tomboy
 				else 
 					win.Cursor = normal_cursor;
 			}
+		}
+	}
+	
+	public class NoteTagsWatcher : NoteAddin
+	{
+		static NoteTagsWatcher ()
+		{
+		}
+
+		public override void Initialize ()
+		{
+			Note.TagAdded += OnTagAdded;
+			Note.TagRemoving += OnTagRemoving;
+			Note.TagRemoved += OnTagRemoved;
+		}
+
+		public override void Shutdown ()
+		{
+			Note.TagAdded -= OnTagAdded;
+			Note.TagRemoving -= OnTagRemoving;
+			Note.TagRemoved -= OnTagRemoved;
+		}
+
+		public override void OnNoteOpened ()
+		{
+			// FIXME: Just for kicks, spit out the current tags
+			Logger.Debug ("{0} tags:", Note.Title);
+			foreach (Tag tag in Note.Tags) {
+				Logger.Debug ("\t{0}", tag.Name);
+			}
+		}
+		
+		void OnTagAdded (Note note, Tag tag)
+		{
+			Logger.Debug ("Tag added to {0}: {1}", note.Title, tag.Name);
+		}
+		
+		void OnTagRemoving (Note note, Tag tag)
+		{
+			Logger.Debug ("Removing tag from {0}: {1}", note.Title, tag.Name);
+		}
+		
+		// <summary>
+		// Keep the TagManager clean by removing tags that are no longer
+		// tagging any other notes.
+		// </summary>
+		void OnTagRemoved (Note note, string tag_name)
+		{
+			Tag tag = TagManager.GetTag (tag_name);
+Logger.Debug ("Watchers.OnTagRemoved popularity count: {0}", tag.Popularity);
+			if (tag.Popularity == 0)
+				TagManager.RemoveTag (tag);
 		}
 	}
 }

@@ -1,7 +1,10 @@
 
 using System;
 using System.IO;
+using System.Xml;
 using Mono.Unix;
+
+using Tomboy.Sync;
 
 namespace Tomboy 
 {
@@ -9,9 +12,11 @@ namespace Tomboy
 	{
 		static NoteManager manager;
 		static TomboyTrayIcon tray_icon;
+		static TomboyTray tomboy_tray = null;
 		static bool tray_icon_showing = false;
 		static bool is_panel_applet = false;
 		static PreferencesDialog prefs_dlg;
+		static SyncDialog sync_dlg;
 #if ENABLE_DBUS
 		static RemoteControl remote_control;
 #endif
@@ -33,11 +38,13 @@ namespace Tomboy
 
 			Initialize ("tomboy", "Tomboy", "tomboy", args);
 
-			PluginManager.CheckPluginUnloading = cmd_line.CheckPluginUnloading;
+//			PluginManager.CheckPluginUnloading = cmd_line.CheckPluginUnloading;
 
 			// Create the default note manager instance.
 			string note_path = GetNotePath (cmd_line.NotePath);
 			manager = new NoteManager (note_path);
+
+			SyncManager.Initialize ();
 
 			// Register the manager to handle remote requests.
 			RegisterRemoteControl (manager);
@@ -50,6 +57,12 @@ namespace Tomboy
 			}
 #endif
 			ActionManager am = ActionManager;
+			
+			ApplicationAddin [] addins =
+				manager.AddinManager.GetApplicationAddins ();
+			foreach (ApplicationAddin addin in addins) {
+				addin.Initialize ();
+			}
 
 			if (cmd_line.UsePanelApplet) {
 				tray_icon_showing = true;
@@ -164,6 +177,7 @@ namespace Tomboy
 			am ["ShowAboutAction"].Activated += OnShowAboutAction;
 			am ["TrayNewNoteAction"].Activated += OnNewNoteAction;
 			am ["ShowSearchAllNotesAction"].Activated += OpenSearchAll;
+			am ["NoteSynchronizationAction"].Activated += OpenNoteSyncWindow;
 		}
 		
 		static void OnNewNoteAction (object sender, EventArgs args)
@@ -185,7 +199,23 @@ namespace Tomboy
 			}
 		}
 		
-		static void OnQuitTomboyAction (object sender, EventArgs args)
+		static void OpenNoteSyncWindow (object sender, EventArgs args)
+		{
+			if (sync_dlg == null) {
+				sync_dlg = new SyncDialog ();
+				sync_dlg.Response += OnSyncDialogResponse;
+			}
+			
+			sync_dlg.Present ();
+		}
+		
+		static void OnSyncDialogResponse (object sender, Gtk.ResponseArgs args)
+		{
+			((Gtk.Widget) sender).Destroy ();
+			sync_dlg = null;
+		}
+	                 
+	    static void OnQuitTomboyAction (object sender, EventArgs args)
 		{
 			if (Tomboy.IsPanelApplet)
 				return; // Ignore the quit action
@@ -197,7 +227,7 @@ namespace Tomboy
 		static void OnShowPreferencesAction (object sender, EventArgs args)
 		{
 			if (prefs_dlg == null) {
-				prefs_dlg = new PreferencesDialog (manager.PluginManager);
+				prefs_dlg = new PreferencesDialog (manager.AddinManager);
 				prefs_dlg.Response += OnPreferencesResponse;
 			}
 			prefs_dlg.Present ();
@@ -245,8 +275,8 @@ namespace Tomboy
 				Catalog.GetString ("Copyright \xa9 2004-2007 Alex Graveley");
 			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
 							    "note-taking application.");
-			about.Website = "http://www.gnome.org/projects/tomboy/";
-			about.WebsiteLabel = Catalog.GetString("Homepage & Donations");
+			about.Website = Defines.TOMBOY_WEBSITE;
+			about.WebsiteLabel = Catalog.GetString("Homepage");
 			about.Authors = authors;
 			about.Documenters = documenters;
 			about.TranslatorCredits = translators;
@@ -277,7 +307,18 @@ namespace Tomboy
 		
 		public static TomboyTray Tray
 		{
-			get { return tray_icon.TomboyTray; }
+			get {
+				if (tray_icon != null)
+					return tray_icon.TomboyTray;
+				else
+					return tomboy_tray;
+			}
+			set { tomboy_tray = value; }
+		}
+		
+		public static SyncDialog SyncDialog
+		{
+			get { return sync_dlg; }
 		}
 	}
 
@@ -289,11 +330,12 @@ namespace Tomboy
 		bool open_start_here;
 		string open_note_uri;
 		string open_note_name;
+		string open_external_note_path;
 		string highlight_search;
 		string note_path;
 		string search_text;
 		bool open_search;
-		bool check_plugin_unloading;
+//		bool check_plugin_unloading;
 
 		public TomboyCommandLine (string [] args)
 		{
@@ -312,7 +354,8 @@ namespace Tomboy
 						open_note_name != null ||
 						open_note_uri != null || 
 						open_search ||
-						open_start_here;
+						open_start_here ||
+						open_external_note_path != null;
 			}
 		}
 
@@ -321,10 +364,10 @@ namespace Tomboy
 			get { return note_path; }
 		}
 
-		public bool CheckPluginUnloading
-		{
-			get { return check_plugin_unloading; }
-		}
+//		public bool CheckPluginUnloading
+//		{
+//			get { return check_plugin_unloading; }
+//		}
 
 		public static void PrintAbout () 
 		{
@@ -363,10 +406,11 @@ namespace Tomboy
 					"in the opened note.\n");
 #endif
 
-			usage +=
-				Catalog.GetString (
-					"  --check-plugin-unloading\tCheck if plugins are " +
-					"unloaded properly.\n");
+// TODO: Restore this functionality with addins
+//			usage +=
+//				Catalog.GetString (
+//					"  --check-plugin-unloading\tCheck if plugins are " +
+//					"unloaded properly.\n");
 
 #if !ENABLE_DBUS
 			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
@@ -414,7 +458,10 @@ namespace Tomboy
 					// If the argument looks like a Uri, treat it like a Uri.
 					if (args [idx].StartsWith ("note://tomboy/"))
 						open_note_uri = args [idx];
-					else
+					else if (File.Exists (args [idx])) {
+						// This is potentially a note file
+						open_external_note_path = args [idx];
+					} else
 						open_note_name = args [idx];
 
 					break;
@@ -490,9 +537,9 @@ namespace Tomboy
 					open_search = true;
 					break;
 
-				case "--check-plugin-unloading":
-					check_plugin_unloading = true;
-					break;
+//				case "--check-plugin-unloading":
+//					check_plugin_unloading = true;
+//					break;
 
 				case "--version":
 					PrintAbout ();
@@ -557,6 +604,52 @@ namespace Tomboy
 								      highlight_search);
 				else
 					remote.DisplayNote (open_note_uri);
+			}
+			
+			if (open_external_note_path != null) {
+				string note_id = Path.GetFileNameWithoutExtension (open_external_note_path);
+				if (note_id != null && note_id != string.Empty) {
+					// Attempt to load the note, assuming it might already
+					// be part of our notes list.
+					if (remote.DisplayNote (
+							string.Format ("note://tomboy/{0}", note_id)) == false) {
+
+						StreamReader sr = File.OpenText (open_external_note_path);
+						if (sr != null) {
+							string noteTitle = null;
+							string noteXml = sr.ReadToEnd ();
+							
+							// Make sure noteXml is parseable
+							XmlDocument xmlDoc = new XmlDocument ();
+							try {
+								xmlDoc.LoadXml (noteXml);
+							} catch {
+								noteXml = null;
+							}
+							
+							if (noteXml != null) {
+								noteTitle = NoteArchiver.Instance.GetTitleFromNoteXml (noteXml);
+								if (noteTitle != null) {
+									// Check for conflicting titles
+									string baseTitle = (string)noteTitle.Clone ();
+									for (int i = 1; remote.FindNote (noteTitle) != string.Empty; i++)
+										noteTitle = baseTitle + " (" + i.ToString() + ")";
+									
+									string note_uri = remote.CreateNamedNote (noteTitle);
+									
+									// Update title in the note XML
+									noteXml = NoteArchiver.Instance.GetRenamedNoteXml (noteXml, baseTitle, noteTitle);
+
+									if (note_uri != null) {
+										// Load in the XML contents of the note file
+										if (remote.SetNoteCompleteXml (note_uri, noteXml))
+											remote.DisplayNote (note_uri);
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			
 			if (open_search) {

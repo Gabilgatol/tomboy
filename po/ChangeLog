@@ -1,3 +1,654 @@
+2007-12-03  Changwoo Ryu  <cwryu@debian.org>
+
+	* ko.po: Updated Korean translation.
+
+2007-11-26  Sunil Mohan Adapa  <sunil@atc.tcs.com>
+
+	* LINGUAS, te.po: Added Telugu translation done by
+	Matapathi Pramod <pramod@swecha.net>.
+
+2007-11-19  Marcel Telka  <marcel@telka.sk>
+
+	* sk.po: Added Slovak translation by Pavol Klačanský.
+	* LINGUAS: Added sk.
+
+2007-11-13  Matej Urbančič <mateju@svn.gnome.org>
+
+	* sl.po: Updated Slovenian Translation.
+
+2007-11-01  Jorge Gonzalez  <jorgegonz@svn.gnome.org> 
+
+        * es/es.po: Updated Spanish translation
+
+2007-10-29  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Translation updated by Priit Laes.
+
+2007-10-29  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Add missing file.
+	* nb.po: Updated Norwegian bokmål translation.
+
+2007-10-23  Djihed Afifi <djihed@gmail.com> 
+
+	* ar.po: Updated Arabic Translation by Anas Husseini.
+
+2007-10-22  Matej Urbančič <mateju@svn.gnome.org>
+
+	* sl.po: Updated Slovenian translation.
+
+2007-10-21  Djihed Afifi <djihed@gmail.com> 
+
+	* ar.po: Updated Arabic Translation by Anas Husseini.
+
+2007-10-19  Matej Urbančič  <mateju@svn.gnome.org>
+
+	* sl.po: Updated Slovenian translation.
+
+2007-10-04  Danishka Navin <danishka@gmail.com>
+
+	* si.po: Updated Sinhala translation by Harshana Weerasinghe
+
+2007-10-03  Ihar Hrachyshka <ihar.hrachyshka@gmail.com>
+
+	* be@latin.po: Updated Belarusian Latin translation.
+
+2007-10-02  Ihar Hrachyshka <ihar.hrachyshka@gmail.com>
+
+	* be@latin.po: Added Belarusian Latin translation.
+	* LINGUAS: Added be@latin.
+
+2007-09-22  Gil Forcada <gforcada@svn.gnome.org>
+
+	* ca.po: Updated Catalan translation.
+
+2007-09-17  Espen Stefansen  <espens@svn.gnome.org>
+
+	* nb.po: Updated Norwegian bokmål translation.
+
+2007-09-17  Djihed Afifi <djihed@gmail.com> 
+
+	* ar.po: Updated Arabic Translation by Djihed Afifi.
+
+2007-09-17 Maxim Dziumanenko <dziumanenko@gmail.com>
+
+	* uk.po: Update Ukrainian translation.
+	* ru.po: Fix date format specificators.
+
+2007-09-17 Jordi Mas <jmas@softcatala.org>
+
+	* ca.po: Updated Catalan translation
+
+2007-09-16  Gintautas Miliauskas  <gintas@akl.lt>
+
+	* lt.po: Updated Lithuanian translation.
+
+2007-09-16  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-09-15  Alexandre Prokoudine <alexandre.prokoudine@gmail.com>
+
+	* ru.po: Updated Russian translation.
+
+2007-09-15  Takeshi AIHANA <takeshi.aihana@gmail.com>
+
+	* ja.po: Updated Japanese translation.
+
+2007-09-15  Claude Paroz  <claude@2xlibre.net>
+
+	* fr.po: Updated French translation.
+
+2007-09-15  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-09-15  Changwoo Ryu  <cwryu@debian.org>
+
+	* ko.po: Updated Korean translation by Young-Ho Cha.
+
+2007-09-13  Djihed Afifi <djihed@gmail.com> 
+
+	* ar.po: Updated Arabic Translation by Khaled Hosny.
+
+2007-09-13  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-09-12  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
+
+        * es.po: Updated Spanish translation.
+
+2007-09-12  Goran Rakić  <grakic@devbase.net>
+
+	* sr.po, sr@Latn.po: Updated Serbian translation.
+
+2007-09-11  Hendrik Richter  <hendrikr@gnome.org>
+
+	* de.po: Updated German translation.
+
+2007-09-10  Leonardo Ferreira Fontenelle  <leonardof@svn.gnome.org>
+
+	* pt_BR.po: Minor fix in Brazilian Portuguese translation.
+
+2007-09-10  Kenneth Nielsen  <k.nielsen81@gmail.com>
+
+	* da.po: Updated Danish translation
+
+2007-09-09  Duarte Loreto <happyguy_pt@hotmail.com>
+
+	* pt.po: Updated Portuguese translation.
+
+2007-09-08  Inaki Larranaga Murgoitio  <dooteo@zundan.com>
+
+        * eu.po: Updated Basque translation.
+
+2007-09-07  Raphael Higino  <raphaelh@svn.gnome.org>
+
+	* pt_BR.po: Updated Brazilian Portuguese translation
+	by Vladimir Melo <vladimirmelo@foresightlinux.org>.
+
+2007-09-06  Jochen Skulj  <jochen@jochenskulj.de>
+
+	* de.po: Updated German translation
+
+2007-09-06  Stéphane Raimbault  <stephane.raimbault@gmail.com>
+
+	* fr.po: Updated French translation by Jonathan Ernst and Stéphane
+	Raimbault.
+
+2007-09-06  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* nb.po: Updated Norwegian bokmål translation.
+
+2007-09-05  Wadim Dziedzic  <wadimd@svn.gnome.org>
+
+	* pl.po: Updated polish translation
+
+2007-09-05  Ani Peter <peter.ani@gmail.com>
+
+	* ml.po: Updated Malayalam Translation
+
+2007-09-05  Runa Bhattacharjee <runabh@gmail.com>
+
+	* bn_IN.po: Updated Bengali India Translation.
+
+2007-09-04  Jovan Naumovski  <jovan@lugola.net>
+ 
+	* mk.po: Updated Macedonian translation.
+
+2007-09-04   Clytie Siddall <clytie@riverland.net.au>
+
+	* vi.po: Updated Vietnamese translation.
+
+2007-09-04  Ankit Patel  <ankit644@yahoo.com>
+
+	* gu.po: Updated Gujarati Translation.
+
+2007-09-04  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation.
+
+2007-09-04 Gabor Kelemen  <kelemeng@gnome.hu>
+
+	* hu.po: Translation updated.
+
+2007-09-03  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation
+
+2007-09-03  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-09-03  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation updates by Ivar Smolin
+
+2007-09-03  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-09-03  Alexander Shopov  <ash@contact.bg>
+
+	* bg.po: Updated Bulgarian translation by
+	Alexander Shopov <ash@contact.bg>
+
+2007-09-03   Boyd Timothy <btimothy@gmail.com>
+
+	* POTFILES.in: Added
+	  Tomboy/Addins/PrintNotes/gtksourceprintjob.c
+	  since it's got some translatable files.  Fixes
+	  bug #473149.
+
+2007-09-03   Clytie Siddall <clytie@riverland.net.au>
+
+	* vi.po: Updated Vietnamese translation.
+
+2007-09-02  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation.
+
+2007-09-01  Takeshi AIHANA <takeshi.aihana@gmail.com>
+
+	* POTFILES.in: moved libtomboy/gedit-print.c to
+	  Tomboy/Addins/PrintNotes/gedit-print.c.
+
+	* ja.po: Updated Japanese translation.
+
+2007-09-01  Jovan Naumovski  <jovan@lugola.net>
+ 
+ 	 * mk.po: Updated Macedonian translation.
+
+2007-08-30  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation updates by Ivar Smolin <okul@linux.ee>
+
+2007-08-30  Stéphane Raimbault  <stephane.raimbault@gmail.com>
+
+	* fr.po: Fixed French translation.
+
+2007-08-30  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation updates by Ivar Smolin <okul@linux.ee>
+
+2007-08-29  Stéphane Raimbault  <stephane.raimbault@gmail.com>
+
+	* fr.po: Updated French translation by Yann Simon and Stéphane
+	Raimbault.
+
+2007-08-29  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-08-29  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation
+
+2007-08-29  Ankit Patel  <ankit644@yahoo.com>
+
+	* gu.po: Updated Gujarati Translation.
+
+2007-08-29  I. Felix <ifelix@svn.gnome.org>
+
+	* ta.po:  Tamil Translation updated by Tirumurthi Vasudevan
+
+2007-08-28  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-08-28  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* nb.po: Updated Norwegian bokmål translation.
+
+2007-08-28  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation
+
+2007-08-26  Raphael Higino  <raphaelh@svn.gnome.org>
+
+	* pt_BR.po: Updated Brazilian Portuguese translation
+	by Vladimir Melo <vladimirmelo@foresightlinux.org>.
+
+2007-08-26  Jovan Naumovski  <jovan@lugola.net>
+ 
+	* mk.po: Updated Macedonian translation.
+
+2007-08-25  Jochen Skulj <jochen@jochenskulj.de>
+
+	* de.po: Updated German translation
+
+2007-08-23  Artur Flinta  <aflinta@svn.gnome.org>
+
+	* pl.po: Updated Polish translation by GNOME PL Team.
+
+2007-08-22 Jordi Mas <jmas@softcatala.org>
+
+	* ca.po: Updated Catalan translation
+
+2007-08-19  Artur Flinta  <aflinta@svn.gnome.org>
+
+	* pl.po: Updated Polish translation by GNOME PL Team.
+
+2007-08-19  Takeshi AIHANA <takeshi.aihana@gmail.com>
+
+	* ja.po: Updated Japanese translation.
+
+2007-08-16  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation updates by Ivar Smolin <okul@linux.ee>
+
+2007-08-16  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation update by Ivar Smolin.
+
+2007-08-16  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation.
+
+2007-08-16  Ankit Patel  <ankit644@yahoo.com>
+
+	* gu.po: Updated Gujarati Translation.
+
+2007-08-15  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* nb.po: Updated Norwegian bokmål translation.
+
+2007-08-15  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-08-14  I. Felix <ifelix@svn.gnome.org>
+
+	* ta.po:  Tamil Translation updated by Tirumurthi Vasudevan
+
+2007-08-13  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-08-13  Žygimantas Beručka  <zygis@gnome.org>
+
+        * lt.po: Updated Lithuanian translation.
+
+2007-08-13  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation
+
+2007-08-13  Žygimantas Beručka  <zygis@gnome.org>
+
+	* lt.po: Updated Lithuanian translation.
+
+2007-08-13  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation.
+
+2007-08-12  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation 
+
+2007-08-10  Ankit Patel  <ankit644@yahoo.com>
+
+	* gu.po: Updated Gujarati Translation.
+
+2007-08-09  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* nb.po: Updated Norwegian bokmål translation from
+	Espen Stefansen.
+
+2007-08-09  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-08-06  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-08-06  I. Felix <ifelix@svn.gnome.org>
+
+	* ta.po:  Tamil Translation updated by Tirumurthi Vasudevan
+
+2007-08-05  Simos Xenitellis  <simos@gnome.org>
+
+	* el.po: Updated translation by Athanasios Lefteris 
+	<alefteris@gmail.com>, review by Simos.
+
+2007-08-05  Inaki Laranaga Murgoitio  <dooteo@zundan.com>
+
+	* eu.po: Updated Basque translation.
+
+2007-08-05  Leonardo Ferreira Fontenelle  <leonardof@svn.gnome.org>
+
+	* pt_BR.po: s/_Conteúdo/S_umário; see bug #461308.
+
+2007-08-05  Leonardo Ferreira Fontenelle  <leonardof@svn.gnome.org>
+
+	* pt_BR.po: Brazilian Portuguese translation updated by Vladimir Melo
+	<vladimirmelo@foresightlinux.org>.
+
+>>>>>>> .r1586
+2007-08-03  Danishka Navin  <snavin@svn.gnome.org>
+
+	* si.po: Added Sinhala translation by Danishka Navin
+	* LINGUAS: Added "si".
+
+2007-08-03  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation.
+
+2007-08-03  Wadim Dziedzic  <wadimd@svn.gnome.org>
+
+	* pl.po: Updated polish translation
+
+2007-08-01  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation.
+
+2007-08-01  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-08-01 Jordi Mas <jmas@softcatala.org>
+
+	* ca.po: Updated Catalan translation
+
+2007-08-01  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation by aka.ape <aka.ape@gmail.com>.
+
+2007-07-30  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation.
+
+2007-07-30  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-07-27  Claude Paroz <claude@2xlibre.net>
+
+	* POTFILES.skip: Added three more files ommitted from the previous commit.
+
+2007-07-26  Claude Paroz <claude@2xlibre.net>
+
+	reviewed by: Sanford Armstrong
+
+	* POTFILES.in:
+	* POTFILES.skip: Moved some Mono.Addins files from .in (commented) to .skip.
+	Fixes bug #458966.
+
+2007-07-25  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation by aka.ape <aka.ape@gmail.com>.
+
+2007-07-21 Gabor Kelemen  <kelemeng@gnome.hu>
+
+	* hu.po: Translation updated.
+
+2007-07-20  Takeshi AIHANA <takeshi.aihana@gmail.com>
+
+	* ja.po: Updated Japanese translation.
+
+2007-07-17  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-07-16  Ilkka Tuohela  <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation.
+
+2007-07-16  Vincent van Adrighem  <adrighem@gnome.org>
+
+	* nl.po: Translation updated by Tino Meinen.
+
+2007-07-15  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation update by Ivar Smolin.
+
+2007-07-13  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation update by Ivar Smolin.
+
+2007-07-12  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+        * es.po: Updated Spanish translation
+
+2007-07-12  I. Felix <ifelix@svn.gnome.org>
+
+	* ta.po:  Tamil Translation updated by Tirumurthi Vasudevan
+
+2007-07-08  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+        * es.po: Updated Spanish translation
+
+2007-07-05  I. Felix <ifelix@svn.gnome.org>
+
+	* ta.po:  Tamil Translation updated by Tirumurthi Vasudevan
+
+2007-07-02  Nguyễn Thái Ngọc Duy <pclouds@gmail.com>
+
+	* vi.po: Updated Vietnamese translation.
+
+2007-07-01  Nguyễn Thái Ngọc Duy <pclouds@gmail.com>
+
+	* vi.po: Updated Vietnamese translation.
+
+2007-06-28  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation update by Ivar Smolin.
+
+2007-06-28  Clytie Siddall <clytie@riverland.net.au>
+
+	* vi.po: Updated Vietnamese translation.
+
+2007-06-27  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-06-25  I. Felix <ifelix@svn.gnome.org>
+
+	* ta.po:  Tamil Translation updated by Tirumurthi Vasudevan
+
+2007-06-25  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+        * es.po: Updated Spanish translation
+
+2007-06-24  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Add a whole bunch of missing files.
+	* nb.po: Updated Norwegian bokmål translation.
+
+2007-06-17  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Estonian translation update by Ivar Smolin.
+
+2007-06-13  Pema Geyleg <pema.geyleg@gmail.com>
+
+	* dz.po: Updated dzongkha translation
+
+2007-06-13  Yair Hershkovitz  <yairhr@gmail.com>
+
+	* he.po: Updated Hebrew translation.
+
+2007-06-04  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation.
+
+2007-06-03  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Updated Estonian translation by Ivar Smolin <okul@linux.ee>.
+
+2007-06-02  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+        * es.po: Updated Spanish translation
+
+2007-05-26  Takeshi AIHANA <takeshi.aihana@gmail.com>
+
+	* ja.po: Updated Japanese translation.
+
+2007-05-18  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* th.po: Updated Thai translation.
+
+2007-05-08  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* nb.po: Updated translation from Espen Stefansen.
+
+2007-05-05  Leonardo Ferreira Fontenelle  <leonardof@svn.gnome.org>
+
+	* pt_BR.po: Fixed Brazilian Portuguese translation of "search", by
+	Washington Lins <washington-lins@uol.com.br>.
+
+2007-05-03  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-04-28  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation
+
+2007-04-27  David Lodge <dave@cirt.net>
+
+	* en_GB.po: Updated British English translation
+
+2007-04-25 Jordi Mas <jmas@softcatala.org>
+
+	* ca.po: Updated Catalan translation
+
+2007-04-25  David Lodge <dave@cirt.net>
+
+	* en_GB.po: Updated British English translation
+
+2007-04-24  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* de.po: Fixing typo.  Resolves bug #422265 on trunk.
+
+2007-04-24  Funda Wang  <fundawang@gmail.com>
+
+	* zh_CN.po: Updated Simplified Chinese translation.
+
+2007-04-23  David Lodge <dave@cirt.net>
+
+	* en_GB.po: Updated British English translation
+
+2007-04-22  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	* gl.po: Updated Galician Translation.
+
+2007-04-22  Daniel Nylander <po@danielnylander.se>
+
+	* sv.po: Updated Swedish translation.
+
+2007-04-21  Jorge Gonzalez <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation.
+
+2007-04-14  Djihed Afifi <djihed@gmail.com> 
+
+	* ar.po: Updated Arabic Translation by Djihed Afifi.
+
+2007-04-02  Jakub Friedl <jfriedl@suse.cz>
+
+	* cs.po: Updated Czech Translation.
+
+2007-04-01  Raivis Dejus <orvils@gmail.com>
+
+	* lv.po: Updated Latvian Translation.
+
+2007-03-29  Priit Laes  <plaes@svn.gnome.org>
+
+	* et.po: Updated Estonian translation by Ivar Smolin <okul@linux.ee>.
+
+2007-03-28 Maxim Dziumanenko <dziumanenko@gmail.com>
+
+	* uk.po: Update Ukrainian translation.
+
+2007-03-26  Changwoo Ryu  <cwryu@debian.org>
+
+	* ko.po: Updated Korean translation.
+
+2007-03-14  David Lodge <dave@cirt.net>
+
+	* en_GB.po: Updated English (British) translation
+
 2007-03-11  Stéphane Raimbault  <stephane.raimbault@gmail.com>
 
 	* fr.po: Fixed French translation by Claude Paroz.
@@ -58,7 +709,7 @@
 
 2007-03-01  Ihar Hrachyshka <iharh@gnome.org>
 
-        * be.po: Updated Belarusian translation.
+	* be.po: Updated Belarusian translation.
 
 2007-03-01  Priit Laes  <plaes@svn.gnome.org>
 

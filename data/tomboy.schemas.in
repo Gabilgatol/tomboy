@@ -123,18 +123,18 @@
          </long>
       </locale>
     </schema>
-
+    
     <schema>
-      <key>/schemas/apps/tomboy/enabled_plugins</key>
-      <applyto>/apps/tomboy/enabled_plugins</applyto>
+      <key>/schemas/apps/tomboy/enable_startup_notes</key>
+      <applyto>/apps/tomboy/enable_startup_notes</applyto>
       <owner>tomboy</owner>
-      <type>list</type>
-      <list_type>string</list_type>
-      <default>[BacklinksPlugin,EvolutionPlugin,ExportToHTMLPlugin,FixedWidthPlugin,PrintPlugin,StickyNoteImporter]</default>
+      <type>bool</type>
+      <default>true</default>
       <locale name="C">
-         <short>Currently enabled plugins.</short>
+         <short>Enable startup notes</short>
          <long>
-	   List containing the names of currently enabled plugins.
+	   If enabled, all notes that were open when Tomboy quit will
+	   automatically be reopened at startup.
          </long>
       </locale>
     </schema>
@@ -296,6 +296,69 @@
          <long>
 	   Indicates that the Sticky Note Importer plugin has not been run, so it should run
 	   automatically the next time Tomboy starts.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sync/sync_guid</key>
+      <applyto>/apps/tomboy/sync/sync_guid</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>Synchronization Client ID</short>
+         <long>
+	   Unique identifier for this Tomboy client, used when communicating with a
+	   sychronization server.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sync/sync_local_path</key>
+      <applyto>/apps/tomboy/sync/sync_local_path</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>Synchronization Local Server Path</short>
+         <long>
+	   Path to the synchronization server when using the filesystem
+	   synchronization service addin.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sync/sync_selected_service_addin</key>
+      <applyto>/apps/tomboy/sync/sync_selected_service_addin</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>Selected Synchronization Service Addin</short>
+         <long>
+	   Unique identifier for the currently configured note
+	   synchronization service addin.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sync/sync_conflict_behavior</key>
+      <applyto>/apps/tomboy/sync/sync_conflict_behavior</applyto>
+      <owner>tomboy</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+         <short>Note Synchronization Conflict Saved Behavior</short>
+         <long>
+	   Integer value indicating if there is a preference to always perform
+	   a specific behavior when a conflict is detected, instead of prompting
+	   the user.  The values map to an internal enumeration.  0 indicates
+	   that the user wishes to be prompted when a conflict occurs, so that
+	   they may handle each conflict situation on a case-by-case basis.
          </long>
       </locale>
     </schema>

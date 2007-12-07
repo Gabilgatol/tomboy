@@ -12,6 +12,7 @@
             <separator />
             <menuitem name="ShowPreferences" action="ShowPreferencesAction" />
         </menu>
+        <placeholder name="MainWindowMenuPlaceholder" />
         <menu name="HelpMenu" action="HelpMenuAction">
             <menuitem name="ShowHelp" action="ShowHelpAction"/>
             <menuitem name="ShowAbout" action="ShowAboutAction" />
@@ -23,12 +24,10 @@
     	<placeholder name="MainWindowContextMenuPlaceholder" />
     </popup>
     <popup name="TrayIconMenu" action="TrayIconMenuAction">
+    	<placeholder name="TrayIconMenuPlaceholder0" />
         <menuitem name="TrayNewNote" action="TrayNewNoteAction" />
-        <separator />
-        <placeholder name="RecentNotes" />
-        <separator />
-        <placeholder name="BeforeSearchAllNotes" />
         <menuitem name="ShowSearchAllNotes" action="ShowSearchAllNotesAction" />
+        <placeholder name="TrayIconMenuPlaceholder1" />
     </popup>
 <!-- The following are not implemented yet
     <toolbar name="NoteWindowToolbar" action="NoteWindowToolbarAction">

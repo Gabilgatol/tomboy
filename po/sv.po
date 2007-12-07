@@ -4,14 +4,12 @@
 # Sergej Kotliar <sigge@hystrix.se>, 2006.
 # Christian Rose <menthos@menthos.com>, 2004, 2005.
 #
-# $Id: sv.po,v 1.11 2006/12/11 06:57:44 dnylande Exp $
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-26 00:02+0100\n"
-"PO-Revision-Date: 2007-02-26 00:01+0100\n"
+"POT-Creation-Date: 2007-09-15 16:16+0200\n"
+"PO-Revision-Date: 2007-09-15 16:31+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -19,20 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/DefaultPlugins.desktop.in.in.h:1
-msgid "Default Plugins"
-msgstr "Standardinsticksmoduler"
-
-#: ../data/DefaultPlugins.desktop.in.in.h:2
-msgid "Directory containing system-installed Plugins"
-msgstr ""
-"Katalog som innehåller de insticksmoduler som är installerade på systemet"
-
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
 msgstr "Tillbehör"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:2 ../data/tomboy.desktop.in.h:2
+#: ../data/GNOME_TomboyApplet.server.in.in.h:2
+#: ../data/tomboy.desktop.in.h:2
 msgid "Simple and easy to use note-taking"
 msgstr "Enkelt och lättanvänt anteckningsblock"
 
@@ -40,27 +30,27 @@ msgstr "Enkelt och lättanvänt anteckningsblock"
 msgid "Tomboy Applet Factory"
 msgstr "Tomboy-panelprogramsfabrik"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:154 ../Tomboy/Tray.cs:147
+#: ../data/GNOME_TomboyApplet.server.in.in.h:4
+#: ../data/tomboy.desktop.in.h:3
+#: ../Tomboy/Applet.cs:149
+#: ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Tomboy-anteckningar"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:100
+#: ../data/GNOME_TomboyApplet.xml.h:1
+#: ../Tomboy/ActionManager.cs:100
 msgid "_About"
 msgstr "_Om"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:199
+#: ../data/GNOME_TomboyApplet.xml.h:2
+#: ../Tomboy/ActionManager.cs:93
+#: ../Tomboy/Applet.cs:187
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
-#: ../Tomboy/NoteWindow.cs:629 ../Tomboy/Preferences.cs:645
-msgid "_Open Plugins Folder"
-msgstr "_Öppna insticksmodulmappen"
-
-#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:89
-#: ../Tomboy/Applet.cs:194
+#: ../data/GNOME_TomboyApplet.xml.h:3
+#: ../Tomboy/ActionManager.cs:89
+#: ../Tomboy/Applet.cs:182
 msgid "_Preferences"
 msgstr "_Inställningar"
 
@@ -73,36 +63,32 @@ msgid "Create a new Note"
 msgstr "Skapa en ny anteckning"
 
 #: ../data/tomboy.schemas.in.h:2
-msgid "Currently enabled plugins."
-msgstr "För närvarande aktiverade insticksmoduler."
-
-#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "Anpassat typsnitt"
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:3
 msgid "Enable WikiWord highlighting"
 msgstr "Aktivera WikiOrd-färgmarkering"
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:4
 msgid "Enable custom font"
 msgstr "Aktivera anpassat typsnitt"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:5
 msgid "Enable global keybindings"
 msgstr "Aktivera globala tangentmappningar"
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:6
 msgid "Enable spellchecking"
 msgstr "Aktivera stavningskontroll"
 
+#: ../data/tomboy.schemas.in.h:7
+msgid "Enable startup notes"
+msgstr "Aktivera anteckningar vid uppstart"
+
 #: ../data/tomboy.schemas.in.h:8
-msgid ""
-"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
-"will create a note with that name."
-msgstr ""
-"Aktivera detta alternativ för att färgmarkera ord som SerUtSomDetta. Att "
-"klicka på ett sådant ord kommer att skapa en anteckning med det namnet."
+msgid "Enable this option to highlight words ThatLookLikeThis. Clicking the word will create a note with that name."
+msgstr "Aktivera detta alternativ för att färgmarkera ord som SerUtSomDetta. Att klicka på ett sådant ord kommer att skapa en anteckning med det namnet."
 
 #: ../data/tomboy.schemas.in.h:9
 msgid "HTML Export All Linked Notes"
@@ -117,256 +103,157 @@ msgid "HTML Export Linked Notes"
 msgstr "HTML-exportera länkade anteckningar"
 
 #: ../data/tomboy.schemas.in.h:12
-msgid ""
-"If enable_custom_font is true, the font name set here will be used as the "
-"font when displaying notes."
-msgstr ""
-"Om enable_custom_font är sant så kommer typsnittet som ställs in här att "
-"användas för att visa anteckningar."
+msgid "If enable_custom_font is true, the font name set here will be used as the font when displaying notes."
+msgstr "Om enable_custom_font är sant så kommer typsnittet som ställs in här att användas för att visa anteckningar."
 
 #: ../data/tomboy.schemas.in.h:13
-msgid ""
-"If true, misspellings will be underlined in red, and correct spelling "
-"suggestions shown in the right-click menu."
-msgstr ""
-"Om sant, så kommer felstavningar att understrykas med rött och förslag på "
-"korrekta stavningar visas i högerklicksmenyn."
+msgid "If enabled, all notes that were open when Tomboy quit will automatically be reopened at startup."
+msgstr "Om aktiverad kommer alla anteckningar som var öppnade när Tomboy avslutades att öppnas igen vid nästa uppstart."
 
 #: ../data/tomboy.schemas.in.h:14
-msgid ""
-"If true, the desktop-global keybindings set in /apps/tomboy/"
-"global_keybindings will be enabled, allowing for useful Tomboy actions to be "
-"available from any application."
-msgstr ""
-"Om sant, så kommer de globala tangentbordsgenvägarna satta i /apps/tomboy/"
-"global_keybindings att aktiveras, och tillåta Tomboy-genvägar från vilket "
-"program som helst"
+msgid "If true, misspellings will be underlined in red, and correct spelling suggestions shown in the right-click menu."
+msgstr "Om sant, så kommer felstavningar att understrykas med rött och förslag på korrekta stavningar visas i högerklicksmenyn."
 
 #: ../data/tomboy.schemas.in.h:15
-msgid ""
-"If true, the font name set in custom_font_face will be used as the font when "
-"displaying notes. Otherwise the desktop default font will be used."
-msgstr ""
-"Om sant, så kommer typsnittet satt i custom_font_face att användas för att "
-"visa anteckningar. Annars används skrivbordets standardtypsnitt."
+msgid "If true, the desktop-global keybindings set in /apps/tomboy/global_keybindings will be enabled, allowing for useful Tomboy actions to be available from any application."
+msgstr "Om sant, så kommer de globala tangentbordsgenvägarna satta i /apps/tomboy/global_keybindings att aktiveras, och tillåta Tomboy-genvägar från vilket program som helst"
 
 #: ../data/tomboy.schemas.in.h:16
-msgid ""
-"Indicates that the Sticky Note Importer plugin has not been run, so it "
-"should run automatically the next time Tomboy starts."
-msgstr ""
-"Indikerar att importeringsinsticksmodulen för Klisterlappar inte har körts, "
-"så den bör starta automatiskt nästa gång Tomboy startas."
+msgid "If true, the font name set in custom_font_face will be used as the font when displaying notes. Otherwise the desktop default font will be used."
+msgstr "Om sant, så kommer typsnittet satt i custom_font_face att användas för att visa anteckningar. Annars används skrivbordets standardtypsnitt."
 
 #: ../data/tomboy.schemas.in.h:17
-msgid ""
-"Integer determining the minimum number of notes to show in the Tomboy note "
-"menu."
-msgstr ""
-"Heltal som bestämmer minimalt antal anteckningar att visa i Tomboys "
-"anteckningsmeny."
+msgid "Indicates that the Sticky Note Importer plugin has not been run, so it should run automatically the next time Tomboy starts."
+msgstr "Indikerar att importeringsinsticksmodulen för Klisterlappar inte har körts, så den bör starta automatiskt nästa gång Tomboy startas."
 
 #: ../data/tomboy.schemas.in.h:18
-msgid "List containing the names of currently enabled plugins."
-msgstr ""
-"Lista innehållande namnen på de för närvarande aktiverade insticksmoduler."
+msgid "Integer determining the minimum number of notes to show in the Tomboy note menu."
+msgstr "Heltal som bestämmer minimalt antal anteckningar att visa i Tomboys anteckningsmeny."
 
 #: ../data/tomboy.schemas.in.h:19
+msgid "Integer value indicating if there is a preference to always perform a specific behavior when a conflict is detected, instead of prompting the user. The values map to an internal enumeration. 0 indicates that the user wishes to be prompted when a conflict occurs, so that they may handle each conflict situation on a case-by-case basis."
+msgstr "Heltalsvärde som indikerar om det finns en inställning för att alltid genomföra ett specifikt beteende när en konflikt har upptäckts, istället för att fråga användaren. Värdena mappas till en intern numrering. 0 indikerar att användaren önskar att bli tillfrågad när en konflikt uppstår, så att användaren kan hantera konflikten från fall till fall."
+
+#: ../data/tomboy.schemas.in.h:20
 msgid "List of pinned notes."
 msgstr "Lista över nålade anteckningar."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:21
 msgid "Minimum number of notes to show in menu"
 msgstr "Minimal antal anteckningar att visa i menyn"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:22
+msgid "Note Synchronization Conflict Saved Behavior"
+msgstr "Sparat beteende för synkroniseringskonflikter för anteckningar"
+
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Recent Changes"
 msgstr "Öppna senaste ändringarna"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid "Open Search Dialog"
 msgstr "Öppna sökdialog"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid "Open Start Here"
 msgstr "Öppna \"Börja här\""
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
+msgid "Path to the synchronization server when using the filesystem synchronization service addin."
+msgstr "Sökväg till synkroniseringsservern när tilläggstjänsten för synkronisering av filsystem används."
+
+#: ../data/tomboy.schemas.in.h:27
+msgid "Selected Synchronization Service Addin"
+msgstr "Valde tillägget synkroniseringstjänst"
+
+#: ../data/tomboy.schemas.in.h:28
 msgid "Set to TRUE to activate"
 msgstr "Ställ in till TRUE för att aktivera"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:29
 msgid "Show applet menu"
 msgstr "Visa panelprogramsmenyn"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:30
 msgid "Start Here Note"
 msgstr "\"Börja här\"-anteckning"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:31
 msgid "Sticky Note Importer First Run"
 msgstr "Första importeringen från Klisterlappar"
 
-#: ../data/tomboy.schemas.in.h:28
-msgid ""
-"The global keybinding for creating and displaying a new Note. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-msgstr ""
-"Den globala tangentmappningen för att skapa och visa en ny anteckning. "
-"Formatet ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1"
-"\". Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom "
-"förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in "
-"alternativet till specialsträngen \"disabled\" så blir det ingen "
-"tangentbordsbindning för denna handling."
-
-#: ../data/tomboy.schemas.in.h:29
-msgid ""
-"The global keybinding for opening the \"Start Here\" note. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"Den globala tangentmappningen för att öppna \"Börja Här\"-anteckningen. "
-"Formatet ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1"
-"\".  Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom "
-"förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in "
-"alternativet till specialsträngen \"disabled\" så blir det ingen "
-"tangentbordsbindning för denna handling."
-
-#: ../data/tomboy.schemas.in.h:30
-msgid ""
-"The global keybinding for opening the Note Search dialog. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"Den globala tangentmappningen för att öppna Sök-dialogen. Formatet ser ut "
-"som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1\".  Läsaren är "
-"ganska öppen och tillåter stora och små bokstäver, såvälsom förkortningar "
-"såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in alternativet till "
-"specialsträngen \"disabled\" så blir det ingen tangentbordsbindning för "
-"denna handling."
-
-#: ../data/tomboy.schemas.in.h:31
-msgid ""
-"The global keybinding for opening the Recent Changes dialog. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-msgstr ""
-"Den globala tangentmappningen för att öppna \"Senaste ändringar\"-dialogen. "
-"Formatet ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1"
-"\".  Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom "
-"förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in "
-"alternativet till specialsträngen \"disabled\" så blir det ingen "
-"tangentbordsbindning för denna handling."
-
 #: ../data/tomboy.schemas.in.h:32
-msgid ""
-"The global keybinding for showing the Tomboy applet's menu. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"Den globala tangentmappningen för att öppna Tomboys applet-meny. Formatet "
-"ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1\".  "
-"Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom "
-"förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in "
-"alternativet till specialsträngen \"disabled\" så blir det ingen "
-"tangentbordsbindning för denna handling."
+msgid "Synchronization Client ID"
+msgstr "Id för synkroniseringsklient"
 
 #: ../data/tomboy.schemas.in.h:33
+msgid "Synchronization Local Server Path"
+msgstr "Lokal serversökväg för synkronisering"
+
+#: ../data/tomboy.schemas.in.h:34
+msgid "The global keybinding for creating and displaying a new Note. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Den globala tangentmappningen för att skapa och visa en ny anteckning. Formatet ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1\". Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in alternativet till specialsträngen \"disabled\" så blir det ingen tangentbordsbindning för denna handling."
+
+#: ../data/tomboy.schemas.in.h:35
+msgid "The global keybinding for opening the \"Start Here\" note. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Den globala tangentmappningen för att öppna \"Börja Här\"-anteckningen. Formatet ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1\".  Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in alternativet till specialsträngen \"disabled\" så blir det ingen tangentbordsbindning för denna handling."
+
+#: ../data/tomboy.schemas.in.h:36
+msgid "The global keybinding for opening the Note Search dialog. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Den globala tangentmappningen för att öppna Sök-dialogen. Formatet ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1\".  Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in alternativet till specialsträngen \"disabled\" så blir det ingen tangentbordsbindning för denna handling."
+
+#: ../data/tomboy.schemas.in.h:37
+msgid "The global keybinding for opening the Recent Changes dialog. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Den globala tangentmappningen för att öppna \"Senaste ändringar\"-dialogen. Formatet ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1\".  Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in alternativet till specialsträngen \"disabled\" så blir det ingen tangentbordsbindning för denna handling."
+
+#: ../data/tomboy.schemas.in.h:38
+msgid "The global keybinding for showing the Tomboy applet's menu. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Den globala tangentmappningen för att öppna Tomboys applet-meny. Formatet ser ut som \"&lt;Control&gt;a\" eller \"&lt;Shift&gt;&lt;Alt&gt;F1\".  Läsaren är ganska öppen och tillåter stora och små bokstäver, såvälsom förkortningar såsom \"&lt;Ctl&gt;\" och \"&lt;Ctrl&gt;\". Ställer du in alternativet till specialsträngen \"disabled\" så blir det ingen tangentbordsbindning för denna handling."
+
+#: ../data/tomboy.schemas.in.h:39
 msgid "The handler for \"note://\" URLs"
 msgstr "Hanteraren för \"note://\"-url:er"
 
-#: ../data/tomboy.schemas.in.h:34
-msgid ""
-"The last directory a note was exported to using the Export To HTML plugin."
-msgstr ""
-"Senaste katalogen som en anteckning exporterades till med insticksmodulen "
-"\"Exportera till HTML\"."
+#: ../data/tomboy.schemas.in.h:40
+msgid "The last directory a note was exported to using the Export To HTML plugin."
+msgstr "Senaste katalogen som en anteckning exporterades till med insticksmodulen \"Exportera till HTML\"."
 
-#: ../data/tomboy.schemas.in.h:35
-msgid ""
-"The last setting for the 'Export linked notes' checkbox in the Export to "
-"HTML plugin."
-msgstr ""
-"Senaste inställningen för \"Exportera länkade anteckningar\" i "
-"insticksmodulen\"Exportera till HTML\""
+#: ../data/tomboy.schemas.in.h:41
+msgid "The last setting for the 'Export linked notes' checkbox in the Export to HTML plugin."
+msgstr "Senaste inställningen för kryssrutan \"Exportera länkade anteckningar\" i insticksmodulen \"Exportera till HTML\"."
 
-#: ../data/tomboy.schemas.in.h:36
-msgid ""
-"The last setting for the 'Include all other linked notes' checkbox in the "
-"Export to HTML plugin. This setting is used in conjunction with the 'HTML "
-"Export Linked Notes' setting and is used to specify whether all notes (found "
-"recursively) should be included during an export to HTML."
-msgstr ""
-"Den senaste inställningen för kryssrutan \"Inkludera alla andra länkade "
-"anteckningar\" i insticksmodulen Exportera till HTML. Den här inställningen "
-"används i kombination med inställningen för \"HTML-exportera länkade "
-"anteckningar\" och används för att ange huruvida alla anteckningar "
-"(rekursivt hittade) ska inkluderas vid en HTML-exportering."
+#: ../data/tomboy.schemas.in.h:42
+msgid "The last setting for the 'Include all other linked notes' checkbox in the Export to HTML plugin. This setting is used in conjunction with the 'HTML Export Linked Notes' setting and is used to specify whether all notes (found recursively) should be included during an export to HTML."
+msgstr "Den senaste inställningen för kryssrutan \"Inkludera alla andra länkade anteckningar\" i insticksmodulen \"Exportera till HTML\". Den här inställningen används i kombination med inställningen för \"HTML-exportera länkade anteckningar\" och används för att ange huruvida alla anteckningar (rekursivt hittade) ska inkluderas vid en HTML-exportering."
 
-#: ../data/tomboy.schemas.in.h:37
-msgid ""
-"The note URI of the note that should be considered the \"Start Here\" note, "
-"which is always placed at the bottom of the Tomboy note menu and also "
-"accessible by hotkey."
-msgstr ""
-"Antecknings-uri:n för anteckningen som ska anses vara \"Börja här\"-"
-"anteckningen, vilken alltid placeras i nederkant av Tomboy-anteckningsmenyn "
-"och även är åtkomlig med en snabbtangent."
+#: ../data/tomboy.schemas.in.h:43
+msgid "The note URI of the note that should be considered the \"Start Here\" note, which is always placed at the bottom of the Tomboy note menu and also accessible by hotkey."
+msgstr "Antecknings-uri:n för anteckningen som ska anses vara \"Börja här\"-anteckningen, vilken alltid placeras i nederkant av Tomboy-anteckningsmenyn och även är åtkomlig med en snabbtangent."
 
-#: ../data/tomboy.schemas.in.h:38
-msgid ""
-"Whitespace-separated list of note URIs for notes that should always appear "
-"in the Tomboy note menu."
-msgstr ""
-"Blankstegsseparerad lista över URI:er för anteckningar som alltid ska visas "
-"i Tomboys anteckningsmeny."
+#: ../data/tomboy.schemas.in.h:44
+msgid "Unique identifier for the currently configured note synchronization service addin."
+msgstr "Unik identifierare för den för närvarande konfigurerade tilläggstjänsten för synkronisering av anteckningar."
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:22
-msgid "Print"
-msgstr "Skriv ut"
+#: ../data/tomboy.schemas.in.h:45
+msgid "Unique identifier for this Tomboy client, used when communicating with a sychronization server."
+msgstr "Unik identifierare för den den här Tomboy-klienten, används vid kommunikation med en synkroniseringsserver."
 
-#: ../libtomboy/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "Förbereder sidor..."
+#: ../data/tomboy.schemas.in.h:46
+msgid "Whitespace-separated list of note URIs for notes that should always appear in the Tomboy note menu."
+msgstr "Blankstegsseparerad lista över URI:er för anteckningar som alltid ska visas i Tomboys anteckningsmeny."
 
-#: ../libtomboy/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "Renderar sida %d av %d..."
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
+msgid "Add-in"
+msgstr "Tillägg"
 
-#: ../libtomboy/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "Skriver ut sida %d av %d..."
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
+msgid "Version"
+msgstr "Version"
 
-#: ../libtomboy/gedit-print.c:291
-msgid "Print preview"
-msgstr "Förhandsgranska utskrift"
-
-#: ../libtomboy/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "Sida %N av %Q"
-
-#: ../libtomboy/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
+#. Default category name to use if no category is specified for this addin
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:169
+msgid "Other"
+msgstr "Annat"
 
 #: ../Tomboy/ActionManager.cs:63
 msgid "_File"
@@ -376,7 +263,8 @@ msgstr "_Arkiv"
 msgid "_New"
 msgstr "_Ny"
 
-#: ../Tomboy/ActionManager.cs:67 ../Tomboy/ActionManager.cs:108
+#: ../Tomboy/ActionManager.cs:67
+#: ../Tomboy/ActionManager.cs:108
 msgid "Create a new note"
 msgstr "Skapa en ny anteckning"
 
@@ -396,7 +284,8 @@ msgstr "_Ta bort"
 msgid "Delete the selected note"
 msgstr "Ta bort den valda anteckningen"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:523
+#: ../Tomboy/ActionManager.cs:78
+#: ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "S_täng"
 
@@ -404,7 +293,8 @@ msgstr "S_täng"
 msgid "Close this window"
 msgstr "Stäng det här fönstret"
 
-#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:211
+#: ../Tomboy/ActionManager.cs:82
+#: ../Tomboy/Applet.cs:199
 msgid "_Quit"
 msgstr "_Avsluta"
 
@@ -416,7 +306,8 @@ msgstr "Avsluta Tomboy"
 msgid "_Edit"
 msgstr "R_edigera"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:169
+#: ../Tomboy/ActionManager.cs:90
+#: ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "Inställningar för Tomboy"
 
@@ -440,7 +331,8 @@ msgstr "Lådikon"
 msgid "Create _New Note"
 msgstr "Skapa _ny anteckning"
 
-#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:466
+#: ../Tomboy/ActionManager.cs:111
+#: ../Tomboy/NoteWindow.cs:317
 msgid "_Search All Notes"
 msgstr "_Sök i alla anteckningar"
 
@@ -448,19 +340,423 @@ msgstr "_Sök i alla anteckningar"
 msgid "Open the Search All Notes window"
 msgstr "Öppna \"Sök i alla anteckningar\"-fönstret"
 
-#: ../Tomboy/Applet.cs:204
+#: ../Tomboy/ActionManager.cs:115
+msgid "S_ynchronize Notes"
+msgstr "S_ynkronisera anteckningar"
+
+#: ../Tomboy/ActionManager.cs:116
+msgid "Start synchronizing notes"
+msgstr "Starta synkronisering av anteckningar"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+msgid "What links here?"
+msgstr "Vad länkar hit?"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+msgid "(none)"
+msgstr "(ingen)"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:31
+msgid "You can use any bugzilla just by dragging links into notes.  If you want a special icon for certain hosts, add them here."
+msgstr "Du kan använda en valfri bugzilla helt enkelt genom att dra länkar till anteckningar.  Om du vill ha en speciell ikon för vissa värddatorer kan du lägga till dem här."
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:49
+msgid "Host Name"
+msgstr "Värdnamn"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:66
+msgid "Icon"
+msgstr "Ikon"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:184
+msgid "Select an icon..."
+msgstr "Välj en ikon..."
+
+#. Extra Widget
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:199
+msgid "_Host name:"
+msgstr "_Värdnamn:"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:228
+msgid "No host name specified"
+msgstr "Inget värdnamn angavs"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "Du måste ange värdnamnet för den Bugzilla som ska användas med den här ikonen."
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:255
+msgid "Error saving icon"
+msgstr "Fel vid sparandet av ikon"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+msgid "Could not save the icon file.  "
+msgstr "Kunde inte spara ikonfilen.  "
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:309
+msgid "Really remove this icon?"
+msgstr "Verkligen ta bort den här ikonen?"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+msgid "If you remove an icon it is permanently lost."
+msgstr "Om du tar bort en ikon försvinner den för alltid."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+msgid "Export to HTML"
+msgstr "Exportera till HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "Din anteckning exporterades till \"{0}\"."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+msgid "Note exported successfully"
+msgstr "Anteckningen exporterades"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+msgid "Access denied."
+msgstr "Åtkomst nekas."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+msgid "Folder does not exist."
+msgstr "Mappen finns inte."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "Kunde inte spara filen \"{0}\""
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "Mål för HTML-export"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "Exportera länkade anteckningar"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "Inkludera alla andra länkade anteckningar"
+
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:269
+msgid "Cannot open email"
+msgstr "Kan inte öppna e-post"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
+msgid "Folder Path:"
+msgstr "Mappsökväg:"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
+msgid "Browse..."
+msgstr "Bläddra..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:116
+msgid "Select Synchronization Folder..."
+msgstr "Välj synkroniseringsmapp..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:144
+msgid "Folder path field is empty."
+msgstr "Fältet för mappsökväg är tomt."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:153
+msgid "Specified folder path does not exist, and Tomboy was unable to create it."
+msgstr "Angiven mappsökväg finns inte och Tomboy kunde inte skapa den."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:231
+msgid "Local Folder"
+msgstr "Lokal mapp"
+
+#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
+msgid "_Fixed Width"
+msgstr "_Fast bredd"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:239
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "Kan inte kontakta \"{0}\""
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:242
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "Fel vid körning av gaim-remote: {0}"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:10
+msgid "Today: Template"
+msgstr "Idag: Mall"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:12
+msgid "Today: "
+msgstr "Idag: "
+
+#. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
+msgid "dddd, MMMM d yyyy"
+msgstr "dddd, d MMMM yyyy"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:43
+msgid "Tasks"
+msgstr "Uppgifter"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:44
+msgid "Appointments"
+msgstr "Möten"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:67
+msgid "Note of the Day"
+msgstr "Dagens anteckning"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
+msgid "Change the <span weight=\"bold\">Today: Template</span> note to customize the text that new Today notes have."
+msgstr "Ändra anteckningen <span weight=\"bold\">Idag: Mall</span> för att anpassa texten som nya Idag-anteckningar använder."
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:24
+msgid "_Open Today: Template"
+msgstr "_Öppna Idag: Mall"
+
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+msgid "Print"
+msgstr "Skriv ut"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "Förbereder sidor..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Renderar sida %d av %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Skriver ut sida %d av %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "Förhandsgranska utskrift"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "Sida %N av %Q"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "Konfigurationsalternativ för utskriftsjobbet"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "Källbuffert"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "GtkTextBuffer-objekt att skriv ut"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "Tabulatorbredd"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "Tabulatorbredd i motsvarande blankstegstecken"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "Radbrytning"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "Radbrytningsläge"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "Färgmarkera"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "Huruvida dokumentet ska skrivas ut med färgmarkerad syntax"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "Typsnitt"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "GnomeFont-namn att använda för dokumenttexten (föråldrad)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "Typsnittsbeskrivning"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "Typsnitt att använda för dokumenttexten (t.ex. \"Monospace 10\")"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "Typsnitt för nummer"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr "GnomeFont-namn att använda för radnumren (föråldrad)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "Typsnittsbeskrivning att använda för radnumren"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "Skriv ut radnummer"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr "Intervall för utskrivna radnummer (0 betyder inga nummer)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "Skriv ut sidhuvud"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "Huruvida ett sidhuvud ska skrivas ut på varje sida"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "Skriv ut sidfot"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "Huruvida en sidfot ska skrivas ut på varje sida"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "Typsnitt för sidhuvud och -fot"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr "GnomeFont-namn att använda för sidhuvud och -fot (föråldrad)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "Typsnittsbeskrivning för sidhuvud och -fot"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr "Typsnitt att använda för sidhuvud och -fot (t.ex. \"Monospace 10\")"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
+msgid "Server:"
+msgstr "Server:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
+msgid "Username:"
+msgstr "Användarnamn:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+msgid "Folder Path (optional):"
+msgstr "Mappsökväg (valfritt):"
+
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
+msgid "SSH synchronization requires an existing SSH key for this server and user, added to a running SSH daemon."
+msgstr "SSH-synkronisering kräver en befintlig SSH-nyckel för den här servern samt en användare, tillagd till en körande SSH-demon."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:89
+msgid "Server or username field is empty."
+msgstr "Fältet för server eller användarnamn är tomt."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:172
+msgid "Timeout connecting to server. Please ensure that your SSH key has been added to a running SSH daemon."
+msgstr "\"Tidsgränsen överstegs vid anslutning till server. Försäkra dig om att din SSH-nyckel har lagts till i en körande SSH-demon."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
+msgid "Import from Sticky Notes"
+msgstr "Importera från Klisterlappar"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+msgid "No Sticky Notes found"
+msgstr "Inga klisterlappar hittades"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:134
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "Ingen lämplig Klisterlappar-fil hittades i \"{0}\"."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+msgid "Sticky Notes import completed"
+msgstr "Importeringen från Klisterlappar är färdig"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:144
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr "<b>{0}</b> av <b>{1}</b> klisterlappar har importerats."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:156
+msgid "Untitled"
+msgstr "Namnlös"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:185
+msgid "Sticky Note: "
+msgstr "Klisterlapp: "
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
+msgid "URL:"
+msgstr "URL:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
+msgid "Password:"
+msgstr "Lösenord:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:87
+msgid "URL, username, or password field is empty."
+msgstr "Fältet för url, användarnamn eller lösenord är tomt."
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (wdfs FUSE)"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:167
+msgid "There was an error connecting to the server.  This may be caused by using an incorrect user name and/or password."
+msgstr "Det inträffade ett fel vid anslutning till servern.  Det kan ha orsakats av ett felaktigt användarnamn och/eller lösenord."
+
+#. TODO: If the above fails (no keyring daemon), save all but password
+#. to GConf, and notify user.
+#. Save configuration into GConf
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:243
+msgid "Saving configuration to the GNOME keyring failed with the following message:"
+msgstr "Sparning av konfiguration till GNOME-nyckelringen misslyckades med följande meddelande:"
+
+#: ../Tomboy/Applet.cs:192
 msgid "_About Tomboy"
 msgstr "_Om Tomboy"
 
-#: ../Tomboy/Note.cs:879
+#: ../Tomboy/Note.cs:1193
 msgid "Really delete this note?"
 msgstr "Verkligen ta bort denna anteckning?"
 
-#: ../Tomboy/Note.cs:880
+#: ../Tomboy/Note.cs:1194
 msgid "If you delete a note it is permanently lost."
-msgstr "Om du tar bort en anteckning är den borta för alltid."
+msgstr "Om du tar bort en anteckning försvinner den för alltid."
 
-#: ../Tomboy/NoteManager.cs:144
+#: ../Tomboy/NoteManager.cs:132
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -468,420 +764,419 @@ msgid ""
 "\n"
 "Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
 "\n"
-"You can create new notes to hold your ideas by selecting the \"Create New "
-"Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will "
-"be saved automatically.\n"
+"You can create new notes to hold your ideas by selecting the \"Create New Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will be saved automatically.\n"
 "\n"
-"Then organize the notes you create by linking related notes and ideas "
-"together!\n"
+"Then organize the notes you create by linking related notes and ideas together!\n"
 "\n"
-"We've created a note called <link:internal>Using Links in Tomboy</link:"
-"internal>.  Notice how each time we type <link:internal>Using Links in "
-"Tomboy</link:internal> it automatically gets underlined?  Click on the link "
-"to open the note.</note-content>"
+"We've created a note called <link:internal>Using Links in Tomboy</link:internal>.  Notice how each time we type <link:internal>Using Links in Tomboy</link:internal> it automatically gets underlined?  Click on the link to open the note.</note-content>"
 msgstr ""
 "<note-content>Börja här\n"
 "\n"
 "<bold>Välkommen till Tomboy!</bold>\n"
 "\n"
-"Använd anteckningen \"Börja här\" för att börja organisera dina idéer och "
-"tankar.\n"
+"Använd anteckningen \"Börja här\" för att börja organisera dina idéer och tankar.\n"
 "\n"
-"Du kan skapa nya anteckningar som innehåller dina idéer genom att välja "
-"\"Skapa ny anteckning\" från menyn Tomboy-anteckningar i din GNOME-panel. "
-"Din anteckning kommer att sparas automatiskt.\n"
+"Du kan skapa nya anteckningar som innehåller dina idéer genom att välja \"Skapa ny anteckning\" från menyn Tomboy-anteckningar i din GNOME-panel. Din anteckning kommer att sparas automatiskt.\n"
 "\n"
-"Organisera sedan anteckningarna som du skapar genom att länka relaterade "
-"anteckningar och idéer till varandra!\n"
+"Organisera sedan anteckningarna som du skapar genom att länka relaterade anteckningar och idéer till varandra!\n"
 "\n"
-"Vi har skapat en anteckning kallad <link:internal>Användning av länkar i "
-"Tomboy</link:internal>.  Observera att varje gång vi skriver <link:"
-"internal>Användning av länkar i Tomboy</link:internal> så blir den "
-"automatiskt understruken?  Klicka på länken för att öppna anteckningen.</"
-"note-content>"
+"Vi har skapat en anteckning kallad <link:internal>Användning av länkar i Tomboy</link:internal>.  Observera att varje gång vi skriver <link:internal>Användning av länkar i Tomboy</link:internal> så blir den automatiskt understruken?  Klicka på länken för att öppna anteckningen.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:163
+#: ../Tomboy/NoteManager.cs:151
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
-"Notes in Tomboy can be linked together by highlighting text in the current "
-"note and clicking the <bold>Link</bold> button above in the toolbar.  Doing "
-"so will create a new note and also underline the note's title in the current "
-"note.\n"
+"Notes in Tomboy can be linked together by highlighting text in the current note and clicking the <bold>Link</bold> button above in the toolbar.  Doing so will create a new note and also underline the note's title in the current note.\n"
 "\n"
-"Changing the title of a note will update links present in other notes.  This "
-"prevents broken links from occurring when a note is renamed.\n"
+"Changing the title of a note will update links present in other notes.  This prevents broken links from occurring when a note is renamed.\n"
 "\n"
-"Also, if you type the name of another note in your current note, it will "
-"automatically be linked for you.</note-content>"
+"Also, if you type the name of another note in your current note, it will automatically be linked for you.</note-content>"
 msgstr ""
 "<note-content>Användning av länkar i Tomboy\n"
 "\n"
-"Anteckningar i Tomboy kan länkas samman genom att markera text i den "
-"aktuella anteckningen och sedan klicka på knappen <bold>Länka</bold> ovanför "
-"i verktygsraden.  Det innebär att en ny anteckning skapas samt att "
-"anteckningens titel kommer att understrykas i den aktuella anteckningen.\n"
+"Anteckningar i Tomboy kan länkas samman genom att markera text i den aktuella anteckningen och sedan klicka på knappen <bold>Länka</bold> ovanför i verktygsraden.  Det innebär att en ny anteckning skapas samt att anteckningens titel kommer att understrykas i den aktuella anteckningen.\n"
 "\n"
-"Ändring av titeln för en anteckning kommer även att uppdatera de länkar som "
-"finns i andra anteckningar.  Det här förhindrar att länkarna pekar fel när "
-"en anteckning byter namn.\n"
+"Ändring av titeln för en anteckning kommer även att uppdatera de länkar som finns i andra anteckningar.  Det här förhindrar att länkarna pekar fel när en anteckning byter namn.\n"
 "\n"
-"Om du skriver in namnet på en annan anteckning i din aktuella anteckning, "
-"kommer den automatiskt att länkas åt dig.</note-content>"
+"Om du skriver in namnet på en annan anteckning i din aktuella anteckning, kommer den automatiskt att länkas åt dig.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:228
+#: ../Tomboy/NoteManager.cs:166
+#: ../Tomboy/NoteManager.cs:229
 msgid "Start Here"
 msgstr "Börja här"
 
-#: ../Tomboy/NoteManager.cs:183
+#: ../Tomboy/NoteManager.cs:171
 msgid "Using Links in Tomboy"
 msgstr "Användning av länkar i Tomboy"
 
-#: ../Tomboy/NoteManager.cs:283
+#: ../Tomboy/NoteManager.cs:303
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Ny anteckning {0}"
 
-#: ../Tomboy/NoteManager.cs:329
+#: ../Tomboy/NoteManager.cs:364
 msgid "Describe your new note here."
 msgstr "Beskriv din nya anteckning här."
 
-#: ../Tomboy/NoteWindow.cs:219
+#: ../Tomboy/NoteManager.cs:379
+msgid "New Note"
+msgstr "Ny anteckning"
+
+#: ../Tomboy/NoteWindow.cs:55
 msgid "Find in This Note"
 msgstr "Sök i den här anteckningen"
 
-#: ../Tomboy/NoteWindow.cs:478
+#: ../Tomboy/NoteWindow.cs:329
 msgid "_Link to New Note"
 msgstr "_Länka till ny anteckning"
 
-#: ../Tomboy/NoteWindow.cs:490
+#: ../Tomboy/NoteWindow.cs:341
 msgid "Te_xt"
 msgstr "Te_xt"
 
-#: ../Tomboy/NoteWindow.cs:498
+#: ../Tomboy/NoteWindow.cs:349
 msgid "_Find in This Note"
 msgstr "_Sök i den här anteckningen"
 
-#: ../Tomboy/NoteWindow.cs:513
+#: ../Tomboy/NoteWindow.cs:364
 msgid "Clos_e All Notes"
 msgstr "S_täng alla anteckningar"
 
-#: ../Tomboy/NoteWindow.cs:551
+#: ../Tomboy/NoteWindow.cs:402
 msgid "Search"
 msgstr "Sök"
 
-#: ../Tomboy/NoteWindow.cs:552
+#: ../Tomboy/NoteWindow.cs:403
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Sök i dina anteckningar (Ctrl-Skift-F)"
 
 # Hoppas detta är verbet...
-#: ../Tomboy/NoteWindow.cs:565
+#: ../Tomboy/NoteWindow.cs:416
 msgid "Link"
 msgstr "Länka"
 
-#: ../Tomboy/NoteWindow.cs:567
+#: ../Tomboy/NoteWindow.cs:418
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Länka markerad text till en ny anteckning (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:581
+#: ../Tomboy/NoteWindow.cs:432
 msgid "_Text"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:586
+#: ../Tomboy/NoteWindow.cs:437
 msgid "Set properties of text"
 msgstr "Ställ in textegenskaper"
 
-#: ../Tomboy/NoteWindow.cs:592
+#: ../Tomboy/NoteWindow.cs:458
 msgid "T_ools"
 msgstr "_Verktyg"
 
-#: ../Tomboy/NoteWindow.cs:596
+#: ../Tomboy/NoteWindow.cs:462
 msgid "Use tools on this note"
 msgstr "Använd verktyg på denna anteckning."
 
-#: ../Tomboy/NoteWindow.cs:603
+#: ../Tomboy/NoteWindow.cs:469
 msgid "Delete"
 msgstr "Ta bort"
 
-#: ../Tomboy/NoteWindow.cs:604
+#: ../Tomboy/NoteWindow.cs:470
 msgid "Delete this note"
 msgstr "Ta bort denna anteckning"
 
-#: ../Tomboy/NoteWindow.cs:661
+#: ../Tomboy/NoteWindow.cs:480
+#: ../Tomboy/Synchronization/SyncManager.cs:161
+msgid "Synchronize Notes"
+msgstr "Synkronisera anteckningar"
+
+#: ../Tomboy/NoteWindow.cs:523
 msgid "_Find..."
 msgstr "_Sök..."
 
-#: ../Tomboy/NoteWindow.cs:672 ../Tomboy/NoteWindow.cs:874
+#: ../Tomboy/NoteWindow.cs:534
+#: ../Tomboy/NoteWindow.cs:988
 msgid "Find _Next"
 msgstr "Sök _nästa"
 
-#: ../Tomboy/NoteWindow.cs:685
+#: ../Tomboy/NoteWindow.cs:547
 msgid "Find _Previous"
 msgstr "Sök _föregående"
 
-#: ../Tomboy/NoteWindow.cs:773
+#: ../Tomboy/NoteWindow.cs:642
 msgid "Cannot create note"
 msgstr "Kan inte skapa anteckning"
 
-#: ../Tomboy/NoteWindow.cs:854
+#: ../Tomboy/NoteWindow.cs:968
 msgid "_Find:"
 msgstr "_Sök:"
 
-#: ../Tomboy/NoteWindow.cs:865
+#: ../Tomboy/NoteWindow.cs:979
 msgid "_Previous"
 msgstr "_Föregående"
 
-#: ../Tomboy/NoteWindow.cs:884
+#: ../Tomboy/NoteWindow.cs:998
 msgid "Case _sensitive"
 msgstr "Skiftläges_känslig"
 
-#: ../Tomboy/NoteWindow.cs:1360
+#: ../Tomboy/NoteWindow.cs:1474
 msgid "_Bold"
 msgstr "_Fet"
 
-#: ../Tomboy/NoteWindow.cs:1372
+#: ../Tomboy/NoteWindow.cs:1486
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: ../Tomboy/NoteWindow.cs:1384
+#: ../Tomboy/NoteWindow.cs:1498
 msgid "_Strikeout"
 msgstr "_Genomstruken"
 
-#: ../Tomboy/NoteWindow.cs:1396
+#: ../Tomboy/NoteWindow.cs:1510
 msgid "_Highlight"
 msgstr "_Markera"
 
-#: ../Tomboy/NoteWindow.cs:1409
+#: ../Tomboy/NoteWindow.cs:1523
 msgid "Font Size"
 msgstr "Typsnittsstorlek"
 
-#: ../Tomboy/NoteWindow.cs:1412
+#: ../Tomboy/NoteWindow.cs:1526
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1419
+#: ../Tomboy/NoteWindow.cs:1533
 msgid "Hu_ge"
 msgstr "_Enorm"
 
-#: ../Tomboy/NoteWindow.cs:1427
+#: ../Tomboy/NoteWindow.cs:1541
 msgid "_Large"
 msgstr "_Stor"
 
-#: ../Tomboy/NoteWindow.cs:1435
+#: ../Tomboy/NoteWindow.cs:1549
 msgid "S_mall"
 msgstr "_Liten"
 
-#: ../Tomboy/NoteWindow.cs:1446
+#: ../Tomboy/NoteWindow.cs:1560
 msgid "Bullets"
 msgstr "Punkter"
 
-#: ../Tomboy/PluginManager.cs:60
-msgid "Tomboy Project"
-msgstr "Tomboy-projektet"
-
-#: ../Tomboy/PluginManager.cs:607
-#, csharp-format
-msgid "Cannot fully disable {0}."
-msgstr "Kan inte fullständigt inaktivera {0}."
-
-#: ../Tomboy/PluginManager.cs:610
-#, csharp-format
-msgid ""
-"Cannot fully disable {0} as there still are at least {1} reference to this "
-"plugin. This indicates a programming error. Contact the plugin's author and "
-"report this problem.\n"
-"\n"
-"<b>Developer Information:</b> This problem usually occurs when the plugin's "
-"Dispose method fails to disconnect all event handlers. The heap-shot "
-"profiler ({2}) can help to identify leaking references."
-msgstr ""
-"Kan inte fullständigt inaktivera {0} eftersom det fortfarande finns "
-"åtminstone {1} referenser till den här insticksmodulen. Det här indikerar "
-"ett programmeringsfel. Kontakta upphovsmannen för insticksmodulen och "
-"rapportera det här problemet.\n"
-"\n"
-"<b>Utvecklarinformation:</b> Det här problemet inträffar oftast när "
-"insticksmodulens Dispose-metod misslyckas att koppla från alla "
-"händelsehanterare. Minnesprofileraren heap-shot ({2}) kan hjälpa till att "
-"identifiera läckande referenser."
-
-#: ../Tomboy/Preferences.cs:183
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Editing"
 msgstr "Redigering"
 
-#: ../Tomboy/Preferences.cs:185
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Hotkeys"
 msgstr "Snabbtangenter"
 
-#: ../Tomboy/Preferences.cs:187
-msgid "Plugins"
-msgstr "Insticksmoduler"
+#: ../Tomboy/PreferencesDialog.cs:87
+msgid "Synchronization"
+msgstr "Synkronisering"
 
-#: ../Tomboy/Preferences.cs:229
+#: ../Tomboy/PreferencesDialog.cs:89
+msgid "Add-ins"
+msgstr "Tillägg"
+
+#: ../Tomboy/PreferencesDialog.cs:134
 msgid "_Spell check while typing"
 msgstr "_Stavningskontroll när text skrivs in"
 
-#: ../Tomboy/Preferences.cs:238
-msgid ""
-"Misspellings will be underlined in red, with correct spelling suggestions "
-"shown in the context menu."
-msgstr ""
-"Felstavningar kommer att strykas under i rött, och korrekta stavningsförslag "
-"visas i sammanhangsmenyn."
+#: ../Tomboy/PreferencesDialog.cs:143
+msgid "Misspellings will be underlined in red, with correct spelling suggestions shown in the context menu."
+msgstr "Felstavningar kommer att strykas under i rött, och korrekta stavningsförslag visas i sammanhangsmenyn."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:248
+#: ../Tomboy/PreferencesDialog.cs:154
 msgid "Highlight _WikiWords"
 msgstr "Färgmarkera _WikiOrd"
 
-#: ../Tomboy/Preferences.cs:256
-msgid ""
-"Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
-"word will create a note with that name."
-msgstr ""
-"Aktivera detta alternativ för att färgmarkera ord <b>SomSerUtSomDetta</b>. "
-"Att klicka på ett sådant kommer att skapa en anteckning med dess namn."
+#: ../Tomboy/PreferencesDialog.cs:162
+msgid "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the word will create a note with that name."
+msgstr "Aktivera detta alternativ för att färgmarkera ord <b>SomSerUtSomDetta</b>. Att klicka på ett sådant kommer att skapa en anteckning med dess namn."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:265
+#: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
 msgstr "Använd anpassat _typsnitt"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:335
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
 msgstr "Lyssna efter _snabbtangenter"
 
-#: ../Tomboy/Preferences.cs:344
-msgid ""
-"Hotkeys allow you to quickly access your notes from anywhere with a "
-"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
-"Alt&gt;N</b>"
-msgstr ""
-"Snabbtangenter låter dig snabbt få tillgång till dina anteckningar varifrån "
-"som helst. Exempel på snabbtangenter: <b>&lt;Control&gt;&lt;Shift&gt;F11</"
-"b>, <b>&lt;Alt&gt;N</b>"
+#: ../Tomboy/PreferencesDialog.cs:250
+msgid "Hotkeys allow you to quickly access your notes from anywhere with a keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+msgstr "Snabbtangenter låter dig snabbt få tillgång till dina anteckningar varifrån som helst. Exempel på snabbtangenter: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:364
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Show notes _menu"
 msgstr "Visa antecknings_meny"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:381
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid "Open \"_Start Here\""
 msgstr "Öppna \"_Börja här\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:398
+#: ../Tomboy/PreferencesDialog.cs:304
 msgid "Create _new note"
 msgstr "Skapa _ny anteckning"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/Preferences.cs:415
+#: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
 msgstr "Öppna \"Sök i _alla anteckningar\""
 
-#: ../Tomboy/Preferences.cs:561
-msgid "Not available"
-msgstr "Inte tillgänglig"
+#: ../Tomboy/PreferencesDialog.cs:348
+msgid "Service:"
+msgstr "Tjänst:"
 
-#: ../Tomboy/Preferences.cs:619
-msgid "Description:"
-msgstr "Beskrivning:"
+#: ../Tomboy/PreferencesDialog.cs:400
+#: ../Tomboy/PreferencesDialog.cs:978
+msgid "Not configurable"
+msgstr "Inte konfigurerbar"
 
-#: ../Tomboy/Preferences.cs:621
-msgid "Written by:"
-msgstr "Skrivet av:"
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:420
+msgid "Advanced..."
+msgstr "Avancerat..."
 
-#: ../Tomboy/Preferences.cs:623
-msgid "Web site:"
-msgstr "Webbsida:"
+#: ../Tomboy/PreferencesDialog.cs:481
+msgid "The following add-ins are installed"
+msgstr "Följande tillägg är installerade"
 
-#: ../Tomboy/Preferences.cs:625
-msgid "File name:"
-msgstr "Filnamn:"
+#: ../Tomboy/PreferencesDialog.cs:512
+msgid "_Enable"
+msgstr "_Aktivera"
 
-#: ../Tomboy/Preferences.cs:639
-msgid "Settings"
-msgstr "Inställningar"
+#: ../Tomboy/PreferencesDialog.cs:518
+msgid "_Disable"
+msgstr "_Inaktivera"
 
-#: ../Tomboy/Preferences.cs:694
+#: ../Tomboy/PreferencesDialog.cs:649
+msgid "Not Implemented"
+msgstr "Inte implementerad"
+
+#: ../Tomboy/PreferencesDialog.cs:663
 #, csharp-format
-msgid "{0} Settings"
+msgid "{0} Preferences"
 msgstr "Inställningar för {0}"
 
-#: ../Tomboy/Preferences.cs:755
+#: ../Tomboy/PreferencesDialog.cs:802
 msgid "Choose Note Font"
 msgstr "Välj anteckningstypsnitt"
 
-#: ../Tomboy/RecentChanges.cs:64
+#: ../Tomboy/PreferencesDialog.cs:846
+msgid "Other Synchronization Options"
+msgstr "Andra synkroniseringsalternativ"
+
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid "When a conflict is detected between a local note and a note on the configured synchronization server:"
+msgstr "När en konflikt upptäcks mellan en lokal anteckning och en anteckning på den konfigurerade synkroniseringsservern:"
+
+#: ../Tomboy/PreferencesDialog.cs:860
+msgid "Always ask me what to do."
+msgstr "Fråga mig alltid vad som ska göras."
+
+#: ../Tomboy/PreferencesDialog.cs:864
+msgid "Rename my local note."
+msgstr "Byt namn på min lokala anteckning."
+
+#: ../Tomboy/PreferencesDialog.cs:868
+msgid "Replace my local note with the server's update."
+msgstr "Ersätt min lokal anteckning med serverns uppdatering."
+
+#: ../Tomboy/PreferencesDialog.cs:1014
+msgid "WARNING: Are you sure?"
+msgstr "VARNING: Är du säker?"
+
+#: ../Tomboy/PreferencesDialog.cs:1016
+msgid "Clearing your synchronization settings is not recommended.  You may be forced to synchronize all of your notes again when you save new settings."
+msgstr "Tömning av dina synkroniseringsinställningar rekommenderas inte. Du kan tvingas att synkronisera alla dina anteckningar igen när du sparar nya inställningar."
+
+#: ../Tomboy/PreferencesDialog.cs:1029
+msgid "Resetting Synchronization Settings"
+msgstr "Återställer synkroniseringsinställningar"
+
+#: ../Tomboy/PreferencesDialog.cs:1031
+msgid "You have disabled the configured synchronization service.  Your synchronization settings will now be cleared.  You may be forced to synchronize all of your notes again when you save new settings"
+msgstr "Du har inaktiverat den konfigurerade synkroniseringstjänsten.  Dina synkroniseringsinställningar kommer nu att tömmas. Du kan tvingas att synkronisera alla dina anteckningar igen när du sparar nya inställningar."
+
+#: ../Tomboy/PreferencesDialog.cs:1128
+msgid "Success! You're connected!"
+msgstr "Lyckades! Du är nu ansluten!"
+
+#: ../Tomboy/PreferencesDialog.cs:1130
+msgid "Tomboy is ready to synchronize your notes."
+msgstr "Tomboy är redo att synkronisera dina anteckningar."
+
+#: ../Tomboy/PreferencesDialog.cs:1149
+msgid "Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."
+msgstr "Tyvärr, någonting gick fel.  Kontrollera din information och försök igen.  Filen ~/.tomboy.log kan också vara behjälplig."
+
+#: ../Tomboy/PreferencesDialog.cs:1158
+msgid "Error connecting :("
+msgstr "Fel vid anslutning :("
+
+#: ../Tomboy/PreferencesDialog.cs:1225
+msgid "Version:"
+msgstr "Version:"
+
+#: ../Tomboy/PreferencesDialog.cs:1232
+msgid "Author:"
+msgstr "Upphovsman:"
+
+#: ../Tomboy/PreferencesDialog.cs:1239
+msgid "Copyright:"
+msgstr "Copyright:"
+
+#: ../Tomboy/PreferencesDialog.cs:1245
+msgid "Add-in Dependencies:"
+msgstr "Tilläggsberoenden:"
+
+#: ../Tomboy/RecentChanges.cs:68
 msgid "Search All Notes"
 msgstr "Sök i alla anteckningar"
 
-#: ../Tomboy/RecentChanges.cs:77
+#: ../Tomboy/RecentChanges.cs:83
 msgid "_Search:"
 msgstr "_Sök:"
 
-#: ../Tomboy/RecentChanges.cs:98
+#: ../Tomboy/RecentChanges.cs:104
 msgid "C_ase Sensitive"
 msgstr "Skiftlä_geskänslig"
 
-#: ../Tomboy/RecentChanges.cs:236
+#: ../Tomboy/RecentChanges.cs:296
 msgid "Note"
 msgstr "Anteckning"
 
-#: ../Tomboy/RecentChanges.cs:255
+#: ../Tomboy/RecentChanges.cs:315
 msgid "Last Changed"
 msgstr "Senast ändrad"
 
-#: ../Tomboy/RecentChanges.cs:312 ../Tomboy/RecentChanges.cs:468
+#: ../Tomboy/RecentChanges.cs:373
+#: ../Tomboy/RecentChanges.cs:529
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Totalt: {0} anteckning"
 msgstr[1] "Totalt: {0} anteckningar"
 
-#: ../Tomboy/RecentChanges.cs:402
+#: ../Tomboy/RecentChanges.cs:463
 msgid "Matches"
 msgstr "Träffar"
 
-#: ../Tomboy/RecentChanges.cs:454 ../Tomboy/RecentChanges.cs:474
+#: ../Tomboy/RecentChanges.cs:515
+#: ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} träff"
 msgstr[1] "{0} träffar"
 
-#: ../Tomboy/RecentChanges.cs:724
-#, csharp-format
-msgid "Today, {0}"
-msgstr "Idag, {0}"
-
-#: ../Tomboy/RecentChanges.cs:727
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "Igår, {0}"
-
-#: ../Tomboy/RecentChanges.cs:731
-#, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "{0} dagar sedan, {1}"
-
-#: ../Tomboy/RecentChanges.cs:736
-msgid "MMMM d, h:mm tt"
-msgstr "d MMMM, H.mm"
-
-#: ../Tomboy/RecentChanges.cs:738
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "yyyy d MMMM, H.mm"
-
-#: ../Tomboy/Tomboy.cs:181
+#: ../Tomboy/Tomboy.cs:195
 msgid "Cannot create new note"
 msgstr "Kan inte skapa ny anteckning"
 
-#: ../Tomboy/Tomboy.cs:236
+#: ../Tomboy/Tomboy.cs:266
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander\n"
@@ -891,19 +1186,19 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:275
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:246
+#: ../Tomboy/Tomboy.cs:276
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Ett enkelt och lättanvänt program för att ta anteckningar."
 
-#: ../Tomboy/Tomboy.cs:249
-msgid "Homepage & Donations"
-msgstr "Hemsida och donationer"
+#: ../Tomboy/Tomboy.cs:279
+msgid "Homepage"
+msgstr "Webbplats"
 
-#: ../Tomboy/Tomboy.cs:333
+#: ../Tomboy/Tomboy.cs:376
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -913,7 +1208,7 @@ msgstr ""
 "Copyright © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:345
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -925,10 +1220,9 @@ msgstr ""
 "  --version\t\t\tSkriv ut versionsinformation.\n"
 "  --help\t\t\tSkriv ut detta meddelande.\n"
 "  --note-path [sökväg]\t\tLäs in/Spara anteckningsdata i denna katalog\n"
-"  --search [text]\t\tÖppna sökfönster för att anteckningar med angiven "
-"text.\n"
+"  --search [text]\t\tÖppna sökfönster för att anteckningar med angiven text.\n"
 
-#: ../Tomboy/Tomboy.cs:356
+#: ../Tomboy/Tomboy.cs:399
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -940,25 +1234,23 @@ msgstr ""
 "  --new-note [titel]\t\tSkapa och visa en ny anteckning, med en titel.\n"
 "  --open-note [titel/url]\tVisa anteckningen med denna titel\n"
 "  --start-here\t\t\tVisa \"Börja här\"-anteckningen.\n"
-"  --highlight-search [text]\tSök och färgmarkera text i den öppnade "
-"anteckningen\n"
+"  --highlight-search [text]\tSök och färgmarkera text i den öppnade anteckningen\n"
 
-#: ../Tomboy/Tomboy.cs:368
-msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
-msgstr ""
-"  --check-plugin-unloading\tKontrollera om insticksmoduler är korrekt "
-"urlästa.\n"
-
-#: ../Tomboy/Tomboy.cs:372
+#. TODO: Restore this functionality with addins
+#. usage +=
+#. Catalog.GetString (
+#. "  --check-plugin-unloading\tCheck if plugins are " +
+#. "unloaded properly.\n");
+#: ../Tomboy/Tomboy.cs:416
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS-fjärrkontroll inaktiverad.\n"
 
-#: ../Tomboy/Tomboy.cs:380
+#: ../Tomboy/Tomboy.cs:424
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: ../Tomboy/Tomboy.cs:447
+#: ../Tomboy/Tomboy.cs:494
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -979,333 +1271,719 @@ msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, H:mm"
 
 #: ../Tomboy/Utils.cs:119
-msgid ""
-"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
-"installation has been completed successfully."
-msgstr ""
-"\"Handbok för Tomboy-anteckningar\" kunde inte hittas.  Verifiera att din "
-"installation har färdigställts korrekt."
+msgid "The \"Tomboy Notes Manual\" could not be found.  Please verify that your installation has been completed successfully."
+msgstr "\"Handbok för Tomboy-anteckningar\" kunde inte hittas.  Verifiera att din installation har färdigställts korrekt."
 
 #: ../Tomboy/Utils.cs:128
 msgid "Help not found"
 msgstr "Hjälp hittades inte"
 
-#: ../Tomboy/Watchers.cs:137
+#: ../Tomboy/Utils.cs:151
+#, csharp-format
+msgid "Today, {0}"
+msgstr "Idag, {0}"
+
+#: ../Tomboy/Utils.cs:153
+msgid "Today"
+msgstr "Idag"
+
+#: ../Tomboy/Utils.cs:157
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "Igår, {0}"
+
+#: ../Tomboy/Utils.cs:159
+msgid "Yesterday"
+msgstr "Igår"
+
+#: ../Tomboy/Utils.cs:163
+#, csharp-format
+msgid "{0} days ago, {1}"
+msgstr "{0} dagar sedan, {1}"
+
+#: ../Tomboy/Utils.cs:165
+#, csharp-format
+msgid "{0} days ago"
+msgstr "{0} dagar sedan"
+
+#: ../Tomboy/Utils.cs:170
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "Imorgon, {0}"
+
+#: ../Tomboy/Utils.cs:172
+msgid "Tomorrow"
+msgstr "Imorgon"
+
+#: ../Tomboy/Utils.cs:176
+#, csharp-format
+msgid "In {0} days, {1}"
+msgstr "Inom {0} dagar, {1}"
+
+#: ../Tomboy/Utils.cs:178
+#, csharp-format
+msgid "In {0} days"
+msgstr "Inom {0} dagar"
+
+#: ../Tomboy/Utils.cs:182
+msgid "MMMM d, h:mm tt"
+msgstr "d MMMM, H.mm"
+
+#: ../Tomboy/Utils.cs:183
+msgid "MMMM d"
+msgstr "d MMMM"
+
+#: ../Tomboy/Utils.cs:185
+msgid "No Date"
+msgstr "Inget datum"
+
+#: ../Tomboy/Utils.cs:188
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "yyyy d MMMM, H.mm"
+
+#: ../Tomboy/Utils.cs:189
+msgid "MMMM d yyyy"
+msgstr "d MMMM yyyy"
+
+#: ../Tomboy/Watchers.cs:149
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Namnlös {0})"
 
-#: ../Tomboy/Watchers.cs:169
+#: ../Tomboy/Watchers.cs:183
 #, csharp-format
-msgid ""
-"A note with the title <b>{0}</b> already exists. Please choose another name "
-"for this note before continuing."
-msgstr ""
-"En anteckning med titeln <b>{0}</b> finns redan. Välj ett annat namn för "
-"denna anteckning innan du fortsätter."
+msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
+msgstr "En anteckning med titeln <b>{0}</b> finns redan. Välj ett annat namn för denna anteckning innan du fortsätter."
 
-#: ../Tomboy/Watchers.cs:181
+#: ../Tomboy/Watchers.cs:195
 msgid "Note title taken"
 msgstr "Anteckningstiteln är upptagen"
 
-#: ../Tomboy/Watchers.cs:422
+#: ../Tomboy/Watchers.cs:438
 msgid "Cannot open location"
 msgstr "Kan inte öppna plats"
 
-#: ../Tomboy/Watchers.cs:516
+#: ../Tomboy/Watchers.cs:532
 msgid "_Copy Link Address"
 msgstr "_Kopiera länkadress"
 
-#: ../Tomboy/Watchers.cs:521
+#: ../Tomboy/Watchers.cs:537
 msgid "_Open Link"
 msgstr "_Öppna länk"
 
-#: ../Tomboy/Plugins/Backlinks.cs:79
-msgid "What links here?"
-msgstr "Vad länkar hit?"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:91
+#, csharp-format
+msgid "This synchronization addin is not supported on your computer. Please make sure you have FUSE and {0} correctly installed and configured"
+msgstr "Det här synkroniseringstillägget stöds inte på din dator. Försäkra dig om att du har FUSE och {0} korrekt installerade och konfigurerade"
 
-#: ../Tomboy/Plugins/Backlinks.cs:137
-msgid "(none)"
-msgstr "(ingen)"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:173
+msgid "Timeout connecting to server."
+msgstr "Tidsgränsen överstegs vid anslutning till server."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:181
-msgid "Use the following:"
-msgstr "Använd följande:"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:181
+msgid "Error connecting to server."
+msgstr "Fel vid anslutning till servern."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:197
-msgid "Host Name"
-msgstr "Värdnamn"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:195
+msgid "FUSE could not be enabled."
+msgstr "FUSE kunde inte aktiveras."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:214
-msgid "Icon"
-msgstr "Ikon"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:225
+msgid "An error ocurred while connecting to the specified server:"
+msgstr "Ett fel inträffade vid anslutning till den angivna servern:"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:337
-msgid "Select an icon..."
-msgstr "Välj en ikon..."
+#. Expander containing TreeView
+#: ../Tomboy/Synchronization/SyncDialog.cs:89
+msgid "Details"
+msgstr "Detaljer"
 
-#. Extra Widget
-#: ../Tomboy/Plugins/Bugzilla.cs:352
-msgid "_Host name:"
-msgstr "_Värdnamn:"
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
+msgid "Note Title"
+msgstr "Anteckningstitel"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:381
-msgid "No host name specified"
-msgstr "Inget värdnamn angavs"
+#: ../Tomboy/Synchronization/SyncDialog.cs:126
+msgid "Status"
+msgstr "Status"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:382
-msgid "You must specify the Bugzilla host name to use with this icon."
+#: ../Tomboy/Synchronization/SyncDialog.cs:237
+msgid "Acquiring sync lock..."
+msgstr "Tar över synkroniseringslås..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
+msgid "Committing changes..."
+msgstr "Verkställer ändringar..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
+msgid "Synchronizing Notes"
+msgstr "Synkroniserar anteckningar"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
+msgid "Synchronizing your notes..."
+msgstr "Synkroniserar dina anteckningar..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
+msgid "This may take a while, kick back and enjoy!"
+msgstr "Det här kan ta en stund, luta dig tillbaka och njut!"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
+msgid "Connecting to the server..."
+msgstr "Ansluter till servern..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:253
+msgid "Deleting notes off of the server..."
+msgstr "Tar bort anteckningar från servern..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:257
+msgid "Downloading new/updated notes..."
+msgstr "Hämtar nya/uppdaterade anteckningar..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
+msgid "Server Locked"
+msgstr "Servern är låst"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:270
+msgid "Server is locked"
+msgstr "Servern är låst"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:271
+msgid "One of your other computers is currently synchronizing.  Please wait 2 minutes and try again."
+msgstr "En av dina andra datorer synkroniserar för tillfället.  Vänta 2 minuter och försök igen."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
+msgid "Preparing to download updates from server..."
+msgstr "Förbereder att hämta uppdateringar från servern..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
+msgid "Preparing to upload updates to server..."
+msgstr "Förbereder för att skicka upp uppdateringar till servern..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
+msgid "Uploading notes to server..."
+msgstr "Skickar upp anteckningar till servern..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
+msgid "Synchronization Failed"
+msgstr "Synkroniseringen misslyckades"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
+msgid "Failed to synchronize"
+msgstr "Misslyckades med att synkronisera"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:286
+msgid "Could not synchronize notes.  Check the details below and try again."
+msgstr "Kunde inte synkronisera anteckningar.  Kontrollera detaljerna nedan och försök igen."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
+msgid "Synchronization Complete"
+msgstr "Synkroniseringen är färdig"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
+msgid "Synchronization is complete"
+msgstr "Synkroniseringen är färdig"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
+#, csharp-format
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "{0} anteckning uppdaterad."
+msgstr[1] "{0} anteckningar uppdaterade."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:300
+msgid "Your notes are now up to date."
+msgstr "Dina anteckningar är nu uppdaterade."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
+msgid "Synchronization Canceled"
+msgstr "Synkroniseringen avbröts"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
+msgid "Synchronization was canceled"
+msgstr "Synkroniseringen har avbrutits"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:306
+msgid "You canceled the synchronization.  You may close the window now."
+msgstr "Du avbröt synkroniseringen.  Du kan stänga fönstret nu."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
+msgid "Synchronization Not Configured"
+msgstr "Synkronisering är inte konfigurerad"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
+msgid "Synchronization is not configured"
+msgstr "Synkronisering är inte konfigurerad"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:312
+msgid "Please configure synchronization in the preferences dialog."
+msgstr "Konfigurera synkronisering i inställningsdialogrutan."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
+msgid "Synchronization Service Error"
+msgstr "Fel i synkroniseringstjänsten"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
+msgid "Service error"
+msgstr "Fel i tjänst"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:318
+msgid "Error connecting to the synchronization service.  Please try again."
+msgstr "Fel vid anslutning till synkroniseringstjänsten.  Försök igen."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:335
+msgid "Deleted locally"
+msgstr "Tar bort lokalt"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
+msgid "Deleted from server"
+msgstr "Borttagen från servern"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:341
+msgid "Updated"
+msgstr "Uppdaterad"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:344
+msgid "Added"
+msgstr "Tillagd"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:347
+msgid "Uploaded changes to server"
+msgstr "Skickade upp ändringar till servern"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:350
+msgid "Uploaded new note to server"
+msgstr "Skickade upp ny anteckning till servern"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:498
+msgid "Note Conflict"
+msgstr "Anteckningskonflikt"
+
+#. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:504
+msgid " (old)"
+msgstr " (gammal)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:543
+msgid "Rename local note:"
+msgstr "Byt namn på lokal anteckning:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
+msgid "Update links in referencing notes"
+msgstr "Uppdatera länkar i refererande anteckningar"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:556
+msgid "Overwrite local note"
+msgstr "Skriv över lokal anteckning"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:560
+msgid "Always perform this action"
+msgstr "Genomför alltid den här åtgärden"
+
+#. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:566
+msgid "Note conflict detected"
+msgstr "Anteckningskonflikt upptäcktes"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:567
+#, csharp-format
+msgid "The server version of \"{0}\" conflicts with your local note.  What do you want to do with your local note?"
+msgstr "Serverversionen av \"{0}\" står i konflikt med din lokala anteckning.  Vad vill du göra med din lokala anteckning?"
+
+#: ../Tomboy/Synchronization/SyncManager.cs:159
+msgid "_Tools"
+msgstr "_Verktyg"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:151
+msgid "Enable FUSE?"
+msgstr "Aktivera FUSE?"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
+msgid ""
+"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"\n"
+"To avoid getting this prompt in the future, you should load FUSE at startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /etc/modules."
 msgstr ""
-"Du måste ange värdnamnet för den Bugzilla som ska användas med den här "
-"ikonen."
+"Synkroniseringen som du har valt kräver att FUSE-modulen läses in.\n"
+"\n"
+"För att undvika att få den här prompten i framtiden bör du läsa in FUSE vid uppstart.  Lägg till \"modprobe fuse\" till /etc/init.d/boot.local eller \"fuse\" till /etc/modules."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:408
-msgid "Error saving icon"
-msgstr "Fel vid sparandet av ikon"
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "Kunde inte aktivera FUSE"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:409
-msgid "Could not save the icon file.  "
-msgstr "Kunde inte spara ikonfilen.  "
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid "The FUSE module could not be loaded. Please check that it is installed properly and try again."
+msgstr "FUSE-modulen kunde inte läsas in. Kontrollera att den är korrekt installerad och försök igen."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:457
-msgid "Really remove this icon?"
-msgstr "Verkligen ta bort den här ikonen?"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:458
-msgid "If you remove an icon it is permanently lost."
-msgstr "Om du tar bort en ikon är den borta för alltid."
-
-#: ../Tomboy/Plugins/Evolution.cs:265
-msgid "Cannot open email"
-msgstr "Kan inte öppna e-post"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:55
-msgid "Export to HTML"
-msgstr "Exportera till HTML"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:114
-#, csharp-format
-msgid "Your note was exported to \"{0}\"."
-msgstr "Din anteckning exporterades till \"{0}\"."
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:125
-msgid "Note exported successfully"
-msgstr "Anteckningen exporterades"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:131
-msgid "Access denied."
-msgstr "Åtkomst nekas."
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:133
-msgid "Folder does not exist."
-msgstr "Mappen finns inte."
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:148
-#, csharp-format
-msgid "Could not save the file \"{0}\""
-msgstr "Kunde inte spara filen \"{0}\""
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:267
-msgid "Destination for HTML Export"
-msgstr "Mål för HTML-export"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:277
-msgid "Export linked notes"
-msgstr "Exportera länkade anteckningar"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:282
-msgid "Include all other linked notes"
-msgstr "Inkludera alla andra länkade anteckningar"
-
-#: ../Tomboy/Plugins/FixedWidth.cs:34
-msgid "_Fixed Width"
-msgstr "_Fixerad bredd"
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:235
-#, csharp-format
-msgid "Cannot contact '{0}'"
-msgstr "Kan inte kontakta \"{0}\""
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:238
-#, csharp-format
-msgid "Error running gaim-remote: {0}"
-msgstr "Fel vid körning av gaim-remote: {0}"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
-msgid "Today: "
-msgstr "Idag: "
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:14
-msgid "Today: Template"
-msgstr "Idag: Mall"
-
-#. Format: "Today: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:19
-msgid "dddd, MMMM d yyyy"
-msgstr "dddd, d MMMM yyyy"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:40
-msgid "Tasks"
-msgstr "Uppgifter"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:41
-msgid "Appointments"
-msgstr "Möten"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:52
-msgid "Import from Sticky Notes"
-msgstr "Importera från Klisterlappar"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:134
-msgid "No Sticky Notes found"
-msgstr "Inga klisterlappar hittades"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:135
-#, csharp-format
-msgid "No suitable Sticky Notes file was found at \"{0}\"."
-msgstr "Ingen lämplig Klisterlappar-fil hittades i \"{0}\"."
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:144
-msgid "Sticky Notes import completed"
-msgstr "Importeringen från Klisterlappar är färdig"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:145
-#, csharp-format
-msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
-msgstr "<b>{0}</b> av <b>{1}</b> klisterlappar har importerats."
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:157
-msgid "Untitled"
-msgstr "Namnlös"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:185
-msgid "Sticky Note: "
-msgstr "Klisterlapp: "
-
+#~ msgid "Path:"
+#~ msgstr "Sökväg:"
+#~ msgid "Local File System Path"
+#~ msgstr "Lokal filsystemssökväg"
+#~ msgid ""
+#~ "Your notes are up to date.  See the details below or close the window."
+#~ msgstr ""
+#~ "Dina anteckningar är uppdaterade.  Se detaljerna nedan eller stäng "
+#~ "fönstret."
+#~ msgid "Downloading updates from server"
+#~ msgstr "Hämtar uppdateringar från servern"
+#~ msgid "Downloading new note from server"
+#~ msgstr "Hämtar ny anteckning från servern"
+#~ msgid "To Do List"
+#~ msgstr "Att göra-lista"
+#~ msgid "New _Task"
+#~ msgstr "Ny _uppgift"
+#~ msgid "Create a new task"
+#~ msgstr "Skapa en ny uppgift"
+#~ msgid "_Options..."
+#~ msgstr "Al_ternativ..."
+#~ msgid "Open the selected task"
+#~ msgstr "Öppna den valda uppgiften"
+#~ msgid "Delete the selected task"
+#~ msgstr "Ta bort den valda uppgiften"
+#~ msgid "Open Associated _Note"
+#~ msgstr "Öppna associerad ant_eckning"
+#~ msgid "Open the note containing the task"
+#~ msgstr "Öppna anteckning som innehåller uppgiften"
+#~ msgid "Tasks Help"
+#~ msgstr "Uppgiftshjälp"
+#~ msgid "Summary"
+#~ msgstr "Sammanfattning"
+#~ msgid "Due Date"
+#~ msgstr "Slutdatum"
+#~ msgid "Completion Date"
+#~ msgstr "Färdig den"
+#~ msgid "Priority"
+#~ msgstr "Prioritet"
+#~ msgid "None"
+#~ msgstr "Inget"
+#~ msgid "Low"
+#~ msgstr "Låg"
+#~ msgid "Normal"
+#~ msgstr "Normal"
+#~ msgid "High"
+#~ msgstr "Hög"
+#~ msgid "Total: {0} task"
+#~ msgid_plural "Total: {0} tasks"
+#~ msgstr[0] "Totalt: {0} uppgift"
+#~ msgstr[1] "Totalt: {0} uppgifter"
+#~ msgid "New Task {0}"
+#~ msgstr "Ny uppgift {0}"
+#~ msgid "Really delete this task?"
+#~ msgstr "Verkligen ta bort denna uppgift?"
+#~ msgid "If you delete a task it is permanently lost."
+#~ msgstr "Om du tar bort en uppgift försvinner den för alltid."
+#~ msgid "Learn About Tomboy"
+#~ msgstr "Läs mer om Tomboy"
+#~ msgid ""
+#~ "Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
+#~ "see more instructions on how to use Tomboy inside the \"Start Here\" "
+#~ "note.\n"
+#~ "\n"
+#~ "When you've opened the \"Start Here\" note, mark this task as being "
+#~ "complete."
+#~ msgstr ""
+#~ "Klicka på Tomboy-ikonen i din panel och välj \"Börja här\".  Du kommer "
+#~ "att se fler instruktioner om hur man använder Tomboy inne i anteckningen "
+#~ "\"Börja här\".\n"
+#~ "\n"
+#~ "När du har öppnat anteckningen \"Börja här\" kan du markera den här "
+#~ "uppgiften som färdig."
+#~ msgid "Task Options"
+#~ msgstr "Alternativ för uppgifter"
+#~ msgid "_Summary:"
+#~ msgstr "_Sammanfattning:"
+#~ msgid "_Details:"
+#~ msgstr "_Detaljer:"
+#~ msgid "_Completed:"
+#~ msgstr "_Färdig:"
+#~ msgid "_Complete"
+#~ msgstr "_Färdig"
+#~ msgid "Due Date:"
+#~ msgstr "Slutdatum:"
+#~ msgid "Priority:"
+#~ msgstr "Prioritet:"
+#~ msgid "todo"
+#~ msgstr "attgöra"
+#~ msgid "Open To Do List"
+#~ msgstr "Öppna Att göra-lista"
+#~ msgid "To Do Options"
+#~ msgstr "Alternativ för Att göra"
+#~ msgid "Mark Undone"
+#~ msgstr "Markera som ofärdig"
+#~ msgid "Mark Complete"
+#~ msgstr "Markera som färdig"
+#~ msgid "Tags"
+#~ msgstr "Taggar"
+#~ msgid "Add/Remove note tags"
+#~ msgstr "Lägg till/ta bort anteckningstaggar"
+#~ msgid "Tags:"
+#~ msgstr "Taggar:"
+#~ msgid "All registered repositories"
+#~ msgstr "Alla registrerade förråd"
+#~ msgid "Are you sure you want to cancel the installation?"
+#~ msgstr "Är du säker på att du vill avbryta installationen?"
+#~ msgid "The following packages will be uninstalled:"
+#~ msgstr "Följande paket kommer att avinstalleras:"
+#~ msgid ""
+#~ "There are other add-ins that depend on the previous ones which will also "
+#~ "be uninstalled:"
+#~ msgstr ""
+#~ "Det finns andra tillägg som är beroende av de föregående tilläggen, vilka "
+#~ "också kommer att avinstalleras:"
+#~ msgid ""
+#~ "The selected add-ins can't be installed because there are dependency "
+#~ "conflicts."
+#~ msgstr ""
+#~ "De valda tilläggen kan inte installeras på grund av att det finns "
+#~ "beroendekonflikter."
+#~ msgid "The following packages will be installed:"
+#~ msgstr "Följande paket kommer att installeras:"
+#~ msgid " (in user directory)"
+#~ msgstr " (i användarkatalogen)"
+#~ msgid "The following packages need to be uninstalled:"
+#~ msgstr "Följande paket behöver avinstalleras:"
+#~ msgid "The following dependencies could not be resolved:"
+#~ msgstr "Följande beroenden kunde inte lösas:"
+#~ msgid "The installation has been successfully completed."
+#~ msgstr "Installationen lyckades."
+#~ msgid "The installation failed!"
+#~ msgstr "Installationen misslyckades!"
+#~ msgid "The uninstallation has been successfully completed."
+#~ msgstr "Avinstallationen lyckades."
+#~ msgid "The uninstallation failed!"
+#~ msgstr "Avinstallationen misslyckades!"
+#~ msgid "Repository"
+#~ msgstr "Förråd"
+#~ msgid "Some of the required add-ins were not found"
+#~ msgstr "Några av de nödvändiga tilläggen kunde inte hittas"
+#~ msgid "Installation failed"
+#~ msgstr "Installationen misslyckades"
+#~ msgid "Name"
+#~ msgstr "Namn"
+#~ msgid "Url"
+#~ msgstr "Url"
+#~ msgid "Exception occurred: {0}"
+#~ msgstr "Undantag inträffade: {0}"
+#~ msgid "MonoDevelop Package"
+#~ msgstr "MonoDevelop-paket"
+#~ msgid "Add-in Installation"
+#~ msgstr "Tilläggsinstallation"
+#~ msgid "<b>Select the add-ins to install and click on Next</b>"
+#~ msgstr "<b>Välj tilläggen att installera och klicka på Nästa</b>"
+#~ msgid "Install from:"
+#~ msgstr "Installera från:"
+#~ msgid "_Repositories..."
+#~ msgstr "_Förråd..."
+#~ msgid "Show all packages"
+#~ msgstr "Visa alla paket"
+#~ msgid "Show new versions only"
+#~ msgstr "Visa endast nya versioner"
+#~ msgid "Show updates only"
+#~ msgstr "Visa endast uppdateringar"
+#~ msgid "_Unselect All"
+#~ msgstr "A_vmarkera allt"
+#~ msgid "Select _All"
+#~ msgstr "Markera _allt"
+#~ msgid "label124"
+#~ msgstr "etikett124"
+#~ msgid "Overall Progress:"
+#~ msgstr "Totalt förlopp:"
+#~ msgid "Add-in Manager"
+#~ msgstr "Tilläggshanterare"
+#~ msgid "Additional extensions are required to perform this operation."
+#~ msgstr ""
+#~ "Ytterligare tillägg är nödvändiga för att genomföra den här åtgärden."
+#~ msgid "The following add-ins will be installed:"
+#~ msgstr "Följande tillägg kommer att installeras:"
+#~ msgid "MonoDevelop Add-in Manager"
+#~ msgstr "Hanterare för MonoDevelop-tillägg"
+#~ msgid "<big><b>MonoDevelop Add-in Manager</b></big>"
+#~ msgstr "<big><b>Hanterare för MonoDevelop-tillägg</b></big>"
+#~ msgid "The following add-ins are currently installed:"
+#~ msgstr "Följande tillägg är för närvarande installerade:"
+#~ msgid "_Install Add-ins..."
+#~ msgstr "_Installera tillägg..."
+#~ msgid "_Uninstall..."
+#~ msgstr "_Avinstallera..."
+#~ msgid "Disable"
+#~ msgstr "Inaktivera"
+#~ msgid "MonoDevelop"
+#~ msgstr "MonoDevelop"
+#~ msgid "Add-in Repository Management"
+#~ msgstr "Hantering av tilläggsförråd"
+#~ msgid "Add New Repository"
+#~ msgstr "Lägg till nytt förråd"
+#~ msgid "Select the location of the repository you want to register:"
+#~ msgstr "Välj platsen för förrådet som du vill registrera:"
+#~ msgid "Register an on-line repository"
+#~ msgstr "Registrera ett förråd på nätet"
+#~ msgid "Url:"
+#~ msgstr "Url:"
+#~ msgid "Register a local repository"
+#~ msgstr "Registrera ett lokalt förråd"
+#~ msgid "(provided by {0})"
+#~ msgstr "(tillhandahålls av {0})"
+#~ msgid "Disabled add-ins can't be loaded."
+#~ msgstr "Inaktiverade tillägg kan inte läsas in."
+#~ msgid "Loading {0} add-in"
+#~ msgstr "Läser in tillägget {0}"
+#~ msgid "The required addin '{0}' is disabled."
+#~ msgstr "Det nödvändiga tillägget \"{0}\" är inaktiverat."
+#~ msgid "The required addin '{0}' is not installed."
+#~ msgstr "Det nödvändiga tillägget \"{0}\" är inte installerat."
+#~ msgid "Currently enabled plugins."
+#~ msgstr "För närvarande aktiverade insticksmoduler."
+#~ msgid "List containing the names of currently enabled plugins."
+#~ msgstr ""
+#~ "Lista innehållande namnen på de för närvarande aktiverade insticksmoduler."
+#~ msgid "Cannot fully disable {0}."
+#~ msgstr "Kan inte fullständigt inaktivera {0}."
+#~ msgid ""
+#~ "Cannot fully disable {0} as there still are at least {1} reference to "
+#~ "this addin. This indicates a programming error. Contact the addin's "
+#~ "author and report this problem.\n"
+#~ "\n"
+#~ "<b>Developer Information:</b> This problem usually occurs when the "
+#~ "addin's Dispose method fails to disconnect all event handlers. The heap-"
+#~ "shot profiler ({2}) can help to identify leaking references."
+#~ msgstr ""
+#~ "Kan inte fullständigt inaktivera {0} eftersom det fortfarande finns "
+#~ "åtminstone {1} referenser till det här tillägget. Det här indikerar ett "
+#~ "programmeringsfel. Kontakta upphovsmannen för tillägget och rapportera "
+#~ "det här problemet.\n"
+#~ "\n"
+#~ "<b>Utvecklarinformation:</b> Det här problemet inträffar oftast när "
+#~ "tilläggets Dispose-metod misslyckas att koppla från alla "
+#~ "händelsehanterare. Minnesprofileraren heap-shot ({2}) kan hjälpa till att "
+#~ "identifiera läckande referenser."
+#~ msgid "<b><span foreground=\"red\">"
+#~ msgstr "<b><span foreground=\"red\">"
+#~ msgid "Tomboy Project"
+#~ msgstr "Tomboy-projektet"
+#~ msgid ""
+#~ "Cannot fully disable {0} as there still are at least {1} reference to "
+#~ "this plugin. This indicates a programming error. Contact the plugin's "
+#~ "author and report this problem.\n"
+#~ "\n"
+#~ "<b>Developer Information:</b> This problem usually occurs when the "
+#~ "plugin's Dispose method fails to disconnect all event handlers. The heap-"
+#~ "shot profiler ({2}) can help to identify leaking references."
+#~ msgstr ""
+#~ "Kan inte fullständigt inaktivera {0} eftersom det fortfarande finns "
+#~ "åtminstone {1} referenser till den här insticksmodulen. Det här indikerar "
+#~ "ett programmeringsfel. Kontakta upphovsmannen för insticksmodulen och "
+#~ "rapportera det här problemet.\n"
+#~ "\n"
+#~ "<b>Utvecklarinformation:</b> Det här problemet inträffar oftast när "
+#~ "insticksmodulens Dispose-metod misslyckas att koppla från alla "
+#~ "händelsehanterare. Minnesprofileraren heap-shot ({2}) kan hjälpa till att "
+#~ "identifiera läckande referenser."
+#~ msgid "Plugins"
+#~ msgstr "Insticksmoduler"
+#~ msgid "Written by:"
+#~ msgstr "Skrivet av:"
+#~ msgid "Web site:"
+#~ msgstr "Webbsida:"
+#~ msgid "Settings"
+#~ msgstr "Inställningar"
+#~ msgid "_Open Plugins Folder"
+#~ msgstr "_Öppna insticksmodulmappen"
+#~ msgid "{0} Settings"
+#~ msgstr "Inställningar för {0}"
+#~ msgid ""
+#~ "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
+#~ msgstr ""
+#~ "  --check-plugin-unloading\tKontrollera om insticksmoduler är korrekt "
+#~ "urlästa.\n"
+#~ msgid "</span></b>\n"
+#~ msgstr "</span></b>\n"
+#~ msgid "Homepage & Donations"
+#~ msgstr "Hemsida och donationer"
+#~ msgid "Default Plugins"
+#~ msgstr "Standardinsticksmoduler"
+#~ msgid "Directory containing system-installed Plugins"
+#~ msgstr ""
+#~ "Katalog som innehåller de insticksmoduler som är installerade på systemet"
+#~ msgid "Use the following:"
+#~ msgstr "Använd följande:"
 #~ msgid "NotD: "
 #~ msgstr "Dagens anteckning:"
-
-#~ msgid "Create Note of the Day"
-#~ msgstr "Skapa en Dagens anteckning"
-
 #~ msgid "Welcome to Tomboy!"
 #~ msgstr "Välkommen till Tomboy!"
-
 #~ msgid ""
 #~ "Use this page as a Start Page for organizing your notes and keeping "
 #~ "unorganized ideas around."
 #~ msgstr ""
 #~ "Använd denna sida som en startsida för att organisera dina anteckningar "
 #~ "och hålla reda på oorganiserade idéer."
-
-#~ msgid "{0} Preferences"
-#~ msgstr "Inställningar för {0}"
-
 #~ msgid "Quick and handy note-taker"
 #~ msgstr "Snabbt och praktiskt anteckningsverktyg"
-
 #~ msgid "_Open Table of Contents"
 #~ msgstr "_Öppna innehållsförteckning"
-
 #~ msgid "_Find"
 #~ msgstr "_Sök"
-
 #~ msgid "Find"
 #~ msgstr "Sök"
-
 #~ msgid "ToC"
 #~ msgstr "Innehåll"
-
 #~ msgid "Open Table of Contents"
 #~ msgstr "Öppna innehållsförteckning"
-
 #~ msgid "Open \"_Table of Contents\""
 #~ msgstr "Öppna \"_Innehållsförteckning\""
-
 #~ msgid "Table of Contents"
 #~ msgstr "Innehållsförteckning"
-
 #~ msgid "_Table of Contents"
 #~ msgstr "Innehålls_förteckning"
-
 #~ msgid "_Search..."
 #~ msgstr "_Sök..."
-
 #~ msgid "S_earch notes"
 #~ msgstr "S_ök anteckningar"
-
 #~ msgid ""
 #~ "<b>Table of Contents</b> lists all your notes.\n"
 #~ "Double click to open a note."
 #~ msgstr ""
 #~ "<b>Innehållsförteckningen</b> är en lista på dina anteckningar.\n"
 #~ "Dubbelklicka på en anteckning för att öppna den."
-
 #~ msgid "Search Note"
 #~ msgstr "Sök i anteckning"
-
 #~ msgid "Search _Results"
 #~ msgstr "Sök_resultat"
-
 #~ msgid "No notes found"
 #~ msgstr "Inga anteckningar hittade"
-
 #~ msgid "_Search Notes..."
 #~ msgstr "_Sök anteckningar..."
-
 #~ msgid "%A %D, %I:%M %p"
 #~ msgstr "%A·%D,·%I:%M·%p"
-
 #~ msgid "_About Tomboy..."
 #~ msgstr "_Om Tomboy..."
-
 #~ msgid "Run Plugin actions"
 #~ msgstr "Kör åtgärder i insticksmoduler"
-
 #~ msgid "Recent Changes"
 #~ msgstr "Senaste ändringar"
-
 #~ msgid "_Recent Changes"
 #~ msgstr "_Senaste ändringar"
-
 #~ msgid "Related to: "
 #~ msgstr "Relaterad till: "
-
 #~ msgid "<b>_Bold</b>"
 #~ msgstr "<b>_Fet</b>"
-
 #~ msgid "<i>_Italic</i>"
 #~ msgstr "<i>_Kursiv</i>"
-
 #~ msgid "<s>_Strikeout</s>"
 #~ msgstr "<s>_Genomstruken</s>"
-
 #~ msgid "Recent changes"
 #~ msgstr "Senaste ändringar"
-
-#~ msgid "Yesterday"
-#~ msgstr "Igår"
-
 #~ msgid "Search Results"
 #~ msgstr "Sökresultat"
-
 #~ msgid "Related to:"
 #~ msgstr "Relaterad till:"
 
 #, fuzzy
 #~ msgid "({0} matches)"
 #~ msgstr "Inga träffar."
-
 #~ msgid "Text"
 #~ msgstr "Text"
-
-#~ msgid "Normal"
-#~ msgstr "Normal"
-
 #~ msgid "Previous"
 #~ msgstr "Föregående"
-
 #~ msgid "translator_credits"
 #~ msgstr ""
 #~ "Christian Rose\n"
 #~ "Skicka synpunkter på översättningen till sv@li.org"
+

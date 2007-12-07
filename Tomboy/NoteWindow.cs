@@ -9,185 +9,6 @@ using Tomboy.Platform;
 
 namespace Tomboy
 {
-	public class NoteEditor : Gtk.TextView
-	{
-		public NoteEditor (Gtk.TextBuffer buffer)
-			: base (buffer)
-		{
-			WrapMode = Gtk.WrapMode.Word;
-			LeftMargin = DefaultMargin;
-			RightMargin = DefaultMargin;
-			CanDefault = true;
-
-			// Make sure the cursor position is visible
-			ScrollMarkOnscreen (buffer.InsertMark);
-
-			// Set Font from preference
-			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
-				string font_string = (string) 
-					Preferences.Get (Preferences.CUSTOM_FONT_FACE);
-				ModifyFont (Pango.FontDescription.FromString (font_string));
-			}
-			Preferences.SettingChanged += OnFontSettingChanged;
-
-			// Set extra editor drag targets supported (in addition
-			// to the default TextView's various text formats)...
-			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (this);
-			list.Add (Gdk.Atom.Intern ("text/uri-list", false), 0, 1);
-			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
-			
-			KeyPressEvent += KeyPressed;
-			ButtonPressEvent += ButtonPressed;
-		}
-
-		public static int DefaultMargin
-		{
-			get { return 8; }
-		}
-
-		//
-		// Update the font based on the changed Preference dialog setting.
-		//
-		void OnFontSettingChanged (object sender, NotifyEventArgs args)
-		{
-			switch (args.Key) {
-			case Preferences.ENABLE_CUSTOM_FONT:
-				Logger.Log ("Switching note font {0}...", 
-					    (bool) args.Value ? "ON" : "OFF");
-
-				if ((bool) args.Value) {
-					string font_string = (string) 
-						Preferences.Get (Preferences.CUSTOM_FONT_FACE);
-					ModifyFont (Pango.FontDescription.FromString (font_string));
-				} else
-					ModifyFont (new Pango.FontDescription ());
-
-				break;
-
-			case Preferences.CUSTOM_FONT_FACE:
-				Logger.Log ("Switching note font to '{0}'...", 
-					    (string) args.Value);
-
-				ModifyFont (Pango.FontDescription.FromString ((string) args.Value));
-				break;
-			}
-		}
-
-		//
-		// DND Drop handling
-		//
-		protected override void OnDragDataReceived (Gdk.DragContext context, 
-							    int x,
-							    int y,
-							    Gtk.SelectionData selection_data,
-							    uint info,
-							    uint time)
-		{
-			bool has_url = false;
-
-			foreach (Gdk.Atom target in context.Targets) {
-				if (target.Name == "text/uri-list" ||
-				    target.Name == "_NETSCAPE_URL") {
-					has_url = true;
-					break;
-				}
-			}
-
-			if (has_url) {
-				UriList uri_list = new UriList (selection_data);
-				bool more_than_one = false;
-				
-				// Place the cursor in the position where the uri was
-				// dropped, adjusting x,y by the TextView's VisibleRect.
-				Gdk.Rectangle rect = VisibleRect;
-				int adjustedX = x + rect.X;
-				int adjustedY = y + rect.Y;
-				Gtk.TextIter cursor = GetIterAtLocation (adjustedX, adjustedY);
-				Buffer.PlaceCursor (cursor);
-				
-				Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:url");
-
-				foreach (Uri uri in uri_list) {
-					Logger.Log ("Got Dropped URI: {0}", uri);
-					string insert;
-					if (uri.IsFile)
-						insert = uri.LocalPath;
-					else
-						insert = uri.ToString ();
-					
-					if (insert == null || insert.Trim () == String.Empty)
-						continue;
-					
-					if (more_than_one) {
-						cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
-						
-						// FIXME: The space here is a hack
-						// around a bug in the URL Regex which
-						// matches across newlines.
-						if (cursor.LineOffset == 0)
-							Buffer.Insert (ref cursor, " \n");
-						else
-							Buffer.Insert (ref cursor, ", ");
-					}
-					
-					Buffer.InsertWithTags (ref cursor, insert, link_tag);
-					more_than_one = true;
-				}
-
-				Gtk.Drag.Finish (context, more_than_one, false, time);
-			} else {
-				base.OnDragDataReceived (context, x, y, selection_data, info, time);
-			}
-		}
-		
-		[GLib.ConnectBefore()]
-		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
-		{
-			args.RetVal = true;
-			bool ret_value = false;
-			
-			switch (args.Event.Key)
-			{
-			case Gdk.Key.Return:
-				ret_value = ((NoteBuffer) Buffer).AddNewline ();
-				ScrollMarkOnscreen (Buffer.InsertMark);
-				break;
-			case Gdk.Key.Tab:
-				ret_value = ((NoteBuffer) Buffer).AddTab ();
-				ScrollMarkOnscreen (Buffer.InsertMark);
-				break;
-			case Gdk.Key.ISO_Left_Tab:
-				ret_value = ((NoteBuffer) Buffer).RemoveTab ();
-				ScrollMarkOnscreen (Buffer.InsertMark);
-				break;
-			case Gdk.Key.Delete:
-				ret_value = ((NoteBuffer) Buffer).DeleteKeyHandler ();
-				ScrollMarkOnscreen (Buffer.InsertMark);
-				break;
-			case Gdk.Key.BackSpace:
-				ret_value = ((NoteBuffer) Buffer).BackspaceKeyHandler ();
-				break;
- 			case Gdk.Key.Left:
- 			case Gdk.Key.Right:
- 			case Gdk.Key.Up:
- 			case Gdk.Key.Down:
-				ret_value = false;
-				break;
-			default:
-				((NoteBuffer) Buffer).CheckSelection ();
-				break;
-			}
-			
-			args.RetVal = ret_value;
-		}
-		
-		[GLib.ConnectBefore()]
-		void ButtonPressed (object sender, Gtk.ButtonPressEventArgs args)
-		{
-			((NoteBuffer) Buffer).CheckSelection ();
-		}
-	}
-
 	public class NoteWindow : ForcedPresentWindow 
 	{
 		Note note;
@@ -199,6 +20,7 @@ namespace Tomboy
 		Gtk.Menu plugin_menu;
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
+//		NoteTagBar tag_bar;
 		NoteFindBar find_bar;
 
 		GlobalKeybinder global_keys;
@@ -247,7 +69,12 @@ namespace Tomboy
 
 			toolbar = MakeToolbar ();
 			toolbar.Show ();
-
+			
+//			tag_bar = new NoteTagBar (note);
+//			tag_bar.Visible = false;
+//			tag_bar.NoShowAll = true;
+//			tag_bar.Hidden += TagBarHidden;
+			
 			// The main editor widget
 			editor = new NoteEditor (note.Buffer);
 			editor.PopulatePopup += OnPopulatePopup;
@@ -276,6 +103,7 @@ namespace Tomboy
 
 			Gtk.VBox box = new Gtk.VBox (false, 2);
 			box.PackStart (toolbar, false, false, 0);
+//			box.PackStart (tag_bar, false, false, 0);
 			box.PackStart (editor_window, true, true, 0);
 			box.PackStart (find_bar, false, false, 0);
 			box.Show ();
@@ -610,6 +438,21 @@ namespace Tomboy
 			toolbar.AppendWidget (text_button, 
 					      Catalog.GetString ("Set properties of text"), 
 					      null);
+			
+			// FIXME: Isn't there a better way to load an icon besides having
+			// to specify a size implicitly?  (tomboy-tag, 22)
+//			Gtk.Widget tags_button =
+//				toolbar.AppendItem (
+//					Catalog.GetString ("Tags"),
+//					Catalog.GetString ("Add/Remove note tags"),
+//					null,
+//					new Gtk.Image (GuiUtils.GetIcon ("tomboy-tag", 22)),
+//					new Gtk.SignalFunc (TagBarClicked));
+//			tags_button.AddAccelerator ("activate",
+//						    accel_group,
+//						    (uint) Gdk.Key.t, 
+//						    Gdk.ModifierType.ControlMask,
+//						    Gtk.AccelFlags.Visible);
 
 			ToolMenuButton plugin_button = 
 				new ToolMenuButton (toolbar, 
@@ -635,9 +478,22 @@ namespace Tomboy
 			if (note.IsSpecial)
 				delete.Sensitive = false;
 
+			Gtk.ImageMenuItem item = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
+			item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
+			item.Activated += SyncItemSelected;
+			item.Show ();
+			PluginMenu.Add (item);
+
 			return toolbar;
 		}
-
+		
+		void SyncItemSelected (object sender, EventArgs args)
+		{
+			Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
+//			SyncManager.OpenNoteSyncWindow ();
+		}
+ 
 		//
 		// Plugin toolbar menu
 		//
@@ -709,7 +565,7 @@ namespace Tomboy
 
 			return menu;
 		}
-
+		
 		//
 		// Open the find dialog, passing any currently selected text
 		//
@@ -741,6 +597,13 @@ namespace Tomboy
 		{
 			Find.FindPreviousButton.Click ();
 		}
+		
+//		void TagBarHidden (object sender, EventArgs args)
+//		{
+//			// Reposition the current focus back to the editor so the
+//			// cursor will be ready for typing.
+//			editor.GrabFocus ();
+//		}
 		
 		void FindBarHidden (object sender, EventArgs args)
 		{
@@ -826,8 +689,253 @@ namespace Tomboy
 		void ChangeDepthLeftHandler (object sender, EventArgs args)
 		{
 			((NoteBuffer)editor.Buffer).ChangeCursorDepthDirectional (false);
-		}	
+		}
+		
+//		void TagBarClicked ()
+//		{
+//			if (tag_bar.Visible)
+//				tag_bar.Hide ();
+//			else
+//				tag_bar.Show ();
+//		}
 	}
+
+/*	
+	public class NoteTagBar : Gtk.HBox
+	{
+		private Note note;
+		
+		WrapBox tag_cloud;
+		Gtk.Entry tag_entry;
+		Gtk.Button add_tag_button;
+		
+		#region Constructors
+		public NoteTagBar (Note note) : base (false, 4)
+		{
+			this.note = note;
+			
+			BorderWidth = 2;
+
+			Gtk.Button button = new Gtk.Button ();
+			button.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
+			button.Relief = Gtk.ReliefStyle.None;
+			button.Clicked += HideTagBar;
+			button.Show ();
+			PackStart (button, false, false, 4);
+
+			Gtk.Label label = new Gtk.Label (
+					string.Format ("<span weight=\"bold\">{0}</span>",
+						Catalog.GetString ("Tags:")));
+			label.Xalign = 0;
+			label.UseMarkup = true;
+			label.Show ();
+			
+			PackStart (label, false, false, 0);
+			
+			tag_cloud = new WrapBox ();
+			tag_cloud.Show ();
+			PackStart (tag_cloud, true, true, 0);
+			
+			foreach (Tag tag in note.Tags) {
+				button = MakeTagButton (tag);
+				button.Show ();
+				tag_cloud.Insert (button);
+			}
+			
+			Gtk.EntryCompletion entry_completion = new Gtk.EntryCompletion ();
+			entry_completion.InlineCompletion = true;
+			entry_completion.PopupSingleMatch = true;
+			entry_completion.Model = TagManager.Tags;
+			entry_completion.MatchFunc = TagEntryCompletionMatchFunc;
+			entry_completion.MatchSelected += TagEntryCompletionMatchSelected;
+			Gtk.CellRendererText crt = new Gtk.CellRendererText ();
+			entry_completion.PackStart (crt, true);
+			entry_completion.SetCellDataFunc (crt,
+					new Gtk.CellLayoutDataFunc (TagEntryCompletionDataFunc));
+			
+			tag_entry = new Gtk.Entry ();
+			tag_entry.Completion = entry_completion;
+			tag_entry.Activated += TagEntryActivated;
+			tag_entry.Changed += TagEntryChanged;
+			// Bind ESC to close the TagBar if it's open and has focus.
+			tag_entry.KeyPressEvent += KeyPressed;
+			tag_entry.Show ();
+			PackStart (tag_entry, false, false, 0);
+			
+			add_tag_button = new Gtk.Button (String.Empty);
+			add_tag_button.Image = new Gtk.Image (Gtk.Stock.Add, Gtk.IconSize.Menu);
+			add_tag_button.Sensitive = false;
+			add_tag_button.Clicked += AddTagButtonClicked;
+			add_tag_button.Show ();
+			PackStart (add_tag_button, false, false, 0);
+
+			note.TagAdded += TagAddedHandler;
+			note.TagRemoved += TagRemovedHandler;
+		}
+		#endregion
+		
+		#region Private Methods
+		Gtk.Button MakeTagButton (Tag tag)
+		{
+			TagButton button = new TagButton (tag);
+			button.Clicked += TagButtonClicked;
+
+			return button;
+		}
+
+		protected override void OnShown ()
+		{
+			tag_entry.GrabFocus ();
+
+			base.OnShown ();
+		}
+		
+		protected override void OnHidden ()
+		{
+			base.OnHidden ();
+		}
+		
+		#endregion
+
+		#region Event Handlers
+		// <summary>
+		// When the user presses return, call the same method that is called
+		// when the user presses the Add button.
+		// </summary>
+		void TagEntryActivated (object sender, EventArgs args)
+		{
+			AddTagButtonClicked (sender, args);
+		}
+		
+		void TagEntryChanged (object sender, EventArgs args)
+		{
+			string text = tag_entry.Text.Trim ();
+			if (text.Length == 0) {
+				add_tag_button.Sensitive = false;
+			} else {
+				add_tag_button.Sensitive = true;
+			}
+		}
+		
+		void AddTagButtonClicked (object sender, EventArgs args)
+		{
+			string text = tag_entry.Text.Trim ();
+			if (text.Length > 0) {
+				Tag tag = TagManager.GetOrCreateTag (text);
+				if (!note.Data.Tags.ContainsKey (tag.NormalizedName)) {
+					note.AddTag (tag);
+				}
+			}
+			
+			// Clear out the entry and grab the cursor focus so it's ready to
+			// have another tag typed and added.
+			tag_entry.Text = String.Empty;
+		}
+		
+		void TagButtonClicked (object sender, EventArgs args)
+		{
+			TagButton button = sender as TagButton;
+			
+			note.RemoveTag (button.Tag);
+		}
+		
+		void TagAddedHandler (Note note, Tag tag)
+		{
+			Gtk.Button button = MakeTagButton (tag);
+			button.Show ();
+			tag_cloud.Insert (button);
+		}
+		
+		void TagRemovedHandler (Note note, string tag_name)
+		{
+			// Remove the button from the list
+			TagButton button_to_remove = null;
+			
+			foreach (Gtk.Widget w in tag_cloud.Children) {
+				if (w is TagButton) {
+					TagButton button = w as TagButton;
+					
+					if (string.Compare (button.Tag.NormalizedName, tag_name) == 0) {
+						button_to_remove = button;
+						button.Hide ();
+						break;
+					}
+				}
+			}
+			
+			if (button_to_remove != null)
+				tag_cloud.Remove (button_to_remove);
+			else
+				Logger.Debug ("\tDid not remove a tag button");
+		}
+		
+		void TagEntryCompletionDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
+				Gtk.TreeModel tree_model, Gtk.TreeIter iter)
+		{
+			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
+			Tag tag = tree_model.GetValue (iter, 0) as Tag;
+			crt.Text = tag.Name;
+		}
+		
+		bool TagEntryCompletionMatchFunc (Gtk.EntryCompletion completion, string key, Gtk.TreeIter iter)
+		{
+			if (key.Length == 0)
+				return true;
+			
+			Tag tag = completion.Model.GetValue (iter, 0) as Tag;
+			if (tag == null)
+				return false;
+			
+			string lower_cased_key = key.ToLower ();
+			
+			if (tag.NormalizedName.StartsWith (lower_cased_key))
+				return true;
+			
+			return false;
+		}
+		
+		[GLib.ConnectBefore]
+		void TagEntryCompletionMatchSelected (object sender, Gtk.MatchSelectedArgs args)
+		{
+			Tag tag = args.Model.GetValue (args.Iter, 0) as Tag;
+			if (tag != null) {
+				tag_entry.Text = tag.Name;
+				args.RetVal = true;
+				
+				// Press the add button for the user
+				AddTagButtonClicked (sender, EventArgs.Empty);
+			}
+		}
+		
+		void HideTagBar (object sender, EventArgs args)
+		{
+			Hide ();
+		}
+		
+		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
+		{
+			args.RetVal = true;
+			
+			switch (args.Event.Key)
+			{
+			case Gdk.Key.Escape:
+				Hide ();
+				break;
+			default:
+				args.RetVal = false;
+				break;
+			}
+		}
+
+		#endregion
+
+		#region Public Methods
+		#endregion
+		
+		#region Properties
+		#endregion
+	}
+*/
 	
 	public class NoteFindBar : Gtk.HBox
 	{
@@ -926,7 +1034,7 @@ namespace Tomboy
 			note.Buffer.InsertText -= OnInsertText;
 			note.Buffer.DeleteRange -= OnDeleteRange;
 
-			base.OnShown ();
+			base.OnHidden ();
 		}
 		
 		void HideFindBar (object sender, EventArgs args)
@@ -1234,7 +1342,7 @@ namespace Tomboy
 		{
 			ArrayList matches = new ArrayList ();
 
-			string note_text = buffer.GetText (buffer.StartIter, 
+			string note_text = buffer.GetSlice (buffer.StartIter, 
 							   buffer.EndIter, 
 							   false /* hidden_chars */);
 			if (!match_case)

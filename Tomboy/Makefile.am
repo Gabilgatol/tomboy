@@ -1,10 +1,14 @@
+include $(top_srcdir)/Makefile.include
 
-SUBDIRS = . Plugins
-
-CSC = gmcs
+SUBDIRS = . Addins
 
 TARGET = Tomboy.exe
 WRAPPER = tomboy
+PANEL_WRAPPER = tomboy-panel
+
+DBUS_SHARP_CSFILES = \
+	$(srcdir)/dbus-sharp/dbus-sharp/src/*.cs	\
+	$(srcdir)/dbus-sharp/dbus-sharp-glib/glib/*.cs
 
 if ENABLE_DBUS
 DBUS_CSFLAGS = -define:ENABLE_DBUS
@@ -14,8 +18,7 @@ DBUS_CSFILES = 				\
 	$(srcdir)/RemoteControlProxy.cs
 else
 DBUS_CSFILES = 				\
-	$(srcdir)/dbus-sharp/dbus-sharp/src/*.cs	\
-	$(srcdir)/dbus-sharp/dbus-sharp-glib/glib/*.cs	\
+	$(DBUS_SHARP_CSFILES)		\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
 endif
@@ -35,25 +38,37 @@ CSFLAGS = 				\
 
 CSFILES = 					\
 	$(srcdir)/Tomboy.cs 			\
+	$(srcdir)/AbstractAddin.cs		\
 	$(srcdir)/ActionManager.cs		\
+	$(srcdir)/AddinManager.cs		\
+	$(srcdir)/AddinPreferenceFactory.cs	\
 	$(srcdir)/Applet.cs 			\
+	$(srcdir)/ApplicationAddin.cs		\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/Note.cs 			\
+	$(srcdir)/NoteAddin.cs			\
+	$(srcdir)/NoteEditor.cs			\
 	$(srcdir)/NoteManager.cs 		\
 	$(srcdir)/NoteWindow.cs 		\
 	$(srcdir)/NoteBuffer.cs 		\
 	$(srcdir)/NoteTag.cs 			\
-	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/Preferences.cs		\
+	$(srcdir)/PreferencesDialog.cs		\
 	$(srcdir)/RecentChanges.cs		\
+	$(srcdir)/Tag.cs			\
+	$(srcdir)/TagButton.cs			\
+	$(srcdir)/TagManager.cs			\
 	$(srcdir)/Tray.cs 			\
 	$(srcdir)/Trie.cs			\
 	$(srcdir)/Undo.cs 			\
 	$(srcdir)/Utils.cs			\
 	$(srcdir)/Watchers.cs			\
+	$(srcdir)/WrapBox.cs			\
 	$(srcdir)/XKeybinder.cs			\
+	$(srcdir)/Synchronization/*.cs		\
 	\
 	$(srcdir)/panelapplet/*.cs		\
+	$(srcdir)/Gnome.Keyring/*.cs		\
 	\
 	$(srcdir)/Platform/*.cs		\
 	\
@@ -63,18 +78,19 @@ CSFILES = 					\
 ASSEMBLIES = 		\
 	$(TOMBOY_LIBS) 	\
 	-r:Mono.Posix	\
-	$(DBUS_LIBS)
+	$(DBUS_LIBS)	\
+	$(LINK_MONO_ADDINS)
 
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
-	-resource:$(top_builddir)/data/DefaultPlugins.desktop,DefaultPlugins.desktop	\
 	-resource:$(top_srcdir)/data/UIManagerLayout.xml	\
 	-resource:$(top_srcdir)/data/images/tomboy.png,tomboy.png			\
 	-resource:$(top_srcdir)/data/images/tomboy-note-16.png,tomboy-note.png		\
 	-resource:$(top_srcdir)/data/images/gnome-searchtool.png,gnome-searchtool.png	\
 	-resource:$(top_srcdir)/data/images/pinup.png,pinup.png				\
 	-resource:$(top_srcdir)/data/images/pinup-active.png,pinup-active.png		\
-	-resource:$(top_srcdir)/data/images/pindown.png,pindown.png
+	-resource:$(top_srcdir)/data/images/pindown.png,pindown.png			\
+	-resource:$(srcdir)/Tomboy.addin.xml
 
 
 $(TARGET): $(CSFILES) Defines.cs
@@ -84,7 +100,7 @@ tomboylibdir = $(pkglibdir)
 tomboylib_DATA = $(TARGET) $(TARGET).config
 
 
-bin_SCRIPTS = $(WRAPPER)
+bin_SCRIPTS = $(WRAPPER) $(PANEL_WRAPPER)
 
 $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 	sed -e "s|\@prefix\@|$(prefix)|g" 		\
@@ -97,6 +113,17 @@ $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 	    < $< > $@
 	chmod +x $(WRAPPER)
 
+$(PANEL_WRAPPER): $(srcdir)/$(PANEL_WRAPPER).in Makefile
+	sed -e "s|\@prefix\@|$(prefix)|g" 		\
+	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
+	    -e "s|\@bindir\@|$(bindir)|g"		\
+	    -e "s|\@target\@|$(TARGET)|g" 		\
+	    -e "s|\@wrapper\@|$(WRAPPER)|g"		\
+	    -e "s|\@extragac\@|$(EXTRA_GAC_PREFIX)|g"	\
+	    -e "s|\@srcdir\@|$(PWD)|g"	\
+	    < $< > $@
+	chmod +x $(PANEL_WRAPPER)
+
 $(TARGET).config: $(srcdir)/$(TARGET).config.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $< > $@
@@ -107,16 +134,20 @@ Defines.cs: $(srcdir)/Defines.cs.in Makefile
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $< > $@
 
-
 EXTRA_DIST =            		\
 	$(CSFILES)      		\
+	$(DBUS_SHARP_CSFILES)		\
 	$(WRAPPER).in			\
+	$(PANEL_WRAPPER).in		\
 	$(TARGET).config.in		\
-	$(srcdir)/Defines.cs.in	
+	$(srcdir)/Defines.cs.in		\
+	$(srcdir)/Tomboy.addin.xml
 
 CLEANFILES =			\
 	$(TARGET) 		\
 	$(TARGET).config	\
 	$(TARGET).mdb 		\
 	$(WRAPPER)		\
+	$(PANEL_WRAPPER)	\
 	Defines.cs
+

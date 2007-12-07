@@ -15,7 +15,7 @@ namespace Tomboy
 		string notes_dir;
 		string backup_dir;
 		ArrayList notes;
-		PluginManager plugin_mgr;
+		AddinManager addin_mgr;
 		TrieController trie_controller;
 		
 		static string start_note_uri = String.Empty;
@@ -55,8 +55,8 @@ namespace Tomboy
 			bool first_run = FirstRun ();
 			CreateNotesDir ();
 
-			plugin_mgr = CreatePluginManager ();
 			trie_controller = CreateTrieController ();
+			addin_mgr = CreateAddinManager ();
 
 			if (first_run) {
 				// First run. Create "Start Here" notes.
@@ -68,31 +68,19 @@ namespace Tomboy
 			Tomboy.ExitingEvent += OnExitingEvent;
 		}
 
-		// Create & populate the Plugins dir. For overriding in test
-		// methods.
-		protected virtual PluginManager CreatePluginManager ()
-		{
-			// Allow developers to override the plugins path with an
-			// environment variable.
-			string plugins_dir =
-				Environment.GetEnvironmentVariable ("TOMBOY_PLUGINS_PATH");
-
-			if (plugins_dir == null) {
-				string tomboy_dir = 
-					Path.Combine (Environment.GetEnvironmentVariable ("HOME"), 
-						      ".tomboy");
-				plugins_dir = Path.Combine (tomboy_dir, "Plugins");
-			}
-
-			PluginManager.CreatePluginsDir (plugins_dir);
-
-			return new PluginManager (plugins_dir);
-		}
-
 		// Create the TrieController. For overriding in test methods.
 		protected virtual TrieController CreateTrieController ()
 		{
 			return new TrieController (this);
+		}
+		
+		protected virtual AddinManager CreateAddinManager ()
+		{
+			string tomboy_conf_dir =
+				Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
+							".tomboy");
+			
+			return new AddinManager (tomboy_conf_dir);
 		}
 
 		// For overriding in test methods.
@@ -212,15 +200,27 @@ namespace Tomboy
 				}
 			}
 
-			// Update the trie so plugins can access it, if they want.
+			// Update the trie so addins can access it, if they want.
 			trie_controller.Update ();
+			
+			bool startup_notes_enabled = (bool)
+					Preferences.Get (Preferences.ENABLE_STARTUP_NOTES);
 
-			// Load all the plugins for our notes.
+			// Load all the addins for our notes.
 			// Iterating through copy of notes list, because list may be
-			// changed when loading plugins.
+			// changed when loading addins.
 			ArrayList notesCopy = new ArrayList (notes);
 			foreach (Note note in notesCopy) {
-				plugin_mgr.LoadPluginsForNote (note);
+				addin_mgr.LoadAddinsForNote (note);
+
+				// Show all notes that were visible when tomboy was shut down
+				if (note.IsOpenOnStartup) {
+					if (startup_notes_enabled)
+						note.Window.Show ();
+					
+					note.IsOpenOnStartup = false;
+					note.QueueSave (false);
+				}
 			}
 			
 			// Make sure that a Start Note Uri is set in the preferences.  This
@@ -236,9 +236,24 @@ namespace Tomboy
 
 		void OnExitingEvent (object sender, EventArgs args)
 		{
+			// Call ApplicationAddin.Shutdown () on all the known ApplicationAddins
+			foreach (ApplicationAddin addin in addin_mgr.GetApplicationAddins ()) {
+				try {
+					addin.Shutdown ();
+				} catch (Exception e) {
+					Logger.Warn ("Error calling {0}.Shutdown (): {1}",
+							addin.GetType ().ToString (), e.Message);
+				}
+			}
+
 			Logger.Log ("Saving unsaved notes...");
 
 			foreach (Note note in notes) {
+				// If the note is visible, it will be shown automatically on
+				// next startup
+				if (note.HasWindow && note.Window.Visible)
+					note.IsOpenOnStartup = true;
+				
 				note.Save ();
 			}
 		}
@@ -272,8 +287,12 @@ namespace Tomboy
 
 		string MakeNewFileName ()
 		{
-			Guid guid = Guid.NewGuid ();
-			return Path.Combine (notes_dir, guid.ToString () + ".note");
+			return MakeNewFileName (Guid.NewGuid ().ToString ());
+		}
+		
+		string MakeNewFileName (string guid)
+		{
+			return Path.Combine (notes_dir, guid + ".note");
 		}
 
 		// Create a new note with a generated title
@@ -317,10 +336,25 @@ namespace Tomboy
 
 			return title;
 		}
+		
+		public Note Create (string title)
+		{
+			return CreateNewNote (title, null);
+		}
+		
+		public Note Create (string title, string xml_content)
+		{
+			return CreateNewNote (title, xml_content, null);
+		}
+		
+		public Note CreateWithGuid (string title, string guid)
+		{
+			return CreateNewNote (title, guid);
+		}
 
 		// Create a new note with the specified title, and a simple
 		// "Describe..." body which will be selected for easy overwrite.
-		public Note Create (string title) 
+		private Note CreateNewNote (string title, string guid) 
 		{
 			string body = null;
 
@@ -337,28 +371,32 @@ namespace Tomboy
 					       XmlEncoder.Encode (header),
 					       XmlEncoder.Encode (body));
 
-			Note new_note = Create (title, content);
+			Note new_note = CreateNewNote (title, content, guid);
 
-			// Select the inital "Describe..." text so typing will
-			// immediately overwrite...
-			NoteBuffer buffer = new_note.Buffer;
-			Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
-			buffer.MoveMark (buffer.SelectionBound, iter);
-			buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
+			// Select the inital 
+         		// "Describe..." text so typing will overwrite the body text,
+			NoteBuffer buffer = new_note.Buffer;	
+                        Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
+                        buffer.MoveMark (buffer.SelectionBound, iter);
+                        buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
 			return new_note;
 		}
 
 		// Create a new note with the specified Xml content
-		public Note Create (string title, string xml_content)
+		private Note CreateNewNote (string title, string xml_content, string guid)
 		{
 			if (title == null || title == string.Empty)
 				throw new Exception ("Invalid title");
 
 			if (Find (title) != null)
-				throw new Exception ("A note with this title already exists");
+				throw new Exception ("A note with this title already exists: " + title);
 
-			string filename = MakeNewFileName ();
+			string filename;
+			if (guid != null)
+				filename = MakeNewFileName (guid);
+			else
+				filename = MakeNewFileName ();
 
 			Note new_note = Note.CreateNewNote (title, filename, this);
 			new_note.XmlContent = xml_content;
@@ -367,8 +405,8 @@ namespace Tomboy
 
 			notes.Add (new_note);
 
-			// Load all the plugins for the new note
-			plugin_mgr.LoadPluginsForNote (new_note);
+			// Load all the addins for the new note
+			addin_mgr.LoadAddinsForNote (new_note);
 
 			if (NoteAdded != null)
 				NoteAdded (this, new_note);
@@ -425,18 +463,19 @@ namespace Tomboy
 			}
 		}
 
-		public PluginManager PluginManager
-		{
-			get {
-				return plugin_mgr;
-			}
-		}
-
 		public TrieTree TitleTrie
 		{
-			get {
-				return trie_controller.TitleTrie;
-			}
+			get { return trie_controller.TitleTrie; }
+		}
+		
+		public AddinManager AddinManager
+		{
+			get { return addin_mgr; }
+		}
+		
+		public string NoteDirectoryPath
+		{
+			get { return notes_dir; }
 		}
 
 		public event NotesChangedHandler NoteDeleted;

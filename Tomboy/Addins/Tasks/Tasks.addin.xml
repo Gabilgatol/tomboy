@@ -1,0 +1,25 @@
+<Addin id="TasksAddin"
+	namespace="Tomboy"
+	name="Tasks"
+	author="Tomboy Project"
+	description="Add-in to enable tasks support for Tomboy"
+	category="Tools"
+	defaultEnabled="true"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="Tasks.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/ApplicationAddins">
+		<ApplicationAddin type="Tomboy.Tasks.TasksApplicationAddin" />
+	</Extension>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.Tasks.TasksNoteAddin" />
+	</Extension>
+</Addin>

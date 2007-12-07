@@ -1,3 +1,1790 @@
+2007-12-05  Dave Foster <daf@minuslab.net>
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: Added manual call to
+	  QueueSave after task creation.
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Removed unneeded function and
+	  variable which was invalidated with my last commit.
+	* Tomboy/Addins/Tasks/TaskManager.cs: Removed automatic call to
+	  QueueSave when a task is created.
+
+2007-12-04  Dave Foster <daf@minuslab.net>
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Edit new task directly after a 
+	  new task is added.
+	* Tomboy/Addins/Tasks/TaskManager.cs: Support function to get TreePath
+	  from a task.
+
+2007-12-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/Bugzilla/BugzillaNoteAddin.cs: Enable more flexible bugzilla
+	  URLs, where "id=" can come after the initial "?" or after an "&".  Fixes
+	  bug #500926.
+
+2007-12-01  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/Bugzilla/BugzillaPreferences.cs: Made a note to get the
+	  BugzillaIcons directory in a more safe manner in the future.
+	* Tomboy/Addins/Bugzilla/BugzillaLink.cs: Set bugzilla icon whenever the
+	  "uri" attribute is set or initially read in.  This should fix bug
+	  #429413.
+	* Tomboy/NoteTag.cs: Added OnAttributeRead method to DynamicNoteTag, which
+	  derived classes shoudl override if they need to take action as soon as a
+	  particular attribute is read in.
+
+2007-12-01  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncUtils.cs: Only require lsmod for IsFuseEnabled,
+	  and gksu/etc and modprobe for EnableFuse.  Provide appropriate user
+	  feedback when these tools are not available when needed.  Note that on
+	  Fedora and other distros that don't ship a GUI 'su' tool by default, the
+	  user will always receive a "Could not enable FUSE" error dialog until
+	  they set the FUSE module up manually.
+
+2007-11-12  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Bump version to 0.9.2.
+
+2007-11-12  Boyd Timothy <btimothy@gmail.com>
+
+	* NEWS: Updated for 0.9.1 release.
+
+2007-11-09  Boyd Timothy <btimothy@gmail.com>
+
+	* Tomboy/tomboy-panel.in, Tomboy/tomboy.in: Applied
+	  patch from Robert Buchholz to fix a security
+	  vulnerability in the startup scripts and LD_LIBRARY_PATH.
+	  Fixes #485224.
+
+2007-11-06  Boyd Timothy <btimothy@gmail.com>
+
+	* libtomboy/contrast.h, libtomboy/contrast.c,
+	  libtomboy/Makefile.am, Tomboy/NoteTag.cs: Patch from
+	  Gabriel de Perthuis to allow note text colors to
+	  be readable with different contrast themes.  His patch
+	  includes code from David Trowbridge's libcontrast.
+	  Fixes #489559.
+
+2007-11-02  Stefan Schweizer <steve.schweizer@gmail.com>
+
+	* Tomboy/Addins/InsertTimestamp: Set svn:ignore property.
+
+2007-10-30  Boyd Timothy <btimothy@gmail.com>
+
+	* Tomboy/Watchers.cs: Prevent multiple "note title taken"
+	  dialogs from appearing.  Fixes bugzilla.novell.com
+	  #177857.
+
+2007-10-29  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Bump version to 0.9.1.
+
+2007-10-29  Boyd Timothy <btimothy@gmail.com> 
+
+	* NEWS: Updated for 0.9.0 release.
+	* Tomboy/Tomboy.addin.xml: Bump the base version of the root addin
+	  (tomboy) to 0.9.
+
+2007-10-29  Boyd Timothy <btimothy@gmail.com> 
+
+	* ChangeLog: Removed duplicate entry.
+
+2007-10-17  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Watchers.cs: Fix from John Carr to prevent crashing when curly
+	  braces ('{' or '}) are used in the title of a note.  Fixes #487702.
+
+2007-10-15  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Bugzilla/Bugzilla.addin.xml: Bumped the version of Tomboy
+	  required to 0.9 because of the new/changed Gdk.Pixbuf -> Gtk.Widget
+	  support.  This will prevent newer versions of the bugzilla.dll just
+	  puking out on older Tomboy versions.  I guess instead, it'll just not
+	  load on an older version of Tomboy.
+
+2007-10-14  Stefan Schweizer <steve.schweizer@gmail.com>
+
+	* Tomboy/Addins/InsertTimestamp/InsertTimestampNoteAddin.cs,
+	  Tomboy/Addins/InsertTimestamp/InsertTimestamp.addin.xml,
+	  Tomboy/Addins/InsertTimestamp/Makefile.am,
+	  Tomboy/Addins/Makefile.am, configure.in:
+	  This addin adds an item to the tools menu that inserts a timestamp at
+	  the cursor position. Fixes bug #359168.
+
+2007-10-14  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncUtils.cs: Stop looking for bootLocalFile and
+	  echoTool; we do not use them (previously used to try to set FUSE to
+	  always load).  FindFirstExecutableInPath now searches a few common paths
+	  in addition to those found in a user's $PATH.  For now those common
+	  paths are /sbin, /bin, and /usr/bin.  This is the first step in fixing
+	  bug #484644 and bug #479748.  More work still needs to be done.  For
+	  example, if FUSE is enabled it doesn't matter if we can find modprobe or
+	  a GUI sudo tool.  Also, the behavior when a GUI sudo tool is not found
+	  needs to be tweaked/tested.
+
+2007-10-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.mdp: Added internal dbus-sharp files to MD solution, mostly just
+	  for autocomplete convenience.
+
+2007-10-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/Bugzilla/BugzillaNoteAddin.cs: Removing extraneous debug
+	  statements.
+
+2007-10-13  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/NoteTag.cs: Patch from bugreports@nn7.de to fix bulleted list
+	  spacing to not be so huge.  Fixes bug #415606.
+
+2007-10-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/NoteManager.cs: Backing out fix for bug #449478.  Now the body of
+	  the note content is always selected when creating a new note (title is
+	  never automatically selected).  This restores the original behavior that
+	  people seem to prefer.
+
+2007-10-08  Boyd Timothy <btimothy@gmail.com>
+
+	* Tomboy/NoteTag.cs: Move the null checking from Image
+	  property into the Widget property.  Also create a new
+	  object [] for TagChangedArgs to prevent a null exception.
+	  And finally, wrap the Changed handler in a try/catch just
+	  in case a handler pukes.  This will prevent a crash.
+
+2007-10-08  Boyd Timothy <btimothy@gmail.com>
+
+	Patch from Jeff Tickle to allow TextTags in Tomboy to insert
+	widgets instead of just Gdk.Pixbufs (from bug #484537).
+
+	* Tomboy/Addins/Bugzilla/InsertBugAction.cs: Set WidgetLocation
+	  to null.
+	* Tomboy/Addins/Bugzilla/BugzillaLink.cs: Remove override for
+	  TextTag Image property since it's now handled in the super
+	  class and wraps the Gdk.Pixbuf in a Gtk.Image.
+	* Tomboy/NoteBuffer.cs: Replace the image queue with stuff
+	  to deal with widget queue.
+	* Tomboy/NoteTag.cs: Add a Widget property and convert the
+	  Image property to use a Gtk.Image.
+	* Tomboy/Note.cs: Handle the work of processing NoteTag
+	  widgets.  There's now an AddChildWidget () call that can
+	  be called during TextInsert events.  If a note has never
+	  been displayed, the widget is added to the queue or
+	  otherwise added immediately.  As soon as the note window
+	  is instantiated, all widgets that have not been processed
+	  are then inserted.
+
+2007-10-08  Boyd Timothy <btimothy@gmail.com>
+
+	Patch from Jeff Tickle to fix the highlighting problems.
+	Fixes bug #392907.
+
+	* Tomboy/Watchers.cs, Tomboy/NoteWindow.cs: Use
+	  Buffer.GetSlice () instead of Buffer.GetText () because the
+	  GetSlice call accounts for non-character items in the buffer
+	  such as pixbufs and widgets.
+
+2007-09-21  Sebastian Dröge  <slomo@circular-chaos.org>
+
+	* Makefile.include:
+	* Mono.Addins/Mono.Addins.Gui/Makefile.am:
+	* Mono.Addins/Mono.Addins.Setup/Makefile.am:
+	* Mono.Addins/Mono.Addins/Makefile.am:
+	* configure.in: Allow compiling and linking against an external
+	Mono.Addins version that is newer than 0.2. This has to be explicitely
+	enforced with --with-mono-addins=system. Fixes bug #478887.
+
+2007-09-20  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/NoteEditor.cs: Correct check for ShiftMask when Delete key is
+	  pressed.  Fixes bug #437684 (patch courtesy of Laurent Bedubourg). 
+	  Perhaps we should use the same technique for our Ctrl+Enter
+	  shortcut?
+
+2007-09-17  Boyd Timothy <btimothy@gmail.com>
+
+	These changes come from the Tasks Addin fixups patch from
+	bug #462626:
+
+	* configure.in: Re-enabled Tomboy/Addins/Tasks/Makefile.
+	* Tomboy/Addins/Tasks/ComplexMenuItem.cs: New file that allows
+	  proper checkbuttons to appear in Tomboy's main tray icon menu.
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: Changed the code to attempt
+	  to not modify the buffer mid-stream during events so it wouldn't
+	  corrupt the TextIter.  Added code to handle deleting tasks when
+	  the user highlights a range of text that incapsulates multiple
+	  tasks.
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Allow the due date and
+	  priority columns in the Todo list window to be turned off (they
+	  are off by default).  Also have an option to show completed tasks.
+	  Completed tasks are not shown by default.
+	* Tomboy/Addins/Tasks/TaskManager.cs: Added GetTasksForNote (Note note)
+	  for easy task lookup by note.
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Change the addin category to
+	  'Tools' and enable by default.
+	* Tomboy/Addins/Tasks/Makefile.am: Add ComplexMenuItem.cs.
+	* Tomboy/Addins/Tasks/TasksUIManagerLayout.xml: Added menu items for
+	  showing completed tasks, showing the due date and showing the
+	  priority in the todo list window.
+	* Tomboy/Addins/Tasks/TasksApplicationAddin.cs: Add the top five open
+	  tasks to Tomboy's tray icon menu.
+	* Tomboy/Addins/Makefile.am: Build the Tasks addin.
+	* data/UIManagerLayout.xml: Add placeholder items into tomboy's main
+	  trayicon menu so that addins can easily add extra items.
+
+2007-09-17  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in: Bumping trunk version to 0.9.0.  Start your engines!
+
+2007-09-16  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* help/C/figures/tomboy-preferences-synchronization.png: Forgot to add
+	  this earlier (thanks to Daniel Nylander for catching this!).
+
+2007-09-16  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* help/C/figures/tomboy-preferences-hotkeys.png,
+	  help/C/figures/tomboy-main-menu.png,
+	  help/C/figures/tomboy-new-note.png,
+	  help/C/figures/tomboy-preferences-add-ins.png,
+	  help/C/figures/tomboy-panel.png,
+	  help/C/figures/tomboy-preferences-plugins.png,
+	  help/C/figures/tomboy-preferences-editing.png, help/C/tomboy.xml:
+	  Updated all screenshots for help documentation.  Replaced
+	  tomboy-preferences-plugins.png with tomboy-preferences-addins.png,
+	  and also added tomboy-preferences-synchronization.png.
+
+2007-09-16  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* help/C/tomboy.xml: GDP-recommended use of terms like "drop-down list"
+	  and "menu".  Also eliminated usage of apostrohpes for contractions
+	  and posession.
+
+2007-09-16  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* help/C/tomboy.xml: Cleanup in the synchronization section.
+
+2007-09-15  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* NEWS: Updated NEWS for 0.8.0.
+
+2007-09-14  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* README: Updating Tomboy website URL.
+
+2007-09-14  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* help/C/tomboy.xml: Minor sync draft update.
+	* configure.in: Bump for 0.8.0 (next release).
+
+2007-09-14  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* help/C/tomboy.xml: Draft content for synchronization section.  Other
+	  minor style fixes.
+
+2007-09-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* help/C/tomboy.xml: Updating help for upcoming 0.8.0 release. 
+	  "Plugins" are now "add-ins".  Added stubs for note synchronization
+	  content.
+
+2007-09-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs: Don't
+	  show import results dialog when doing an automatic import.  Less
+	  irritating for user, and prevents a crash described in bug #475516
+	  when running Tomboy as a panel applet.
+
+2007-09-10  Boyd Timothy <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.7.9.
+
+2007-09-10  Boyd Timothy <btimothy@gmail.com>
+
+	* NEWS: Updated for 0.7.8.
+
+2007-09-10  Boyd Timothy <btimothy@gmail.com>
+
+	* Tomboy/dbus-sharp/dbus-sharp/src/BusObject.cs,
+	  MessageWriter.cs, IntrospectionSchema.cs, MatchRule.cs,
+	  Message.cs, Mapper.cs, MessageFilter.cs, Connection.cs,
+	  Protocol.cs, Signature.cs, MessageReader.cs, ExportObject.cs:
+	  Update dbus-sharp to 0.4.2 stable version.  Fixes bug
+	  #475622.
+
+2007-09-10  Boyd Timothy <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.7.8.
+
+2007-09-10  Boyd Timothy <btimothy@gmail.com>
+
+	* NEWS: Updated for 0.7.7.
+
+2007-09-10  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/FileSystemSyncServer.cs: Commit does not fail
+	  if cleanup step fails.  Should still revamp cleanup code, though
+	  (see TODOs).
+
+2007-09-10  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs,
+	  Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:
+	  Check for ability to list dir and read test files when saving a
+	  sync configuration.  Some TODOs in there to add appropriate
+	  TomboySyncExceptions when freeze doesn't apply.
+
+2007-09-10  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs: Added
+	  clarifying comment for translators.
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs,
+	  Tomboy/Synchronization/FuseSyncServiceAddin.cs: Check for ability
+	  to create, write to, and delete files when saving a sync
+	  configuration.
+
+2007-09-08  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs: Padding/spacing/wrapping fixes
+	  for SyncDialog.  Fixes bug #473354 (patch courtesy of Jerome
+	  Haltom).
+
+2007-09-05  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs,
+	  Tomboy/Synchronization/SyncManager.cs: Minor cleanups, including
+	  fix for being unable to sync after a previous sync attempt has
+	  failed.
+
+2007-09-03  Boyd Timothy <btimothy@gmail.com>
+
+        * configure.in: Bump version to 0.7.7.
+
+2007-09-03  Boyd Timothy <btimothy@gmail.com> 
+
+	* NEWS: Updated for 0.7.6.
+
+2007-09-03  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs: Removing obsolete comment.
+
+2007-09-03  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs,
+	  Tomboy/Synchronization/SyncManager.cs: When renaming a note in
+	  conflict, check new title against new/updated titles from server in
+	  addition to existing notes on client.
+
+2007-09-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* data/tomboy-addins.pc.in: Update plugins directory references to
+	  reflect new addin infrastructure.  Fixes bug #472670, patch
+	  courtesy of Robin Sonefors.
+
+2007-09-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/FileSystemSyncServer.cs: IsValidXmlFile now
+	  includes check for file existence.  Stream/Writer usage managed by
+	  'using' blocks, non-disposable objects closed using try/finally
+	  blocks.
+	* Tomboy/Synchronization/TomboySyncClient.cs: Stream/Writer usage
+	  managed by 'using' blocks, non-disposable objects closed using
+	  try/finally blocks.
+
+2007-09-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs,
+	  Tomboy/Synchronization/SyncManager.cs: Better handling of
+	  exceptions during synchronization.  Entire sync thread is
+	  surrounded in try/catch/finally, and when invoking the main gtk
+	  thread, any exceptions are temporarily caught, and then rethrown in
+	  the sync thread for consistency.  This should fix most sync-related
+	  crashes.
+
+2007-09-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/RemoteControl.cs, Tomboy/Synchronization/SyncDialog.cs,
+	  Tomboy/Synchronization/SyncManager.cs: Handle potential for
+	  LoadForeignNoteXml exceptions.
+
+2007-08-30  Boyd Timothy <btimothy@gmail.com> 
+
+	Fixes bug #393249:
+	
+	* data/GNOME_TomboyApplet.server.in.in: Removed "--panel-applet"
+	  command-line option to avoid deprecation warning.
+	* data/Makefile.am: When launching as the panel applet, use the
+	  tomboy-panel script instead of the tomboy script.
+	* Tomboy/Applet.cs: Set the Tomboy.Tray once the panel applet is up and
+	  running so other code can know about it.
+	* Tomboy/Makefile.am: Process the tomboy-panel script.
+	* Tomboy/Tomboy.cs: Allow the panel applet to set the tomboy tray
+	  statically so other parts of the code/addins can access the tray
+	  regardless of panel applet or tray icon mode.
+	* Tomboy/tomboy-panel.in: New script that allows the panel applet to be
+	  started without deprecation warnings from bonobo.
+
+2007-08-30  Boyd Timothy <btimothy@gmail.com> 
+
+	Fixes bug #459697:
+	
+	* COPYING, Tomboy/Addins/PrintNotes/COPYING: Added a blurb mentioning
+	  that tomboy is distributed under the LGPL with exception to the
+	  PrintNotes addin which is GPL.
+	* Tomboy/Addins/PrintNotes/Makefile.am: Added GPL COPYING file inside
+	  the PrintNotes directory.
+
+2007-08-30  Boyd Timothy <btimothy@gmail.com> 
+
+	Fix for bug #459697:
+	
+	* libtomboy/gtksourceprintjob.c, libtomboy/gtksourceprintjob.h,
+	  libtomboy/gedit-print.c, libtomboy/gedit-print.h,
+	  Tomboy/Addins/PrintNotes/gtksourceprintjob.c,
+	  Tomboy/Addins/PrintNotes/gtksourceprintjob.h,
+	  Tomboy/Addins/PrintNotes/gedit-print.c,
+	  Tomboy/Addins/PrintNotes/gedit-print.h: Move gedit-print and
+	  gtksourceprintjob from libtomboy to Addins/PrintNotes/ so that it
+	  can be built & distributed separately from tomboy's main
+	  executable.
+	* Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs: Use libprintnotes
+	  instead of libtomboy.
+	* Tomboy/Addins/PrintNotes/Makefile.am: Build libprintnotes.so.
+	* Tomboy/tomboy.in: Include the right path for libprintnotes when
+	  running in the uninstalled directory.
+
+2007-08-29  Boyd Timothy <btimothy@gmail.com>
+
+        * Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: Modify the CSS
+          so the note is exported in a more friendly format.  Fixes
+          bug #463957.
+
+2007-08-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* po/POTFILES.in: Adding FuseSyncServiceAddin.cs, which was mistakenly
+	  left out.  Fixes bug #471260.
+
+2007-08-27  Boyd Timothy <btimothy@gmail.com>
+
+	* Tomboy/Synchronization/SyncDialog.cs: Use a TreeStore instead
+	  instead of a ListStore to avoid a crash when users may click
+	  on the TreeView headers.  Fixes bug #470620.
+
+2007-08-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: When saving
+	  configuration, throw TomboySyncException if addin is not supported.
+
+2007-08-27  Boyd Timothy <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.7.6.
+
+2007-08-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* NEWS: Updated for 0.7.5.
+
+2007-08-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs: String work.
+
+2007-08-27  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Improved sync pref widget sensitivity
+	  behavior.  Nuke sync client manifest.xml on save as well as reset.
+
+2007-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: Rename
+	  CreateMountPath method to PrepareMountPath, and add a call to make
+	  sure there is no existing FUSE mount at that path.
+	* Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Pass
+	  gnome-keyring-sharp exception messages along in
+	  TomboySyncException.  Short on time to implement non-keyring
+	  credential storage solution.
+
+2007-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Check for TomboySyncException when
+	  saving sync configuration.  Use exception message in error dialog
+	  content.
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: Adding
+	  FuseMountTimeoutError and FuseMountDirectoryError members, to be
+	  overriden by child classes that need to customize these error
+	  messages.  MountFuse method throws TomboySyncException instead of
+	  just returning false.  Check for existence of mountPath directory
+	  after mounting...wdfs with incorrect user/pass credentials will
+	  appear to mount correctly but Directory.Exists will return false.
+	* Tomboy/Synchronization/SyncManager.cs: Added TomboySyncException
+	  type, an extension of System.ApplicationException.
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs,
+	  Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs: Throw
+	  TomboySyncException when configuration is incorrect.
+
+2007-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* test/DBusClientTest.py: Test driver for Tomboy's DBus interface. 
+	  Currently provides coverage of note save/add/delete events.
+	* Tomboy/RemoteControl.cs: Expose events for note save/add/delete over
+	  DBus.  Fixes bug #465639 (patch courtesy of John Carr).
+
+2007-08-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in: Bumping version to 0.7.5.
+
+2007-08-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* NEWS: Updating NEWS for 0.7.4
+
+2007-08-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs: Improvements to status strings
+	  in Sync Dialog.
+
+2007-08-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs: Changing wording of main
+	  paragraph in SyncDialog to mention how many notes were updated;
+	  additional simplification.
+	* Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs: Simplifying SSH
+	  instructional text...should really go in help.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs,
+	  Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs: Folder/Path
+	  cleanups.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Added reminder to fix tabbing.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs: Add "X note updates processed."
+	  to bottom of SyncDialog.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Add "Advanced" dialog for sync tab that
+	  exposes saved conflict handling behavior.  Ugly, but should be
+	  rarely used.  Once we have autosync (which will undoubtedly have
+	  associated preferences), this whole tab will need to be redesigned
+	  anyway.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncUtils.cs: Alert user if enabling FUSE
+	  fails.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Improved sensitivity behavior of
+	  save/clear buttons on sync tab.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Fixing build-breaking typo.  Whoops!
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncServiceAddin.cs,
+	  Tomboy/Synchronization/FuseSyncServiceAddin.cs,
+	  Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:
+	  SyncServiceAddins now derives directly from ApplicationAddin.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/AddinManager.cs, Tomboy/PreferencesDialog.cs: Add
+	  ApplicationAddinListChanged event to AddinManager.  Use in
+	  PreferencesDialog to provide live updates in the Sync tab as addins
+	  are enabled/disabled.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Sort sync addin combo box by name.
+
+2007-08-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* MAINTAINERS: Update syntax to match
+	  http://mail.gnome.org/archives/devel-announce-list/2007-August/msg00003.html
+
+2007-08-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:
+	  PreferencesDialog handles sensitivity of sync widgets.  Change
+	  cursor to WAIT when saving sync settings.
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: FUSE mount attempt
+	  times out after 10 seconds.
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:
+	  Add "Browse..." button that presents a FileChooserDialog.
+	* Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs: Removed all
+	  password-related code and UI elements.  Added first attempt at
+	  explaining need for ssh keys/daemon to user.
+
+2007-08-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/NoteEditor.cs: Add support for using shift+delete to perform a
+	  "cut" operation.  Should fix bug #437684 (patch provided by Andrew
+	  Fister).
+
+2007-08-09  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Defines.cs.in: Fix for OpenSUSE build system issues, courtesy
+	  of Michael Wolf.
+
+2007-08-05  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.mdp: Removing Mono.Security reference.  Not sure what that was
+	  doing there.
+
+2007-07-31  Boyd Timothy <btimothy@gmail.com> 
+
+	* data/tomboy.schemas.in: Specify a default int value for
+	  sync_conflict_behavior to avoid warnings at install time.
+
+2007-07-30  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Bump version to 0.7.4.
+
+2007-07-30  Boyd Timothy <btimothy@gmail.com> 
+
+	* NEWS: Added comment about removing Tagging UI.
+
+2007-07-30  Boyd Timothy <btimothy@gmail.com> 
+
+	* NEWS: Updated for 0.7.3 release.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Preferences.cs, data/tomboy.schemas.in: Adding sync
+	  preferences to our GConf schema.  Moving these preferences to
+	  /apps/tomboy/sync/*.
+
+2007-07-30  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Synchronization/SyncDialog.cs: Fixed sentence "Preparing to
+	  upload updates from server" -> "Preparing to upload updates to
+	  server".
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncUtils.cs: Add ArchLinux support (patch
+	  courtesy of Dave Foster).
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/TomboySyncClient.cs,
+	  Tomboy/Synchronization/SyncManager.cs,
+	  Tomboy/Synchronization/FileSystemSyncServer.cs: Adding support for
+	  server ID to prevent syncing against an empty or reinitialized
+	  server (which could cause note loss/mangling).
+
+2007-07-30  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/RecentChanges.cs, Tomboy/NoteWindow.cs: Commenting out the
+	  tags UI for now.  There's not enough time to get it working well
+	  for 0.8.  For more info, see bug #380634.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/TomboySyncClient.cs,
+	  Tomboy/Synchronization/SyncManager.cs: Reset client and local
+	  manifest file if server has been wiped, or reinitialized without or
+	  knowledge, etc.  Detection of this situation needs to be improved.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Fix crash when no SyncServiceAddins
+	  found.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Tomboy.addin.xml: Fixing objectType for SyncServiceAddin
+	  extension point.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in, Tomboy.mdp, Tomboy/PreferencesDialog.cs,
+	  Tomboy/Tomboy.cs, Tomboy/AddinManager.cs, Tomboy/Watchers.cs,
+	  Tomboy/Tomboy.addin.xml, Tomboy/RemoteControl.cs,
+	  Tomboy/NoteWindow.cs, Tomboy/Addins/Evolution/Evolution.addin.xml,
+	  Tomboy/Addins/Makefile.am,
+	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml, Tomboy/NoteManager.cs,
+	  Tomboy/Preferences.cs, Tomboy/Makefile.am, Tomboy/Note.cs,
+	  Tomboy/ActionManager.cs, po/POTFILES.in, po/POTFILES.skip: Merging
+	  in the rest of the tomboy-sync branch.  In additon to note
+	  synchronization functionality, this brings in various bug fixes,
+	  tagging updates to the DBus API, and other goodies.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Gnome.Keyring: Copying Gnome.Keyring bundle from tomboy-sync.
+
+2007-07-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization, Tomboy/Synchronization/SyncDialog.cs,
+	  Tomboy/Synchronization/SyncServiceAddin.cs,
+	  Tomboy/Synchronization/SyncUtils.cs,
+	  Tomboy/Synchronization/FuseSyncServiceAddin.cs,
+	  Tomboy/Synchronization/TomboySyncClient.cs,
+	  Tomboy/Synchronization/SyncManager.cs,
+	  Tomboy/Synchronization/FileSystemSyncServer.cs,
+	  Tomboy/Addins/FileSystemSyncService,
+	  Tomboy/Addins/WebDavSyncService, Tomboy/Addins/SshSyncService:
+	  Copying new files from tomboy-sync branch.
+
+2007-07-21  Boyd Timothy <btimothy@gmail.com> 
+
+	Removing the Tasks Addin from being built/compiled
+	for 0.8.  It's not ready and this should prevent users
+	corrupting their notes.
+	
+	* configure.in: Commented out the line to build
+	  Tomboy/Addins/Tasks/Makefile.
+	* Tomboy/Addins/Makefile.am: Removed Tasks from the SUBDIRS line.
+
+2007-07-20  Jakub Steiner <jimmac@ximian.com>
+
+	* data/images/tag-22.png
+	* data/images/tag-32.png
+	* data/images/tag-24.png
+	* data/images/tag-16.png
+	* data/images/tag-48.png
+	* data/images/tag.svg: make the icon look less 'inactive'
+	* data/images/artwork.svg: use one canvas for all "source" in
+		future.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Plugins, Tomboy/Plugins/Makefile.am,
+	  Tomboy/Plugins/checkbox-done.png, Tomboy/Plugins/checkbox-todo.png,
+	  Tomboy/Plugins/.cvsignore: Removing Tomboy/Plugins/.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in: Bump version to 0.7.3.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* NEWS: Updated NEWS for 0.7.2.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/GalagoPresence/GalagoPresence.addin.xml,
+	  Tomboy/Addins/Evolution/Evolution.addin.xml,
+	  Tomboy/Addins/PrintNotes/PrintNotes.addin.xml,
+	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml: Changing category to
+	  "Desktop Integration".  Categories could still use some love.
+
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Preferences.cs, data/tomboy.schemas.in: Removing use of
+	  enabled_plugins GConf key.
+
+2007-07-11  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Reverting this because it was accidentally checked-in
+	  with references.
+
+2007-07-11  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Added a missing semi-colon in a string.
+	* po/POTFILES.in: Commented out many of the Mono.Addins code since we
+	  don't really use them directly in Tomboy.  Also added the
+	  *.addin.xml files.  I don't any strings are being extracted at this
+	  point, but hopefully eventually.
+
+2007-07-11  Boyd Timothy <btimothy@gmail.com> 
+
+	Fixes for make distcheck:
+	
+	* Tomboy/Addins/ExportToHtml/Makefile.am: Include ExportToHtml.xsl in
+	  EXTRA_DIST.
+	* po/POTFILES.in: Added EvolutionNoteAddin.cs,
+	  GalagoPresenceNoteAddin.cs, and removed PluginManager.cs.
+
+2007-07-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in, Tomboy.mdp,
+	  Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs,
+	  Tomboy/Addins/GalagoPresence/Makefile.am,
+	  Tomboy/Addins/GalagoPresence/GalagoPresence.addin.xml,
+	  Tomboy/Addins/Makefile.am: Migrating GalagoPresencePlugin to
+	  GalagoPresenceNoteAddin, using Mono.Addins.
+
+2007-07-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in, Tomboy.mdp, Tomboy/Plugins/Evolution.cs,
+	  Tomboy/Addins/Evolution,
+	  Tomboy/Addins/Evolution/Evolution.addin.xml,
+	  Tomboy/Addins/Evolution/Makefile.am,
+	  Tomboy/Addins/Evolution/EvolutionNoteAddin.cs,
+	  Tomboy/Addins/Makefile.am: Migrate EvolutionPlugin to
+	  EvolutionNoteAddin, using Mono.Addins.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/PreferencesDialog.cs: Add in AddinInfoDialog so a user can
+	  view the information about an addin in a separate dialog when they
+	  click the information button.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Create Makefile for StickyNoteImport addin.
+	* Tomboy.mdp: Remove the old StickyNoteImport plugin and replace it
+	  with the addin.
+	* Tomboy/Plugins/StickyNoteImport.cs: Moved this code to the new
+	  StickNoteImport addin.
+	* Tomboy/Addins/StickyNoteImport,
+	  Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs,
+	  Tomboy/Addins/StickyNoteImport/StickyNoteImport.addin.xml,
+	  Tomboy/Addins/StickyNoteImport/Makefile.am: The new
+	  StickyNoteImport addin.
+	* Tomboy/Addins/Makefile.am: Add StickyNoteImport to SUBDIRS.
+	* po/POTFILES.in: Change the path for the StickyNoteImport addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Addd PrintNotes addin Makefile.
+	* Tomboy.mdp: Remove the old PrintNotes plugin and replace it with the
+	  PrintNotes addin.
+	* Tomboy/Plugins/PrintNotes.cs: Moved this to
+	  Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs.
+	* Tomboy/Addins/PrintNotes,
+	  Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs,
+	  Tomboy/Addins/PrintNotes/PrintNotes.addin.xml,
+	  Tomboy/Addins/PrintNotes/Makefile.am: The new PrintNotes addin.
+	* Tomboy/Addins/Makefile.am: Add PrintNotes to SUBDIRS and also split
+	  it out onto a separate line since it was beginning to be too long.
+	* po/POTFILES.in: Replace the old PrintNotes plugin source with the new
+	  addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Added makefile for NoteOfTheDay addin.
+	* Tomboy.mdp: Moved NoteOfTheDay from a plugin to an addin.
+	* Tomboy/Plugins/NoteOfTheDay.cs: Moved the NoteOfTheDay plugin to be
+	  an addin.
+	* Tomboy/Addins/Makefile.am: Added NoteOfTheDay to SUBDIRS.
+	* Tomboy/Addins/NoteOfTheDay,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDayApplicationAddin.cs,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.addin.xml,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferencesFactory.cs,
+	  Tomboy/Addins/NoteOfTheDay/Makefile.am,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs: The new NoteOfTheDay
+	  ApplicationAddin.
+	* po/POTFILES.in: Updating references from old NoteOfTheDay plugin to
+	  NoteOfTheDay addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/AddinManager.cs: Don't use the non-existence of an addin
+	  category to determine a built-in addin.  It turns out that the
+	  built-in (root) addin isn''t returned in this call anyhow.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Add Tomboy/Addins/FixedWidth/Makefile.
+	* Tomboy.mdp: Added the files needed for the FixedWidth addin.
+	* Tomboy/Plugins/FixedWidth.cs: Moved FixedWidth.cs (old plugin) to be
+	  an addin.
+	* Tomboy/Addins/FixedWidth, Tomboy/Addins/FixedWidth/FixedWidthTag.cs,
+	  Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs,
+	  Tomboy/Addins/FixedWidth/FixedWidthNoteAddin.cs,
+	  Tomboy/Addins/FixedWidth/Makefile.am,
+	  Tomboy/Addins/FixedWidth/FixedWidth.addin.xml: The new FixedWidth
+	  addin.
+	* Tomboy/Addins/Makefile.am: Added FixedWidth to SUBDIRS.
+	* po/POTFILES.in: Fixed the path for the translatable strings for the
+	  FixedWidth addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Backlinks/Backlinks.addin.xml,
+	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml: Changed the category
+	  name to "Tools".
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Changed the category name to
+	  "Experimental".
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/ExportToHTML: Renaming to ExportToHtml.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Added Tomboy/Addins/ExportToHtml/Makefile.
+	* Tomboy.mdp: Remove the old ExportToHTML reference and include the
+	  source files for the new ExportToHtml addin.
+	* Tomboy/Plugins/ExportToHTML.cs, Tomboy/Plugins/ExportToHTML.xsl:
+	  Moved these files to Tomboy/Addins/ExportToHtml/.
+	* Tomboy/Addins/Makefile.am: Add ExportToHtml to SUBDIRS.
+	* Tomboy/Addins/ExportToHtml,
+	  Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtml.addin.xml,
+	  Tomboy/Addins/ExportToHtml/Makefile.am,
+	  Tomboy/Addins/ExportToHtml/NoteNameResolver.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: The new ExportToHtml
+	  addin.
+	* po/POTFILES.in: Look in the new addin path for ExportToHtml strings.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> Unless note is created using the "Link"
+	  button, select title when create new notes (instead of content). 
+	  Fixes bug #449478 (patch from Yonatan Oren).
+
+	* Tomboy/Addins/Backlinks/Makefile.am: Use an "ADDIN_NAME" variable to
+	  be consistent with the other addins.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Removed the old reference to Tomboy/Plugins/Bugzilla.cs.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Add Tomboy/Addins/Bugzilla/Makefile
+	* Tomboy.mdp: Added all the individual Bugzilla Addin source files.
+	* Tomboy/Plugins/Bugzilla.cs, Tomboy/Addins/Makefile.am,
+	  Tomboy/Addins/Bugzilla,
+	  Tomboy/Addins/Bugzilla/BugzillaPreferences.cs,
+	  Tomboy/Addins/Bugzilla/BugzillaNoteAddin.cs,
+	  Tomboy/Addins/Bugzilla/InsertBugAction.cs,
+	  Tomboy/Addins/Bugzilla/Bugzilla.addin.xml,
+	  Tomboy/Addins/Bugzilla/BugzillaPreferencesFactory.cs,
+	  Tomboy/Addins/Bugzilla/Makefile.am,
+	  Tomboy/Addins/Bugzilla/BugzillaLink.cs: New Bugzilla Addin created
+	  in Tomboy/Addins/Bugzilla/ (formerly Tomboy/Plugins/Bugzilla.cs).
+	* po/POTFILES.in: Moved translatable strings from
+	  Tomboy/Plugins/Bugzilla.cs ->
+	  Tomboy/Addins/Bugzilla/BugzillaPreferences.cs
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Removed references to "plugin" and "Plugin".  Don't
+	  create the Tomboy/Plugins/Makefile anymore.
+	* Tomboy.mdp: Don't build PluginManager.cs anymore since it's not used.
+	* Tomboy/PluginManager.cs: Removing old PluginManager.cs.
+	* Tomboy/Tomboy.cs: Removed the "--check-plugin-unloading" cmd-line
+	  option for now.
+	* Tomboy/AddinManager.cs: Only return addins in the GetAllAddins ()
+	  call that have a category specified.  This allows us to leave the
+	  category off of built-in addins (all the addins in Watchers.cs).
+	* Tomboy/Watchers.cs: Changed the watcher plugins to be addins.
+	* Tomboy/Tomboy.addin.xml: Added extension information for all the
+	  built-in addins in Watchers.cs.
+	* Tomboy/NoteManager.cs: Removed all PluginManager references.
+	* Tomboy/Makefile.am: Don't build PluginManager.cs anymore.
+	* data/tomboy-addins.pc.in: New file (used to be tomboy-plugins.pc.in).
+	* data/Makefile.am: Build tomboy-addins.pc instead of
+	  tomboy-plugins.pc.
+	* data/tomboy-plugins.pc.in: Renamed to tomboy-addins.pc.in.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Added AddinPreferenceFactory.cs.
+	* Tomboy/PreferencesDialog.cs: Changed to use the AddinManager instead
+	  of the PluginManager.  Replaced the "Plugins" tab with a new
+	  "Add-ins" tab.
+	* Tomboy/ApplicationAddin.cs: Added an Initialized:bool property to
+	  allow the addin manager to know whether to initialize again.
+	* Tomboy/AddinPreferenceFactory.cs: New class to allow addins to
+	  provide a preferences dialog.
+	* Tomboy/Tomboy.cs: Pass in the AddinManager to the PreferencesDialog
+	  instead of the old PluginManager.
+	* Tomboy/AddinManager.cs: Added code to track app addins and note
+	  addins so that they can be enabled and disabled at runtime and be
+	  properly initialized and shut down.
+	* Tomboy/Tomboy.addin.xml: Added a new extension point to allow addins
+	  to provide preferences.
+	* Tomboy/Addins/Backlinks/Backlinks.addin.xml: Set a category and
+	  enable this addin by default.
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Set a category and disable this
+	  addin by default.
+	* Tomboy/Addins/Tasks/TasksApplicationAddin.cs: Added code to signal
+	  when this addin is initialized.
+	* Tomboy/Makefile.am: Don't compile the Plugins directory anymore.  We
+	  need to transition these over to addins ASAP.  Also added
+	  AddinPreferenceFactory.cs.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Mono.Addins.Setup/AssemblyInfo.cs,
+	  Mono.Addins.Setup/Mono.Addins.Setup/ConsoleAddinInstaller.cs,
+	  Mono.Addins/Mono.Addins/IAddinInstaller.cs,
+	  Mono.Addins/Mono.Addins/InstanceExtensionNode.cs,
+	  Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallerDialog.cs,
+	  Mono.Addins.Gui/Mono.Addins.Gui/AddinInstaller.cs
+	  Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallerDialog.cs: Missed these
+	  new files that are also part of the Mono.Addins 0.2 release.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/ConsoleProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/ProgressStatusMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/NullProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/SetupService.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/IProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinInfo.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinStore.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/SetupTool.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinRepositoryEntry.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/RepositoryRegistry.cs,
+	  Mono.Addins/Mono.Addins/AssemblyInfo.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Serialization/BinaryXmlReader.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/Addin.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/GettextCatalog.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionContext.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/IProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/RuntimeAddin.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/TypeExtensionNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ConsoleProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinInfo.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionTree.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/NodeAttributeAttribute.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/TreeNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinRegistry.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinManager.cs,
+	  Mono.Addins/Mono.Addins/Makefile.am,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/NodeTypeAttribute.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/Extension.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/AddinDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionNodeType.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionPoint.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionNodeDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ObjectDescriptionCollection.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ConditionTypeDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinUpdateData.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/DatabaseConfiguration.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/Util.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/SetupProcess.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinScanResult.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinDatabase.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/FileDatabase.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinHostIndex.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/ProcessProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinScanner.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/NewSiteDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ManageSitesDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinManagerWindow.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/Services.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ErrorDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinManagerDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/AssemblyInfo.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/generated.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/gui.stetic,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:
+	  Upgraded the embedded Mono.Addins to Mono.Addins 0.2.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
+	* Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/ConsoleProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/ProgressStatusMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup.ProgressMonitoring/NullProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/SetupService.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/IProgressMonitor.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinInfo.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinStore.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/SetupTool.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/AddinRepositoryEntry.cs,
+	  Mono.Addins/Mono.Addins.Setup/Mono.Addins.Setup/RepositoryRegistry.cs,
+	  Mono.Addins/Mono.Addins/AssemblyInfo.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Serialization/BinaryXmlReader.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/Addin.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/GettextCatalog.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionContext.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/IProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/RuntimeAddin.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/TypeExtensionNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ConsoleProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinInfo.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/ExtensionTree.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/NodeAttributeAttribute.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/TreeNode.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinRegistry.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins/AddinManager.cs,
+	  Mono.Addins/Mono.Addins/Makefile.am,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/NodeTypeAttribute.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/Extension.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/AddinDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionNodeType.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionPoint.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ExtensionNodeDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ObjectDescriptionCollection.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Description/ConditionTypeDescription.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinUpdateData.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/DatabaseConfiguration.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/Util.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/SetupProcess.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinScanResult.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinDatabase.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/FileDatabase.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinHostIndex.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/ProcessProgressStatus.cs,
+	  Mono.Addins/Mono.Addins/Mono.Addins.Database/AddinScanner.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/NewSiteDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ManageSitesDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinManagerWindow.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/Services.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ErrorDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinManagerDialog.cs,
+	  Mono.Addins/Mono.Addins.Gui/AssemblyInfo.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/generated.cs,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/gui.stetic,
+	  Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:
+	  Upgraded the embedded Mono.Addins to Mono.Addins 0.2.
+
+2007-07-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/NoteManager.cs: Unless note is created using the "Link"
+	  button, select title when create new notes (instead of content). 
+	  Fixes bug #449478 (patch from Yonatan Oren).
+
+2007-07-04  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Tomboy.cs: (From tomboy-sync) --open-note command line option
+	  now accepts a file path as an argument.  It will attempt to create
+	  a new note using the specified file as the note XML.  This works
+	  great in conjunction with Giver.
+	* Tomboy/RemoteControl.cs: (From tomboy-sync) Added
+	  SetNoteContentsCompleteXml as an interface to
+	  Note.LoadForeignNoteXml.
+	* Tomboy/Note.cs: (From tomboy-sync) Applying John Carr's XmlContent
+	  patch from bug #440562.  Adding or removing tags should now cause a
+	  note to be saved.  Added Note.LoadForeignNoteXml method to reload
+	  note data from a foreign XML source.  Added
+	  NoteArchiver.GetRenamedNoteXml and NoteArchiver.GetTitleFromNoteXml
+	  to assist with renaming directly on in the note's XML.
+
+2007-07-03  Boyd Timothy <btimothy@gmail.com> 
+
+	* MAINTAINERS: Added Sandy to the list.
+
+2007-07-03  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Adding in the Mono.Addins code to the project right now
+	  so it's easier to hack up a patch for having installed addins that
+	  are disabled by default.
+
+2007-07-03  Boyd Timothy <btimothy@gmail.com>
+
+        * configure.in, Makefile.include, Tomboy/Makefile.am,
+	  Tomboy/tomboy.in, Makefile.am, po/POTFILES.in,
+	  Tomboy/Mono.Addins: Changed the location of Mono.Addins
+	  to the root of the project.  Doing this to keep in sync with
+	  the tomboy-sync branch, where this was done have shorter
+	  paths in the tarball.
+
+2007-07-03  Boyd Timothy <btimothy@gmail.com>
+
+        * configure.in: Added [tar-pax] as a AM_INIT_AUTOMAKE option so
+          that make distcheck will work (deal with long path names when
+          creating the tarball).
+        * po/POTFILES.skip: Added data/GNOME_TomboyApplet.server.in so
+          make distcheck will work.
+
+2007-06-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Change HTML export link/title colors
+	  to match new note link/title colors.  Fixes bug #449597 (patch
+	  courtesy of Stefan Schweizer).
+
+2007-06-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/RecentChanges.cs: Removing unused Gtk.HPaned.
+
+2007-06-17  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Addins/*, Tomboy/Mono.Addins/*: svn:ignore love.
+
+2007-06-11  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Set the minimum width to 200
+	  pixels and ellipsize the task summary.
+
+2007-06-08  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: Added code to watch when a
+	  newline is pressed so that a task/todo list can be continued or
+	  ended depending on the previous line.
+	* Tomboy/Addins/Tasks/TaskManager.cs: Commented-out code that throws an
+	  exception when a task with the same name/summary is created (allow
+	  duplicate tasks).
+
+2007-06-07  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: Delete the task when the user
+	  uses the backspace key to remove an entire todo line character by
+	  character.  Not working yet to highlight a bunch of lines and
+	  remove multiple todo items.
+
+2007-06-07  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Utils.cs: Added a show_time:bool argument to Changed
+	  GetPrettyPrintDate that allows a pretty print date to optionally
+	  show the time.
+	* Tomboy/RecentChanges.cs: Update GuiUtils.GetPrettyPrintDate () call
+	  to pass in true to show the time.
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: Fix possible null reference
+	  problem when applying task tag.  Open the TaskOptionsDialog in the
+	  center of the NoteWindow.
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Show the time in the completed
+	  date column.  Don't show the time in the due date column.  Center
+	  the TaskOptionsDialog in the center of the TaskListWindow when
+	  opening options.  Prevent possible null reference exception in
+	  CompareTasks ().
+	* Tomboy/Addins/Tasks/TaskOptionsDialog.cs: Added summary entry and
+	  completed check button.  Add Cancel/Save buttons.
+	* Tomboy/Addins/Tasks/CellRendererDate.cs,
+	  Tomboy/Addins/Tasks/DateButton.cs: Added the option to not show the
+	  time.
+
+2007-06-07  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Add column sorting by allowing
+	  the user to click on the column headings.
+
+2007-06-06  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Select the row that was
+	  right-clicked on before popping up the context menu.
+	* Tomboy/Addins/Tasks/TasksUIManagerLayout.xml: Rearrange the order of
+	  the context menu items.
+
+2007-06-06  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Change the sensitivity of the
+	  OpenOriginNoteAction at selection change.
+	* Tomboy/Addins/Tasks/TasksUIManagerLayout.xml: Place the
+	  OpenOriginNote menuitem in the File menu.
+
+2007-06-06  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Make the note icon smaller
+	  (8px).  Added code to open the origin note (exposed in the
+	  right-click menu).
+	* Tomboy/Addins/Tasks/TasksUIManagerLayout.xml: Add an "Open Origin
+	  Note" menu item in the context menu.
+
+2007-06-06  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Add an OriginNote column that
+	  shows a note icon next to tasks created originally inside of a
+	  note.
+	* Tomboy/Addins/Tasks/TaskData.cs: Set the default priority for
+	  newly-created tasks to TaskPriority.None.
+	* Tomboy/Addins/Tasks/TaskTag.cs: Fix strikethrough so that it is off
+	  for incomplete tasks.
+	* Tomboy/Addins/Tasks/Task.cs: Add code to cleanup references to
+	  non-existing notes.
+
+2007-06-06  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Removed old reference to Tomboy/Plugins/Backlinks.cs. 
+	  Added Tomboy/Addins/Tasks/TasksNoteAddin.cs.
+	* Tomboy/AddinManager.cs: Surround initializing and adding the
+	  NoteAddins with try/catch.
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: New NoteAddin to watch when
+	  users type new tasks inline in a note.
+	* Tomboy/Addins/Tasks/TaskArchiver.cs, Tomboy/Addins/Tasks/TaskData.cs,
+	  Tomboy/Addins/Tasks/Task.cs: Added OriginNoteUri so a task can be
+	  associated with the note it was created in.
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Use the static events from
+	  TaskManager.
+	* Tomboy/Addins/Tasks/TaskManager.cs: Queue a save on a newly created
+	  task.  Convert the task events to static so that other classes can
+	  register for them before TaskManager may be fully initialized.
+	* Tomboy/Addins/Tasks/TaskTag.cs: Don't allow this tag to be activated
+	  anymore (use right-click instead).  Allow the status to be updated.
+	   Stubbed-out checkbox pixbuf (commented-out).
+	* Tomboy/Addins/Tasks/TaskOptionsDialog.cs: Expose the Task object as a
+	  property.
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Add TasksNoteAddin and fix
+	  reference to TasksApplicationAddin.
+	* Tomboy/Addins/Tasks/Makefile.am: Add TasksNoteAddin.cs.
+	* Tomboy/Addins/Tasks/TasksApplicationAddin.cs: Rename TasksAddin ->
+	  TasksApplicationAddin.
+	* Tomboy/NoteBuffer.cs: Added a GetDynamicTag to allow addins to get
+	  DynamicNoteTag instances based off a Gtk.TextIter.
+	* Tomboy/NoteManager.cs: Initialize NoteAddins before NotePlugins.
+
+2007-06-05  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Addins/Tasks/Tasks.dll: Oops.  Removing this file since it
+	  never should have been committed.
+	* Tomboy/Addins/Tasks/TasksApplicationAddin.cs: Add a "Tools" menu to
+	  the Search All Notes window where users can launch the To Do List
+	  window.
+	* data/UIManagerLayout.xml: Added a <placeholder> element into the Main
+	  Window's UI definition so that addins can add new menu items (such
+	  as "Tools") before the Help menu.
+
+2007-06-05  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Added Tomboy/Addins/Tasks/Makefile.
+	* Tomboy.mdp: Added Tomboy/Addins/Tasks/*.cs.
+	* Tomboy/Addins/Tasks/*: New Tasks Addin (not
+	  fully implemented yet ... there's no NoteAddin for it yet).
+	* Tomboy/Addins/Makefile.am: Added Tasks to SUBDIRS.
+
+2007-06-05  Boyd Timothy <btimothy@gmail.com> 
+
+	Adding in initial support for Tomboy Addins (via Mono.Addins framework):
+	
+	* configure.in: Generate Makefiles for Mono.Addins and the new
+	  Backlinks addin.
+	* Tomboy.mdp: Adding Tomboy/AbstractAddin.cs,
+	  Tomboy/ApplicationAddin.cs,Tomboy/NoteAddin.cs,
+	  Tomboy/AddinManager.cs, Tomboy/Addins/Backlinks/*.cs.
+	* Makefile.include: New file with variables that any Makefile.am can
+	  use as a convenience.
+	* Tomboy/Plugins/TaskArchiver.cs, Tomboy/Plugins/TaskListWindow.cs,
+	  Tomboy/Plugins/TaskData.cs, Tomboy/Plugins/TaskManager.cs,
+	  Tomboy/Plugins/TaskOptionsDialog.cs, Tomboy/Plugins/TaskTag.cs,
+	  Tomboy/Plugins/Task.cs, Tomboy/Plugins/CellRendererDate.cs,
+	  Tomboy/Plugins/TasksPlugin.cs,
+	  Tomboy/Plugins/TasksUIManagerLayout.xml,
+	  Tomboy/Plugins/DateButton.cs: Removing the Tasks Plugin temporarily
+	  (in the process of converting it to a Tomboy Addin).
+	* Tomboy/Plugins/Backlinks.cs: Converted this into a Tomboy.NoteAddin.
+	* Tomboy/Plugins/Makefile.am: Use Makefile.include.  Removed the
+	  Backlinks and Tasks Plugins (converting them to Addins).
+	* Tomboy/ApplicationAddin.cs, Tomboy/AddinManager.cs,
+	  Tomboy/Tomboy.addin.xml, Tomboy/Addins/Makefile.am,
+	  Tomboy/AbstractAddin.cs, Tomboy/NoteAddin.cs: Part of the new
+	  Tomboy Addin (Mono.Addins).
+	* Tomboy/Tomboy.cs: Call ApplicationAddin.Initialize () when Tomboy
+	  starts up.
+	* Tomboy/Defines.cs.in: Added SYS_ADDINS_DIR so system addins can be
+	  loaded at runtime.
+	* Tomboy/Addins/Backlinks/BacklinkMenuItem.cs,
+	  Tomboy/Addins/Backlinks/Makefile.am,
+	  Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs,
+	  Tomboy/Addins/Backlinks/Backlinks.addin.xml: Part of the new
+	  Backlinks Addin (used to be Tomboy/Plugins/Backlinks.cs).
+	* Tomboy/NoteManager.cs: Initialize and call Tomboy.AddinManager at
+	  startup and when new notes are loaded (just like happens with
+	  PluginManager).
+	* Tomboy/Makefile.am: Build Mono.Addins and also Addins.  Added
+	  AbstractAddin.cs, AddinManager.cs, ApplicationAddin.cs, and
+	  NoteAddin.cs.  Include Tomboy.addin.xml as a resource so
+	  Mono.Addins will pick it up off of Tomboy.exe.
+	* Tomboy/Mono.Addins/*: Mono.Addins copied from f-spot/trunk on 04 Jun 2007.
+	* Tomboy/tomboy.in: Set a MONO_PATH so the Addin DLLs can be loaded
+	  properly.
+	* Makefile.am: Use Makefile.include.
+
+2007-06-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/NoteEditor.cs: Allow opening notes with keyboard in bullet
+	  list.  Fixes part of bug #433244 (patch from Stefan Schweizer).
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/TaskArchiver.cs, Tomboy/Plugins/TaskListWindow.cs:
+	  Adjust for TaskPriority.Undefined.
+	* Tomboy/Plugins/TaskOptionsDialog.cs: Add in the priority and all the
+	  goodies that go with it to allow the user to change a task's
+	  priority.
+	* Tomboy/Plugins/Task.cs: Add "Undefined" as another TaskPriority.
+	* Tomboy/Plugins/DateButton.cs: Update the label when the date is set.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/CellRendererDate.cs: Position the text vertically so
+	  it matches with the other columns in the TreeView.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/CellRendererDate.cs: Use the proper foreground color
+	  when the cell is selected.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp, Tomboy/Plugins/DateTimeChooserDialog.cs,
+	  Tomboy/Plugins/Makefile.am: Remove DateTimeChooserDialog.cs since
+	  it's not replaced with a Calendar popup.
+	* Tomboy/Plugins/CellRendererDate.cs: Use a calendar popup window
+	  instead of the DateTimeChooser.  Still need to figure out how to
+	  get the calendar popup to appear directly below the currently
+	  selected date.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp, Tomboy/Plugins/Makefile.am: Added TaskOptionsDialog.cs
+	  and DateButton.cs.
+	* Tomboy/Plugins/TaskArchiver.cs: Load in details directly instead of
+	  the <text> element surrounding it.
+	* Tomboy/Plugins/TaskListWindow.cs: Use
+	  Tomboy.GuiUtils.GetPrettyPrintDate ().  Also show the task options
+	  when activated/opened.
+	* Tomboy/Plugins/TaskOptionsDialog.cs: Initial/stub of little dialog to
+	  allow the user to edit the details of a task.
+	* Tomboy/Plugins/DateTimeChooserDialog.cs: Add more options to the
+	  calendar display options.
+	* Tomboy/Plugins/CellRendererDate.cs, Tomboy/RecentChanges.cs: Use
+	  Tomboy.GuiUtils.GetPrettyPrintDate ().
+	* Tomboy/Plugins/DateButton.cs: DateButton kindly donated by Banshee
+	  (abock).  Modified it a little bit to deal directly with a
+	  DateTime.
+	* Tomboy/Utils.cs: Added GetPrettyPrintDate () so other classes can use
+	  this.  Also made it deal with dates in the future.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/DateTimeChooserDialog.cs: Remove old comments.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/DateTimeChooser.cs: Use Gtk.Calendar instead.
+	* Tomboy/Plugins/DateTimeChooserDialog.cs: Use Gtk.Calendar instead of
+	  coming up with our own thing.
+	* Tomboy/Plugins/CellRendererDate.cs: Added code to make the date
+	  chooser use the existing value and also allow the user to cancel
+	  selecting a new date without causing the date value to change.
+	* Tomboy/Plugins/Makefile.am: Removed DateTimeChooser.cs since
+	  Gtk.Calendar is exactly what we need.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/TaskListWindow.cs: Added Completion Date and Priority.
+	   Also fixed the default size so the window will be a decent size.
+
+2007-05-31  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp, Tomboy/Plugins/Makefile.am: Added CellRendererDate.cs,
+	  DateTimeChooser.cs, and DateTimeChooserDialog.cs.
+	* Tomboy/Plugins/DateTimeChooser.cs: Stubbed out DateTimeChooser
+	  widget.  This is just a placeholder for right now.
+	* Tomboy/Plugins/TaskListWindow.cs: Add a DueDate column that uses a
+	  CellRendererDate.
+	* Tomboy/Plugins/DateTimeChooserDialog.cs: New dialog to display the
+	  DateTimeChooser within a dialog.
+	* Tomboy/Plugins/CellRendererDate.cs: New CellRenderer to display/edit
+	  a DateTime inside of a TreeView.
+
+2007-05-31  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/TaskListWindow.cs: Added code to create a new task
+	  from this window and select it.
+
+2007-05-31  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Added TaskListWindow.cs.
+	* Tomboy/Plugins/TaskListWindow.cs: New Window to show the list of
+	  tasks.
+	* Tomboy/Plugins/TaskManager.cs: Added a public property to expose the
+	  Tasks ListStore.  Also emit changes in the ListStore when a task is
+	  renamed, saved, or status changes.
+	* Tomboy/Plugins/TasksPlugin.cs: Add a "To Do List" to Tomboy's Icon
+	  Menu.  Load the UIManager xml for the TaskListWindow actions.
+	* Tomboy/Plugins/Makefile.am: Added TaskListWindow.cs.  Added
+	  TasksUIManagerLayout.xml as a resource.
+	* Tomboy/Plugins/TasksUIManagerLayout.xml: UIManager XML file for the
+	  Task List Window.
+	* Tomboy/RecentChanges.cs: Removed unused code which was giving
+	  compiler warnings.
+
+2007-05-31  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp, Tomboy/Plugins/TaskArchiver.cs,
+	  Tomboy/Plugins/checkbox-done.png, Tomboy/Plugins/TaskData.cs,
+	  Tomboy/Plugins/TaskManager.cs, Tomboy/Plugins/TaskTag.cs,
+	  Tomboy/Plugins/Task.cs, Tomboy/Plugins/TasksPlugin.cs,
+	  Tomboy/Plugins/Makefile.am, Tomboy/Plugins/checkbox-todo.png: Added
+	  Tomboy/Plugins/TasksPlugin.cs, Tomboy/Plugins/Task.cs,
+	  Tomboy/Plugins/TaskManager.cs, Tomboy/Plugins/TaskData.cs,
+	  Tomboy/Plugins/TaskArchiver.cs, Tomboy/Plugins/TaskTag.cs,
+	  Tomboy/Plugins/checkbox-done.png, Tomboy/Plugins/checkbox-todo.png.
+	
+	  This is some initial work on the Tasks Plugin.  The TaskManager now
+	  loads, is able to create/delete tasks.  No UI is built on top of
+	  this yet.  That's the next step.
+
+2007-05-30  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/NoteManager.cs: Added NoteDirectoryPath property.
+
+2007-05-14  Boyd Timothy <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.7.2.
+
+2007-05-14  Boyd Timothy <btimothy@gmail.com>
+
+	* data/images/Makefile.am: Fixed typos to properly uninstall the
+	  tomboy-tag.png images.
+
+2007-05-14  Boyd Timothy <btimothy@gmail.com> 
+
+	* ChangeLog: Fixed whitespace on previous commits.
+	* NEWS: Updated for 0.7.1.
+
+2007-05-14  Boyd Timothy <btimothy@gmail.com>
+
+	* NEWS: Update for 0.7.1.
+
+2007-05-14  Boyd Timothy <btimothy@gmail.com>
+
+	* Tomboy/PreferencesDialog.cs: Patch from Everaldo Canuto to
+	  surround NoteSpellChecker with #if FIXED_GTKSPELL.  Fixes bug
+	  #438145.
+	* Tomboy/PluginManager.cs: Ditto.
+	* Tomboy/Watchers.cs: Ditto.
+
+2007-05-14  Boyd Timothy <btimothy@gmail.com>
+
+	* configure.in: Patch from Everaldo Canuto to add support for
+	  a po/LINGUAS file.  Fixes bug #409940.
+	* po/LINGUAS: New file that allows translators to add a new language
+	  without having to modify configure.in directly.
+
+2007-05-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* www, www/index.html, www/default.css, www/img, www/img/intro.gif,
+	  www/img/maildropdnd.png, www/img/windows-small.png,
+	  www/img/galago-tomboy.png, www/img/bulletpoint.gif,
+	  www/img/pinned-notes.png, www/img/tomboy.png,
+	  www/img/applet-small.png, www/img/search-small.png: Deleting www/
+	  directory from repository.  Tomboy website is now maintained in
+	  GNOME SVN here:
+	  svn.gnome.org/svn/gnomeweb-wml/trunk/www.gnome.org/projects/tomboy/
+	  .
+
+2007-05-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* README: Fix mailing list link in README file.  Will need to do this
+	  again when we move to mail.gnome.org.
+
+2007-05-08  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp, Tomboy/Makefile.am: Added NoteEditor.cs.
+	* Tomboy/NoteEditor.cs: This class was originally part of
+	  NoteWindow.cs.
+	* Tomboy/NoteWindow.cs: Removed the NoteEditor class and put it in its
+	  own file.
+
+2007-05-08  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp, Tomboy/Makefile.am: Added PreferencesDialog.cs.
+	* Tomboy/PreferencesDialog.cs: New file for the PreferencesDialog
+	  class.  This used to be inside the Preferences.cs file.  This
+	  should help locate the class easier and make porting to other
+	  platforms a little easier.
+	* Tomboy/Preferences.cs: Removed the PreferencesDialog class and put it
+	  in its own file.
+
+2007-05-06  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Utils.cs: Fire ExitingEvent when receiving SaveYourself signal
+	  from the GNOME session.  Mostly fixes bug #305118 (patch from
+	  Stefan Schweizer).
+
+2007-04-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/NoteManager.cs, Tomboy/Preferences.cs, Tomboy/Note.cs,
+	  data/tomboy.schemas.in: Make Tomboy remember open/closed state of
+	  notes in between sessions.  The GConf pref to enable/disable this
+	  feature (/apps/tomboy/enable_startup_notes) is not exposed in the
+	  UI yet, but it defaults to enabled.  Fixes bug #305118 (patch from
+	  Stefan Schweizer).
+
+2007-04-26  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/Bugzilla.cs: Patch from Frederic Crozat to
+	  create the custom images directory if it doesn't exist.
+	  Fixes bug #430599.
+
+2007-04-25  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/NoteWindow.cs: Use the tomboy-tag icon in the note toolbar.
+	* data/images/Makefile.am: Added the tag icons for install/uninstall.
+
+2007-04-25  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Note.cs: Unpin notes when they are deleted to keep the
+	  menu_pinned_notes GConf entry clean.  Fixes bug #425619 (Patch from
+	  Stefan Schweizer).
+
+2007-04-24  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.mdp: Removing references to gtk#/gnome# 2.10 assemblies. 
+	  Didn't mean to commit this.
+
+2007-04-24  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Plugins/FixedWidth.cs, Tomboy/Plugins/GalagoPresence.cs,
+	  Tomboy/Plugins/Backlinks.cs, Tomboy/Plugins/Evolution.cs,
+	  Tomboy/Plugins/PrintNotes.cs, Tomboy/Plugins/StickyNoteImport.cs,
+	  Tomboy/Plugins/Bugzilla.cs, Tomboy/Plugins/ExportToHTML.cs,
+	  Tomboy/Plugins/NoteOfTheDay.cs, Tomboy/Tomboy.cs,
+	  Tomboy/Defines.cs.in: Replacing references to Tomboy website with a
+	  new constant: Defines.TOMBOY_WEBSITE.  Fixes bug #432844.
+
+2007-04-24  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Tomboy.cs: Remove mention of donations in the About dialog.  Fixes bug #432843.
+
+2007-04-24  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/NoteWindow.cs: Set default font to GNOME document font instead
+	  of default Pango font.  Fixes bug #409939 (patch from Andrew
+	  Fister).
+
+2007-04-23  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Bump version to 0.7.1.
+
+2007-04-23  Boyd Timothy <btimothy@gmail.com> 
+
+	* NEWS: Update for 0.7.0.
+
+2007-04-23  Boyd Timothy <btimothy@gmail.com> 
+
+	* NEWS: Removed debug line that spit out when new tags are added from
+	  notes.
+
+2007-04-23  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Tray.cs: Fixed spacing.
+
+2007-04-23  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Don't automatically check for the dbus service
+	  directory.  Instead, allow packagers to set
+	  --with-dbus-service-dir=DIR.  This allows "make distcheck" to work
+	  much easier since it won't attempt to install any files outside of
+	  prefix.
+
+2007-04-23  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Tray.cs, data/UIManagerLayout.xml: Keep static menu items in
+	  predictable locations closest to tray icon.  Initial crack at
+	  fixing bug #431839.  Current heuristic for determining which way
+	  (up or down) the menu will open could use some work.
+
+2007-04-20  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/WrapBox.cs: Applied modified patch from Stefan Schweizer to
+	  delete the TextChildAnchors inside Remove ().  Added a Dictionary
+	  to track the TextChildAnchors so this is an O(1) operation.
+
+2007-04-20  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Note.cs: Make sure every note has a create and changed date
+	  set.  If loading an existing note and they're not set already, use
+	  the creation and last write times.  This fixes a problem of someone
+	  copying a set of tomboy notes to a newer computer and seeing the
+	  last modified date being set to the last modified date of the file.
+
+2007-04-20  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Reverting to previous version now
+	  that tagging has landed on trunk.
+
+2007-04-20  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Added references to TagManager.cs, Tag.cs, TagButton.cs
+	  and WrapBox.cs.
+	* Tomboy/PluginManager.cs: Add NoteTagsWatcher (from Watchers.cs) to
+	  the list of built-in plugins.
+	* Tomboy/TagManager.cs: Static class to provide access to tags
+	  throughout the application.
+	* Tomboy/RecentChanges.cs: Added a rudimentary TreeView to the
+	  left-hand side of the window to show tags with checkboxes which
+	  filters the list by tags.
+	* Tomboy/Tag.cs: New class to represent a tag.
+	* Tomboy/Watchers.cs: Added NoteTagsWatcher (NotePlugin) whose main job
+	  is to remove tags from the TagManager when no more notes are tagged
+	  with the tag.
+	* Tomboy/WrapBox.cs: Code from Alp
+	  (http://svn.ndesk.org/ndesk/Parts/WrapBox.cs) that provides a
+	  container that will wrap widgets.  This is used in NoteTagBar in
+	  the NoteWindow.
+	* Tomboy/NoteWindow.cs: Added NoteTagBar which allows users to
+	  add/remove tags to their notes.  Need to change the tag icon in the
+	  toolbar.
+	* Tomboy/Makefile.am: Include TagManager.cs, Tag.cs, TagButton.cs and
+	  WrapBox.cs.
+	* Tomboy/Note.cs: Read and write tags in the archiver.  AddTag () and
+	  RemoveTag () added on Note.  Each note keeps track of which tags is
+	  is tagged with.  TagAdded, TagRemoving, and TagRemoved events added
+	  to Note.
+	* Tomboy/TagButton.cs: Button used in the NoteTagBar to allow a user to
+	  remove an existing tag from a note.
+
+2007-04-20  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Removing references to uncommitted
+	  tagging code.  When tagging patch lands on trunk, this should be
+	  restored to the previous version.
+
+2007-04-19  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Added a settings dialog with
+	  a button so the user can easily open/create the Today:
+	  Template note.  This addresses part of the issue mentioned
+	  in bug #387580.
+
+2007-04-19  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Preferences.cs: Keep track of plugin setting dialogs in a
+	  Dictionary so that they don't have to be modal dialogs.
+
+2007-04-17  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Watchers.cs: Fix title replace debug log message to use the
+	  right parameters.
+
+2007-04-16  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* extra/epiphany-extension/maketomboynote.py: Added Tomboy icon to menu
+	  entry with a hard-coded path.  If note with site title already
+	  exists, open note but do not modify.
+
+2007-04-15  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* extra, extra/epiphany-extension,
+	  extra/epiphany-extension/maketomboynote.py,
+	  extra/epiphany-extension/maketomboynote.ephy-extension: Initial
+	  import of basic Epiphany extension.
+
+2007-04-10  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	reviewed by: Sanford Armstrong
+
+	* Tomboy/NoteTag.cs:
+
+	Change colors to match the Tango palette. Fixes bug #411909.
+
+2007-04-09  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/Makefile.am: Changed EXTRA_DIST so it always includes the
+	  internal dbus-sharp *.cs files.  Fixes bug #427933.
+
+2007-03-20  Boyd Timothy <btimothy@gmail.com> 
+
+	Fixes bug #418567.
+	
+	* Tomboy/PluginManager.cs: Removed code to update/copy the
+	  DefaultPlugins.desktop file from Tomboy.exe into place.
+	* Tomboy/Makefile.am: Removed DefaultPlugins.desktop from being
+	  included as a resource.
+	* data/DefaultPlugins.desktop.in.in: This file is no longer needed.
+	* data/Makefile.am: Removed DefaultPlugins.desktop.in.
+	* po/POTFILES.in: Removed data/DefaultPlugins.desktop.in.in.
+
+2007-03-20  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.mdp, Makefile.am: Adding `make run` support for running
+	  uninstalled Tomboy.
+
 2007-03-12  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/Tray.cs: Reverse the order of the if/else statement to check

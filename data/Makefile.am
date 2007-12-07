@@ -3,19 +3,15 @@ SUBDIRS = images
 
 @INTLTOOL_DESKTOP_RULE@
 
-desktop_in_files = tomboy.desktop.in DefaultPlugins.desktop.in
+desktop_in_files = tomboy.desktop.in
 desktop_files    = $(desktop_in_files:.desktop.in=.desktop)
-
-DefaultPlugins.desktop.in: DefaultPlugins.desktop.in.in Makefile
-	sed -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
-	    < $< > $@
 
 desktopdir   = $(datadir)/applications
 desktop_DATA = $(desktop_files)
 
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_in_files = tomboy-plugins.pc.in
+pkgconfig_in_files = tomboy-addins.pc.in
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
 
@@ -50,7 +46,7 @@ server_DATA     = $(server_in_files:.server.in=.server)
 
 $(server_in_files): $(server_in_files:.server.in=.server.in.in) Makefile
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
-	    -e "s|\@wrapper\@|tomboy|g"		\
+	    -e "s|\@wrapper\@|tomboy-panel|g"		\
 	    < $< > $@
 
 @INTLTOOL_SERVER_RULE@
@@ -60,12 +56,10 @@ man_MANS = tomboy.1
 
 
 noinst_DATA = 			\
-	DefaultPlugins.desktop	\
 	GNOME_TomboyApplet.xml
 
 
 EXTRA_DIST = 					\
-	DefaultPlugins.desktop.in.in		\
 	$(desktop_in_files)     		\
 	$(pkgconfig_in_files)			\
 	$(schemas_in_files)     		\
@@ -76,7 +70,6 @@ EXTRA_DIST = 					\
 	UIManagerLayout.xml
 
 DISTCLEANFILES = 				\
-	DefaultPlugins.desktop.in		\
 	$(desktop_files)       			\
 	$(pkgconfig_DATA)			\
 	$(schemas_DATA)				\

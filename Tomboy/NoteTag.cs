@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Xml;
 
 namespace Tomboy
@@ -14,8 +15,8 @@ namespace Tomboy
 	public class NoteTag : Gtk.TextTag
 	{
 		string element_name;
-		Gdk.Pixbuf image;
-		Gtk.TextMark imageLocation;
+		Gtk.TextMark widgetLocation;
+		Gtk.Widget widget;
 
 		[Flags]
 		enum TagFlags {
@@ -235,23 +236,114 @@ namespace Tomboy
 
 		public virtual Gdk.Pixbuf Image
 		{
-			get { return image; }
+			get {
+				Gtk.Image image = widget as Gtk.Image;
+				if (image == null) return null;
+
+				return image.Pixbuf;
+			}
 			set {
-				image = value;
+				if(value == null) {
+					Widget = null;
+					return;
+				}
+
+				Gtk.Image image = new Gtk.Image (value);
+				Widget = image;
+			}
+		}
+
+		public virtual Gtk.Widget Widget
+		{
+			get { return widget; }
+			set {
+				if (value == null && widget != null) {
+					widget.Destroy ();
+					widget = null;
+				}
+
+				widget = value;
 
 				if (Changed != null) {
 					Gtk.TagChangedArgs args = new Gtk.TagChangedArgs ();
+					args.Args = new object [2];
 					args.Args [0] = false; // SizeChanged
 					args.Args [1] = this;  // Tag
-					Changed (this, args);
+					try {
+						Changed (this, args);
+					} catch (Exception e) {
+						Logger.Warn ("Exception calling TagChanged from NoteTag.set_Widget: {0}", e.Message);
+					}
 				}
 			}
 		}
 
-		public virtual Gtk.TextMark ImageLocation
+		public virtual Gtk.TextMark WidgetLocation
 		{
-			get { return imageLocation; }
-			set { imageLocation = value; }
+			get { return widgetLocation; }
+			set { widgetLocation = value; }
+		}
+
+		// From contrast.h
+		public enum PaletteColor {
+			CONTRAST_COLOR_AQUA        =  0,
+			CONTRAST_COLOR_BLACK       =  1,
+			CONTRAST_COLOR_BLUE        =  2,
+			CONTRAST_COLOR_BROWN       =  3,
+			CONTRAST_COLOR_CYAN        =  4,
+			CONTRAST_COLOR_DARK_BLUE   =  5,
+			CONTRAST_COLOR_DARK_GREEN  =  6,
+			CONTRAST_COLOR_DARK_GREY   =  7,
+			CONTRAST_COLOR_DARK_RED    =  8,
+			CONTRAST_COLOR_GREEN       =  9,
+			CONTRAST_COLOR_GREY        = 10,
+			CONTRAST_COLOR_LIGHT_BLUE  = 11,
+			CONTRAST_COLOR_LIGHT_BROWN = 12,
+			CONTRAST_COLOR_LIGHT_GREEN = 13,
+			CONTRAST_COLOR_LIGHT_GREY  = 14,
+			CONTRAST_COLOR_LIGHT_RED   = 15,
+			CONTRAST_COLOR_MAGENTA     = 16,
+			CONTRAST_COLOR_ORANGE      = 17,
+			CONTRAST_COLOR_PURPLE      = 18,
+			CONTRAST_COLOR_RED         = 19,
+			CONTRAST_COLOR_VIOLET      = 20,
+			CONTRAST_COLOR_WHITE       = 21,
+			CONTRAST_COLOR_YELLOW      = 22,
+			CONTRAST_COLOR_LAST        = 23,
+		};
+
+		[DllImport("libtomboy")]
+		static extern Gdk.Color contrast_render_foreground_color(
+					    Gdk.Color background,
+					    PaletteColor symbol);
+
+		Gdk.Color get_background()
+		{
+			/* We can't know the exact background because we're not
+			   in TextView's rendering, but we can make a guess */
+			if (BackgroundSet)
+				return BackgroundGdk;
+
+			Gtk.Style s = Gtk.Rc.GetStyleByPaths(Gtk.Settings.Default,
+			    "GtkTextView", "GtkTextView", Gtk.TextView.GType);
+			return s.Background(Gtk.StateType.Normal);
+		}
+
+		Gdk.Color render_foreground(PaletteColor symbol)
+		{
+			return contrast_render_foreground_color(get_background(), symbol);
+		}
+
+		private PaletteColor PaletteForeground_;
+		public PaletteColor PaletteForeground {
+			set {
+				PaletteForeground_ = value;
+				// XXX We should also watch theme changes.
+				ForegroundGdk = render_foreground(value);
+			}
+			get {
+				return PaletteForeground_;
+			}
 		}
 
 		public event Gtk.TagChangedHandler Changed;
@@ -301,6 +393,7 @@ namespace Tomboy
 						xml.ReadAttributeValue();
 						Attributes [name] = xml.Value;
 
+                                                OnAttributeRead (name);
 						Logger.Log (
 							"NoteTag: {0} read attribute {1}='{2}'",
 							ElementName,
@@ -310,6 +403,16 @@ namespace Tomboy
 				}
 			}
 		}
+                
+                /// <summary>
+                /// Derived classes should override this if they desire
+                /// to be notified when a tag attribute is read in.
+                /// </summary>
+                /// <param name="attributeName">
+                /// A <see cref="System.String"/> that is the name of the
+                /// newly read attribute.
+                /// </param>
+                protected virtual void OnAttributeRead (string attributeName) {}
 	}
 	
 	public class DepthNoteTag : NoteTag
@@ -413,7 +516,7 @@ namespace Tomboy
 			Add (tag);
 
 			tag = new NoteTag ("highlight");
- 			tag.Background = "yellow";
+			tag.Background = "yellow";
 			tag.CanUndo = true;
 			tag.CanGrow = true;
 			tag.CanSpellCheck = true;
@@ -427,7 +530,8 @@ namespace Tomboy
 
 			tag = new NoteTag ("note-title");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "red";
+			tag.PaletteForeground =
+				NoteTag.PaletteColor.CONTRAST_COLOR_BLUE;
 			tag.Scale = Pango.Scale.XXLarge;
 			// FiXME: Hack around extra rewrite on open
 			tag.CanSerialize = false;
@@ -443,7 +547,8 @@ namespace Tomboy
 			tag = new NoteTag ("datetime");
 			tag.Scale = Pango.Scale.Small;
 			tag.Style = Pango.Style.Italic;
-			tag.Foreground = "grey";
+			tag.PaletteForeground =
+				NoteTag.PaletteColor.CONTRAST_COLOR_GREY;
 			Add (tag);
 
 			// Font sizes
@@ -480,19 +585,22 @@ namespace Tomboy
 
 			tag = new NoteTag ("link:broken");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "darkgrey";
+			tag.PaletteForeground =
+				NoteTag.PaletteColor.CONTRAST_COLOR_GREY;
 			tag.CanActivate = true;
 			Add (tag);
 
 			tag = new NoteTag ("link:internal");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "red";
+			tag.PaletteForeground =
+				NoteTag.PaletteColor.CONTRAST_COLOR_BLUE;
 			tag.CanActivate = true;
 			Add (tag);
 
 			tag = new NoteTag ("link:url");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "blue";
+			tag.PaletteForeground =
+				NoteTag.PaletteColor.CONTRAST_COLOR_BLUE;
 			tag.CanActivate = true;
 			Add (tag);
 		}
@@ -557,7 +665,6 @@ namespace Tomboy
 				
 				tag.PixelsBelowLines = 4;
 				tag.Scale = Pango.Scale.Medium;
-				tag.SizePoints = 12;
 				Add (tag);
 			}
 

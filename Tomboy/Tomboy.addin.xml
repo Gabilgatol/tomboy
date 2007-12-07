@@ -1,0 +1,50 @@
+<Addin namespace="Tomboy" id="Tomboy" version="0.9" isroot="true">
+	<Runtime>
+		<Import assembly="Tomboy.exe" />
+	</Runtime>
+
+	<ExtensionPoint path="/Tomboy/ApplicationAddins">
+		<ExtensionNode name="ApplicationAddin" objectType="Tomboy.ApplicationAddin" />
+	</ExtensionPoint>
+
+	<ExtensionPoint path="/Tomboy/NoteAddins">
+		<ExtensionNode name="NoteAddin" objectType="Tomboy.NoteAddin" />
+	</ExtensionPoint>
+	
+	<ExtensionPoint path="/Tomboy/SyncServiceAddins">
+		<ExtensionNode name="SyncServiceAddin" objectType="Tomboy.Sync.SyncServiceAddin" />
+	</ExtensionPoint>
+	
+	<ExtensionPoint path="/Tomboy/AddinPreferences">
+		<ExtensionNode name="AddinPreferenceFactory" objectType ="Tomboy.AddinPreferenceFactory" />
+	</ExtensionPoint>
+	
+	<!-- All the Built-in Watcher Addins -->
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.NoteRenameWatcher" />
+	</Extension>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.NoteSpellChecker" />
+	</Extension>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.NoteUrlWatcher" />
+	</Extension>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.NoteLinkWatcher" />
+	</Extension>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.NoteWikiWatcher" />
+	</Extension>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.MouseHandWatcher" />
+	</Extension>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.NoteTagsWatcher" />
+	</Extension>
+</Addin>

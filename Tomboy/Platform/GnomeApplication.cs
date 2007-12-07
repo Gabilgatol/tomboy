@@ -28,6 +28,10 @@ namespace Tomboy.Platform
 						     Defines.VERSION, 
 						     Gnome.Modules.UI, 
 						     args);
+			
+			// Register handler for saving session when logging out of Gnome
+			Gnome.Client client = Gnome.Global.MasterClient ();
+			client.SaveYourself += OnSaveYourself;
 		}
 
 		public void RegisterSessionManagerRestart (string executable_path,
@@ -127,6 +131,14 @@ namespace Tomboy.Platform
 
 			if (signal >= 0)
 				System.Environment.Exit (0);
+		}
+
+		private void OnSaveYourself (object sender, Gnome.SaveYourselfArgs args)
+		{
+			Logger.Log ("Received request for saving session");
+			
+			if (ExitingEvent != null)
+				ExitingEvent (null, new EventArgs ());
 		}
 	}
 }
