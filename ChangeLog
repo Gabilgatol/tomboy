@@ -1,3 +1,8 @@
+2007-12-19  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Watchers.cs: Fix from John Carr to prevent crashing when curly
+	  braces ('{' or '}) are used in the title of a note.
+
 2007-11-26  Boyd Timothy <btimothy@gmail.com>
 
 	* configure.in: Bump version to 0.8.3.
