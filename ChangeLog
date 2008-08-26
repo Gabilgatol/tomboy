@@ -1,3 +1,25 @@
+2008-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.mdp, Tomboy/Makefile.am: Add new files.
+	* Tomboy/PlatformFactory.cs, Tomboy/Services.cs: Really basic factory
+	  and services stuff for getting platform-specific services.
+	* Tomboy/PreferencesDialog.cs: Just an idea for a way to leave out the
+	  Keybinding tab of the prefs dialog if there's no keybinding
+	  implementation.
+	* Tomboy/XmlPreferencesClient.cs, Tomboy/NoteEditor.cs,
+	  Tomboy/GConfPreferencesClient.cs, Tomboy/Watchers.cs,
+	  Tomboy/NoteWindow.cs,
+	  Tomboy/Addins/InsertTimestamp/InsertTimestampNoteAddin.cs,
+	  Tomboy/NoteManager.cs, Tomboy/PreferencesClient.cs,
+	  Tomboy/Preferences.cs: Portable preferences client from
+	  tomboy-portable.
+	* Tomboy/Applet.cs, Tomboy/PrefsKeybinder.cs, Tomboy/Keybinder.cs,
+	  Tomboy/Tray.cs, Tomboy/XKeybinder.cs: Portable keybinder from
+	  tomboy-portable.
+	* Tomboy/Utils.cs, Tomboy/GnomeApplication.cs,
+	  Tomboy/GtkApplication.cs, Tomboy/NativeApplication.cs: Portable
+	  "native application" code from tomboy-portable.
+
 2008-08-21  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* NEWS: Update NEWS for quick 0.11.3 release.

@@ -36,7 +36,12 @@ CSFILES = 					\
 	$(srcdir)/Applet.cs 			\
 	$(srcdir)/ApplicationAddin.cs		\
 	$(srcdir)/Contrast.cs		\
+	$(srcdir)/GConfPreferencesClient.cs	\
+	$(srcdir)/GnomeApplication.cs		\
+	$(srcdir)/GtkApplication.cs		\
+	$(srcdir)/Keybinder.cs			\
 	$(srcdir)/Logger.cs			\
+	$(srcdir)/NativeApplication.cs		\
 	$(srcdir)/Note.cs 			\
 	$(srcdir)/NoteAddin.cs			\
 	$(srcdir)/NoteEditor.cs			\
@@ -44,11 +49,15 @@ CSFILES = 					\
 	$(srcdir)/NoteWindow.cs 		\
 	$(srcdir)/NoteBuffer.cs 		\
 	$(srcdir)/NoteTag.cs 			\
+	$(srcdir)/PlatformFactory.cs		\
 	$(srcdir)/Preferences.cs		\
+	$(srcdir)/PreferencesClient.cs		\
 	$(srcdir)/PreferencesDialog.cs		\
 	$(srcdir)/PreferenceTabAddin.cs		\
+	$(srcdir)/PrefsKeybinder.cs		\
 	$(srcdir)/RecentChanges.cs		\
 	$(srcdir)/RecentTreeView.cs		\
+	$(srcdir)/Services.cs			\
 	$(srcdir)/Tag.cs			\
 	$(srcdir)/TagButton.cs			\
 	$(srcdir)/TagManager.cs			\
@@ -60,6 +69,7 @@ CSFILES = 					\
 	$(srcdir)/Watchers.cs			\
 	$(srcdir)/WrapBox.cs			\
 	$(srcdir)/XKeybinder.cs			\
+	$(srcdir)/XmlPreferencesClient.cs	\
 	$(srcdir)/Notebooks/*.cs		\
 	$(srcdir)/Synchronization/*.cs		\
 	\

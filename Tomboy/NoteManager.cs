@@ -31,7 +31,7 @@ namespace Tomboy
 			Preferences.SettingChanged += OnSettingChanged;
 		}
 
-		static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
+		static void OnSettingChanged (object sender, NotifyEventArgs args)
 		{
 			switch (args.Key) {
 			case Preferences.START_NOTE_URI:

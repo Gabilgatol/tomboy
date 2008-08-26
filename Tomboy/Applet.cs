@@ -13,7 +13,7 @@ namespace Tomboy
 	{
 		NoteManager manager;
 		TomboyAppletEventBox applet_event_box;
-		TomboyGConfXKeybinder keybinder;
+		TomboyPrefsKeybinder keybinder;
 
 		// Keep referenced so our callbacks don't get reaped.
 		static BonoboUIVerb [] menu_verbs;
@@ -43,7 +43,7 @@ namespace Tomboy
 
 			manager = Tomboy.DefaultNoteManager;
 			applet_event_box = new TomboyAppletEventBox (manager);
-			keybinder = new TomboyGConfXKeybinder (manager, applet_event_box.Tray);
+			keybinder = new TomboyPrefsKeybinder (manager, applet_event_box.Tray);
 
 			Flags |= PanelAppletFlags.ExpandMinor;
 

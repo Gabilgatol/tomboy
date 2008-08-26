@@ -79,8 +79,9 @@ namespace Tomboy
 
 			notebook.AppendPage (MakeEditingPane (),
 			                     new Gtk.Label (Catalog.GetString ("Editing")));
-			notebook.AppendPage (MakeHotkeysPane (),
-			                     new Gtk.Label (Catalog.GetString ("Hotkeys")));
+			if (! (Services.Keybinder is NullKeybinder))
+				notebook.AppendPage (MakeHotkeysPane (),
+				                     new Gtk.Label (Catalog.GetString ("Hotkeys")));
 			notebook.AppendPage (MakeSyncPane (),
 			                     new Gtk.Label (Catalog.GetString ("Synchronization")));
 			notebook.AppendPage (MakeAddinsPane (),

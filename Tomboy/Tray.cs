@@ -136,12 +136,12 @@ namespace Tomboy
 	public class TomboyTrayIcon : Gtk.StatusIcon
 	{
 		TomboyTray tray;
-		TomboyGConfXKeybinder keybinder;
+		TomboyPrefsKeybinder keybinder;
 
 		public TomboyTrayIcon (NoteManager manager)
 		{
 			tray = new TomboyTray (manager, this);
-			keybinder = new TomboyGConfXKeybinder (manager, tray);
+			keybinder = new TomboyPrefsKeybinder (manager, tray);
 			int panel_size = 22;
 			Pixbuf = GuiUtils.GetIcon ("tomboy", panel_size);
 
@@ -575,54 +575,12 @@ namespace Tomboy
 		}
 	}
 
-	[DllImport("libtomboy")]
-		static extern bool egg_accelerator_parse_virtual (string keystring,
-			                out uint keysym,
-			                out uint virtual_mods);
-
-		[DllImport("libtomboy")]
-		static extern void egg_keymap_resolve_virtual_modifiers (
-			        IntPtr keymap,
-			        uint virtual_mods,
-			        out Gdk.ModifierType real_mods);
-
-		public static bool GetAccelKeys (string               gconf_path,
-		                                 out uint             keyval,
-		                                 out Gdk.ModifierType mods)
-		{
-			keyval = 0;
-			mods = 0;
-
-			try {
-				string binding = (string) Preferences.Get (gconf_path);
-				if (binding == null ||
-				                binding == String.Empty ||
-				                binding == "disabled")
-					return false;
-
-				uint virtual_mods = 0;
-				if (!egg_accelerator_parse_virtual (binding,
-				                                    out keyval,
-				                                    out virtual_mods))
-					return false;
-
-				Gdk.Keymap keymap = Gdk.Keymap.Default;
-				egg_keymap_resolve_virtual_modifiers (keymap.Handle,
-				                                      virtual_mods,
-				                                      out mods);
-
-				return true;
-			} catch {
-			return false;
-		}
-	}
-
 	public static void AddAccelerator (Gtk.MenuItem item, string gconf_path)
 		{
 			uint keyval;
 			Gdk.ModifierType mods;
 
-			if (GetAccelKeys (gconf_path, out keyval, out mods))
+			if (Services.Keybinder.GetAccelKeys (gconf_path, out keyval, out mods))
 				item.AddAccelerator ("activate",
 				                     accel_group,
 				                     keyval,
