@@ -1,5 +1,10 @@
 2008-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy.csproj, Tomboy.sln: Upgrade to VS 2008 to see if it works
+	  better.
+
+2008-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy.sln, Tomboy.csproj: Add Visual Studio 2005 solution/project
 	  (untested export from MonoDevelop).
 
