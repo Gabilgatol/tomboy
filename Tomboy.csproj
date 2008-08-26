@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <ProjectGuid>{62E3FA8A-2F91-41DF-B038-2379D363B8E3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Tomboy</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution xmlns="" />
+    </Execution>
+    <Output>
+      <Output xmlns="" />
+    </Output>
+    <Build>
+      <Build xmlns="" />
+    </Build>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution xmlns="" />
+    </Execution>
+    <Output>
+      <Output xmlns="" />
+    </Output>
+    <Build>
+      <Build xmlns="" />
+    </Build>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="gdk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System.Xml" />
+    <Reference Include="glib-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gnome-sharp, Version=2.16.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="pango-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="Mono.Cairo" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tomboy\ActionManager.cs" />
+    <Compile Include="Tomboy\Applet.cs" />
+    <Compile Include="Tomboy\Logger.cs" />
+    <Compile Include="Tomboy\Note.cs" />
+    <Compile Include="Tomboy\NoteBuffer.cs" />
+    <Compile Include="Tomboy\NoteManager.cs" />
+    <Compile Include="Tomboy\NoteTag.cs" />
+    <Compile Include="Tomboy\NoteWindow.cs" />
+    <Compile Include="Tomboy\Preferences.cs" />
+    <Compile Include="Tomboy\RecentChanges.cs" />
+    <Compile Include="Tomboy\RemoteControl.cs" />
+    <Compile Include="Tomboy\RemoteControlProxy.cs" />
+    <Compile Include="Tomboy\Tomboy.cs" />
+    <Compile Include="Tomboy\Tray.cs" />
+    <Compile Include="Tomboy\Trie.cs" />
+    <Compile Include="Tomboy\Undo.cs" />
+    <Compile Include="Tomboy\Utils.cs" />
+    <Compile Include="Tomboy\Watchers.cs" />
+    <Compile Include="Tomboy\XKeybinder.cs" />
+    <Compile Include="Tomboy\TagManager.cs" />
+    <Compile Include="Tomboy\Tag.cs" />
+    <Compile Include="Tomboy\TagButton.cs" />
+    <Compile Include="Tomboy\WrapBox.cs" />
+    <Compile Include="Tomboy\Defines.cs" />
+    <Compile Include="Tomboy\PreferencesDialog.cs" />
+    <Compile Include="Tomboy\NoteEditor.cs" />
+    <Compile Include="Tomboy\Addins\Backlinks\BacklinksNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\CellRendererDate.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\DateButton.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\Task.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\TaskArchiver.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\TaskData.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\TaskListWindow.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\TaskManager.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\TaskOptionsDialog.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\TasksApplicationAddin.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\TaskTag.cs" />
+    <Compile Include="Tomboy\AbstractAddin.cs" />
+    <Compile Include="Tomboy\ApplicationAddin.cs" />
+    <Compile Include="Tomboy\NoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\Backlinks\BacklinkMenuItem.cs" />
+    <Compile Include="Tomboy\AddinManager.cs" />
+    <Compile Include="Tomboy\Addins\Tasks\TasksNoteAddin.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\Addin.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinDependencyAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinErrorEventArgs.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinEventArgs.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinInfo.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinManager.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinRegistry.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinRootAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\AddinSessionService.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ConditionType.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ConsoleProgressStatus.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ExtensionAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ExtensionContext.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ExtensionNode.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ExtensionNodeAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ExtensionNodeChildAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ExtensionNodeList.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ExtensionPointAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\ExtensionTree.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\GettextCatalog.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\IProgressStatus.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\MissingDependencyException.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\NodeAttributeAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\NodeElement.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\RuntimeAddin.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\TreeNode.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\TreeNodeCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\TypeExtensionNode.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\TypeExtensionPointAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\AddinDatabase.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\AddinHostIndex.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\AddinScanFolderInfo.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\AddinScanner.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\AddinScanResult.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\AddinUpdateData.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\DatabaseConfiguration.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\FileDatabase.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\ProcessProgressStatus.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\SetupProcess.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Database\Util.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\AddinDependency.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\AddinDescription.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\AssemblyDependency.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ConditionTypeDescription.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ConditionTypeDescriptionCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\Dependency.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\DependencyCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\Extension.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionNodeDescription.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionNodeDescriptionCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionNodeSet.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionNodeSetCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionNodeType.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionNodeTypeCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionPoint.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ExtensionPointCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ModuleDescription.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ModuleDescriptionCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\NativeDependency.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\NodeTypeAttribute.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\NodeTypeAttributeCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ObjectDescription.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Description\ObjectDescriptionCollection.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Serialization\BinaryXmlReader.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Serialization\BinaryXmlTypeMap.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Serialization\BinaryXmlWriter.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins.Serialization\IBinaryXmlElement.cs" />
+    <Compile Include="Tomboy\Addins\WebDavSyncService\WebDavSyncServiceAddin.cs" />
+    <Compile Include="Tomboy\Addins\SshSyncService\SshSyncServiceAddin.cs" />
+    <Compile Include="Tomboy\Addins\FileSystemSyncService\FileSystemSyncServiceAddin.cs" />
+    <Compile Include="Tomboy\AddinPreferenceFactory.cs" />
+    <Compile Include="Tomboy\Addins\Bugzilla\BugzillaNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\Bugzilla\InsertBugAction.cs" />
+    <Compile Include="Tomboy\Addins\Bugzilla\BugzillaLink.cs" />
+    <Compile Include="Tomboy\Addins\Bugzilla\BugzillaPreferences.cs" />
+    <Compile Include="Tomboy\Addins\Bugzilla\BugzillaPreferencesFactory.cs" />
+    <Compile Include="Tomboy\Addins\ExportToHtml\ExportToHtmlNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\ExportToHtml\NoteNameResolver.cs" />
+    <Compile Include="Tomboy\Addins\ExportToHtml\ExportToHtmlDialog.cs" />
+    <Compile Include="Tomboy\Addins\FixedWidth\FixedWidthNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\FixedWidth\FixedWidthTag.cs" />
+    <Compile Include="Tomboy\Addins\FixedWidth\FixedWidthMenuItem.cs" />
+    <Compile Include="Tomboy\Addins\NoteOfTheDay\NoteOfTheDayApplicationAddin.cs" />
+    <Compile Include="Tomboy\Addins\NoteOfTheDay\NoteOfTheDay.cs" />
+    <Compile Include="Tomboy\Addins\NoteOfTheDay\NoteOfTheDayPreferences.cs" />
+    <Compile Include="Tomboy\Addins\NoteOfTheDay\NoteOfTheDayPreferencesFactory.cs" />
+    <Compile Include="Tomboy\Addins\PrintNotes\PrintNotesNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\StickyNoteImport\StickyNoteImportNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\Evolution\EvolutionNoteAddin.cs" />
+    <Compile Include="Tomboy\Synchronization\FuseSyncServiceAddin.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\AccessRights.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\AttributeType.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\GenericItemData.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ItemACL.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ItemData.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ItemType.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\KeyringException.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\KeyringInfo.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\NetItemData.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\NoteItemData.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\Operation.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\RequestMessage.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ResponseMessage.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ResultCode.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\Ring.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncDialog.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncManager.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncUtils.cs" />
+    <Compile Include="Tomboy\Synchronization\TomboySyncClient.cs" />
+    <Compile Include="Tomboy\Synchronization\FileSystemSyncServer.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncServiceAddin.cs" />
+    <Compile Include="Tomboy\TagEntry.cs" />
+    <Compile Include="Tomboy\Search.cs" />
+    <Compile Include="Tomboy\Notebooks\Notebook.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookManager.cs" />
+    <Compile Include="Tomboy\Notebooks\CreateNotebookDialog.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookNoteAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookMenuItem.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookApplicationAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookNewNoteMenuItem.cs" />
+    <Compile Include="Tomboy\PreferenceTabAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebooksTreeView.cs" />
+    <Compile Include="Tomboy\Addins\InsertTimestamp\InsertTimestampNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\InsertTimestamp\InsertTimestampPreferences.cs" />
+    <Compile Include="Tomboy\Addins\InsertTimestamp\InsertTimestampPreferencesFactory.cs" />
+    <Compile Include="Tomboy\Addins\Sketching\Handwriting.cs" />
+    <Compile Include="Tomboy\Addins\Sketching\Paper.cs" />
+    <Compile Include="Tomboy\Addins\Sketching\Pen.cs" />
+    <Compile Include="Tomboy\Addins\Sketching\SketchingNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\Sketching\SketchingTextTag.cs" />
+    <Compile Include="Tomboy\Addins\Sketching\Stroke.cs" />
+    <Compile Include="Tomboy\Addins\Tasque\TasqueNoteAddin.cs" />
+    <Compile Include="Tomboy\Addins\Tasque\RemoteControl.cs" />
+    <Compile Include="Tomboy\Addins\GalagoPresence\GalagoPresenceNoteAddin.cs" />
+    <Compile Include="Tomboy\RecentTreeView.cs" />
+    <Compile Include="Mono.Addins\Mono.Addins\Mono.Addins\InstanceExtensionNode.cs" />
+    <Compile Include="Tomboy\Services.cs" />
+    <Compile Include="Tomboy\GConfPreferencesClient.cs" />
+    <Compile Include="Tomboy\GnomeApplication.cs" />
+    <Compile Include="Tomboy\Keybinder.cs" />
+    <Compile Include="Tomboy\NativeApplication.cs" />
+    <Compile Include="Tomboy\PlatformFactory.cs" />
+    <Compile Include="Tomboy\PreferencesClient.cs" />
+    <Compile Include="Tomboy\PrefsKeybinder.cs" />
+    <Compile Include="Tomboy\GtkApplication.cs" />
+    <Compile Include="Tomboy\XmlPreferencesClient.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties xmlns="">
+        <GtkDesignInfo gtkVersion="2.10.3" />
+        <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="true" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
+          <BuildFilesVar />
+          <DeployFilesVar />
+          <ResourcesVar />
+          <OthersVar />
+          <GacRefVar />
+          <AsmRefVar />
+          <ProjectRefVar />
+        </MonoDevelop.Autotools.MakefileInfo>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

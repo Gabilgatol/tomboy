@@ -1,5 +1,10 @@
 2008-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy.sln, Tomboy.csproj: Add Visual Studio 2005 solution/project
+	  (untested export from MonoDevelop).
+
+2008-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy.mdp, Tomboy/Makefile.am: Add new files.
 	* Tomboy/PlatformFactory.cs, Tomboy/Services.cs: Really basic factory
 	  and services stuff for getting platform-specific services.
