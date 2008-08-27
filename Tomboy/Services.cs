@@ -36,8 +36,8 @@ namespace Tomboy
 		
 		static Services ()
 		{
-			prefs = PlatformFactory.CreatePreferencesClient ();
 			nativeApp = PlatformFactory.CreateNativeApplication ();
+			prefs = PlatformFactory.CreatePreferencesClient ();
 			keybinder = PlatformFactory.CreateKeybinder ();
 		}
 

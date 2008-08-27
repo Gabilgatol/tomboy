@@ -456,7 +456,7 @@ namespace Tomboy
 		{
 			if (url != string.Empty) {
 				Logger.Log ("Opening url '{0}'...", url);
-				Gnome.Url.Show (url);
+				Services.NativeApplication.OpenUrl (url);
 			}
 		}
 

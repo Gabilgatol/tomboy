@@ -18,5 +18,13 @@ namespace Tomboy
 		void Exit (int exitcode);
 		void StartMainLoop ();
 		void QuitMainLoop ();
+
+		string ConfDir { get; }
+
+		void OpenUrl (string url);
+
+		void DisplayHelp (string filename,
+			string link_id,
+			Gdk.Screen screen);
 	}
 }

@@ -136,12 +136,16 @@ namespace Tomboy
 		                             Gtk.Window parent)
 		{
 			try {
-				Gnome.Help.DisplayDesktopOnScreen (
+				Services.NativeApplication.DisplayHelp (
+					filename,
+					link_id,
+					screen);
+				/*Gnome.Help.DisplayDesktopOnScreen (
 				        Gnome.Program.Get (),
 				        Defines.GNOME_HELP_DIR,
 				        filename,
 				        link_id,
-				        screen);
+				        screen);*/
 			} catch {
 			string message =
 			Catalog.GetString ("The \"Tomboy Notes Manual\" could " +
@@ -788,7 +792,7 @@ namespace Tomboy
 : base (name)
 		{
 		}
-
+#if !WIN32
 		[DllImport("libtomboy")]
 		static extern void tomboy_window_present_hardcore (IntPtr win);
 
@@ -796,6 +800,7 @@ namespace Tomboy
 		{
 			tomboy_window_present_hardcore (this.Handle);
 		}
+#endif
 	}
 
 	class ToolMenuButton : Gtk.ToggleToolButton

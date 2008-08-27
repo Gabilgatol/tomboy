@@ -35,7 +35,7 @@ namespace Tomboy
 		{
 			try {
 				log = File.CreateText (Path.Combine (
-				                               Environment.GetEnvironmentVariable ("HOME"),
+				                               Services.NativeApplication.ConfDir,
 				                               ".tomboy.log"));
 				log.Flush ();
 			} catch (IOException) {
@@ -48,7 +48,9 @@ namespace Tomboy
 		~FileLogger ()
 		{
 			if (log != null)
-				log.Flush ();
+				try {
+					log.Flush ();
+				} catch { }
 		}
 
 		public void Log (Level lvl, string msg, params object[] args)

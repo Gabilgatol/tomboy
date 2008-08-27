@@ -96,7 +96,7 @@ namespace Tomboy
 			        override_path :
 			        Environment.GetEnvironmentVariable ("TOMBOY_PATH");
 			if (note_path == null)
-				note_path = "~/.tomboy";
+				note_path = Services.NativeApplication.ConfDir;
 
 			// Tilde expand
 			return note_path.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
@@ -105,7 +105,10 @@ namespace Tomboy
 		static void RegisterPanelAppletFactory ()
 		{
 			// This will block if there is no existing instance running
+			// TODO: Refactor panel applet code in this class properly
+#if !WIN32
 			Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
+#endif
 		}
 
 		static void StartTrayIcon ()

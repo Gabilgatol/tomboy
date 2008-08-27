@@ -25,10 +25,11 @@
 
 
 using System;
+using System.IO;
 
 namespace Tomboy
 {
-	public class GtkApplication : INativeApplication
+	public class WindowsApplication : INativeApplication
 	{
 		#region INativeApplication implementation 
 		
@@ -65,8 +66,35 @@ namespace Tomboy
 		{
 			Gtk.Application.Quit ();
 		}
-		
-		#endregion 
-		
+
+		public string ConfDir
+		{
+			get
+			{
+				string confDir = Path.Combine (
+					Environment.GetFolderPath (
+					Environment.SpecialFolder.LocalApplicationData),
+					".tomboy");
+				if (!Directory.Exists (confDir))
+					Directory.CreateDirectory (confDir);
+				return confDir;
+			}
+		}
+
+		public void OpenUrl (string url)
+		{
+			try {
+				System.Diagnostics.Process.Start (url);
+			} catch (Exception e) {
+				Logger.Error ("Error opening url [{0}]:\n{1}", url, e.ToString ());
+			}
+		}
+
+		public void DisplayHelp (string filename, string link_id, Gdk.Screen screen)
+		{
+			throw new NotImplementedException ();
+		}
+
+		#endregion
 	}
 }

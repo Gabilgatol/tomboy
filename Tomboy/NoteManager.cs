@@ -78,9 +78,7 @@ public NoteManager (string directory) :
 
 		protected virtual AddinManager CreateAddinManager ()
 		{
-			string tomboy_conf_dir =
-			        Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
-			                      ".tomboy");
+			string tomboy_conf_dir = Services.NativeApplication.ConfDir;
 
 			return new AddinManager (tomboy_conf_dir);
 		}

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using GConf.PropertyEditors;
 using Mono.Unix;
 
 using Tomboy.Sync;
@@ -132,7 +131,7 @@ namespace Tomboy
 			Gtk.Label label;
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
-			PropertyEditorBool peditor, font_peditor, bullet_peditor;
+			IPropertyEditorBool peditor, font_peditor, bullet_peditor;
 
 			Gtk.VBox options_list = new Gtk.VBox (false, 12);
 			options_list.BorderWidth = 12;
@@ -269,8 +268,8 @@ namespace Tomboy
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
 			Gtk.Entry entry;
-			PropertyEditorBool keybind_peditor;
-			PropertyEditor peditor;
+			IPropertyEditorBool keybind_peditor;
+			IPropertyEditor peditor;
 
 			Gtk.VBox hotkeys_list = new Gtk.VBox (false, 12);
 			hotkeys_list.BorderWidth = 12;
@@ -792,7 +791,7 @@ namespace Tomboy
 			AddinInfoDialogDeleted (sender, null);
 		}
 
-		void SetupPropertyEditor (PropertyEditor peditor)
+		void SetupPropertyEditor (IPropertyEditor peditor)
 		{
 			// Ensure the key exists
 			Preferences.Get (peditor.Key);

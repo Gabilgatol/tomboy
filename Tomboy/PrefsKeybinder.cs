@@ -128,9 +128,9 @@ namespace Tomboy
 	public class TomboyPrefsKeybinder : PrefsKeybinder
 	{
 		NoteManager manager;
-		TomboyTray  tray;
+		ITomboyTray  tray;
 
-		public TomboyPrefsKeybinder (NoteManager manager, TomboyTray tray)
+		public TomboyPrefsKeybinder (NoteManager manager, ITomboyTray tray)
 				: base ()
 		{
 			this.manager = manager;

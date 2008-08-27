@@ -133,7 +133,7 @@ namespace Tomboy
 	}
 	
 	
-	public class TomboyTrayIcon : Gtk.StatusIcon
+	public class TomboyTrayIcon : Gtk.StatusIcon, ITomboyTray
 	{
 		TomboyTray tray;
 		TomboyPrefsKeybinder keybinder;
@@ -141,7 +141,7 @@ namespace Tomboy
 		public TomboyTrayIcon (NoteManager manager)
 		{
 			tray = new TomboyTray (manager, this);
-			keybinder = new TomboyPrefsKeybinder (manager, tray);
+			keybinder = new TomboyPrefsKeybinder (manager, this);
 			int panel_size = 22;
 			Pixbuf = GuiUtils.GetIcon ("tomboy", panel_size);
 
@@ -194,16 +194,20 @@ namespace Tomboy
 			Gdk.Screen screen;
 			Gdk.Rectangle area;
 			Gtk.Orientation orientation;
-			GetGeometry (out screen, out area, out orientation);
-			
-			x = area.X;
-			y = area.Y;
-			
-			Gtk.Requisition menu_req = menu.SizeRequest ();
-			if (y + menu_req.Height >= screen.Height)
-				y -= menu_req.Height;
-			else
-				y += area.Height;
+			try {
+				GetGeometry (out screen, out area, out orientation);
+
+				x = area.X;
+				y = area.Y;
+
+				Gtk.Requisition menu_req = menu.SizeRequest ();
+				if (y + menu_req.Height >= screen.Height)
+					y -= menu_req.Height;
+				else
+					y += area.Height;
+			} catch (Exception e) {
+				Logger.Error ("Exception in GetTrayMenuPosition: " + e.ToString ());
+			}
 		}
 		
 		Gtk.Menu MakeRightClickMenu ()
@@ -261,13 +265,40 @@ namespace Tomboy
 			Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
 		}
 
+		public bool MenuOpensUpward ()
+		{
+#if WIN32
+			return true;
+#else
+			bool open_upwards = false;
+			int val = 0;
+			Gdk.Screen screen = null;
+
+			Gdk.Rectangle area;
+			Gtk.Orientation orientation;
+			GetGeometry (out screen, out area, out orientation);
+			val = area.Y;
+
+			Gtk.Requisition menu_req = tray.TomboyTrayMenu.SizeRequest ();
+			if (val + menu_req.Height >= screen.Height)
+				open_upwards = true;
+
+			return open_upwards;
+#endif
+		}
+	}
+
+	// TODO: Some naming love would be nice
+	public interface ITomboyTray
+	{
+		void ShowMenu (bool select_first_item);
+		bool MenuOpensUpward ();
 	}
 	
 	public class TomboyTray
 	{
 		NoteManager manager;
-		TomboyTrayIcon tray_icon = null;
-		TomboyAppletEventBox applet_event_box = null;
+		ITomboyTray tray;
 		bool menu_added = false;
 		List<Gtk.MenuItem> recent_notes = new List<Gtk.MenuItem> ();
 		Gtk.Menu tray_menu;
@@ -280,24 +311,10 @@ namespace Tomboy
 			tray_menu.Hidden += MenuHidden;
 		}
 		
-		public TomboyTray (NoteManager manager, TomboyTrayIcon tray_icon)
+		public TomboyTray (NoteManager manager, ITomboyTray tray)
 			: this (manager)
 		{
-			this.tray_icon = tray_icon;
-		}
-		
-		public TomboyTray (NoteManager manager, TomboyAppletEventBox applet_event_box)
-			: this (manager)
-		{
-			this.applet_event_box = applet_event_box;
-		}
-		
-		public void ShowMenu (bool select_first_item)
-		{
-			if (applet_event_box != null)
-				applet_event_box.ShowMenu (select_first_item);
-			else if (tray_icon != null)
-				tray_icon.ShowMenu (select_first_item);
+			this.tray = tray;
 		}
 		
 		Gtk.Menu MakeTrayNotesMenu ()
@@ -359,7 +376,7 @@ namespace Tomboy
 			int min_size = (int) Preferences.Get (Preferences.MENU_NOTE_COUNT);
 			int max_size = 18;
 			int list_size = 0;
-			bool menuOpensUpward = MenuOpensUpward ();
+			bool menuOpensUpward = tray.MenuOpensUpward ();
 			NoteMenuItem item;
 
 			// Assume menu opens downward, move common items to top of menu
@@ -462,31 +479,6 @@ namespace Tomboy
 			Gtk.SeparatorMenuItem separator = new Gtk.SeparatorMenuItem ();
 			tray_menu.Insert (separator, insertion_point);
 			recent_notes.Add (separator);
-		}
-		
-		public bool MenuOpensUpward ()
-		{
-			bool open_upwards = false;
-			int val = 0;
-			Gdk.Screen screen = null;
-			
-			if (applet_event_box != null) {
-				int x, y;
-				applet_event_box.GdkWindow.GetOrigin (out x, out y);
-				val = y;
-				screen = applet_event_box.Screen;
-			} else if (tray_icon != null) {
-				Gdk.Rectangle area;
-				Gtk.Orientation orientation;
-				tray_icon.GetGeometry(out screen, out area, out orientation);
-				val = area.Y;
-			}
-			
-			Gtk.Requisition menu_req = tray_menu.SizeRequest ();
-			if (val + menu_req.Height >= screen.Height)
-				open_upwards = true;
-
-			return open_upwards;
 		}
 
 		public bool IsMenuAdded
