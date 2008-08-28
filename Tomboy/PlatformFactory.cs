@@ -1,6 +1,6 @@
 namespace Tomboy
 {
-	class PlatformFactory
+	public class PlatformFactory
 	{
 		public static IPropertyEditor CreatePropertyEditorEntry (string key, Gtk.Entry sourceEntry)
 		{

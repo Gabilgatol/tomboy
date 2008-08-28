@@ -1,5 +1,11 @@
 2008-08-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs: Use
+	  PlatformFactory to get an IPropertyEditor.
+	* Tomboy/PlatformFactory.cs: Make PlatformFactory public.
+
+2008-08-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy.mdp, Tomboy/Makefile.am: Rename
 	  GtkApplication.cs->WindowsApplication.cs
 	* Tomboy/Applet.cs: Implement ITomboyTray.
