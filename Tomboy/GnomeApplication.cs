@@ -13,6 +13,13 @@ namespace Tomboy
 	public class GnomeApplication : INativeApplication
 	{
 		private Gnome.Program program;
+		private string confDir;
+
+		public GnomeApplication ()
+		{
+			confDir = Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
+			                        ".tomboy");
+		}
 
 		public void Initialize (string locale_dir,
 		                        string display_name,
@@ -139,6 +146,27 @@ namespace Tomboy
 
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
+		}
+		
+		public void OpenUrl (string url)
+		{
+			Gnome.Url.Show (url);
+		}
+		
+		public void DisplayHelp (string filename, string link_id, Gdk.Screen screen)
+		{
+			Gnome.Help.DisplayDesktopOnScreen (
+			        Gnome.Program.Get (),
+			        Defines.GNOME_HELP_DIR,
+			        filename,
+			        link_id,
+			        screen);
+		}
+		
+		public string ConfDir {
+			get {
+				return confDir;
+			}
 		}
 	}
 }

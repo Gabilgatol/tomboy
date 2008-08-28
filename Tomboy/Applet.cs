@@ -43,7 +43,7 @@ namespace Tomboy
 
 			manager = Tomboy.DefaultNoteManager;
 			applet_event_box = new TomboyAppletEventBox (manager);
-			keybinder = new TomboyPrefsKeybinder (manager, applet_event_box.Tray);
+			keybinder = new TomboyPrefsKeybinder (manager, applet_event_box);
 
 			Flags |= PanelAppletFlags.ExpandMinor;
 
@@ -134,7 +134,7 @@ namespace Tomboy
 	
 	public enum PanelOrientation { Horizontal, Vertical };
 	
-	public class TomboyAppletEventBox : Gtk.EventBox
+	public class TomboyAppletEventBox : Gtk.EventBox, ITomboyTray
 	{
 		NoteManager manager;
 		TomboyTray tray;
@@ -393,6 +393,24 @@ namespace Tomboy
 			}
 
 			InitPixbuf ();
+		}
+
+		public bool MenuOpensUpward ()
+		{
+			bool open_upwards = false;
+			int val = 0;
+			Gdk.Screen screen = null;
+
+			int x, y;
+			GdkWindow.GetOrigin (out x, out y);
+			val = y;
+			screen = Screen;
+
+			Gtk.Requisition menu_req = tray.TomboyTrayMenu.SizeRequest ();
+			if (val + menu_req.Height >= screen.Height)
+				open_upwards = true;
+
+			return open_upwards;
 		}
 	}
 }

@@ -38,7 +38,7 @@ CSFILES = 					\
 	$(srcdir)/Contrast.cs		\
 	$(srcdir)/GConfPreferencesClient.cs	\
 	$(srcdir)/GnomeApplication.cs		\
-	$(srcdir)/GtkApplication.cs		\
+	$(srcdir)/WindowsApplication.cs		\
 	$(srcdir)/Keybinder.cs			\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/NativeApplication.cs		\

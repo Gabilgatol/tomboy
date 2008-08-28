@@ -214,8 +214,8 @@
     <File name="Tomboy/PlatformFactory.cs" subtype="Code" buildaction="Compile" />
     <File name="Tomboy/PreferencesClient.cs" subtype="Code" buildaction="Compile" />
     <File name="Tomboy/PrefsKeybinder.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/GtkApplication.cs" subtype="Code" buildaction="Compile" />
     <File name="Tomboy/XmlPreferencesClient.cs" subtype="Code" buildaction="Compile" />
+    <File name="Tomboy/WindowsApplication.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />

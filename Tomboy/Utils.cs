@@ -140,12 +140,6 @@ namespace Tomboy
 					filename,
 					link_id,
 					screen);
-				/*Gnome.Help.DisplayDesktopOnScreen (
-				        Gnome.Program.Get (),
-				        Defines.GNOME_HELP_DIR,
-				        filename,
-				        link_id,
-				        screen);*/
 			} catch {
 			string message =
 			Catalog.GetString ("The \"Tomboy Notes Manual\" could " +
