@@ -214,6 +214,8 @@ copy $(ProjectDir)\data\icons\hicolor_status_16x16_pin-down.png $(ProjectDir)\pi
 copy $(ProjectDir)\data\icons\hicolor_status_16x16_pin-up.png $(ProjectDir)\pin-up.png
 copy $(ProjectDir)\data\icons\hicolor_status_16x16_pin-active.png $(ProjectDir)\pin-active.png
 copy $(ProjectDir)\Tomboy\Tomboy.addin.xml $(ProjectDir)
-copy $(ProjectDir)\data\UIManagerLayout.xml $(ProjectDir)</PreBuildEvent>
+copy $(ProjectDir)\data\UIManagerLayout.xml $(ProjectDir)
+copy $(ProjectDir)\Tomboy\Defines.cs.in $(ProjectDir)\Tomboy\Defines.cs</PreBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)\winbin\MonoPosixHelper.dll $(ProjectDir)\bin\Debug</PostBuildEvent>
   </PropertyGroup>
 </Project>
