@@ -74,7 +74,7 @@ namespace Tomboy
 				string confDir = Path.Combine (
 					Environment.GetFolderPath (
 					Environment.SpecialFolder.LocalApplicationData),
-					".tomboy");
+					"tomboy");
 				if (!Directory.Exists (confDir))
 					Directory.CreateDirectory (confDir);
 				return confDir;
