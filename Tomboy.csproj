@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+c﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -203,19 +203,19 @@
     <VisualStudio />
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>copy $(ProjectDir)\data\icons\hicolor_apps_48x48_tomboy.png $(ProjectDir)\tomboy.png
-copy $(ProjectDir)\data\icons\hicolor_places_22x22_note.png $(ProjectDir)\note.png
-copy $(ProjectDir)\data\icons\hicolor_actions_16x16_note-new.png $(ProjectDir)\note-new.png
-copy $(ProjectDir)\data\icons\hicolor_actions_22x22_filter-note-all.png $(ProjectDir)\filter-note-all.png
-copy $(ProjectDir)\data\icons\hicolor_actions_22x22_filter-note-unfiled.png $(ProjectDir)\filter-note-unfiled.png
-copy $(ProjectDir)\data\icons\hicolor_places_22x22_notebook.png $(ProjectDir)\notebook.png
-copy $(ProjectDir)\data\icons\hicolor_actions_48x48_notebook-new.png $(ProjectDir)\notebook-new.png
-copy $(ProjectDir)\data\icons\hicolor_status_16x16_pin-down.png $(ProjectDir)\pin-down.png
-copy $(ProjectDir)\data\icons\hicolor_status_16x16_pin-up.png $(ProjectDir)\pin-up.png
-copy $(ProjectDir)\data\icons\hicolor_status_16x16_pin-active.png $(ProjectDir)\pin-active.png
-copy $(ProjectDir)\Tomboy\Tomboy.addin.xml $(ProjectDir)
-copy $(ProjectDir)\data\UIManagerLayout.xml $(ProjectDir)
-copy $(ProjectDir)\Tomboy\Defines.cs.in $(ProjectDir)\Tomboy\Defines.cs</PreBuildEvent>
+    <PreBuildEvent>copy "$(ProjectDir)\data\icons\hicolor_apps_48x48_tomboy.png" "$(ProjectDir)\tomboy.png"
+copy "$(ProjectDir)\data\icons\hicolor_places_22x22_note.png" "$(ProjectDir)\note.png"
+copy "$(ProjectDir)\data\icons\hicolor_actions_16x16_note-new.png" "$(ProjectDir)\note-new.png"
+copy "$(ProjectDir)\data\icons\hicolor_actions_22x22_filter-note-all.png" "$(ProjectDir)\filter-note-all.png"
+copy "$(ProjectDir)\data\icons\hicolor_actions_22x22_filter-note-unfiled.png" "$(ProjectDir)\filter-note-unfiled.png"
+copy "$(ProjectDir)\data\icons\hicolor_places_22x22_notebook.png" "$(ProjectDir)\notebook.png"
+copy "$(ProjectDir)\data\icons\hicolor_actions_48x48_notebook-new.png" "$(ProjectDir)\notebook-new.png"
+copy "$(ProjectDir)\data\icons\hicolor_status_16x16_pin-down.png" "$(ProjectDir)\pin-down.png"
+copy "$(ProjectDir)\data\icons\hicolor_status_16x16_pin-up.png" "$(ProjectDir)\pin-up.png"
+copy "$(ProjectDir)\data\icons\hicolor_status_16x16_pin-active.png" "$(ProjectDir)\pin-active.png"
+copy "$(ProjectDir)\Tomboy\Tomboy.addin.xml" "$(ProjectDir)"
+copy "$(ProjectDir)\data\UIManagerLayout.xml" "$(ProjectDir)"
+copy "$(ProjectDir)\Tomboy\Defines.cs.in $(ProjectDir)\Tomboy\Defines.cs"</PreBuildEvent>
     <PostBuildEvent>copy $(ProjectDir)\winbin\MonoPosixHelper.dll $(ProjectDir)\bin\Debug</PostBuildEvent>
   </PropertyGroup>
 </Project>

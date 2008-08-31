@@ -1,3 +1,9 @@
+2008-08-31  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy.csproj: Add quotes around paths in post-build to support paths
+	  with spaces (very common in XP).  Thanks to Samuel Vandamme (kidk)
+	  for catching this one!
+
 2008-08-28  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs: Use
