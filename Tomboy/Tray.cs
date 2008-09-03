@@ -195,10 +195,15 @@ namespace Tomboy
 			Gdk.Rectangle area;
 			Gtk.Orientation orientation;
 			try {
+#if WIN32
+				menu.Screen.Display.GetPointer (out x, out y);
+				screen = menu.Screen;
+				area.Height = 0;
+#else
 				GetGeometry (out screen, out area, out orientation);
-
 				x = area.X;
 				y = area.Y;
+#endif
 
 				Gtk.Requisition menu_req = menu.SizeRequest ();
 				if (y + menu_req.Height >= screen.Height)
@@ -267,24 +272,26 @@ namespace Tomboy
 
 		public bool MenuOpensUpward ()
 		{
-#if WIN32
-			return true;
-#else
 			bool open_upwards = false;
 			int val = 0;
 			Gdk.Screen screen = null;
 
 			Gdk.Rectangle area;
 			Gtk.Orientation orientation;
+#if WIN32
+			int x;
+			tray.TomboyTrayMenu.Screen.Display.GetPointer (out x, out val);
+			screen = tray.TomboyTrayMenu.Screen;
+#else
 			GetGeometry (out screen, out area, out orientation);
 			val = area.Y;
+#endif
 
 			Gtk.Requisition menu_req = tray.TomboyTrayMenu.SizeRequest ();
 			if (val + menu_req.Height >= screen.Height)
 				open_upwards = true;
 
 			return open_upwards;
-#endif
 		}
 	}
 
