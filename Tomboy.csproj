@@ -219,6 +219,6 @@ copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-active.png" "$(ProjectDir
 copy "$(ProjectDir)Tomboy\Tomboy.addin.xml" "$(ProjectDir)"
 copy "$(ProjectDir)data\UIManagerLayout.xml" "$(ProjectDir)"
 copy "$(ProjectDir)Tomboy\Defines.cs.in" "$(ProjectDir)Tomboy\Defines.cs"</PreBuildEvent>
-    <PostBuildEvent>copy $(ProjectDir)winbin\MonoPosixHelper.dll $(ProjectDir)bin\Debug</PostBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)winbin\MonoPosixHelper.dll" "$(ProjectDir)bin\Debug"</PostBuildEvent>
   </PropertyGroup>
 </Project>
