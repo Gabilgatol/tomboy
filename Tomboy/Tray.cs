@@ -315,7 +315,6 @@ namespace Tomboy
 			this.manager = manager;
 			
 			tray_menu = MakeTrayNotesMenu ();
-			tray_menu.Hidden += MenuHidden;
 		}
 		
 		public TomboyTray (NoteManager manager, ITomboyTray tray)
@@ -363,12 +362,6 @@ namespace Tomboy
 			return menu;
 		}
 		
-		void MenuHidden (object sender, EventArgs args)
-		{
-			// Remove the old dynamic items
-			RemoveRecentlyChangedNotes ();
-		}
-		
 		void RemoveRecentlyChangedNotes ()
 		{
 			foreach (Gtk.Widget item in recent_notes) {
@@ -385,6 +378,9 @@ namespace Tomboy
 			int list_size = 0;
 			bool menuOpensUpward = tray.MenuOpensUpward ();
 			NoteMenuItem item;
+
+			// Remove the old dynamic items
+			RemoveRecentlyChangedNotes ();
 
 			// Assume menu opens downward, move common items to top of menu
 			Gtk.MenuItem newNoteItem = Tomboy.ActionManager.GetWidget (
