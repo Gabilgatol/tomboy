@@ -148,6 +148,7 @@
     <Compile Include="Tomboy\PrefsKeybinder.cs" />
     <Compile Include="Tomboy\WindowsApplication.cs" />
     <Compile Include="Tomboy\XmlPreferencesClient.cs" />
+    <None Include="ChangeLog" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
