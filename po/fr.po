@@ -1156,7 +1156,7 @@ msgstr ""
 #. New Note Template
 #: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
 msgid "New Note Template"
-msgstr "Nouveau modèle de note"
+msgstr "Modèle de nouvelle note"
 
 #: ../Tomboy/NoteManager.cs:138
 msgid ""

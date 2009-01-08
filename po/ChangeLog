@@ -1,3 +1,7 @@
+2009-01-08  Claude Paroz  <claude@2xlibre.net>
+
+	* fr.po: Translation fix (bug #565208).
+
 2008-11-14  Thomas Thurman  <tthurman@gnome.org>
 
         * la.po: added Latin translation by Rafael Garcia.
