@@ -216,7 +216,7 @@ namespace Tomboy
 
 				/* Don't activate if Shift or Control is pressed */
 				if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
-				                              Gdk.ModifierType.ControlMask)) != 0)
+				                              Services.NativeApplication.ControlModifier)) != 0)
 					return false;
 
 				// Prevent activation when selecting links with the mouse
@@ -245,7 +245,7 @@ namespace Tomboy
 				Gdk.EventKey key_ev = new Gdk.EventKey (ev.Handle);
 
 				// Control-Enter activates the link at point...
-				if ((int) (key_ev.State & Gdk.ModifierType.ControlMask) == 0)
+				if ((int) (key_ev.State & Services.NativeApplication.ControlModifier) == 0)
 					return false;
 
 				if (key_ev.Key != Gdk.Key.Return &&

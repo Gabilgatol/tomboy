@@ -1063,7 +1063,7 @@ namespace Tomboy
 
 			// Don't show hand if Shift or Control is pressed
 			bool avoid_hand = (pointer_mask & (Gdk.ModifierType.ShiftMask |
-			                                   Gdk.ModifierType.ControlMask)) != 0;
+			                                   Services.NativeApplication.ControlModifier)) != 0;
 
 			if (hovering != hovering_on_link) {
 				hovering_on_link = hovering;

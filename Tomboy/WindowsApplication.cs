@@ -121,6 +121,10 @@ namespace Tomboy
 		{
 			OpenUrl ("http://library.gnome.org/users/tomboy/0.12/", screen);
 		}
+		
+		public Gdk.ModifierType ControlModifier {
+			get { return Gdk.ModifierType.ControlMask; }
+		}
 
 		#endregion
 	}

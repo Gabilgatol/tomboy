@@ -61,7 +61,7 @@ namespace Tomboy
 			find_item.AddAccelerator ("activate",
 			                          accel_group,
 			                          (uint) Gdk.Key.f,
-			                          Gdk.ModifierType.ControlMask,
+			                          Services.NativeApplication.ControlModifier,
 			                          Gtk.AccelFlags.Visible);
 			find_item.Show ();
 			text_menu.Append (find_item);
@@ -121,7 +121,7 @@ namespace Tomboy
 			if (!using_emacs)
 				global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
 				                            (uint) Gdk.Key.w,
-				                            Gdk.ModifierType.ControlMask,
+				                            Services.NativeApplication.ControlModifier,
 				                            Gtk.AccelFlags.Visible);
 
 			// Escape has been moved to be handled by a KeyPress Handler so that
@@ -130,19 +130,19 @@ namespace Tomboy
 			// Close all windows on current Desktop (Ctrl-Q)
 			global_keys.AddAccelerator (new EventHandler (CloseAllWindowsHandler),
 			                            (uint) Gdk.Key.q,
-			                            Gdk.ModifierType.ControlMask,
+			                            Services.NativeApplication.ControlModifier,
 			                            Gtk.AccelFlags.Visible);
 
 			// Find Next (Ctrl-G)
 			global_keys.AddAccelerator (new EventHandler (FindNextActivate),
 			                            (uint) Gdk.Key.g,
-			                            Gdk.ModifierType.ControlMask,
+			                            Services.NativeApplication.ControlModifier,
 			                            Gtk.AccelFlags.Visible);
 
 			// Find Previous (Ctrl-Shift-G)
 			global_keys.AddAccelerator (new EventHandler (FindPreviousActivate),
 			                            (uint) Gdk.Key.g,
-			                            (Gdk.ModifierType.ControlMask |
+			                            (Services.NativeApplication.ControlModifier |
 			                             Gdk.ModifierType.ShiftMask),
 			                            Gtk.AccelFlags.Visible);
 
@@ -156,7 +156,7 @@ namespace Tomboy
 			if (!using_emacs)
 				global_keys.AddAccelerator (new EventHandler (CreateNewNote),
 				                            (uint) Gdk.Key.n,
-				                            Gdk.ModifierType.ControlMask,
+				                            Services.NativeApplication.ControlModifier,
 				                            Gtk.AccelFlags.Visible);
 
 			// Have Esc key close the find bar or note window
@@ -165,7 +165,7 @@ namespace Tomboy
 			// Increase Indent
 			global_keys.AddAccelerator (new EventHandler (ChangeDepthRightHandler),
 			                            (uint) Gdk.Key.Right,
-			                            Gdk.ModifierType.Mod1Mask,
+			                            Gdk.ModifierType.Mod5Mask,
 			                            Gtk.AccelFlags.Visible);
 
 			// Decrease Indent
@@ -352,7 +352,7 @@ namespace Tomboy
 			search.AddAccelerator ("activate",
 			                       accel_group,
 			                       (uint) Gdk.Key.f,
-			                       (Gdk.ModifierType.ControlMask |
+			                       (Services.NativeApplication.ControlModifier |
 			                        Gdk.ModifierType.ShiftMask),
 			                       Gtk.AccelFlags.Visible);
 			search.Show ();
@@ -365,7 +365,7 @@ namespace Tomboy
 			link.AddAccelerator ("activate",
 			                     accel_group,
 			                     (uint) Gdk.Key.l,
-			                     Gdk.ModifierType.ControlMask,
+			                     Services.NativeApplication.ControlModifier,
 			                     Gtk.AccelFlags.Visible);
 			link.Show ();
 
@@ -398,7 +398,7 @@ namespace Tomboy
 			close_all.AddAccelerator ("activate",
 			                          accel_group,
 			                          (uint) Gdk.Key.q,
-			                          Gdk.ModifierType.ControlMask,
+			                          Services.NativeApplication.ControlModifier,
 			                          Gtk.AccelFlags.Visible);
 			close_all.Show ();
 
@@ -409,7 +409,7 @@ namespace Tomboy
 			close_window.AddAccelerator ("activate",
 			                             accel_group,
 			                             (uint) Gdk.Key.w,
-			                             Gdk.ModifierType.ControlMask,
+			                             Services.NativeApplication.ControlModifier,
 			                             Gtk.AccelFlags.Visible);
 			close_window.Show ();
 
@@ -440,7 +440,7 @@ namespace Tomboy
 			search.AddAccelerator ("clicked",
 			                       accel_group,
 			                       (uint) Gdk.Key.f,
-			                       (Gdk.ModifierType.ControlMask |
+			                       (Services.NativeApplication.ControlModifier |
 			                        Gdk.ModifierType.ShiftMask),
 			                       Gtk.AccelFlags.Visible);
 			search.ShowAll ();
@@ -459,7 +459,7 @@ namespace Tomboy
 			link_button.AddAccelerator ("clicked",
 			                            accel_group,
 			                            (uint) Gdk.Key.l,
-			                            Gdk.ModifierType.ControlMask,
+			                            Services.NativeApplication.ControlModifier,
 			                            Gtk.AccelFlags.Visible);
 			link_button.ShowAll ();
 			tb.Insert (link_button, -1);
@@ -565,7 +565,7 @@ namespace Tomboy
 			find.AddAccelerator ("activate",
 			                     accel_group,
 			                     (uint) Gdk.Key.f,
-			                     Gdk.ModifierType.ControlMask,
+			                     Services.NativeApplication.ControlModifier,
 			                     Gtk.AccelFlags.Visible);
 			find.Show ();
 
@@ -578,7 +578,7 @@ namespace Tomboy
 			find_next.AddAccelerator ("activate",
 			                          accel_group,
 			                          (uint) Gdk.Key.g,
-			                          Gdk.ModifierType.ControlMask,
+			                          Services.NativeApplication.ControlModifier,
 			                          Gtk.AccelFlags.Visible);
 			find_next.Show ();
 
@@ -591,7 +591,7 @@ namespace Tomboy
 			find_previous.AddAccelerator ("activate",
 			                              accel_group,
 			                              (uint) Gdk.Key.g,
-			                              (Gdk.ModifierType.ControlMask |
+			                              (Services.NativeApplication.ControlModifier |
 			                               Gdk.ModifierType.ShiftMask),
 			                              Gtk.AccelFlags.Visible);
 			find_previous.Show ();
@@ -1230,7 +1230,7 @@ namespace Tomboy
 				undo.AddAccelerator ("activate",
 				                     accel_group,
 				                     (uint) Gdk.Key.z,
-				                     Gdk.ModifierType.ControlMask,
+				                     Services.NativeApplication.ControlModifier,
 				                     Gtk.AccelFlags.Visible);
 				undo.Show ();
 				Append (undo);
@@ -1240,7 +1240,7 @@ namespace Tomboy
 				redo.AddAccelerator ("activate",
 				                     accel_group,
 				                     (uint) Gdk.Key.z,
-				                     (Gdk.ModifierType.ControlMask |
+				                     (Services.NativeApplication.ControlModifier |
 				                      Gdk.ModifierType.ShiftMask),
 				                     Gtk.AccelFlags.Visible);
 				redo.Show ();
@@ -1263,7 +1263,7 @@ namespace Tomboy
 			bold.AddAccelerator ("activate",
 			                     accel_group,
 			                     (uint) Gdk.Key.b,
-			                     Gdk.ModifierType.ControlMask,
+			                     Services.NativeApplication.ControlModifier,
 			                     Gtk.AccelFlags.Visible);
 
 			italic = new Gtk.CheckMenuItem ("<i>" +
@@ -1275,7 +1275,7 @@ namespace Tomboy
 			italic.AddAccelerator ("activate",
 			                       accel_group,
 			                       (uint) Gdk.Key.i,
-			                       Gdk.ModifierType.ControlMask,
+			                       Services.NativeApplication.ControlModifier,
 			                       Gtk.AccelFlags.Visible);
 
 			strikeout = new Gtk.CheckMenuItem ("<s>" +
@@ -1287,7 +1287,7 @@ namespace Tomboy
 			strikeout.AddAccelerator ("activate",
 			                          accel_group,
 			                          (uint) Gdk.Key.s,
-			                          Gdk.ModifierType.ControlMask,
+			                          Services.NativeApplication.ControlModifier,
 			                          Gtk.AccelFlags.Visible);
 
 			highlight = new Gtk.CheckMenuItem ("<span background='yellow'>" +
@@ -1299,7 +1299,7 @@ namespace Tomboy
 			highlight.AddAccelerator ("activate",
 			                          accel_group,
 			                          (uint) Gdk.Key.h,
-			                          Gdk.ModifierType.ControlMask,
+			                          Services.NativeApplication.ControlModifier,
 			                          Gtk.AccelFlags.Visible);
 
 			Gtk.SeparatorMenuItem spacer1 = new Gtk.SeparatorMenuItem ();
@@ -1313,12 +1313,12 @@ namespace Tomboy
 			normal.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.Key_0,
-						Gdk.ModifierType.ControlMask,
+						Services.NativeApplication.ControlModifier,
 						Gtk.AccelFlags.Visible);
 			normal.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.KP_0,
-						Gdk.ModifierType.ControlMask,
+						Services.NativeApplication.ControlModifier,
 						Gtk.AccelFlags.Visible);
 			normal.Activated += FontSizeActivated;
 
@@ -1353,17 +1353,17 @@ namespace Tomboy
 			increase_font.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.plus,
-						Gdk.ModifierType.ControlMask,
+						Services.NativeApplication.ControlModifier,
 						Gtk.AccelFlags.Visible);
 			increase_font.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.KP_Add,
-						Gdk.ModifierType.ControlMask,
+						Services.NativeApplication.ControlModifier,
 						Gtk.AccelFlags.Visible);
 			increase_font.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.equal,
-						Gdk.ModifierType.ControlMask,
+						Services.NativeApplication.ControlModifier,
 						Gtk.AccelFlags.Visible);
 			increase_font.Activated += IncreaseFontClicked;
 
@@ -1371,17 +1371,17 @@ namespace Tomboy
 			decrease_font.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.minus,
-						Gdk.ModifierType.ControlMask,
+						Services.NativeApplication.ControlModifier,
 						Gtk.AccelFlags.Visible);
 			decrease_font.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.KP_Subtract,
-						Gdk.ModifierType.ControlMask,
+						Services.NativeApplication.ControlModifier,
 						Gtk.AccelFlags.Visible);
 			decrease_font.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.underscore,
-						Gdk.ModifierType.ControlMask,
+						Services.NativeApplication.ControlModifier,
 						Gtk.AccelFlags.Visible);
 			decrease_font.Activated += DecreaseFontClicked;
 

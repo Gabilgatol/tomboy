@@ -53,7 +53,7 @@ namespace Tomboy.PrintNotes
 			item.Image = new Gtk.Image (Gtk.Stock.Print, Gtk.IconSize.Menu);
 			item.Activated += PrintButtonClicked;
 			item.AddAccelerator ("activate", Window.AccelGroup,
-				(uint) Gdk.Key.p, Gdk.ModifierType.ControlMask,
+				(uint) Gdk.Key.p, Services.NativeApplication.ControlModifier,
 				Gtk.AccelFlags.Visible);
 			item.Show ();
 			AddPluginMenuItem (item);

@@ -738,7 +738,7 @@ namespace Tomboy
 			switch (args.Event.Type) {
 			case Gdk.EventType.TwoButtonPress:
 				if (args.Event.Button != 1 || (args.Event.State &
-						(Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask)) != 0) {
+						(Services.NativeApplication.ControlModifier | Gdk.ModifierType.ShiftMask)) != 0) {
 					break;
 				}
 
@@ -762,7 +762,7 @@ namespace Tomboy
 				}
 
 				if (tree.Selection.PathIsSelected (path) && (args.Event.State &
-						(Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask)) == 0) {
+						(Services.NativeApplication.ControlModifier | Gdk.ModifierType.ShiftMask)) == 0) {
 					if (column != null && args.Event.Button == 1) {
 						Gtk.CellRenderer renderer = column.CellRenderers [0];
 						Gdk.Rectangle background_area = tree.GetBackgroundArea (path, column);
@@ -818,7 +818,7 @@ namespace Tomboy
 		void OnTreeViewButtonReleased (object sender, Gtk.ButtonReleaseEventArgs args)
 		{
 			if (!Gtk.Drag.CheckThreshold (tree, clickX, clickY, (int)args.Event.X, (int)args.Event.Y) &&
-					((args.Event.State & (Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask)) == 0) &&
+					((args.Event.State & (Services.NativeApplication.ControlModifier | Gdk.ModifierType.ShiftMask)) == 0) &&
 					tree.Selection.CountSelectedRows () > 1) {
 
 				Gtk.TreePath path;

@@ -191,5 +191,9 @@ namespace Tomboy
 				                     ".tomboy");
 			}
 		}
+		
+		public Gdk.ModifierType ControlModifier {
+			get { return Gdk.ModifierType.ControlMask; }
+		}
 	}
 }

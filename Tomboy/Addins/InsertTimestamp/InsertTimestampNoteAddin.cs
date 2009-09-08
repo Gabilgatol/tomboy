@@ -29,7 +29,7 @@ namespace Tomboy.InsertTimestamp {
 				Catalog.GetString ("Insert Timestamp"));
 			item.Activated += OnMenuItemActivated;
 			item.AddAccelerator ("activate", Window.AccelGroup,
-				(uint) Gdk.Key.d, Gdk.ModifierType.ControlMask,
+				(uint) Gdk.Key.d, Services.NativeApplication.ControlModifier,
 				Gtk.AccelFlags.Visible);
 			item.Show ();
 			AddPluginMenuItem (item);

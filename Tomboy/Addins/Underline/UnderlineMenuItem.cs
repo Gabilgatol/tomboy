@@ -17,7 +17,7 @@ namespace Tomboy.Underline
 			Addin = addin;
 			Addin.Window.TextMenu.Shown += MenuShown;
 			AddAccelerator ("activate", Addin.Window.AccelGroup,
-				(uint) Gdk.Key.u, Gdk.ModifierType.ControlMask,
+				(uint) Gdk.Key.u, Services.NativeApplication.ControlModifier,
 				Gtk.AccelFlags.Visible);
 
 			ShowAll();

@@ -224,7 +224,6 @@ namespace Tomboy
 			mainMenu.Show ();
 			IgeMacMenu.MenuBar = mainMenu;
 			WindowMenuManager.UpdateWindowMenu ();
-
 			Gtk.MenuItem about_item = uiManager.GetWidget ("/MainWindowMenubar/HelpMenu/ShowAbout") as Gtk.MenuItem;
 			Gtk.MenuItem prefs_item = uiManager.GetWidget ("/MainWindowMenubar/EditMenu/ShowPreferences") as Gtk.MenuItem;
 			Gtk.MenuItem quit_item  = uiManager.GetWidget ("/MainWindowMenubar/FileMenu/QuitTomboy") as Gtk.MenuItem;
@@ -285,6 +284,10 @@ namespace Tomboy
 		public virtual void DisplayHelp (string help_uri, Gdk.Screen screen)
 		{
 			OpenUrl ("http://library.gnome.org/users/tomboy/0.12/", screen);
+		}
+		
+		public Gdk.ModifierType ControlModifier {
+			get { return Gdk.ModifierType.MetaMask; }
 		}
 
 		#endregion
