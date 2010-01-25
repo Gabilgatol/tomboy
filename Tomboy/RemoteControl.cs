@@ -6,6 +6,8 @@ using NDesk.DBus;
 using org.freedesktop.DBus;
 #endif
 
+using Tomboy.Notebooks;
+
 namespace Tomboy
 {
 	public delegate void RemoteDeletedHandler (string uri, string title);
@@ -98,6 +100,7 @@ namespace Tomboy
 		{
 			try {
 				Note note = note_manager.Create ();
+				note.QueueSave (ChangeType.ContentChanged);
 				return note.Uri;
 			} catch {
 				return string.Empty;
@@ -114,6 +117,37 @@ namespace Tomboy
 
 			try {
 				note = note_manager.Create (linked_title);
+				note.QueueSave (ChangeType.ContentChanged);
+				return note.Uri;
+			} catch {
+				return string.Empty;
+			}
+		}
+
+		public string CreateNamedNoteWithUri (string linked_title, string uri)
+		{
+			Note note;
+			string guid;
+			try {
+				guid = uri.Replace ("note://tomboy/", "");
+			} catch {
+				return string.Empty;
+			}
+
+			if (String.IsNullOrEmpty (guid))
+				return string.Empty;
+
+			note = note_manager.Find (linked_title);
+			if (note != null)
+				return string.Empty;
+
+			note = note_manager.FindByUri (uri);
+			if (note != null)
+				return string.Empty;
+
+			try {
+				note = note_manager.CreateWithGuid (linked_title, guid);
+				note.QueueSave (ChangeType.ContentChanged);
 				return note.Uri;
 			} catch {
 				return string.Empty;
@@ -269,6 +303,7 @@ namespace Tomboy
 				return false;
 			Tag tag = TagManager.GetOrCreateTag (tag_name);
 			note.AddTag (tag);
+			note.QueueSave (ChangeType.OtherDataChanged);
 			return true;
 		}
 
@@ -280,6 +315,7 @@ namespace Tomboy
 			Tag tag = TagManager.GetTag (tag_name);
 			if (tag != null)
 				note.RemoveTag (tag);
+			note.QueueSave (ChangeType.OtherDataChanged);
 			return true;
 		}
 
@@ -292,6 +328,49 @@ namespace Tomboy
 			for (int i = 0; i < tagged_note_uris.Length; i++)
 				tagged_note_uris [i] = tag.Notes [i].Uri;
 			return tagged_note_uris;
+		}
+
+		public string GetNotebookForNote (string uri)
+		{
+			Note note = note_manager.FindByUri (uri);
+			if (note == null)
+				return string.Empty;
+			Notebook notebook = NotebookManager.GetNotebookFromNote (note);
+			if (notebook == null)
+				return string.Empty;
+			return notebook.Name;
+		}
+
+		public bool AddNoteToNotebook (string uri, string notebook_name)
+		{
+			Note note = note_manager.FindByUri (uri);
+			if (note == null)
+				return false;
+			Notebook notebook = NotebookManager.GetNotebook (notebook_name);
+			if (notebook == null)
+				return false;
+			return NotebookManager.MoveNoteToNotebook (note, notebook);
+		}
+
+		public string [] GetAllNotesInNotebook (string notebook_name)
+		{
+			Tag tag = TagManager.GetTag (Tag.SYSTEM_TAG_PREFIX + Notebook.NotebookTagPrefix + notebook_name);
+			if (tag == null)
+				return new string [0];
+			string [] tagged_note_uris = new string [tag.Notes.Count];
+			for (int i = 0; i < tagged_note_uris.Length; i++)
+				tagged_note_uris [i] = tag.Notes [i].Uri;
+			return tagged_note_uris;
+		}
+
+		public bool AddNotebook (string notebook_name)
+		{
+			if (NotebookManager.GetNotebook (notebook_name) != null)
+				return false;
+			Notebook notebook = NotebookManager.GetOrCreateNotebook (notebook_name);
+			if (notebook == null)
+				return false;
+			return true;
 		}
 
 		private void OnNoteDeleted (object sender, Note note)
