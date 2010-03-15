@@ -1,4 +1,4 @@
-﻿//#if WIN32
+//#if WIN32
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Tomboy
 		private static readonly string SearchIcon = "search.ico";
 
 		private static readonly string tomboy_path = System.Reflection.Assembly.GetExecutingAssembly ().Location;
-		private static readonly string icons_path = tomboy_path.Substring (0, tomboy_path.LastIndexOf ('\\') + 1);
+		private static readonly string icons_path = Defines.DATADIR;
 
 		public static void CreateJumpList ()
 		{
@@ -48,7 +48,7 @@ namespace Tomboy
 
 				Marshal.FinalReleaseComObject (custom_destinationd_list);
 				custom_destinationd_list = null;
-			} catch (COMException e) {
+			} catch (Exception e) {
 				Logger.Error ("Error creating jump list: {0}\n{1}", e.Message, e.StackTrace);
 			}
 		}
@@ -64,7 +64,7 @@ namespace Tomboy
 
 				Marshal.FinalReleaseComObject (custom_destinationd_list);
 				custom_destinationd_list = null;
-			} catch (COMException e) {
+			} catch (Exception e) {
 				Logger.Error ("Error removing jump list: {0}\n{1}", e.Message, e.StackTrace);
 			}
 		}
@@ -74,8 +74,8 @@ namespace Tomboy
 			IObjectCollection object_collection =
 			    (IObjectCollection) Activator.CreateInstance (Type.GetTypeFromCLSID (CLSID.EnumerableObjectCollection));
 
-			IShellLink search_notes = CreateShellLink ("Search All Notes", tomboy_path, "--search",
-			    icons_path + SearchIcon, -1);
+			IShellLink search_notes = CreateShellLink (Catalog.GetString ("Search All Notes"), tomboy_path, "--search",
+			                                           System.IO.Path.Combine (icons_path, SearchIcon),  -1);
 			if (search_notes != null)
 				object_collection.AddObject (search_notes);
 
@@ -84,8 +84,8 @@ namespace Tomboy
 			//if (new_notebook != null)
 			//    object_collection.AddObject(new_notebook);
 
-			IShellLink new_note = CreateShellLink ("Create New Note", tomboy_path, "--new-note",
-			    icons_path + NewNoteIcon, -1);
+			IShellLink new_note = CreateShellLink (Catalog.GetString ("Create New Note"), tomboy_path, "--new-note",
+			                                       System.IO.Path.Combine (icons_path, NewNoteIcon), -1);
 			if (new_note != null)
 				object_collection.AddObject (new_note);
 
@@ -114,11 +114,11 @@ namespace Tomboy
 
 				string note_title = note.Title;
 				if (note.IsNew) {
-					note_title += Catalog.GetString (" (new)");
+					note_title = String.Format (Catalog.GetString ("{0} (new)"), note_title);
 				}
 
 				IShellLink note_link = CreateShellLink (note_title, tomboy_path, "--open-note " + note.Uri,
-					icons_path + NoteIcon, -1);
+				                                        System.IO.Path.Combine (icons_path, NoteIcon), -1);
 				if (note_link != null)
 					object_collection.AddObject (note_link);
 
@@ -128,12 +128,15 @@ namespace Tomboy
 
 			// Add Start Here note
 			Note start_note = note_manager.FindByUri (NoteManager.StartNoteUri);
-			IShellLink start_note_link = CreateShellLink (start_note.Title, tomboy_path, "--open-note " +
-				NoteManager.StartNoteUri, icons_path + NoteIcon, -1);
-			if (start_note_link != null)
-				object_collection.AddObject (start_note_link);
+			if (start_note != null) {
+				IShellLink start_note_link = CreateShellLink (start_note.Title, tomboy_path, "--open-note " +
+				                                              NoteManager.StartNoteUri,
+				                                              System.IO.Path.Combine (icons_path, NoteIcon), -1);
+				if (start_note_link != null)
+					object_collection.AddObject (start_note_link);
+			}
 
-			custom_destinationd_list.AppendCategory ("Recent Notes", (IObjectArray) object_collection);
+			custom_destinationd_list.AppendCategory (Catalog.GetString ("Recent Notes"), (IObjectArray) object_collection);
 
 			Marshal.ReleaseComObject (object_collection);
 			object_collection = null;

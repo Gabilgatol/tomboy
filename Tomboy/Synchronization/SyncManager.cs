@@ -117,27 +117,29 @@ namespace Tomboy.Sync
 
 	public class SyncManager
 	{
-		//private static SyncServer server;
+		private static ISyncUI syncUI;
 		private static SyncClient client;
 		private static SyncState state = SyncState.Idle;
 		private static Thread syncThread = null;
 		// TODO: Expose the next enum more publicly
 		private static SyncTitleConflictResolution conflictResolution;
 
-		/// <summary>
-		/// Emitted when the state of the synchronization changes
-		/// </summary>
-		public static event SyncStateChangedHandler StateChanged;
-
-		/// <summary>
-		/// Emmitted when a file is uploaded, downloaded, or deleted.
-		/// </summary>
-		public static event NoteSyncHandler NoteSynchronized;
-
-		/// <summary>
-		///
-		/// </summary>
-		public static event NoteConflictHandler NoteConflictDetected;
+		// TODO: Are these needed in the era of ISyncUI? Probably,
+		//       but leaving them out is good for testing right now
+//		/// <summary>
+//		/// Emitted when the state of the synchronization changes
+//		/// </summary>
+//		public static event SyncStateChangedHandler StateChanged;
+//
+//		/// <summary>
+//		/// Emmitted when a file is uploaded, downloaded, or deleted.
+//		/// </summary>
+//		public static event NoteSyncHandler NoteSynchronized;
+//
+//		/// <summary>
+//		///
+//		/// </summary>
+//		public static event NoteConflictHandler NoteConflictDetected;
 
 		static SyncManager ()
 		{
@@ -192,9 +194,52 @@ namespace Tomboy.Sync
 			}
 
 			Preferences.SettingChanged += Preferences_SettingChanged;
+			NoteMgr.NoteSaved += (n) => HandleNoteSavedOrDeleted ();
+			NoteMgr.NoteDeleted += (o, n) => HandleNoteSavedOrDeleted ();
 
 			// Update sync item based on configuration.
 			UpdateSyncAction ();
+		}
+
+		static void HandleNoteSavedOrDeleted ()
+		{
+			if (syncThread == null && autosyncTimer != null && autosyncTimeoutPrefMinutes > 0) {
+				TimeSpan timeSinceLastCheck =
+					DateTime.Now - lastBackgroundCheck;
+				TimeSpan timeUntilNextCheck =
+					new TimeSpan (0, currentAutosyncTimeoutMinutes, 0) - timeSinceLastCheck;
+				if (timeUntilNextCheck.TotalMinutes < 1) {
+					Logger.Debug ("Note saved or deleted within a minute of next autosync...resetting sync timer");
+					currentAutosyncTimeoutMinutes = 1;
+					autosyncTimer.Change (currentAutosyncTimeoutMinutes * 60000,
+					                      autosyncTimeoutPrefMinutes * 60000);
+					NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
+					NoteMgr.NoteBufferChanged += HandleNoteBufferChanged;
+				}
+			} else if (syncThread == null && autosyncTimer == null && autosyncTimeoutPrefMinutes > 0) {
+				Logger.Debug ("Note saved or deleted...restarting sync timer");
+				lastBackgroundCheck = DateTime.Now;
+				 // Perform a sync one minute after setting change
+				currentAutosyncTimeoutMinutes = 1;
+				autosyncTimer = new Timer ((o) => BackgroundSyncChecker (),
+				                           null,
+				                           currentAutosyncTimeoutMinutes * 60000,
+				                           autosyncTimeoutPrefMinutes * 60000);
+				NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
+				NoteMgr.NoteBufferChanged += HandleNoteBufferChanged;
+			}
+		}
+
+		static void HandleNoteBufferChanged (Note note)
+		{
+			// If note text changes, kill the timer.  It will
+			// automatically be resurrected once a Save occurs.
+			if (syncThread == null && autosyncTimer != null) {
+				Logger.Debug ("Note edited...killing autosync timer until next save or delete event");
+				autosyncTimer.Dispose ();
+				autosyncTimer = null;
+			}
+			NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
 		}
 
 		static void Preferences_SettingChanged (object sender, EventArgs args)
@@ -203,10 +248,82 @@ namespace Tomboy.Sync
 			UpdateSyncAction ();
 		}
 
+		private static Timer autosyncTimer;
+		private static int autosyncTimeoutPrefMinutes = -1;
+		// This may differ from the pref, if some logic has determined
+		// that the next background check should occur in, say, 1 minute
+		private static int currentAutosyncTimeoutMinutes = -1;
+		private static DateTime lastBackgroundCheck;
+
 		static void UpdateSyncAction ()
 		{
 			string sync_addin_id = Preferences.Get (Preferences.SYNC_SELECTED_SERVICE_ADDIN) as string;
 			Tomboy.ActionManager["SyncNotesAction"].Sensitive = !string.IsNullOrEmpty (sync_addin_id);
+
+			int timeoutPref = (int) Preferences.Get (Preferences.SYNC_AUTOSYNC_TIMEOUT);
+			if (timeoutPref != autosyncTimeoutPrefMinutes) {
+				autosyncTimeoutPrefMinutes = timeoutPref;
+				if (autosyncTimer != null) {
+					autosyncTimer.Dispose ();
+					autosyncTimer = null;
+				}
+				if (autosyncTimeoutPrefMinutes > 0) {
+					Logger.Debug ("Autosync pref changed...restarting sync timer");
+					autosyncTimeoutPrefMinutes = autosyncTimeoutPrefMinutes >= 5 ? autosyncTimeoutPrefMinutes : 5;
+					lastBackgroundCheck = DateTime.Now;
+					 // Perform a sync one minute after setting change
+					currentAutosyncTimeoutMinutes = 1;
+					autosyncTimer = new Timer ((o) => BackgroundSyncChecker (),
+					                           null,
+					                           currentAutosyncTimeoutMinutes * 60000,
+					                           autosyncTimeoutPrefMinutes * 60000);
+					NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
+					NoteMgr.NoteBufferChanged += HandleNoteBufferChanged;
+				}
+			}
+		}
+
+		static void BackgroundSyncChecker ()
+		{
+			lastBackgroundCheck = DateTime.Now;
+			currentAutosyncTimeoutMinutes = autosyncTimeoutPrefMinutes;
+			if (syncThread != null)
+				return;
+			var addin = GetConfiguredSyncService ();
+			if (addin != null) {
+				// TODO: block sync while checking
+				var server = addin.CreateSyncServer ();
+				bool serverHasUpdates = false;
+				bool clientHasUpdates = client.DeletedNoteTitles.Count > 0;
+				if (!clientHasUpdates) {
+					foreach (Note note in new List<Note> (NoteMgr.Notes)) {
+						if (client.GetRevision (note) == -1 ||
+						    note.MetadataChangeDate > client.LastSyncDate) {
+							clientHasUpdates = true;
+							break;
+						}
+					}
+				}
+
+				// NOTE: Important to check, at least to verify
+				//       that server is available
+				try {
+					Logger.Debug ("BackgroundSyncChecker: Checking server for updates");
+					serverHasUpdates = server.UpdatesAvailableSince (client.LastSynchronizedRevision);
+				} catch {
+					// TODO: A libnotify bubble might be nice
+					Logger.Debug ("BackgroundSyncChecker: Error connecting to server");
+					return;
+				}
+
+				addin.PostSyncCleanup (); // Let FUSE unmount, etc
+
+				if (clientHasUpdates || serverHasUpdates) {
+					Logger.Debug ("BackgroundSyncChecker: Detected that sync would be a good idea now");
+					// TODO: Check that it's safe to sync, block other sync UIs
+					PerformSynchronization (new SilentUI (NoteMgr));
+				}
+			}
 		}
 
 		public static void ResetClient ()
@@ -219,15 +336,18 @@ namespace Tomboy.Sync
 			}
 		}
 
-		public static void PerformSynchronization ()
+		public static void PerformSynchronization (ISyncUI syncUI)
 		{
 			if (syncThread != null) {
 				// A synchronization thread is already running
 				// TODO: Start new sync if existing dlg is for finished sync
-				Tomboy.SyncDialog.Present ();
+				// TODO: ISyncUI-ize this somehow
+				if (SyncManager.syncUI == Tomboy.SyncDialog)
+					Tomboy.SyncDialog.Present ();
 				return;
 			}
 
+			SyncManager.syncUI = syncUI;
 			syncThread = new Thread (new ThreadStart (SynchronizationThread));
 			syncThread.IsBackground = true;
 			syncThread.Start ();
@@ -239,7 +359,6 @@ namespace Tomboy.Sync
 		/// </summary>
 		public static void SynchronizationThread ()
 		{
-			// TODO: Try/finally this entire method so GUI doesn't hang?
 			SyncServiceAddin addin = null;
 			SyncServer server = null;
 			try {
@@ -321,9 +440,10 @@ namespace Tomboy.Sync
 				{
 					if (FindNoteByUUID (noteUpdate.UUID) == null) {
 						Note existingNote = NoteMgr.Find (noteUpdate.Title);
-						if (existingNote != null) {
-							if (NoteConflictDetected != null) {
-								NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
+						if (existingNote != null && !noteUpdate.BasicallyEqualTo (existingNote)) {
+//							Logger.Debug ("Sync: Early conflict detection for '{0}'", noteUpdate.Title);
+							if (syncUI != null) {
+								syncUI.NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
 
 								// Suspend this thread while the GUI is presented to
 								// the user.
@@ -354,16 +474,18 @@ namespace Tomboy.Sync
 							DeleteNoteInMainThread (existingNote);
 						}
 						CreateNoteInMainThread (noteUpdate);
-					} else if (existingNote.MetadataChangeDate.CompareTo (client.LastSyncDate) <= 0) {
+					} else if (existingNote.MetadataChangeDate.CompareTo (client.LastSyncDate) <= 0 ||
+					           noteUpdate.BasicallyEqualTo (existingNote)) {
 						// Existing note hasn't been modified since last sync; simply update it from server
 						UpdateNoteInMainThread (existingNote, noteUpdate);
 					} else {
+//						Logger.Debug ("Sync: Late conflict detection for '{0}'", noteUpdate.Title);
 						Logger.Debug (string.Format (
 						                      "SyncManager: Content conflict in note update for note '{0}'",
 						                      noteUpdate.Title));
 						// Note already exists locally, but has been modified since last sync; prompt user
-						if (NoteConflictDetected != null) {
-							NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
+						if (syncUI != null) {
+							syncUI.NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
 
 							// Suspend this thread while the GUI is presented to
 							// the user.
@@ -383,10 +505,7 @@ namespace Tomboy.Sync
 				// delegate to run in the main gtk thread.
 				// To be consistent, any exceptions in the delgate will be caught
 				// and then rethrown in the synchronization thread.
-				Exception mainThreadException = null;
-				AutoResetEvent evt = new AutoResetEvent (false);
-				Gtk.Application.Invoke (delegate {
-				try {
+				GuiUtils.GtkInvokeAndWait (() => {
 					// Make list of all local notes
 					List<Note> localNotes = new List<Note> (NoteMgr.Notes);
 
@@ -397,21 +516,12 @@ namespace Tomboy.Sync
 					foreach (Note note in localNotes) {
 						if (client.GetRevision (note) != -1 &&
 						!serverNotes.Contains (note.Id)) {
-
-							if (NoteSynchronized != null)
-								NoteSynchronized (note.Title, NoteSyncType.DeleteFromClient);
+							if (syncUI != null)
+								syncUI.NoteSynchronized (note.Title, NoteSyncType.DeleteFromClient);
 							NoteMgr.Delete (note);
 						}
 					}
-					evt.Set ();
-				} catch (Exception e) {
-				mainThreadException = e;
-			}
-			                        });
-
-				evt.WaitOne ();
-				if (mainThreadException != null)
-					throw mainThreadException;
+				});
 
 				// TODO: Add following updates to syncDialog treeview
 
@@ -426,14 +536,14 @@ namespace Tomboy.Sync
 						// TODO: Do the above NOW!!! (don't commit this dummy)
 						note.Save ();
 						newOrModifiedNotes.Add (note);
-						if (NoteSynchronized != null)
-							NoteSynchronized (note.Title, NoteSyncType.UploadNew);
+						if (syncUI != null)
+							syncUI.NoteSynchronized (note.Title, NoteSyncType.UploadNew);
 					} else if (client.GetRevision (note) <= client.LastSynchronizedRevision &&
 					                note.MetadataChangeDate > client.LastSyncDate) {
 						note.Save ();
 						newOrModifiedNotes.Add (note);
-						if (NoteSynchronized != null)
-							NoteSynchronized (note.Title, NoteSyncType.UploadModified);
+						if (syncUI != null)
+							syncUI.NoteSynchronized (note.Title, NoteSyncType.UploadModified);
 					}
 				}
 
@@ -448,11 +558,11 @@ namespace Tomboy.Sync
 				foreach (string noteUUID in server.GetAllNoteUUIDs ()) {
 					if (FindNoteByUUID (noteUUID) == null) {
 						locallyDeletedUUIDs.Add (noteUUID);
-						if (NoteSynchronized != null) {
+						if (syncUI != null) {
 							string deletedTitle = noteUUID;
 							if (client.DeletedNoteTitles.ContainsKey (noteUUID))
 								deletedTitle = client.DeletedNoteTitles [noteUUID];
-							NoteSynchronized (deletedTitle, NoteSyncType.DeleteFromServer);
+							syncUI.NoteSynchronized (deletedTitle, NoteSyncType.DeleteFromServer);
 						}
 					}
 				}
@@ -511,6 +621,7 @@ namespace Tomboy.Sync
 			}
 		}
 
+
 		/// <summary>
 		/// The GUI should call this after having the user resolve a conflict
 		/// so the synchronization thread can continue.
@@ -530,22 +641,10 @@ namespace Tomboy.Sync
 			// delegate to run in the main gtk thread.
 			// To be consistent, any exceptions in the delgate will be caught
 			// and then rethrown in the synchronization thread.
-			Exception mainThreadException = null;
-			AutoResetEvent evt = new AutoResetEvent (false);
-			Gtk.Application.Invoke (delegate {
-				try {
-					Note existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
-					UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
-				} catch (Exception e) {
-					mainThreadException = e;
-				}
-
-				evt.Set ();
+			GuiUtils.GtkInvokeAndWait (() => {
+				Note existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
+				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
 			});
-
-			evt.WaitOne ();
-			if (mainThreadException != null)
-				throw mainThreadException;
 		}
 
 		private static void UpdateNoteInMainThread (Note existingNote, NoteUpdate noteUpdate)
@@ -554,21 +653,9 @@ namespace Tomboy.Sync
 			// delegate to run in the main gtk thread.
 			// To be consistent, any exceptions in the delgate will be caught
 			// and then rethrown in the synchronization thread.
-			Exception mainThreadException = null;
-			AutoResetEvent evt = new AutoResetEvent (false);
-			Gtk.Application.Invoke (delegate {
-				try {
-					UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadModified);
-				} catch (Exception e) {
-					mainThreadException = e;
-				}
-
-				evt.Set ();
+			GuiUtils.GtkInvokeAndWait (() => {
+				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadModified);
 			});
-
-			evt.WaitOne ();
-			if (mainThreadException != null)
-				throw mainThreadException;
 		}
 
 		private static void DeleteNoteInMainThread (Note existingNote)
@@ -577,21 +664,9 @@ namespace Tomboy.Sync
 			// delegate to run in the main gtk thread.
 			// To be consistent, any exceptions in the delgate will be caught
 			// and then rethrown in the synchronization thread.
-			Exception mainThreadException = null;
-			AutoResetEvent evt = new AutoResetEvent (false);
-			Gtk.Application.Invoke (delegate {
-				try {
-					NoteMgr.Delete (existingNote);
-				} catch (Exception e) {
-					mainThreadException = e;
-				}
-
-				evt.Set ();
+			GuiUtils.GtkInvokeAndWait (() => {
+				NoteMgr.Delete (existingNote);
 			});
-
-			evt.WaitOne ();
-			if (mainThreadException != null)
-				throw mainThreadException;
 		}
 
 		private static void UpdateLocalNote (Note localNote, NoteUpdate serverNote, NoteSyncType syncType)
@@ -603,8 +678,8 @@ namespace Tomboy.Sync
 			client.SetRevision (localNote, serverNote.LatestRevision);
 
 			// Update dialog's sync status
-			if (NoteSynchronized != null)
-				NoteSynchronized (localNote.Title, syncType);
+			if (syncUI != null)
+				syncUI.NoteSynchronized (localNote.Title, syncType);
 		}
 
 		private static Note FindNoteByUUID (string uuid)
@@ -699,19 +774,19 @@ namespace Tomboy.Sync
 		private static void SetState (SyncState newState)
 		{
 			state = newState;
-			if (StateChanged != null) {
+			if (syncUI != null) {
 				// Notify the event handlers
 				try {
-					StateChanged (state);
+					syncUI.SyncStateChanged (state);
 				} catch {}
 			}
-	}
+		}
 
-	/// <summary>
-	/// Read the preferences and load the specified SyncServiceAddin to
-	/// perform synchronization.
-	/// </summary>
-	private static SyncServiceAddin GetConfiguredSyncService ()
+		/// <summary>
+		/// Read the preferences and load the specified SyncServiceAddin to
+		/// perform synchronization.
+		/// </summary>
+		private static SyncServiceAddin GetConfiguredSyncService ()
 		{
 			SyncServiceAddin addin = null;
 
@@ -774,6 +849,54 @@ namespace Tomboy.Sync
 					}
 				}
 			}
+		}
+
+		public bool BasicallyEqualTo (Note existingNote)
+		{
+//			Logger.Debug ("Comparing NoteData for '{0}'", existingNote.Title);
+			// NOTE: This would be so much easier if NoteUpdate
+			//       was not just a container for a big XML string
+			NoteData updateData = null;
+			using (var xml = new XmlTextReader (new StringReader (XmlContent))) {
+				xml.Namespaces = false;
+				updateData = NoteArchiver.Instance.Read (xml, UUID);
+			}
+
+			// NOTE: Mostly a hack to ignore missing version attributes
+			string existingInnerContent = GetInnerContent (existingNote.Data.Text);
+			string updateInnerContent = GetInnerContent (updateData.Text);
+
+//			Logger.Debug ("existingNote.Data.Title: {0}", existingNote.Data.Title);
+//			Logger.Debug ("updateData.Title: {0}", updateData.Title);
+//
+//			Logger.Debug ("existingInnerContent: {0}", existingInnerContent);
+//			Logger.Debug ("updateInnerContent: {0}", updateInnerContent);
+
+			return existingInnerContent == updateInnerContent &&
+				existingNote.Data.Title == updateData.Title &&
+				CompareTags (existingNote.Data.Tags, updateData.Tags);
+				// TODO: Compare open-on-startup, pinned
+		}
+
+		private string GetInnerContent (string fullContentElement)
+		{
+			const string noteContentRegex =
+				@"^<note-content(\s+version=""(?<contentVersion>[^""]*)"")?\s*((/>)|(>(?<innerContent>.*)</note-content>))$";
+			Match m = Regex.Match (fullContentElement, noteContentRegex, RegexOptions.Singleline);
+			Group contentGroup = m.Groups ["innerContent"];
+			if (!contentGroup.Success)
+				return null;
+			return contentGroup.Value;
+		}
+
+		private bool CompareTags (Dictionary<string, Tag> set1, Dictionary<string, Tag> set2)
+		{
+			if (set1.Count != set2.Count)
+				return false;
+			foreach (string key in set1.Keys)
+				if (!set2.ContainsKey (key))
+					return false;
+			return true;
 		}
 	}
 
@@ -848,9 +971,10 @@ namespace Tomboy.Sync
 		IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision);
 		void DeleteNotes (IList<string> deletedNoteUUIDs);
 		void UploadNotes (IList<Note> notes);
-		int LatestRevision { get; }
+		int LatestRevision { get; } // NOTE: Only reliable during a transaction
 		SyncLockInfo CurrentSyncLock { get; }
 		string Id { get; }
+		bool UpdatesAvailableSince (int revision);
 	}
 
 	public interface SyncClient

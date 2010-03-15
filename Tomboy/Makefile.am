@@ -30,6 +30,7 @@ OSX_LIBS =					\
 endif
 
 WIN_CSFILES =					\
+	$(srcdir)/JumpListManager.cs		\
 	$(srcdir)/ManagedWinapi.EventDispatchingNativeWindow.cs	\
 	$(srcdir)/ManagedWinapi.Hotkey.cs	\
 	$(srcdir)/WindowsApplication.cs		\
@@ -106,6 +107,7 @@ CSFILES = 					\
 	$(srcdir)/NoteManager.cs 		\
 	$(srcdir)/NoteWindow.cs 		\
 	$(srcdir)/NoteBuffer.cs 		\
+	$(srcdir)/NoteRenameDialog.cs 		\
 	$(srcdir)/NoteTag.cs 			\
 	$(srcdir)/PlatformFactory.cs		\
 	$(srcdir)/Preferences.cs		\

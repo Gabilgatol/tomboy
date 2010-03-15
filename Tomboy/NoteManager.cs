@@ -48,6 +48,11 @@ namespace Tomboy
 			get; private set;
 		}
 
+		// TODO: Decide if/how to enforce
+		public bool ReadOnly {
+			get; set;
+		}
+
 		/// <summary>
 		/// Use Gtk.Application.Invoke to invoke the Action delegate
 		/// once this NoteManager is initialized. If this NoteManager
@@ -241,6 +246,12 @@ Ciao!");
 			this.notes.Sort (new CompareDates ());
 		}
 
+		void OnBufferChanged (Note note)
+		{
+			if (NoteBufferChanged != null)
+				NoteBufferChanged (note);
+		}
+
 		protected virtual void CreateStartNotes ()
 		{
 			// FIXME: Delay the creation of the start notes so the panel/tray
@@ -312,6 +323,7 @@ Ciao!");
 					if (note != null) {
 						note.Renamed += OnNoteRename;
 						note.Saved += OnNoteSave;
+						note.BufferChanged += OnBufferChanged;
 						notes.Add (note);
 					}
 				} catch (System.Xml.XmlException e) {
@@ -542,6 +554,7 @@ Ciao!");
 			new_note.XmlContent = xml_content;
 			new_note.Renamed += OnNoteRename;
 			new_note.Saved += OnNoteSave;
+			new_note.BufferChanged += OnBufferChanged;
 
 			notes.Add (new_note);
 
@@ -680,6 +693,7 @@ Ciao!");
 		public event NotesChangedHandler NoteAdded;
 		public event NoteRenameHandler NoteRenamed;
 		public event NoteSavedHandler NoteSaved;
+		public event Action<Note> NoteBufferChanged;
 	}
 
 	public class TrieController

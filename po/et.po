@@ -1,10 +1,10 @@
 # Tomboy eesti keele tõlge.
 # Estonian translation of Tomboy.
 #
-# Copyright (C) 2006-2009 The Gnome Project.
+# Copyright (C) 2006–2010 The Gnome Project.
 # This file is distributed under the same license as the tomboy package.
 #
-# Ivar Smolin <okul linux ee>, 2006-2009.
+# Ivar Smolin <okul linux ee>, 2006–2010.
 # Priit Laes <amd store20 com>, 2007.
 # Mattias Põldaru <mahfiaz gmail com>, 2009.
 #
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: tomboy MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-11-18 06:11+0000\n"
-"PO-Revision-Date: 2009-11-21 10:06+0200\n"
+"POT-Creation-Date: 2010-03-06 00:32+0000\n"
+"PO-Revision-Date: 2010-03-07 09:46+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgid "_About"
 msgstr "_Tomboy'st lähemalt"
 
 msgid "_Help"
-msgstr "A_bi"
+msgstr "_Abi"
 
 msgid "_Preferences"
 msgstr "_Eelistused"
@@ -54,6 +54,9 @@ msgstr "Tee märkmeid, ühenda ideed omavahel ja ole organiseeritud"
 
 msgid "Accept SSL Certificates"
 msgstr "SSL-sertifikaatide aktsepteerimine"
+
+msgid "Automatic Background Synchronization Timeout"
+msgstr "Automaatsünkroniseerimise intervall"
 
 msgid "Create a new Note"
 msgstr "Uue märkme loomine"
@@ -189,6 +192,17 @@ msgid ""
 msgstr "Täisarv, millega määratakse vähim märgete arv Tomboy märkmemenüüs."
 
 msgid ""
+"Integer value indicating how frequently to perform a background sync of your "
+"notes (when sync is configured). Any value less than 1 indicates that "
+"autosync is disabled. The lowest acceptable positive value is 5. Value is in "
+"minutes."
+msgstr ""
+"Täisarvuline väärtus, mis määrab kui tihti teostatakse märkemete automaatset "
+"sünkroniseermist taustal (kui sünkroniseerimine on seadistatud). Iga "
+"väärtus, mis on väiksem kui 1, tühistab automaatsünkroniseerimise. Väikseim "
+"lubatud positiivne väärtus on 5. Väärtus on minutites."
+
+msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific behavior when a conflict is detected, instead of prompting the "
 "user. The values map to an internal enumeration. 0 indicates that the user "
@@ -199,6 +213,25 @@ msgstr ""
 "lahendamiseks. Väärtus 0 määrab, et iga vastuolu leidmisel küsitakse "
 "kasutajalt lahendamiseks kinnitust ja kasutaja peab iga juhtumi eraldi "
 "lahendama."
+
+msgid ""
+"Integer value indicating if there is a preference to always perform a "
+"specific link updating behavior when a note is renamed, instead of prompting "
+"the user. The values map to an internal enumeration. 0 indicates that the "
+"user wishes to be prompted when renaming a note may impact links that exist "
+"in other notes. 1 indicates that links should automatically be removed. 2 "
+"indicates that link text should be updated to the new note name so that it "
+"will continue linking to the renamed note."
+msgstr ""
+"Täisarvuline väärtus, mis määrab märkmete ümbernimetamisel viidete "
+"uuendamise käitumise selle asemel, et küsida iga kord kasutajalt. Väärtus 0 "
+"määrab, et vastuolu leidmisel küsitakse kasutajalt lahendamiseks kinnitust. "
+"Väärtus 1 määrab, et viited eemaldatakse automaatselt. Väärtus 2 määrab, et "
+"viidete nimed asendatakse uute nimedega nii, et ümbernimetatud märgete vahel "
+"säilib viitamine."
+
+msgid "Link Updating Behavior on Note Rename"
+msgstr "Viite uuendamise käitumine märkme ümbernimetamisel"
 
 msgid "List of pinned notes."
 msgstr "Laualolevate märkmete nimekiri."
@@ -587,9 +620,6 @@ msgstr "E-posti pole võimalik avada"
 msgid "_Folder Path:"
 msgstr "_Kataloogi rada:"
 
-msgid "_Browse..."
-msgstr "Si_rvi..."
-
 msgid "Select Synchronization Folder..."
 msgstr "Sünkroniseerimiskataloogi valimine..."
 
@@ -811,6 +841,23 @@ msgstr "Autoriseerimine veebisirvijas (Vajuta ühenduse lähtestamiseks)"
 msgid "Set the default browser and try again"
 msgstr "Määra vaikimisi veebisirvija ja proovi uuesti"
 
+msgid "Search All Notes"
+msgstr "Otsing kõikide märkmete hulgast"
+
+#. IShellLink new_notebook = CreateShellLink("New Notebook", topmboy_path, "--new-notebook",
+#. icons_path, (int)TomboyIcons.NewNotebook);
+#. if (new_notebook != null)
+#. object_collection.AddObject(new_notebook);
+msgid "Create New Note"
+msgstr "Uue märkme loomine"
+
+#, csharp-format
+msgid "{0} (new)"
+msgstr "{0} (uus)"
+
+msgid "Recent Notes"
+msgstr "Viimased märkmed"
+
 #. Translators: This is the name of "Window" menu in the Mac menubar
 msgid "_Window"
 msgstr "_Aken"
@@ -926,11 +973,11 @@ msgstr "Kui sa märkme kustutad, siis on see jäädavalt kadunud."
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
-"details can be found in {0}."
+"details can be found in {1}."
 msgstr ""
 "Sinu märkmete salvestamise käigus tekkis viga. Palun kontrolli, kas Sul on "
 "piisavalt vaba kettaruumi ja kas sul on kataloogi {0} kirjutamiseks "
-"piisavalt õiguseis. Vea üksikasjad leiab failist {0}."
+"piisavalt õiguseis. Vea üksikasjad leiab failist {1}."
 
 msgid "Error saving note data."
 msgstr "Viga märkme andmete salvestamisel."
@@ -1072,6 +1119,50 @@ msgstr "Uus märge {0}"
 msgid "Describe your new note here."
 msgstr "Siia saad uue märkme kirjutada."
 
+msgid "Rename Note Links?"
+msgstr "Kas muuta viitade nimesid?"
+
+msgid "_Rename Links"
+msgstr "_Muuda viitade nimesid"
+
+msgid "_Don't Rename Links"
+msgstr "Ä_ra muuda viitade nimesid"
+
+#, csharp-format
+msgid ""
+"Rename links in other notes from \"<span underline=\"single\">{0}</span>\" "
+"to \"<span underline=\"single\">{1}</span>\"?\n"
+"\n"
+"If you do not rename the links, they will no longer link to anything."
+msgstr ""
+"Nimetada kõigis märkmeid \"<span underline=\"single\">{0}</span>\" viited "
+"ümber \"<span underline=\"single\">{1}</span>\"-ks?\n"
+"Kui viiteid ümber ei nimetata, siis ei viita nad enam millelegi."
+
+msgid "Rename Links"
+msgstr "Nimeta ümber"
+
+msgid "Note Title"
+msgstr "Märkme pealkiri"
+
+msgid "Select All"
+msgstr "Vali kõik"
+
+msgid "Select None"
+msgstr "Valiku tühistamine"
+
+msgid "Ad_vanced"
+msgstr "_Laiendatud..."
+
+msgid "Always show this _window"
+msgstr "Alati näidatakse seda _akent"
+
+msgid "Never rename _links"
+msgstr "Viiteid ei nimetata _kunagi ümber"
+
+msgid "Alwa_ys rename links"
+msgstr "Viited nimetatakse _alati ümber"
+
 msgid "Find in This Note"
 msgstr "Otsi sellest märkmest"
 
@@ -1212,9 +1303,20 @@ msgstr ""
 msgid "Enable auto-_bulleted lists"
 msgstr "_Täpploetelud on lubatud"
 
-#. Custom font...
 msgid "Use custom _font"
 msgstr "_Kasutatakse kohandatud kirjatüüpi"
+
+msgid "When renaming a linked note: "
+msgstr "Viite ümbernimetamisel:"
+
+msgid "Ask me what to do"
+msgstr "Küsitakse, mida teha"
+
+msgid "Never rename links"
+msgstr "Viitade nimesid ei muudeta kunagi"
+
+msgid "Always rename links"
+msgstr "Muudetakse alati viitade nimesid"
 
 msgid ""
 "Use the new note template to specify the text that should be used when "
@@ -1234,7 +1336,7 @@ msgid ""
 "Alt&gt;N</b>"
 msgstr ""
 "Kuumad klavhid võimvaldavad sul enamikes olukordades märkmeid klahvivajutuse "
-"abil kärmelt avada. Näidie: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
+"abil kärmelt avada. Näide: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
 "Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
@@ -1258,6 +1360,14 @@ msgstr "_Teenus:"
 
 msgid "Not configurable"
 msgstr "Pole seadistatav"
+
+msgid "Automaticall_y Sync in Background Every"
+msgstr "A_utomaatne sünkroniseerimine iga"
+
+#. Translators: See above comment for details on
+#. this string.
+msgid "Minutes"
+msgstr "minuti tagant"
 
 #. "Advanced..." button to bring up extra sync config dialog
 msgid "_Advanced..."
@@ -1323,7 +1433,7 @@ msgid ""
 "synchronization settings will now be cleared.  You may be forced to "
 "synchronize all of your notes again when you save new settings"
 msgstr ""
-"Sa keelasid seadistatud sünkroniseerimsteenuse. Sinu sünkroniseerimissätted "
+"Sa keelasid seadistatud sünkroniseerimisteenuse. Sinu sünkroniseerimissätted "
 "puhastatakse. Uut sünkroniseerimist on võimalik läbi viia alles pärast uute "
 "sätete salvestamist."
 
@@ -1359,9 +1469,6 @@ msgstr "Autoriõigus:"
 
 msgid "Add-in Dependencies:"
 msgstr "Lisa sõltuvused:"
-
-msgid "Search All Notes"
-msgstr "Otsing kõikide märkmete hulgast"
 
 msgid "_Search:"
 msgstr "_Otsing:"
@@ -1407,9 +1514,10 @@ msgstr "Kaasaaitajad:"
 
 msgid "translator-credits"
 msgstr ""
-"Ivar Smolin <okul linux ee>, 2006-2009.\n"
+"Ivar Smolin <okul linux ee>, 2006–2010.\n"
 "Priit Laes <amd store20 com>, 2007.\n"
-"Mattias Põldaru <mahfiaz gmail com>, 2009."
+"Mattias Põldaru <mahfiaz gmail com>, 2009.\n"
+"Rene Pärts <rene87 hot ee>, 2010."
 
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
@@ -1445,8 +1553,8 @@ msgstr ""
 "  --help\t\t\tSelle kasutusõpetuse printimine.\n"
 "  --note-path [path]\t\tMärkmete laadimine ja salvestamine selles "
 "kataloogis.\n"
-"  --search [tekst]\t\tKõikidest märkmetest otsimise akna avamine koos "
-"määratud otsingutekstiga.\n"
+"  --search [tekst]\t\tMärkmeotsinguakna avamine koos määratud "
+"otsingutekstiga.\n"
 
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
@@ -1598,9 +1706,6 @@ msgstr "Määratud serveriga ühenduse võtmisel tekkis viga:"
 msgid "Details"
 msgstr "Üksikasjad"
 
-msgid "Note Title"
-msgstr "Märkme pealkiri"
-
 msgid "Status"
 msgstr "Olek"
 
@@ -1638,7 +1743,7 @@ msgid ""
 "One of your other computers is currently synchronizing.  Please wait 2 "
 "minutes and try again."
 msgstr ""
-"Üks sinu muudest arvutitest tegeleb parasjagu sünkroniseerimisega.  Palun "
+"Üks sinu teistest arvutitest tegeleb parasjagu sünkroniseerimisega.  Palun "
 "oota 2 minutit ja proovi siis uuesti."
 
 msgid "Preparing to download updates from server..."

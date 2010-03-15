@@ -252,7 +252,7 @@ namespace Tomboy
 			}
 			set {
 				buffer = value;
-				buffer.Changed += BufferChanged;
+				buffer.Changed += OnBufferChanged;
 				buffer.TagApplied += BufferTagApplied;
 				buffer.TagRemoved += BufferTagRemoved;
 
@@ -325,7 +325,7 @@ namespace Tomboy
 
 		// Callbacks
 
-		void BufferChanged (object sender, EventArgs args)
+		void OnBufferChanged (object sender, EventArgs args)
 		{
 			InvalidateText ();
 		}
@@ -353,6 +353,7 @@ namespace Tomboy
 
 		bool save_needed;
 		bool is_deleting;
+		bool enabled = true;
 
 		NoteManager manager;
 		NoteWindow window;
@@ -512,10 +513,12 @@ namespace Tomboy
 		// depending on the change...
 		//
 
-		void BufferChanged (object sender, EventArgs args)
+		void OnBufferChanged (object sender, EventArgs args)
 		{
-			DebugSave ("BufferChanged queueing save");
+			DebugSave ("OnBufferChanged queueing save");
 			QueueSave (ChangeType.ContentChanged);
+			if (BufferChanged != null)
+				BufferChanged (this);
 		}
 
 		void BufferTagApplied (object sender, Gtk.TagAppliedArgs args)
@@ -732,17 +735,108 @@ namespace Tomboy
 				return data.Data.Title;
 			}
 			set {
-				if (data.Data.Title != value) {
-					if (window != null)
-						window.Title = value;
+				SetTitle (value, false);
+			}
+		}
 
-					string old_title = data.Data.Title;
-					data.Data.Title = value;
+		public void SetTitle (string new_title, bool from_user_action)
+		{
+			if (data.Data.Title != new_title) {
+				if (window != null)
+					window.Title = new_title;
 
-					if (Renamed != null)
-						Renamed (this, old_title);
+				string old_title = data.Data.Title;
+				data.Data.Title = new_title;
 
-					QueueSave (ChangeType.ContentChanged); // TODO: Right place for this?
+				if (from_user_action)
+					ProcessRenameLinkUpdate (old_title);
+
+				if (Renamed != null)
+					Renamed (this, old_title);
+
+				QueueSave (ChangeType.ContentChanged); // TODO: Right place for this?
+			}
+		}
+
+		private void ProcessRenameLinkUpdate (string old_title)
+		{
+			List<Note> linkingNotes = new List<Note> ();
+			foreach (Note note in manager.Notes) {
+				// Technically, containing text does not imply linking,
+				// but this is less work
+				if (note != this && note.ContainsText (old_title))
+					linkingNotes.Add (note);
+			}
+
+			if (linkingNotes.Count > 0) {
+				NoteRenameBehavior behavior = (NoteRenameBehavior)
+					Preferences.Get (Preferences.NOTE_RENAME_BEHAVIOR);
+				if (behavior == NoteRenameBehavior.AlwaysShowDialog) {
+					var dlg = new NoteRenameDialog (linkingNotes, old_title, this);
+					Gtk.ResponseType response = (Gtk.ResponseType) dlg.Run ();
+					if (response != Gtk.ResponseType.Cancel &&
+					    dlg.SelectedBehavior != NoteRenameBehavior.AlwaysShowDialog)
+						Preferences.Set (Preferences.NOTE_RENAME_BEHAVIOR, (int) dlg.SelectedBehavior);
+					foreach (var pair in dlg.Notes) {
+						if (pair.Value && response == Gtk.ResponseType.Yes) // Rename
+							pair.Key.RenameLinks (old_title, this);
+						else
+							pair.Key.RemoveLinks (old_title, this);
+					}
+					dlg.Destroy ();
+				} else if (behavior == NoteRenameBehavior.AlwaysRemoveLinks)
+					foreach (var note in linkingNotes)
+						note.RemoveLinks (old_title, this);
+				else if (behavior == NoteRenameBehavior.AlwaysRenameLinks)
+					foreach (var note in linkingNotes)
+						note.RenameLinks (old_title, this);
+			}
+		}
+
+		private bool ContainsText (string text)
+		{
+			return TextContent.IndexOf (text, StringComparison.InvariantCultureIgnoreCase) > -1;
+		}
+
+		private void RenameLinks (string old_title, Note renamed)
+		{
+			HandleLinkRename (old_title, renamed, true);
+		}
+
+		private void RemoveLinks (string old_title, Note renamed)
+		{
+			HandleLinkRename (old_title, renamed, false);
+		}
+
+		private void HandleLinkRename (string old_title, Note renamed, bool rename_links)
+		{
+			// Check again, things may have changed
+			if (!ContainsText (old_title))
+				return;
+
+			string old_title_lower = old_title.ToLower ();
+
+			NoteTag link_tag = TagTable.LinkTag;
+
+			// Replace existing links with the new title.
+			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
+			foreach (TextRange range in enumerator) {
+				if (range.Text.ToLower () != old_title_lower)
+					continue;
+
+				if (!rename_links) {
+					Logger.Debug ("Removing link tag from text '{0}'",
+					              range.Text);
+					Buffer.RemoveTag (link_tag, range.Start, range.End);
+				} else {
+					Logger.Debug ("Replacing '{0}' with '{1}'",
+					              range.Text,
+					              renamed.Title);
+					Gtk.TextIter start_iter = range.Start;
+					Gtk.TextIter end_iter = range.End;
+					Buffer.Delete (ref start_iter, ref end_iter);
+					start_iter = range.Start;
+					Buffer.InsertWithTags (ref start_iter, renamed.Title, link_tag);
 				}
 			}
 		}
@@ -978,7 +1072,7 @@ namespace Tomboy
 					data.Buffer = buffer;
 
 					// Listen for further changed signals
-					buffer.Changed += BufferChanged;
+					buffer.Changed += OnBufferChanged;
 					buffer.TagApplied += BufferTagApplied;
 					buffer.TagRemoved += BufferTagRemoved;
 					buffer.MarkSet += BufferInsertMarkSet;
@@ -994,6 +1088,22 @@ namespace Tomboy
 			}
 		}
 
+		private Gtk.Widget focusWidget;
+		public bool Enabled
+		{
+			get { return enabled; }
+			set {
+				enabled = value;
+				if (window != null) {
+					if (!enabled)
+						focusWidget = window.Focus;
+					window.Sensitive = enabled;
+					if (enabled)
+						window.Focus = focusWidget;
+				}
+			}
+		}
+
 		public NoteWindow Window
 		{
 			get {
@@ -1001,6 +1111,8 @@ namespace Tomboy
 					window = new NoteWindow (this);
 					window.Destroyed += WindowDestroyed;
 					window.ConfigureEvent += WindowConfigureEvent;
+					// TODO: What about a disabled set where you can still copy text?
+					window.Editor.Sensitive = Enabled;
 
 					if (data.Data.HasExtent ())
 						window.SetDefaultSize (data.Data.Width,
@@ -1108,6 +1220,7 @@ namespace Tomboy
 		public event TagAddedHandler TagAdded;
 		public event TagRemovingHandler TagRemoving;
 		public event TagRemovedHandler TagRemoved;
+		public event Action<Note> BufferChanged;
 	}
 
 	// Singleton - allow overriding the instance for easy sensing in
@@ -1154,15 +1267,40 @@ namespace Tomboy
 
 		public virtual NoteData ReadFile (string read_file, string uri)
 		{
-			NoteData note = new NoteData (uri);
-			string version = "";
-
 			StreamReader reader = new StreamReader (read_file,
 			                                        System.Text.Encoding.UTF8);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
+
+			string version;
+			NoteData data = Read (xml, uri, out version);
+
+			if (version != NoteArchiver.CURRENT_VERSION) {
+				// Note has old format, so rewrite it.  No need
+				// to reread, since we are not adding anything.
+				Logger.Log ("Updating note XML to newest format...");
+				NoteArchiver.Write (read_file, data);
+			}
+
+			reader.Close ();
+			xml.Close ();
+
+			return data;
+		}
+
+		public virtual NoteData Read (XmlTextReader xml, string uri)
+		{
+			string version; // discarded
+			NoteData data = Read (xml, uri, out version);
+			return data;
+		}
+
+		private NoteData Read (XmlTextReader xml, string uri, out string version)
+		{
+			NoteData note = new NoteData (uri);
 			DateTime date;
 			int num;
+			version = String.Empty;
 
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
@@ -1233,15 +1371,6 @@ namespace Tomboy
 					}
 					break;
 				}
-			}
-			reader.Close ();
-			xml.Close ();
-
-			if (version != NoteArchiver.CURRENT_VERSION) {
-				// Note has old format, so rewrite it.  No need
-				// to reread, since we are not adding anything.
-				Logger.Log ("Updating note XML to newest format...");
-				NoteArchiver.Write (read_file, note);
 			}
 
 			return note;
@@ -1492,7 +1621,7 @@ namespace Tomboy
 			                                     "Please check that you have sufficient disk " +
 			                                     "space, and that you have appropriate rights " +
 			                                     "on {0}. Error details can be found in " +
-			                                     "{0}.");
+			                                     "{1}.");
 			string logPath = System.IO.Path.Combine (Services.NativeApplication.LogDirectory,
 			                                         "tomboy.log");
 			errorMsg = String.Format (errorMsg,
