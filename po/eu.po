@@ -4,14 +4,14 @@
 # This file is distributed under the same license as the tomboy package.
 #
 # Mikel Olasagasti <hey_neken@mundurat.net>, 2004, 2005.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2005, 2006, 2007, 2008.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2005, 2006, 2007, 2008, 2010.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-07 11:33+0100\n"
-"PO-Revision-Date: 2008-03-07 11:33+0100\n"
+"PO-Revision-Date: 2010-03-24 16:17+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Erraza eta erosoa oharrak hartzeko"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:3
 msgid "Tomboy Applet Factory"
-msgstr "Tomboy applet-aren fabrika"
+msgstr "Tomboy miniaplikazioaren fabrika"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
 #: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:163
@@ -117,7 +117,7 @@ msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
 msgstr ""
-"Gaitu aukera 'hau bezelako hitzak' nabarmentzeko. Hitzaren gainean klik "
+"Gaitu aukera 'hau bezalako hitzak' nabarmentzeko. Hitzaren gainean klik "
 "eginez gero ohar berri bat sortuko da izen horrekin."
 
 #: ../data/tomboy.schemas.in.h:14
@@ -145,7 +145,7 @@ msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
 msgstr ""
-"Gaitzen bada, Tomboy apikaziotik irtetzean irekita zeuden ohar guztiak "
+"Gaitzen bada, Tomboy aplikaziotik irtetzean irekita zeuden ohar guztiak "
 "berriro irekiko dira abioan."
 
 #: ../data/tomboy.schemas.in.h:19
@@ -183,7 +183,7 @@ msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
 msgstr ""
-"Ohar itsaskorrak inportatzeko plugin-a ez dela exekutatu adierazten du, "
+"Ohar itsaskorrak inportatzeko plugina ez dela exekutatu adierazten du, "
 "hurrengoan Tomboy abiatzen denean automatikoki exekutatu beharko luke."
 
 #: ../data/tomboy.schemas.in.h:24
@@ -204,7 +204,7 @@ msgid ""
 msgstr ""
 "Gatazka detektatzen denean beti portaera jakin bat lantzeko ezarpenik dagoen "
 "adierazten du osoko balioak, erabiltzaileari galdetu ordez. Balioak barneko "
-"enumerazioa jarraitzen du: 0 baioak gatazka dagoenean erabiltzaileari "
+"enumerazioa jarraitzen du: 0 balioak gatazka dagoenean erabiltzaileari "
 "galdetzea adierazten du, horrela erabiltzailea arduratuko da gatazka "
 "bakoitzaren aurrean landu beharrekoarekin."
 
@@ -250,7 +250,7 @@ msgstr "Ezarri EGIA gisa aktibatzeko"
 
 #: ../data/tomboy.schemas.in.h:35
 msgid "Show applet menu"
-msgstr "Erakutsi applet-en menua"
+msgstr "Erakutsi miniaplikazioen menua"
 
 #: ../data/tomboy.schemas.in.h:36
 msgid "Start Here Note"
@@ -345,7 +345,7 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
-"Laster-tekla orokorra Tomboy appletaren menua erakusteko. Formatuak honelako "
+"Laster-tekla orokorra Tomboy miniaplikazioaren menua erakusteko. Formatuak honelako "
 "itxura du \"&lt;Control&gt;a\" edo \"&lt;Shift&gt;&lt;Alt&gt;F1\". "
 "Analizatzailea nahiko eskuzabala da, letra maiuskulak eta minuskulak "
 "erabiltzen uzten du, eta baita \"&lt;Ctl&gt;\" edo \"&lt;Ctrl&gt;\" bezalako "
@@ -359,7 +359,7 @@ msgstr "\"note://\" URLen kudeatzailea"
 #: ../data/tomboy.schemas.in.h:47
 msgid "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
-"Ohar bat esportatu zen azken direktorioa 'Esportatu HTMLra' plugin-a "
+"Ohar bat esportatu zen azken direktorioa 'Esportatu HTMLra' plugina "
 "erabiltzen."
 
 #: ../data/tomboy.schemas.in.h:48
@@ -368,7 +368,7 @@ msgid ""
 "HTML plugin."
 msgstr ""
 "'Eportatu estekatutako oharrak'en kontro-laukiaren azken ezarpena 'Esportatu "
-"HTMLra plugin-ean."
+"HTMLra pluginean."
 
 #: ../data/tomboy.schemas.in.h:49
 msgid ""
@@ -377,7 +377,7 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
-"HTML plugin-eko Esportatu ataleko 'Sartu estekatutako beste ohar guztiak' "
+"HTML plugineko Esportatu ataleko 'Sartu estekatutako beste ohar guztiak' "
 "kontrol-koadroaren azken ezarpena. Ezarpen hau 'HTML esportatu estekatutako "
 "oharrak' ezarpenarekin batera erabiltzen da, eta ohar guztiak "
 "(errekurtsiboki aurkitutakoak) HTML esportatzean erabiliko diren edo ez "
@@ -873,7 +873,7 @@ msgstr "_Erabiltzaile-izena:"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:61
 msgid "_Folder Path (optional):"
-msgstr "_Karpetaren bide-izena (aukerazkoa):"
+msgstr "_Karpetaren bide-izena (aukerakoa):"
 
 #. Text for label describing setup required for SSH sync addin to work
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:71
@@ -882,7 +882,7 @@ msgid ""
 "added to a running SSH daemon."
 msgstr ""
 "SSH sinkronizazioak zerbitzari eta erabiltzaile honen SSH gakoa existitzea "
-"eskatzen du, SSH daemona exekutatzean gehitutakoa."
+"eskatzen du, exekutatzen ari den SSH daemon-ari gehituta."
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:95
 msgid "Server or username field is empty."
@@ -1160,7 +1160,7 @@ msgid ""
 msgstr ""
 "<note-content>Tomboy-ko estekak erabiltzea\n"
 "\n"
-"Oharrak elkarrekin esteka daitzeke uneko oharraren testua nabarmenduz eta "
+"Oharrak elkarrekin esteka daitezke uneko oharraren testua nabarmenduz eta "
 "tresna-barra gaineko <bold>Esteka</bold> botoian klik eginez. Gauzak honela "
 "landuz ohar berria sortuko da eta oharraren izenburua azpimarratuko da uneko "
 "oharrean.\n"
@@ -1353,7 +1353,7 @@ msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
 msgstr ""
-"Gaitu aukera hau <b>Hau bezelako hitzak</b> nabarmentzeko. Hitzaren gainean "
+"Gaitu aukera hau <b>Hau bezalako hitzak</b> nabarmentzeko. Hitzaren gainean "
 "kllik eginez ohar berri bat sortuko da izen horrekin."
 
 #. Auto bulleted list
@@ -1870,7 +1870,7 @@ msgid ""
 "One of your other computers is currently synchronizing.  Please wait 2 "
 "minutes and try again."
 msgstr ""
-"Zure ordenadagiluetariko bat sinkronizatzen ari da. Itxaron 2 minutu eta "
+"Zure ordenagailuetariko bat sinkronizatzen ari da. Itxaron 2 minutu eta "
 "saiatu berriro."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:279
