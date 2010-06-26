@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: tomboy MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2010-03-06 00:32+0000\n"
-"PO-Revision-Date: 2010-03-07 09:46+0200\n"
+"POT-Creation-Date: 2010-06-07 21:58+0000\n"
+"PO-Revision-Date: 2010-06-11 10:47+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,9 @@ msgstr "Täpploetelude lubamine."
 msgid "Enable Middle-Click Paste On Icon."
 msgstr "Ikoonile keskmise nupuga asetamise lubamine."
 
+msgid "Enable Tray Icon"
+msgstr "Salveikooni lubamine"
+
 msgid "Enable WikiWord highlighting"
 msgstr "WikiWord esiletõstmise lubamine"
 
@@ -101,6 +104,9 @@ msgstr "Õigekirjakontrolli lubamine"
 
 msgid "Enable startup notes"
 msgstr "Märkmete avamine käivitamisel"
+
+msgid "Enable the Delete Note confirmation dialog"
+msgstr "Märkme kustutamise kinnitusdialoogi lubamine"
 
 msgid ""
 "Enable this option if you want bulleted lists to be automatic when you place "
@@ -138,6 +144,12 @@ msgid "HTML Export Linked Notes"
 msgstr "Viidatud märkmete HTML-eksport"
 
 msgid ""
+"If disabled, the \"Delete Note\" confirmation dialog will be suppressed."
+msgstr ""
+"Kui keelatud, siis toimub märkme kustutamine ilma kasutajalt kinnitust "
+"küsimata."
+
+msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
 msgstr ""
@@ -154,6 +166,15 @@ msgstr ""
 msgid "If enabled, an opened note can be closed by hitting the escape key."
 msgstr ""
 "Kui lubatud, siis on võimalik avatud märget sulgeda escape-klahvi abil."
+
+msgid ""
+"If true, Tomboy's tray icon will be displayed in the notification area. "
+"Disabling this may be useful when another application is providing the "
+"functionality of the tray icon."
+msgstr ""
+"Kui märgitud, siis näidatakse teatealal Tomboy salveikooni. Ikooni näitamise "
+"keelamine võib vajalik olla juhul, kui mõni muu rakendus asendab Tomboy "
+"salveikooni."
 
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
@@ -862,6 +883,9 @@ msgstr "Viimased märkmed"
 msgid "_Window"
 msgstr "_Aken"
 
+msgid "Preferences..."
+msgstr "Eelistused..."
+
 msgid "Create a new notebook"
 msgstr "Uue märkmiku loomine"
 
@@ -1145,9 +1169,11 @@ msgstr "Nimeta ümber"
 msgid "Note Title"
 msgstr "Märkme pealkiri"
 
+#. Translators: This button causes all notes in the list to be selected
 msgid "Select All"
 msgstr "Vali kõik"
 
+#. Translators: This button causes all notes in the list to be unselected
 msgid "Select None"
 msgstr "Valiku tühistamine"
 

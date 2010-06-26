@@ -6,14 +6,16 @@
 # This file is distributed under the same licence as the Tomboy package.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2009, 2010.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010.
 # Jorge González <jorgegonz@svn.gnome.org>, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2010-03-06 11:08+0000\n"
-"PO-Revision-Date: 2010-03-06 12:52+0100\n"
+"POT-Creation-Date: 2010-06-11 10:19+0000\n"
+"PO-Revision-Date: 2010-06-16 06:00+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,12 +37,12 @@ msgid "Tomboy Applet Factory"
 msgstr "Fábrica de la miniaplicación Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:568
+#: ../Tomboy/Tray.cs:579
 msgid "Tomboy Notes"
 msgstr "Notas Tomboy"
 
 #: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:179
-#: ../Tomboy/Tray.cs:263
+#: ../Tomboy/Tray.cs:274
 msgid "S_ynchronize Notes"
 msgstr "S_incronizar las notas"
 
@@ -49,12 +51,12 @@ msgid "_About"
 msgstr "Acerca _de"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:277
+#: ../Tomboy/Tray.cs:288
 msgid "_Help"
 msgstr "Ay_uda"
 
 #: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:272
+#: ../Tomboy/Tray.cs:283
 msgid "_Preferences"
 msgstr "Prefere_ncias"
 
@@ -115,30 +117,38 @@ msgid "Enable Middle-Click Paste On Icon."
 msgstr "Activar pegar con el botón del medio del ratón."
 
 #: ../data/tomboy.schemas.in.h:11
+msgid "Enable Tray Icon"
+msgstr "Activar icono de la bandeja de notificación"
+
+#: ../data/tomboy.schemas.in.h:12
 msgid "Enable WikiWord highlighting"
 msgstr "Activar resaltado de WikiPalabras"
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:13
 msgid "Enable closing notes with escape."
 msgstr "Activar cerrar las notas con escape."
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:14
 msgid "Enable custom font"
 msgstr "Activar tipografía personalizada"
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:15
 msgid "Enable global keybindings"
 msgstr "Activar combinaciones de teclas globales"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:16
 msgid "Enable spellchecking"
 msgstr "Activar el corrector ortográfico"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:17
 msgid "Enable startup notes"
 msgstr "Activar notas al inicio"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:18
+msgid "Enable the Delete Note confirmation dialog"
+msgstr "Activar o desactivar el diálogo de confirmación de Eliminar nota"
+
+#: ../data/tomboy.schemas.in.h:19
 msgid ""
 "Enable this option if you want bulleted lists to be automatic when you place "
 "- or * at the beginning of a line."
@@ -146,7 +156,7 @@ msgstr ""
 "Active esta opción si quiere que las listas de topos sean automáticas cuando "
 "introduce un - o un *^al principio de una línea."
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:20
 msgid ""
 "Enable this option if you want to be able to middle-click the Tomboy icon to "
 "paste timestamped content into the Start Here note."
@@ -154,7 +164,7 @@ msgstr ""
 "Active esta opción si quiere poder pegar contenido con marca de tiempo en la "
 "nota Comenzar aquí, pulsando con el botón del medio en el icono de Tomboy."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
@@ -162,23 +172,30 @@ msgstr ""
 "Active esta opción para resaltar palabras QueSeVenAsí. Al pulsar en la "
 "palabra se creará una nota con ese nombre."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:22
 msgid "FUSE Mounting Timeout (ms)"
 msgstr "Tiempo de expiración FUSE (ms)"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:23
 msgid "HTML Export All Linked Notes"
 msgstr "Exportar todas las notas enlazadas a HTML"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid "HTML Export Last Directory"
 msgstr "Exportar al último directorio usado en formato HTML"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid "HTML Export Linked Notes"
 msgstr "Exportar las notas enlazadas a HTML"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
+msgid ""
+"If disabled, the \"Delete Note\" confirmation dialog will be suppressed."
+msgstr ""
+"Si está desactivado, se eliminará el diálogo de confirmación de «Eliminar "
+"nota»."
+
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -186,7 +203,7 @@ msgstr ""
 "Si enable_custom_font está activado, la tipografía aquí seleccionada se "
 "usará al mostrar las notas."
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
@@ -194,12 +211,22 @@ msgstr ""
 "Si está activado, todas las notas que estaban abiertas cuando se cerró "
 "Tomboy, se abrirán automáticamente al inicio."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:29
 msgid "If enabled, an opened note can be closed by hitting the escape key."
 msgstr ""
 "Si está activado, una nota abierta se puede cerrar pulsando la tecla escape."
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:30
+msgid ""
+"If true, Tomboy's tray icon will be displayed in the notification area. "
+"Disabling this may be useful when another application is providing the "
+"functionality of the tray icon."
+msgstr ""
+"Si es verdadero, se mostrará el icono de la bandeja de Tomboy en el área de "
+"notificación. Puede ser útil desactivarlo cuando otra aplicación proporcione "
+"la funcionalidad del icono de la bandeja."
+
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -207,7 +234,7 @@ msgstr ""
 "Si está activado, las faltas de ortografía se subrayarán en rojo, y pulsando "
 "con el botón derecho del ratón se mostrarán sugerencias."
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -217,7 +244,7 @@ msgstr ""
 "fijadas en /apps/tomboy/global_keybindings también se activará, permitiendo "
 "al resto de aplicaciones usar las opciones útiles de Tomboy."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:33
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -226,7 +253,7 @@ msgstr ""
 "usará como tipografía para mostrar las notas. De otra manera se usará la "
 "tipografía predeterminada del escritorio."
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -235,7 +262,7 @@ msgstr ""
 "ejecutado, así que debería ejecutarse automáticamente la próxima vez que "
 "arranque Tomboy."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
@@ -243,7 +270,7 @@ msgstr ""
 "Entero determinando el número mínimo de notas que mostrar en el menú de "
 "notas de Tomboy."
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "Integer value indicating how frequently to perform a background sync of your "
 "notes (when sync is configured). Any value less than 1 indicates that "
@@ -255,7 +282,7 @@ msgstr ""
 "Cualquier valor menor que 1 indica que la autosincronización está "
 "desactivada. El valor mínimo es 5. Este valor se expresa en minutos."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific behavior when a conflict is detected, instead of prompting the "
@@ -269,7 +296,7 @@ msgstr ""
 "usuario desea ser preguntado cuando suceda un conflicto, de tal forma que el "
 "usuario manejará cada situación de conflicto caso por caso."
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific link updating behavior when a note is renamed, instead of prompting "
@@ -288,15 +315,15 @@ msgstr ""
 "enlace con el nuevo nombre de la nota para que siga apuntando a la nota "
 "renombrada."
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:39
 msgid "Link Updating Behavior on Note Rename"
 msgstr "Comportamiento al actualizar un enlace al renombrar una nota"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:40
 msgid "List of pinned notes."
 msgstr "Lista de notas pinchadas."
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:41
 msgid ""
 "Maximum characters of note title to show in the Tomboy tray or panel applet "
 "note menu."
@@ -304,38 +331,38 @@ msgstr ""
 "Número máximo de caracteres del título de la nota que mostrar en la bandeja "
 "de Tomboy o en el menú de la miniaplicación de notas del panel."
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:42
 msgid "Maximum note title length to show in tray menu."
 msgstr ""
 "Longitud máxima del título de la nota que mostrar en el menú de la bandeja."
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:43
 msgid "Minimum number of notes to show in menu"
 msgstr "Número mínimo de nostas a mostrar en el menú"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:44
 msgid "Note Synchronization Conflict Saved Behavior"
 msgstr ""
 "Comportamiento predeterminado para conflictos de sincronización de notas"
 
-#: ../data/tomboy.schemas.in.h:41
+#: ../data/tomboy.schemas.in.h:45
 msgid "Open Recent Changes"
 msgstr "Abrir cambios recientes"
 
-#: ../data/tomboy.schemas.in.h:42
+#: ../data/tomboy.schemas.in.h:46
 msgid "Open Search Dialog"
 msgstr "Abrir el cuadro de diálogo de buscar"
 
-#: ../data/tomboy.schemas.in.h:43
+#: ../data/tomboy.schemas.in.h:47
 msgid "Open Start Here"
 msgstr "Abrir comenzar aquí"
 
-#: ../data/tomboy.schemas.in.h:44
+#: ../data/tomboy.schemas.in.h:48
 msgid "Path on SSH server to Tomboy synchronization directory (optional)."
 msgstr ""
 "Ruta en el servidor SSH al directorio de sincronización de Tomboy (opcional)."
 
-#: ../data/tomboy.schemas.in.h:45
+#: ../data/tomboy.schemas.in.h:49
 msgid ""
 "Path to the synchronization server when using the filesystem synchronization "
 "service addin."
@@ -343,71 +370,71 @@ msgstr ""
 "Ruta al servidor de sincronización cuando se use el complemento del servicio "
 "de sincronización de sistema de archivos."
 
-#: ../data/tomboy.schemas.in.h:46
+#: ../data/tomboy.schemas.in.h:50
 msgid "SSHFS Remote Synchronization Folder"
 msgstr "Carpeta de sincronización remota SSHFS"
 
-#: ../data/tomboy.schemas.in.h:47
+#: ../data/tomboy.schemas.in.h:51
 msgid "SSHFS Remote Synchronization User Name"
 msgstr "Nombre de usuario de la sincronización remota SSHFS"
 
-#: ../data/tomboy.schemas.in.h:48
+#: ../data/tomboy.schemas.in.h:52
 msgid "SSHFS Synchronization Server Port"
 msgstr "Puerto del servidor de sincronización remoto SSHFS"
 
-#: ../data/tomboy.schemas.in.h:49
+#: ../data/tomboy.schemas.in.h:53
 msgid "SSHFS Synchronization Server URL"
 msgstr "URL del servidor de sincronización remota SSHFS"
 
-#: ../data/tomboy.schemas.in.h:50
+#: ../data/tomboy.schemas.in.h:54
 msgid "Saved height of Search window"
 msgstr "Altura guardada de la ventana de búsqueda"
 
-#: ../data/tomboy.schemas.in.h:51
+#: ../data/tomboy.schemas.in.h:55
 msgid "Saved horizontal position of Search window"
 msgstr "Posición horizontal guardada de la ventana de búsqueda"
 
-#: ../data/tomboy.schemas.in.h:52
+#: ../data/tomboy.schemas.in.h:56
 msgid "Saved vertical position of Search window"
 msgstr "Posición vertical guardada de la ventana de búsqueda"
 
-#: ../data/tomboy.schemas.in.h:53
+#: ../data/tomboy.schemas.in.h:57
 msgid "Saved width of Search window"
 msgstr "Anchura guardada de la ventana de búsqueda"
 
-#: ../data/tomboy.schemas.in.h:54
+#: ../data/tomboy.schemas.in.h:58
 msgid "Selected Synchronization Service Addin"
 msgstr "Seleccione el complemento del servicio de sincronización"
 
-#: ../data/tomboy.schemas.in.h:55
+#: ../data/tomboy.schemas.in.h:59
 msgid "Set to TRUE to activate"
 msgstr "Establecer a «TRUE» para activar"
 
-#: ../data/tomboy.schemas.in.h:56
+#: ../data/tomboy.schemas.in.h:60
 msgid "Show applet menu"
 msgstr "Mostrar el menú de miniaplicaciones"
 
-#: ../data/tomboy.schemas.in.h:57
+#: ../data/tomboy.schemas.in.h:61
 msgid "Start Here Note"
 msgstr "Nota «Comenzar aquí»"
 
-#: ../data/tomboy.schemas.in.h:58
+#: ../data/tomboy.schemas.in.h:62
 msgid "Sticky Note Importer First Run"
 msgstr "Primera ejecución del importador de notas adhesivas"
 
-#: ../data/tomboy.schemas.in.h:59
+#: ../data/tomboy.schemas.in.h:63
 msgid "Synchronization Client ID"
 msgstr "ID del cliente de sincronización"
 
-#: ../data/tomboy.schemas.in.h:60
+#: ../data/tomboy.schemas.in.h:64
 msgid "Synchronization Local Server Path"
 msgstr "Ruta al servidor local de sincronización"
 
-#: ../data/tomboy.schemas.in.h:61
+#: ../data/tomboy.schemas.in.h:65
 msgid "The date format that is used for the timestamp."
 msgstr "El formato de la fecha que se usa para la marca de tiempo."
 
-#: ../data/tomboy.schemas.in.h:62
+#: ../data/tomboy.schemas.in.h:66
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -423,7 +450,7 @@ msgstr ""
 "opción de cadena especial \"disabled\" (desactivada) no habrá combinación de "
 "teclas para esta acción."
 
-#: ../data/tomboy.schemas.in.h:63
+#: ../data/tomboy.schemas.in.h:67
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -439,7 +466,7 @@ msgstr ""
 "opción de cadena especial \"disabled\" (desactivada) no habrá combinación de "
 "teclas para esta acción."
 
-#: ../data/tomboy.schemas.in.h:64
+#: ../data/tomboy.schemas.in.h:68
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -455,7 +482,7 @@ msgstr ""
 "Si activa la opción de cadena especial \"disabled\" (desactivada) no habrá "
 "combinación de teclas para esta acción."
 
-#: ../data/tomboy.schemas.in.h:65
+#: ../data/tomboy.schemas.in.h:69
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -471,7 +498,7 @@ msgstr ""
 "Si activa la opción de cadena especial \"disabled\" (desactivada) no habrá "
 "combinación de teclas para esta acción."
 
-#: ../data/tomboy.schemas.in.h:66
+#: ../data/tomboy.schemas.in.h:70
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -487,18 +514,18 @@ msgstr ""
 "Si activa la opción de cadena especial \"disabled\" (desactivada) no habrá "
 "combinación de teclas para esta acción."
 
-#: ../data/tomboy.schemas.in.h:67
+#: ../data/tomboy.schemas.in.h:71
 msgid "The handler for \"note://\" URLs"
 msgstr "El manejador para las URL «note://»"
 
-#: ../data/tomboy.schemas.in.h:68
+#: ../data/tomboy.schemas.in.h:72
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "El último directorio donde se exportó una nota usando el complemento "
 "Exportar a HTML."
 
-#: ../data/tomboy.schemas.in.h:69
+#: ../data/tomboy.schemas.in.h:73
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -506,7 +533,7 @@ msgstr ""
 "Las última casilla de preferencias para «Exportar las notas enlazadas a HTML» "
 "en el complemento Exportar a HTML."
 
-#: ../data/tomboy.schemas.in.h:70
+#: ../data/tomboy.schemas.in.h:74
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -519,7 +546,7 @@ msgstr ""
 "notas (encontradas recursivamente) deberían ser incluídas durante la "
 "exportación a HTML."
 
-#: ../data/tomboy.schemas.in.h:71
+#: ../data/tomboy.schemas.in.h:75
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -529,7 +556,7 @@ msgstr ""
 "que siempre estará al final del menú de notas de Tomboy y que también es "
 "accesible por una tecla rápida."
 
-#: ../data/tomboy.schemas.in.h:72
+#: ../data/tomboy.schemas.in.h:76
 msgid ""
 "The port to use when connecting to the synchronization server via SSH. Set "
 "to -1 or less if default SSH port settings should be used instead."
@@ -538,7 +565,7 @@ msgstr ""
 "SSH. Establecido a -1 o menos si se debe usar el puerto predeterminado de "
 "SSH en su lugar."
 
-#: ../data/tomboy.schemas.in.h:73
+#: ../data/tomboy.schemas.in.h:77
 msgid ""
 "Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
 "mount a sync share."
@@ -546,16 +573,16 @@ msgstr ""
 "Tiempo (en milisegundos) que Tomboy debe esperar una respuesta al usar FUSE "
 "para montar una compartición sincronizada."
 
-#: ../data/tomboy.schemas.in.h:74
+#: ../data/tomboy.schemas.in.h:78
 msgid "Timestamp format"
 msgstr "Formato de la marca de tiempo"
 
-#: ../data/tomboy.schemas.in.h:75
+#: ../data/tomboy.schemas.in.h:79
 msgid "URL of SSH server containing Tomboy synchronization directory."
 msgstr ""
 "URL del servidor SSH que contiene el directorio de sincronización de Tomboy."
 
-#: ../data/tomboy.schemas.in.h:76
+#: ../data/tomboy.schemas.in.h:80
 msgid ""
 "Unique identifier for the currently configured note synchronization service "
 "addin."
@@ -563,7 +590,7 @@ msgstr ""
 "Identificador único para el complemento configurado del servicio de "
 "sincronización de notas."
 
-#: ../data/tomboy.schemas.in.h:77
+#: ../data/tomboy.schemas.in.h:81
 msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
 "sychronization server."
@@ -571,7 +598,7 @@ msgstr ""
 "Identificador único para este cliente Tomboy, usado al comunicar con un "
 "servidor de sincronización."
 
-#: ../data/tomboy.schemas.in.h:78
+#: ../data/tomboy.schemas.in.h:82
 msgid ""
 "Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
 "user."
@@ -579,13 +606,13 @@ msgstr ""
 "Usar la opción wdfs «-ac» para aceptar certificados SSL sin preguntar al "
 "usuario."
 
-#: ../data/tomboy.schemas.in.h:79
+#: ../data/tomboy.schemas.in.h:83
 msgid "User name to use when connecting to the synchronization server via SSH."
 msgstr ""
 "Nombre de usuario que usar al conectar con el servidor de sincronización a "
 "través de SSH."
 
-#: ../data/tomboy.schemas.in.h:80
+#: ../data/tomboy.schemas.in.h:84
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -629,7 +656,7 @@ msgstr "_Cerrar"
 msgid "Close this window"
 msgstr "Cerrar esta ventana"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:289
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:300
 msgid "_Quit"
 msgstr "_Salir"
 
@@ -653,7 +680,7 @@ msgstr "Índ_ice"
 msgid "Tomboy Help"
 msgstr "Ayuda de Tomboy"
 
-#: ../Tomboy/ActionManager.cs:165
+#: ../Tomboy/ActionManager.cs:165 ../Tomboy/MacApplication.cs:233
 msgid "About Tomboy"
 msgstr "Acerca de Tomboy"
 
@@ -818,7 +845,7 @@ msgstr "Insertar marca de tiempo"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:221 ../Tomboy/Preferences.cs:146
+#: ../Tomboy/Applet.cs:227 ../Tomboy/Preferences.cs:154
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, d MMMM, HH:mm"
 
@@ -875,14 +902,14 @@ msgstr "Imprimir"
 msgid "Error printing note"
 msgstr "Error al imprimir la nota"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:219
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:223
 #, csharp-format
 msgid "Page {0} of {1}"
 msgstr "Página {0} de {1}"
 
 #. Translators: Explanation of the date and time format specifications can be found here:
 #. * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:238
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:242
 msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
 msgstr "dddd dd/MM/yyyy, hh:mm:ss"
 
@@ -1068,7 +1095,7 @@ msgstr "Autorizar en el navegador (pulse para reiniciar la conexión)"
 msgid "Set the default browser and try again"
 msgstr "Establecer el navegador predeterminado e intentarlo de nuevo"
 
-#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:75
+#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:83
 msgid "Search All Notes"
 msgstr "Buscar en todas las notas"
 
@@ -1085,7 +1112,7 @@ msgstr "Crear una nota nueva"
 msgid "{0} (new)"
 msgstr "{0} (nueva)"
 
-#: ../Tomboy/JumpListManager.cs:138
+#: ../Tomboy/JumpListManager.cs:139
 msgid "Recent Notes"
 msgstr "Notas recientes"
 
@@ -1093,6 +1120,10 @@ msgstr "Notas recientes"
 #: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
 msgstr "_Ventana"
+
+#: ../Tomboy/MacApplication.cs:234
+msgid "Preferences..."
+msgstr "Preferencias…"
 
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
@@ -1176,7 +1207,7 @@ msgid "Delete the selected notebook"
 msgstr "Borrar el cuaderno de notas seleccionado"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:251
+#: ../Tomboy/RecentChanges.cs:260
 msgid "Notebooks"
 msgstr "Cuadernos de notas"
 
@@ -1217,22 +1248,22 @@ msgstr "Cuaderno de notas"
 msgid "_New notebook..."
 msgstr "Cuaderno de _notas nuevo…"
 
-#: ../Tomboy/Note.cs:1569
+#: ../Tomboy/Note.cs:1568
 msgid "Really delete this note?"
 msgstr "¿Desea borrar esta nota?"
 
-#: ../Tomboy/Note.cs:1572
+#: ../Tomboy/Note.cs:1571
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "¿Desea borrar esta nota?"
 msgstr[1] "¿Desea borrar estas {0} notas?"
 
-#: ../Tomboy/Note.cs:1583
+#: ../Tomboy/Note.cs:1582
 msgid "If you delete a note it is permanently lost."
 msgstr "Si borra esta nota se perderá permanentemente."
 
-#: ../Tomboy/Note.cs:1611
+#: ../Tomboy/Note.cs:1616
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
@@ -1243,7 +1274,7 @@ msgstr ""
 "espacio en disco y que tiene los permisos apropiados en {0}. Puede encontrar "
 "detalles sobre el error en {1}."
 
-#: ../Tomboy/Note.cs:1627
+#: ../Tomboy/Note.cs:1632
 msgid "Error saving note data."
 msgstr "Error al guardar los datos de la nota"
 
@@ -1306,7 +1337,7 @@ msgstr ""
 "\n"
 "Hasta luego."
 
-#: ../Tomboy/NoteManager.cs:259
+#: ../Tomboy/NoteManager.cs:265
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1345,7 +1376,7 @@ msgstr ""
 "internal>Usando enlaces en Tomboy</link:internal> automáticamente aparece "
 "subrayado? Pulse en el enlace para abrir la nota.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:278
+#: ../Tomboy/NoteManager.cs:284
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1375,22 +1406,22 @@ msgstr ""
 "automáticamente.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:293 ../Tomboy/NoteManager.cs:361
+#: ../Tomboy/NoteManager.cs:299 ../Tomboy/NoteManager.cs:368
 msgid "Start Here"
 msgstr "Comenzar aquí"
 
-#: ../Tomboy/NoteManager.cs:298
+#: ../Tomboy/NoteManager.cs:304
 msgid "Using Links in Tomboy"
 msgstr "Usando los enlaces en Tomboy"
 
-#: ../Tomboy/NoteManager.cs:438
+#: ../Tomboy/NoteManager.cs:445
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nota nueva {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:511 ../Tomboy/NoteManager.cs:603
+#: ../Tomboy/NoteManager.cs:518 ../Tomboy/NoteManager.cs:611
 msgid "Describe your new note here."
 msgstr "Describa aquí su nota nueva."
 
@@ -1428,27 +1459,29 @@ msgstr "Renombrar enlaces"
 msgid "Note Title"
 msgstr "Título de la nota"
 
-#: ../Tomboy/NoteRenameDialog.cs:115
+#. Translators: This button causes all notes in the list to be selected
+#: ../Tomboy/NoteRenameDialog.cs:116
 msgid "Select All"
 msgstr "Seleccionar todo"
 
-#: ../Tomboy/NoteRenameDialog.cs:123
+#. Translators: This button causes all notes in the list to be unselected
+#: ../Tomboy/NoteRenameDialog.cs:125
 msgid "Select None"
 msgstr "No seleccionar nada"
 
-#: ../Tomboy/NoteRenameDialog.cs:140
+#: ../Tomboy/NoteRenameDialog.cs:142
 msgid "Ad_vanced"
 msgstr "A_vanzado"
 
-#: ../Tomboy/NoteRenameDialog.cs:143
+#: ../Tomboy/NoteRenameDialog.cs:145
 msgid "Always show this _window"
 msgstr "Mostrar siempre esta _ventana"
 
-#: ../Tomboy/NoteRenameDialog.cs:151
+#: ../Tomboy/NoteRenameDialog.cs:153
 msgid "Never rename _links"
 msgstr "No renombrar nunca _enlaces"
 
-#: ../Tomboy/NoteRenameDialog.cs:159
+#: ../Tomboy/NoteRenameDialog.cs:161
 msgid "Alwa_ys rename links"
 msgstr "Siempre renombrar en_laces"
 
@@ -1705,7 +1738,7 @@ msgstr "Abrir «Buscar en _todas las notas»"
 msgid "Ser_vice:"
 msgstr "_Servicio:"
 
-#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1114
+#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1113
 msgid "Not configurable"
 msgstr "No configurable"
 
@@ -1720,44 +1753,44 @@ msgid "Minutes"
 msgstr "Minutos"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:541
+#: ../Tomboy/PreferencesDialog.cs:540
 msgid "_Advanced..."
 msgstr "_Avanzado…"
 
-#: ../Tomboy/PreferencesDialog.cs:602
+#: ../Tomboy/PreferencesDialog.cs:601
 msgid "The following add-ins are installed"
 msgstr "Los siguientes complementos están instalados actualmente"
 
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:622
 msgid "Get More Add-Ins..."
 msgstr "Obtener más complementos…"
 
-#: ../Tomboy/PreferencesDialog.cs:649
+#: ../Tomboy/PreferencesDialog.cs:648
 msgid "_Enable"
 msgstr "_Activar"
 
-#: ../Tomboy/PreferencesDialog.cs:655
+#: ../Tomboy/PreferencesDialog.cs:654
 msgid "_Disable"
 msgstr "_Desactivar"
 
-#: ../Tomboy/PreferencesDialog.cs:786
+#: ../Tomboy/PreferencesDialog.cs:785
 msgid "Not Implemented"
 msgstr "No implementado"
 
-#: ../Tomboy/PreferencesDialog.cs:800
+#: ../Tomboy/PreferencesDialog.cs:799
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} Preferencias"
 
-#: ../Tomboy/PreferencesDialog.cs:939
+#: ../Tomboy/PreferencesDialog.cs:938
 msgid "Choose Note Font"
 msgstr "Elegir la tipografía de la nota"
 
-#: ../Tomboy/PreferencesDialog.cs:983
+#: ../Tomboy/PreferencesDialog.cs:982
 msgid "Other Synchronization Options"
 msgstr "Otras opciones de sincronización"
 
-#: ../Tomboy/PreferencesDialog.cs:989
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
@@ -1765,23 +1798,23 @@ msgstr ""
 "Cuando se detecta un conflicto entre una nota local y una nota en el "
 "servidor de sincronización configurado:"
 
-#: ../Tomboy/PreferencesDialog.cs:996
+#: ../Tomboy/PreferencesDialog.cs:995
 msgid "Always ask me what to do."
 msgstr "Preguntarme siempre qué hacer."
 
-#: ../Tomboy/PreferencesDialog.cs:1000
+#: ../Tomboy/PreferencesDialog.cs:999
 msgid "Rename my local note."
 msgstr "Renombrar mi nota local."
 
-#: ../Tomboy/PreferencesDialog.cs:1004
+#: ../Tomboy/PreferencesDialog.cs:1003
 msgid "Replace my local note with the server's update."
 msgstr "Reemplazar mi nota local con la actualización del servidor."
 
-#: ../Tomboy/PreferencesDialog.cs:1150
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid "WARNING: Are you sure?"
 msgstr "ADVERTENCIA: ¿Está seguro?"
 
-#: ../Tomboy/PreferencesDialog.cs:1152
+#: ../Tomboy/PreferencesDialog.cs:1151
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1789,11 +1822,11 @@ msgstr ""
 "No se recomienda limpiar sus ajustes de sincronización. Quizá se vea forzado "
 "a sincronizar todas sus notas de nuevo cuando guarde los nuevos ajustes."
 
-#: ../Tomboy/PreferencesDialog.cs:1165
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Resetting Synchronization Settings"
 msgstr "Reiniciando los ajustes de sincronización"
 
-#: ../Tomboy/PreferencesDialog.cs:1167
+#: ../Tomboy/PreferencesDialog.cs:1166
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1803,11 +1836,11 @@ msgstr ""
 "sincronización se limpiarán. Quizá se vea forzado a sincronizar todas sus "
 "notas de nuevo cuando guarde los nuevos ajustes."
 
-#: ../Tomboy/PreferencesDialog.cs:1245
+#: ../Tomboy/PreferencesDialog.cs:1244
 msgid "Success! You're connected!"
 msgstr "Está conectado."
 
-#: ../Tomboy/PreferencesDialog.cs:1247
+#: ../Tomboy/PreferencesDialog.cs:1246
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
@@ -1815,7 +1848,7 @@ msgstr ""
 "Tomboy está preparado para sincronizar sus notas. ¿Quiere sincronizarlas "
 "ahora?"
 
-#: ../Tomboy/PreferencesDialog.cs:1270
+#: ../Tomboy/PreferencesDialog.cs:1269
 #, csharp-format
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
@@ -1824,86 +1857,86 @@ msgstr ""
 "Lo siento pero algo fue mal. Compruebe su información e inténtelo de nuevo. "
 "El archivo {0} puede ser útil."
 
-#: ../Tomboy/PreferencesDialog.cs:1283
+#: ../Tomboy/PreferencesDialog.cs:1282
 msgid "Error connecting :("
 msgstr "Error al conectar"
 
-#: ../Tomboy/PreferencesDialog.cs:1359
+#: ../Tomboy/PreferencesDialog.cs:1358
 msgid "Version:"
 msgstr "Versión:"
 
-#: ../Tomboy/PreferencesDialog.cs:1366
+#: ../Tomboy/PreferencesDialog.cs:1365
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1373
+#: ../Tomboy/PreferencesDialog.cs:1372
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1379
+#: ../Tomboy/PreferencesDialog.cs:1378
 msgid "Add-in Dependencies:"
 msgstr "Dependencias de los complementos:"
 
-#: ../Tomboy/RecentChanges.cs:90
+#: ../Tomboy/RecentChanges.cs:98
 msgid "_Search:"
 msgstr "_Buscar:"
 
-#: ../Tomboy/RecentChanges.cs:319
+#: ../Tomboy/RecentChanges.cs:331
 msgid "Note"
 msgstr "Nota"
 
-#: ../Tomboy/RecentChanges.cs:341
+#: ../Tomboy/RecentChanges.cs:353
 msgid "Last Changed"
 msgstr "Último cambio"
 
-#: ../Tomboy/RecentChanges.cs:472
+#: ../Tomboy/RecentChanges.cs:484
 msgid "Matches"
 msgstr "Coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:523
+#: ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} coincidencia"
 msgstr[1] "{0} coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:537
+#: ../Tomboy/RecentChanges.cs:549
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Total: {0} nota"
 msgstr[1] "Total: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:548
+#: ../Tomboy/RecentChanges.cs:560
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Coincide con: {0} nota"
 msgstr[1] "Coincide con: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:680
+#: ../Tomboy/RecentChanges.cs:696
 msgid "Notes"
 msgstr "Notas"
 
-#: ../Tomboy/Tomboy.cs:266
+#: ../Tomboy/Tomboy.cs:267
 msgid "Cannot create new note"
 msgstr "No se puede crear una nota nueva"
 
-#: ../Tomboy/Tomboy.cs:332
+#: ../Tomboy/Tomboy.cs:333
 msgid "Primary Development:"
 msgstr "Desarrollo inicial:"
 
-#: ../Tomboy/Tomboy.cs:338
+#: ../Tomboy/Tomboy.cs:339
 msgid "Contributors:"
 msgstr "Colaboradores:"
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:404
 msgid "translator-credits"
 msgstr ""
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2009\n"
 "Jorge González <jorgegonz@svn.gnome.org>, 2004-2009"
 
-#: ../Tomboy/Tomboy.cs:409
+#: ../Tomboy/Tomboy.cs:413
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1911,16 +1944,16 @@ msgstr ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Otros\n"
 
-#: ../Tomboy/Tomboy.cs:411
+#: ../Tomboy/Tomboy.cs:415
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 "Una aplicación simple y fácil de usar para tomar notas en el escritorio."
 
-#: ../Tomboy/Tomboy.cs:421
+#: ../Tomboy/Tomboy.cs:425
 msgid "Homepage"
 msgstr "Página web"
 
-#: ../Tomboy/Tomboy.cs:533
+#: ../Tomboy/Tomboy.cs:537
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1931,7 +1964,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:545
+#: ../Tomboy/Tomboy.cs:549
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1947,7 +1980,7 @@ msgstr ""
 "  --search [texto]\t\tAbre la ventana de búsqueda de todas las notas con el "
 "texto buscado.\n"
 
-#: ../Tomboy/Tomboy.cs:555
+#: ../Tomboy/Tomboy.cs:559
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1963,7 +1996,7 @@ msgstr ""
 "  --highlight-search [texto]\tBuscar y resaltar texto coincidente en la nota "
 "abierta\n"
 
-#: ../Tomboy/Tomboy.cs:569
+#: ../Tomboy/Tomboy.cs:573
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versión {0}"
@@ -1972,7 +2005,7 @@ msgstr "Versión {0}"
 msgid " (new)"
 msgstr " (nueva)"
 
-#: ../Tomboy/Tray.cs:282
+#: ../Tomboy/Tray.cs:293
 msgid "_About Tomboy"
 msgstr "Acerca _de Tomboy"
 

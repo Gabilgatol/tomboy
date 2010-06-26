@@ -21,7 +21,7 @@ ASSEMBLIES = \
 # Web Sync Service Addin
 #
 
-TARGET = WebSyncServiceAddin.dll
+TARGET = $(top_builddir)/bin/addins/WebSyncServiceAddin.dll
 CSFILES = \
 	$(srcdir)/NoteConvert.cs       	\
 	$(srcdir)/WebSyncPreferencesWidget.cs   \
@@ -32,6 +32,7 @@ CSFILES = \
 	$(srcdir)/Api/Tests/*.cs            \
 	$(srcdir)/Hyena.Json/*.cs           \
 	$(srcdir)/Hyena.Json/Tests/*.cs     \
+	$(srcdir)/LibProxy/*.cs             \
 	$(srcdir)/OAuth/*.cs                \
 	$(srcdir)/OAuth/Mono.Rocks/*.cs
 RESOURCES = \
@@ -39,8 +40,8 @@ RESOURCES = \
 
 $(TARGET).mdb: $(TARGET)
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
 
 addinsdir = $(pkglibdir)/addins

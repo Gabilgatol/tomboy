@@ -4,12 +4,6 @@ using System.IO;
 using System.Xml;
 using Mono.Unix;
 
-#if FIXED_PANELAPPLET
-using Gnome;
-#elif !WIN32 && !MAC
-using _Gnome;
-#endif
-
 using Tomboy.Sync;
 
 namespace Tomboy
@@ -17,6 +11,7 @@ namespace Tomboy
 	public class Tomboy : Application
 	{
 		static bool debugging;
+		static bool uninstalled;
 		static NoteManager manager;
 		static TomboyTrayIcon tray_icon;
 		static TomboyTray tray = null;
@@ -63,6 +58,7 @@ namespace Tomboy
 
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 			debugging = cmd_line.Debug;
+			uninstalled = cmd_line.Uninstalled;
 
 			if (!RemoteControlProxy.FirstInstance) {
 				if (!cmd_line.NeedsExecute)
@@ -74,11 +70,15 @@ namespace Tomboy
 			}
 
 			Logger.LogLevel = debugging ? Level.DEBUG : Level.INFO;
+#if PANEL_APPLET
 			is_panel_applet = cmd_line.UsePanelApplet;
+#else
+			is_panel_applet = false;
+#endif
 
 			// NOTE: It is important not to use the Preferences
 			//       class before this call.
-			Initialize ("tomboy", "tomboy", "tomboy", args);
+			Initialize ("tomboy", "Tomboy", "tomboy", args);
 
 			// Add private icon dir to search path
 			icon_theme = Gtk.IconTheme.Default;
@@ -134,6 +134,7 @@ namespace Tomboy
 				return false;
 			});
 
+#if PANEL_APPLET
 			if (is_panel_applet) {
 				tray_icon_showing = true;
 
@@ -144,13 +145,13 @@ namespace Tomboy
 				RegisterPanelAppletFactory ();
 				Logger.Log ("All done.  Ciao!");
 				Exit (0);
-			} else {
-				RegisterSessionManagerRestart (
-				        Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH"),
-				        args,
-				        new string [] { "TOMBOY_PATH=" + note_path  }); // TODO: Pass along XDG_*?
-				StartTrayIcon ();
 			}
+#endif
+			RegisterSessionManagerRestart (
+			        Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH"),
+			        args,
+			        new string [] { "TOMBOY_PATH=" + note_path  }); // TODO: Pass along XDG_*?
+			StartTrayIcon ();
 
 			Logger.Log ("All done.  Ciao!");
 		}
@@ -158,6 +159,11 @@ namespace Tomboy
 		public static bool Debugging
 		{
 			get { return debugging; }
+		}
+
+		public static bool Uninstalled
+		{
+			get { return uninstalled; }
 		}
 
 		static string GetNotePath (string override_path)
@@ -177,7 +183,9 @@ namespace Tomboy
 		{
 			// This will block if there is no existing instance running
 #if !WIN32 && !MAC
-			PanelAppletFactory.Register (typeof (TomboyApplet));
+#if PANEL_APPLET
+			Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
+#endif
 #endif
 		}
 
@@ -205,7 +213,8 @@ namespace Tomboy
 			// instead, launch the Search All Notes window so the user can
 			// can still use Tomboy.
 #if !MAC
-			if (tray_icon_showing == false)
+			if (tray_icon_showing == false &&
+			    (bool) Preferences.Get (Preferences.ENABLE_TRAY_ICON))
 				ActionManager ["ShowSearchAllNotesAction"].Activate ();
 #endif
 			
@@ -344,6 +353,7 @@ namespace Tomboy
 				"\tBenjamin Podszun",
 				"\tBuchner Johannes",
 				"\tChris Scobell",
+				"\tClemens N. Buss",
 				"\tDave Foster",
 				"\tDavid Trowbridge",
 				"\tDoug Johnston",
@@ -371,8 +381,10 @@ namespace Tomboy
 				"\tMark Wakim",
 				"\tMathias Hasselmann",
 				"\tMatt Johnston",
+				"\tMatt Jones",
 				"\tMike Mazur",
 				"\tNathaniel Smith",
+				"\tOlivier Le Thanh Duong",
 				"\tPaul Cutler",
 				"\tPrzemysław Grzegorczyk",
 				"\tRobert Buchholz",
@@ -500,6 +512,12 @@ namespace Tomboy
 			get { return debug; }
 		}
 
+		// TODO: Document this option
+		public bool Uninstalled
+		{
+			get; private set;
+		}
+
 		public bool UsePanelApplet
 		{
 			get {
@@ -577,6 +595,9 @@ namespace Tomboy
 				switch (args [idx]) {
 				case "--debug":
 					debug = true;
+					break;
+				case "--uninstalled":
+					Uninstalled = true;
 					break;
 				case "--new-note":
 					// Get optional name for new note...

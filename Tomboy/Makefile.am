@@ -2,7 +2,8 @@ include $(top_srcdir)/Makefile.include
 
 SUBDIRS = . Addins
 
-TARGET = Tomboy.exe
+TARGET_NAME = Tomboy.exe
+TARGET = $(top_builddir)/bin/$(TARGET_NAME)
 WRAPPER = tomboy
 PANEL_WRAPPER = tomboy-panel
 
@@ -10,11 +11,6 @@ DBUS_CSFILES = 				\
 	$(srcdir)/IRemoteControl.cs	\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
-
-if ENABLE_DBUS
-DBUS_CSFLAGS = -define:ENABLE_DBUS
-DBUS_USED_CSFILES = $(DBUS_CSFILES)
-endif
 
 OSX_CSFILES =					\
 	$(srcdir)/MacApplication.cs		\
@@ -45,26 +41,26 @@ WIN_LIBS =					\
 	-r:System.Windows.Forms.dll
 endif
 
+PANELAPPLET_CSFILES =					\
+	$(srcdir)/Applet.cs
+
 GNOME_CSFILES =					\
-	$(srcdir)/Applet.cs 			\
 	$(srcdir)/GConfPreferencesClient.cs	\
 	$(srcdir)/GnomeApplication.cs		\
 	$(srcdir)/GnomeFactory.cs		\
+	$(srcdir)/GnomeSession.cs		\
 	$(srcdir)/XKeybinder.cs			\
 	$(srcdir)/gtk-sharp-beans/*.cs
 
-PANELAPPLET_CSFILES =			\
-	$(srcdir)/panelapplet/*.cs
+if ENABLE_PANEL_APPLET
+PANEL_APPLET_CSFLAGS = -define:PANEL_APPLET
+PANELAPPLET_USED_CSFILES = $(PANELAPPLET_CSFILES)
+endif
 
 if ENABLE_GNOME
+DBUS_CSFLAGS = -define:ENABLE_DBUS
+DBUS_USED_CSFILES = $(DBUS_CSFILES)
 GNOME_USED_CSFILES = $(GNOME_CSFILES)
-
-if FIXED_PANELAPPLET
-FIXED_PANELAPPLET_CSFLAGS = -define:FIXED_PANELAPPLET
-else
-PANELAPPLET_USED_CSFILES =			\
-	$(PANELAPPLET_CSFILES)
-endif
 endif
 
 if FIXED_GTKSPELL
@@ -84,7 +80,7 @@ CSFLAGS = 				\
 	$(DBUS_CSFLAGS) 		\
 	$(OSX_CSFLAGS) 		\
 	$(WIN_CSFLAGS) 		\
-	$(FIXED_PANELAPPLET_CSFLAGS)	\
+	$(PANEL_APPLET_CSFLAGS)		\
 	$(FIXED_GTKSPELL_CSFLAGS) \
 	$(HAS_GTK_2_16_FLAGS) \
 	$(CSC_DEFINES)
@@ -173,19 +169,23 @@ RESOURCES = 										\
 $(TARGET).mdb: $(TARGET)
 
 $(TARGET): $(CSFILES) Defines.cs
-	$(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
 
 tomboylibdir = $(pkglibdir)
 tomboylib_DATA = $(TARGET) $(TARGET).config $(TARGET).mdb
 
 
-bin_SCRIPTS = $(WRAPPER) $(PANEL_WRAPPER)
+bin_SCRIPTS = $(WRAPPER)
+if ENABLE_PANEL_APPLET
+bin_SCRIPTS += $(PANEL_WRAPPER)
+endif
 
 $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
+	mkdir -p `dirname $(WRAPPER)` && 		\
 	sed -e "s|\@prefix\@|$(prefix)|g" 		\
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
 	    -e "s|\@bindir\@|$(bindir)|g"		\
-	    -e "s|\@target\@|$(TARGET)|g" 		\
+	    -e "s|\@target\@|$(TARGET_NAME)|g" 		\
 	    -e "s|\@wrapper\@|$(WRAPPER)|g"		\
 	    -e "s|\@extragac\@|$(EXTRA_GAC_PREFIX)|g"	\
 	    -e "s|\@srcdir\@|$(PWD)|g"	\
@@ -196,14 +196,14 @@ $(PANEL_WRAPPER): $(srcdir)/$(PANEL_WRAPPER).in Makefile
 	sed -e "s|\@prefix\@|$(prefix)|g" 		\
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
 	    -e "s|\@bindir\@|$(bindir)|g"		\
-	    -e "s|\@target\@|$(TARGET)|g" 		\
+	    -e "s|\@target\@|$(TARGET_NAME)|g" 		\
 	    -e "s|\@wrapper\@|$(WRAPPER)|g"		\
 	    -e "s|\@extragac\@|$(EXTRA_GAC_PREFIX)|g"	\
 	    -e "s|\@srcdir\@|$(PWD)|g"	\
 	    < $< > $@
 	chmod +x $(PANEL_WRAPPER)
 
-$(TARGET).config: $(srcdir)/$(TARGET).config.in Makefile
+$(TARGET).config: $(srcdir)/$(TARGET_NAME$).config.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $< > $@
 
@@ -222,7 +222,7 @@ EXTRA_DIST =            		\
 	$(PANELAPPLET_CSFILES)		\
 	$(WRAPPER).in			\
 	$(PANEL_WRAPPER).in		\
-	$(TARGET).config.in		\
+	$(TARGET_NAME).config.in		\
 	$(srcdir)/Defines.cs.in		\
 	$(srcdir)/Tomboy.addin.xml
 

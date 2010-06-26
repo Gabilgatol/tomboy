@@ -6,11 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Mono.Unix;
 
-#if FIXED_PANELAPPLET
 using Gnome;
-#else
-using _Gnome;
-#endif
 
 namespace Tomboy
 {
@@ -378,7 +374,8 @@ namespace Tomboy
 			else if (icon_size <= 47)
 				icon_size = 32;
 
-			Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", icon_size);
+			Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy-panel", icon_size) ??
+				GuiUtils.GetIcon ("tomboy", icon_size);
 			image.Pixbuf = new_icon;
 		}
 
