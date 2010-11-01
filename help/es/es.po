@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.help.master\n"
-"POT-Creation-Date: 2010-10-22 13:07+0000\n"
-"PO-Revision-Date: 2010-10-24 13:13+0200\n"
+"POT-Creation-Date: 2010-10-31 20:02+0000\n"
+"PO-Revision-Date: 2010-11-01 09:08+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,6 @@ msgstr ""
 "de tareas de Windows."
 
 #: C/sync-setup.page:8(desc)
-#| msgid "Configure note synchronization"
 msgid "Configure Tomboy to synchronize your notes."
 msgstr "Configurar Tomboy para sincronizar sus notas"
 
@@ -127,7 +126,6 @@ msgstr ""
 "gui><gui>Preferencias</gui></guiseq>."
 
 #: C/sync-setup.page:48(title)
-#| msgid "Managing Notes"
 msgid "Managing Note Conflict"
 msgstr "Gestionar conflictos de notas"
 
@@ -212,11 +210,6 @@ msgstr ""
 "instalado el Depósito de claves de GNOME."
 
 #: C/sync-setup.page:99(p)
-#| msgid ""
-#| "Choose <guimenuitem>WebDAV</guimenuitem> from the <guilabel>Service</"
-#| "guilabel> drop-down list. Fill in the connection information for your "
-#| "server, and then select the <guibutton>Save</guibutton> button. You are "
-#| "now ready to synchronize your notes."
 msgid ""
 "Choose <gui>WebDAV</gui> from the <gui>Service</gui> drop-down list. Fill in "
 "the connection information for your server, and then select the <gui>Save</"
@@ -233,25 +226,24 @@ msgstr "Configurar sincronización usando SSH"
 #: C/sync-setup.page:110(p)
 #| msgid ""
 #| "In order to synchronize your notes with an SSH server, you will need the "
-#| "sshfs FUSE file system installed. Follow the documentation for your "
-#| "operating system to set up FUSE for your user. You will also need an SSH "
-#| "key for your SSH server account, which should be added to a running SSH "
-#| "daemon. This can be done using the GNOME <application>Seahorse</"
-#| "application> application, which is also known as <application>Passwords "
-#| "and Encryption Keys</application>."
+#| "FUSE file system, also called <app>sshfs</app>installed. Follow the "
+#| "documentation for your operating system to set up FUSE for your user. You "
+#| "will also need an SSH key for your SSH server account, whi<app>GNOME "
+#| "Seahorse</app> application, which is also known as <app>Passwords and "
+#| "Encryption Keys</app>."
 msgid ""
 "In order to synchronize your notes with an SSH server, you will need the "
-"FUSE file system, also called <app>sshfs</app>installed. Follow the "
+"FUSE file system, also called <app>sshfs</app> installed. Follow the "
 "documentation for your operating system to set up FUSE for your user. You "
 "will also need an SSH key for your SSH server account, whi<app>GNOME "
 "Seahorse</app> application, which is also known as <app>Passwords and "
 "Encryption Keys</app>."
 msgstr ""
 "Para poder sincronizar sus notas contra un servidor SSH debe tener el "
-"sistema de archivos <app>sshfs</app> FUSE instalado. Siga la documentación "
-"para configurar FUSE para su sistema operativo y usuario. También deberá "
-"tener una clave SSH para su cuenta en el servidor SSH, que se añadirá a la "
-"aplicación <app>GNOME Seahorse</app>, también conocida como <app>Contraseñas "
+"sistema de archivos <app>sshfs</app> FUSE instalado. Siga la documentación "
+"para configurar FUSE para su sistema operativo y usuario. También deberá "
+"tener una clave SSH para su cuenta en el servidor SSH, que se añadirá a la "
+"aplicación <app>GNOME Seahorse</app>, también conocida como <app>Contraseñas "
 "y claves de cifrado</app>."
 
 #: C/sync-setup.page:118(p)
@@ -266,16 +258,15 @@ msgstr ""
 
 #: C/sync-setup.page:122(p)
 #| msgid ""
-#| "Open <application>Passwords and Encryption Keys</application> by choosing "
-#| "<menuchoice><guimenu>Applications</guimenu><guimenu>Accessories</"
-#| "guimenu><guimenu>Passwords and Encryption Keys</guimenu></menuchoice>. "
-#| "Click on your key, and from the menu choose <menuchoice><guimenu>Remote</"
-#| "guimenu><guimenu>Configure Key for Secure Shell...</guimenu></menuchoice> "
-#| "and enter the domain name or IP address of the computer you want to sync "
-#| "to in <guimenu>Computer Name</guimenu>. Enter the username of the remote "
-#| "computer in <guimenu>Computer Name:</guimenu> and click <guimenu>Set Up</"
-#| "guimenu>. When prompted, enter the password, and setting up your key will "
-#| "be completed."
+#| "Open <app>Passwords and Encryption Keys</app> by choosing "
+#| "<guiseq><gui>Applications</gui><gui>Accessories</gui><gui>Passwords and "
+#| "Encryption Keys</gui></guiseq>. Click on your key, and from the menu "
+#| "choose <guiseq><gui>Remote</gui><gui>Configure Key for Secure Shell</"
+#| "gui></guiseq> and enter the domain name or IP address of the computer you "
+#| "want to sync to in <gui>Computer Name</gui>. Enter the username of the "
+#| "remote computer in <gui>Computer Name:</gui> and press <gui>Set Up</gui>. "
+#| "When prompted, enter the password and setting up your key will be "
+#| "completed."
 msgid ""
 "Open <app>Passwords and Encryption Keys</app> by choosing "
 "<guiseq><gui>Applications</gui><gui>Accessories</gui><gui>Passwords and "
@@ -283,8 +274,8 @@ msgid ""
 "<guiseq><gui>Remote</gui><gui>Configure Key for Secure Shell</gui></guiseq> "
 "and enter the domain name or IP address of the computer you want to sync to "
 "in <gui>Computer Name</gui>. Enter the username of the remote computer in "
-"<gui>Computer Name:</gui> and press <gui>Set Up</gui>. When prompted, enter "
-"the password and setting up your key will be completed."
+"<gui>Login Name:</gui> and press <gui>Set Up</gui>. When prompted, enter the "
+"password and setting up your key will be completed."
 msgstr ""
 "Abra <app>Contraseñas y claves de cifrado</app> eligiendo "
 "<guiseq><gui>Aplicaciones</gui><gui>Accesorios</gui><gui>Contraseñas y "
@@ -292,18 +283,11 @@ msgstr ""
 "<guiseq><gui>Remota</gui><gui>Configurar clave para Shell segura...</gui></"
 "guiseq> e introduzca el nombre de dominio o dirección IP del equipo con el "
 "que quiere sincronizar en <gui>Equipo</gui>. Introduzca el nombre de usuario "
-"del equipo remoto en <gui>Equipo</gui> y pulse <gui>Configurar</gui>. Cuando "
-"se le pregunte, introduzca la contraseña y habrá finalizado la configuración "
-"de su clave."
+"del equipo remoto en <gui>Usuario</gui> y pulse <gui>Configurar</gui>. "
+"Cuando se le pregunte, introduzca la contraseña y habrá finalizado la "
+"configuración de su clave."
 
 #: C/sync-setup.page:134(p)
-#| msgid ""
-#| "In <application>Tomboy</application>, choose <guimenuitem>SSH</"
-#| "guimenuitem> from the <guilabel>Service</guilabel> drop-down list. Fill "
-#| "in the connection information for your server, and then select the "
-#| "<guibutton>Save</guibutton> button. The <guimenuitem>Folder Path</"
-#| "guimenuitem>, while optional, should point at an empty folder. You are "
-#| "now ready to synchronize your notes."
 msgid ""
 "In Tomboy, choose <gui>SSH</gui> from the <gui>Service</gui> drop-down list. "
 "Fill in the connection information for your server, and select the "
@@ -317,7 +301,6 @@ msgstr ""
 "carpeta vacía. Ahora está listo para sincronizar sus notas."
 
 #: C/sync-setup.page:144(title)
-#| msgid "Configure note synchronization service (Local Folder)"
 msgid "Configure Sync to a local folder"
 msgstr "Configurar la sincronización a una carpeta local"
 
@@ -332,12 +315,6 @@ msgstr ""
 "servidor remoto."
 
 #: C/sync-setup.page:151(p)
-#| msgid ""
-#| "Choose <guimenuitem>Local Folder</guimenuitem> from the "
-#| "<guilabel>Service</guilabel> drop-down list. Choose the desired "
-#| "synchronization <guilabel>Folder Path</guilabel>, and then select the "
-#| "<guibutton>Save</guibutton> button. You are now ready to synchronize your "
-#| "notes."
 msgid ""
 "Choose Local Folder from the <gui>Service</gui> drop-down list. Choose the "
 "desired synchronization <gui>Folder Path</gui> and then click the <gui>Save</"
@@ -393,12 +370,6 @@ msgid "Sync Your Notes Automatically"
 msgstr "Sincronizar sus notas automáticamente"
 
 #: C/sync.page:48(p)
-#| msgid ""
-#| "Tomboy can automatically sync your notes for you in the background. It is "
-#| "recommended that you configure how you handle note conflicts before "
-#| "enabling syncing automatically. You can learn about handling note "
-#| "conflicts in the <link xref=\"sync-setup#conflict\"/> Configure and Setup "
-#| "Sync page."
 msgid ""
 "Tomboy can automatically sync your notes for you in the background. It is "
 "recommended that you configure how you handle note conflicts before enabling "
@@ -1155,15 +1126,15 @@ msgstr "Activar funcionalidad adicional de la nota."
 msgid "Tomboy Tools Addins"
 msgstr "Complementos de herramientas de Tomboy"
 
-#: C/addins-tools.page:25(title)
+#: C/addins-tools.page:24(p)
 msgid "Tools addins add additional functionality to your Tomboy notes."
 msgstr "Los complementos añaden funcionalidad adicional a sus notas Tomboy."
 
-#: C/addins-tools.page:29(title)
+#: C/addins-tools.page:27(title)
 msgid "Backlinks"
 msgstr "Retroenlaces"
 
-#: C/addins-tools.page:30(p)
+#: C/addins-tools.page:28(p)
 msgid ""
 "The <gui>Backlinks</gui> addin is enabled by default and allows you to see "
 "which notes link to the note you are currently viewing."
@@ -1172,11 +1143,11 @@ msgstr ""
 "predeterminada y le permite ver qué notas enlazan con la nota que está "
 "viendo actualmente."
 
-#: C/addins-tools.page:35(title)
+#: C/addins-tools.page:33(title)
 msgid "Export to HTML"
 msgstr "Exportar a HTML"
 
-#: C/addins-tools.page:36(p)
+#: C/addins-tools.page:34(p)
 msgid ""
 "The <gui>Export to HTML</gui> addin is enabled by default and will export an "
 "individual note to HTML."
@@ -1184,7 +1155,7 @@ msgstr ""
 "El complemento <gui>Exportar a HTML</gui> está activado de manera "
 "predeterminada, y exportará una nota individual a HTML."
 
-#: C/addins-tools.page:38(p)
+#: C/addins-tools.page:36(p)
 msgid ""
 "To export a note to HTML, press the <gui>Tools</gui> icon in the note "
 "toolbar and choose <gui>Export to HTML</gui>. You will immediately be "
@@ -1201,11 +1172,11 @@ msgstr ""
 "se guardará como un archivo HTML y se mostrará automáticamente en su "
 "navegador."
 
-#: C/addins-tools.page:47(title)
+#: C/addins-tools.page:45(title)
 msgid "Insert Timestamp"
 msgstr "Insertar marca de tiempo"
 
-#: C/addins-tools.page:48(p)
+#: C/addins-tools.page:46(p)
 msgid ""
 "The <gui>Insert Timestamp</gui> addin is disabled by default. To enable it, "
 "choose the <gui>Insert Timestamp</gui> addin and then press <gui>Enable</"
@@ -1216,7 +1187,7 @@ msgstr ""
 "<gui>Insertar marca de tiempo</gui> y pulse <gui>Activar</gui> en las "
 "preferencias de Tomboy."
 
-#: C/addins-tools.page:51(p)
+#: C/addins-tools.page:49(p)
 msgid ""
 "To add a timestamp to your notes, press the <gui>Tools</gui> icon in the "
 "note toolbar and choose <gui>Insert Timestamp</gui> or press <key>Ctrl + D</"
@@ -1226,11 +1197,11 @@ msgstr ""
 "<gui>Herramientas</gui> en la barra de herramientas de la nota y elija "
 "<gui>Insertar marca de tiempo</gui> o pulse <key>Ctrl + D</key>."
 
-#: C/addins-tools.page:57(title)
+#: C/addins-tools.page:55(title)
 msgid "Note of the Day"
 msgstr "Nota del día"
 
-#: C/addins-tools.page:58(p)
+#: C/addins-tools.page:56(p)
 msgid ""
 "The <gui>Note of the Day</gui> addin is disabled by default. To enable, "
 "choose the <gui>Note of the Day</gui> addin and then press <gui>Enable</gui> "
@@ -1240,7 +1211,7 @@ msgstr ""
 "predeterminada. Para activarlo, elija el complemento <gui>Nota del día</gui> "
 "y pulse <gui>Activar</gui> en las preferencias de Tomboy."
 
-#: C/addins-tools.page:61(p)
+#: C/addins-tools.page:59(p)
 msgid ""
 "<gui>Note of the Day</gui> addin will create a new note daily with the title "
 "<em>Today: Thursday, January 21 2010</em> for example. The note will also "
@@ -1250,11 +1221,11 @@ msgstr ""
 "<em>Hoy: jueves, 21 de enero de 2010</em>, por ejemplo. La nota también "
 "añadirá filas a <em>Tareas</em> y <em>Citas</em> automáticamente."
 
-#: C/addins-tools.page:67(title)
+#: C/addins-tools.page:65(title)
 msgid "Note Directory Watcher"
 msgstr "Vigilante de la carpeta de notas"
 
-#: C/addins-tools.page:68(p)
+#: C/addins-tools.page:66(p)
 msgid ""
 "The Note Directory Watcher addin monitors the directory your Tomboy notes "
 "are saved in. If the addin detects changes to your notes, it will apply "
