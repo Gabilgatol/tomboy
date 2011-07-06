@@ -1,7 +1,6 @@
 # Turkish translation of Tomboy
 # Copyright (C) 2005 Free Software Foundation.
 # This file is distributed under the same license as the Tomboy package.
-# 
 # Enver ALTIN <ealtin@parkyeri.com>, 2005.
 # Serdar Cicek <serdar@nerd.com.tr>, 2006.
 # Baris Cicek <baris@teamforce.name.tr>, 2008.
@@ -13,14 +12,16 @@ msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-04-21 04:22+0000\n"
-"PO-Revision-Date: 2011-04-29 02:41+0300\n"
+"POT-Creation-Date: 2011-06-24 23:14+0000\n"
+"PO-Revision-Date: 2011-07-06 19:23+0300\n"
 "Last-Translator: Muhammet Kara <muhammet.k@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"Language: tr\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -72,7 +73,7 @@ msgstr "SSL Sertifikalarını Kabul Et"
 
 #: ../data/tomboy.schemas.in.h:2
 msgid "Automatic Background Synchronization Timeout"
-msgstr ""
+msgstr "Otomatik Arkaplan Eşzamanlama Zamanaşımı"
 
 #: ../data/tomboy.schemas.in.h:3
 msgid "Create a new Note"
@@ -83,39 +84,29 @@ msgid "Custom Font Face"
 msgstr "Özel Yazı Tipi"
 
 #: ../data/tomboy.schemas.in.h:5
-#, fuzzy
 #| msgid "Determines X coordinate of Search window; stored on Tomboy exit."
-msgid ""
-"Determines X coordinate of \"Search All Notes\" window; stored on Tomboy "
-"exit."
+msgid "Determines X coordinate of Search window; stored on Tomboy exit."
 msgstr ""
-"Arama penceresinin X koordinatını saptar; Tomboy kapandığında saklanır."
+"Arama penceresinin X koordinatını belirtir; Tomboy kapandığında saklanır."
 
 #: ../data/tomboy.schemas.in.h:6
-#, fuzzy
 #| msgid "Determines Y coordinate of Search window; stored on Tomboy exit."
-msgid ""
-"Determines Y coordinate of \"Search All Notes\" window; stored on Tomboy "
-"exit."
+msgid "Determines Y coordinate of Search window; stored on Tomboy exit."
 msgstr ""
-"Arama penceresinin Y koordinatını saptar; Tomboy kapandığında saklanır."
+"Arama penceresinin Y koordinatını belirtir; Tomboy kapandığında saklanır."
 
 #: ../data/tomboy.schemas.in.h:7
-#, fuzzy
 #| msgid "Determines pixel height of Search window; stored on Tomboy exit."
-msgid ""
-"Determines pixel height of \"Search All Notes\" window; stored on Tomboy "
-"exit."
+msgid "Determines pixel height of Search window; stored on Tomboy exit."
 msgstr ""
-"Arama penceresinin piksel yüksekliğini saptar; Tomboy kapandığında saklanır."
+"Arama penceresinin piksel yüksekliğini belirtir; Tomboy kapandığında "
+"saklanır."
 
 #: ../data/tomboy.schemas.in.h:8
-#, fuzzy
 #| msgid "Determines pixel width of Search window; stored on Tomboy exit."
-msgid ""
-"Determines pixel width of \"Search All Notes\" window; stored on Tomboy exit."
+msgid "Determines pixel width of Search window; stored on Tomboy exit."
 msgstr ""
-"Arama penceresinin piksel genişliğini saptar; Tomboy kapandığında saklanır."
+"Arama penceresinin piksel genişliğini belirtir; Tomboy kapandığında saklanır."
 
 #: ../data/tomboy.schemas.in.h:9
 msgid "Enable Auto bulleted lists."
@@ -126,7 +117,6 @@ msgid "Enable Middle-Click Paste On Icon."
 msgstr "Simge Üzerine Orta Tuşla Tıklandığında Yapıştırmayı Etkinleştir."
 
 #: ../data/tomboy.schemas.in.h:11
-#| msgid "TrayIcon"
 msgid "Enable Tray Icon"
 msgstr "Bildirim Simgesini Etkinleştir"
 
@@ -202,7 +192,7 @@ msgstr "Bağlı Notları HTML Olarak Dışa Aktar"
 #: ../data/tomboy.schemas.in.h:26
 msgid ""
 "If disabled, the \"Delete Note\" confirmation dialog will be suppressed."
-msgstr ""
+msgstr "Eğer devre dışı bırakılırsa, \"Notu Sil\" onay penceresi baskılanır."
 
 #: ../data/tomboy.schemas.in.h:27
 msgid ""
@@ -231,6 +221,9 @@ msgid ""
 "Disabling this may be useful when another application is providing the "
 "functionality of the tray icon."
 msgstr ""
+"Eğer doğruysa (true), Tomboy'un tepsi simgesi bildirim alanında gösterilir. "
+"Eğer başka bir uygulama tepsi simgesi işlevini sağlıyorsa bunu devre dışı "
+"bırakmak kullanışlı olabilir."
 
 #: ../data/tomboy.schemas.in.h:31
 msgid ""
@@ -281,6 +274,10 @@ msgid ""
 "autosync is disabled. The lowest acceptable positive value is 5. Value is in "
 "minutes."
 msgstr ""
+"Notlarınızın (eşzamanlama yapılandırılmışsa) ne sıklıkla arkaplanda "
+"eşzamanlanacağını gösteren tam sayı değeri. 1'den küçük herhangi bir değer, "
+"otomatik eşzamanlamanın devre dışı bırakıldığını gösterir. Kabul edilebilir "
+"en küçük pozitif sayı 5'dir. Bu değer, dakika cinsindendir."
 
 #: ../data/tomboy.schemas.in.h:37
 msgid ""
@@ -297,7 +294,6 @@ msgstr ""
 "çakışmayı durumdan duruma değerlendirebilirler."
 
 #: ../data/tomboy.schemas.in.h:38
-#, fuzzy
 #| msgid ""
 #| "Integer value indicating if there is a preference to always perform a "
 #| "specific behavior when a conflict is detected, instead of prompting the "
@@ -313,15 +309,21 @@ msgid ""
 "indicates that link text should be updated to the new note name so that it "
 "will continue linking to the renamed note."
 msgstr ""
-"Bir çakışma meydana geldiğinde kullanıcıya sormak yerine her zaman belirli "
+"Bir bağlantının adı değiştirildiğinde kullanıcıya sormak yerine her zaman "
+"belirli "
 "bir işleyişi yerine getirmek yönünde bir tercih olup olmadığını belirten "
 "tamsayı değeri. Değerler dahili değerlendirme ile eşleşirler. 0 kullanıcının "
-"bir çakışma olduğunda sorulmasını istediği anlamına gelir, böylelikle her "
-"çakışmayı durumdan duruma değerlendirebilirler."
+"bir ad değiştirme olduğunda her zaman sorulmasını istediği anlamına gelir, "
+"böylelikle her "
+"çakışmayı durumdan duruma değerlendirebilirler. 1 bağlantıların otomatik "
+"olarak kaldırılması "
+"gerektiğini belirtir. 2 bağlantı metninin yeni not adına göre güncellenmesi "
+"gerektiğini böylece "
+"adı değiştirilen notu göstermeye devam edeceğini belirtir."
 
 #: ../data/tomboy.schemas.in.h:39
 msgid "Link Updating Behavior on Note Rename"
-msgstr ""
+msgstr "Notların Yeniden Adlandırılmasında Bağlantı Güncelleme Davranışı"
 
 #: ../data/tomboy.schemas.in.h:40
 msgid "List of pinned notes."
@@ -388,27 +390,23 @@ msgid "SSHFS Synchronization Server URL"
 msgstr "SSHFS Eşzamanlama Sunucusu Adresi (URL)"
 
 #: ../data/tomboy.schemas.in.h:54
-#, fuzzy
 #| msgid "Saved height of Search window"
-msgid "Saved height of \"Search All Notes\" window"
+msgid "Saved height of Search window"
 msgstr "Arama penceresinin kaydedilmiş yüksekliği"
 
 #: ../data/tomboy.schemas.in.h:55
-#, fuzzy
 #| msgid "Saved horizontal position of Search window"
-msgid "Saved horizontal position of \"Search All Notes\" window"
-msgstr "Arama penceresinin kaydedilmiş yatay pozisyonu"
+msgid "Saved horizontal position of Search window"
+msgstr "Arama penceresinin kaydedilmiş yatay konumu"
 
 #: ../data/tomboy.schemas.in.h:56
-#, fuzzy
 #| msgid "Saved vertical position of Search window"
-msgid "Saved vertical position of \"Search All Notes\" window"
-msgstr "Arama penceresinin kaydedilmiş dikey pozisyonu"
+msgid "Saved vertical position of Search window"
+msgstr "Arama penceresinin kaydedilmiş dikey konumu"
 
 #: ../data/tomboy.schemas.in.h:57
-#, fuzzy
 #| msgid "Saved width of Search window"
-msgid "Saved width of \"Search All Notes\" window"
+msgid "Saved width of Search window"
 msgstr "Arama penceresinin kaydedilmiş genişliği"
 
 #: ../data/tomboy.schemas.in.h:58
@@ -947,8 +945,8 @@ msgid "Server or username field is empty."
 msgstr "Sunucu ya da kullanıcı adı alanı boş."
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:130
-msgid "SSH"
-msgstr "SSH"
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:179
 msgid ""
@@ -1021,8 +1019,8 @@ msgid "URL, username, or password field is empty."
 msgstr "URL, kullanıcı ismi ya da parola alanı boş."
 
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:119
-msgid "WebDAV"
-msgstr "WebDAV"
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (wdfs FUSE)"
 
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:178
 msgid ""
@@ -1071,7 +1069,7 @@ msgstr "Kimlik Doğrulama Başarısız Oldu, Tekrar Deneyin"
 #. Translators: Title of web page presented to user after they authorized Tomboy for sync
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:210
 msgid "Tomboy Web Authorization Successful"
-msgstr ""
+msgstr "Tomboy Web Yetkilendirmesi Başarılı"
 
 #. Translators: Body of web page presented to user after they authorized Tomboy for sync
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:212
@@ -1079,18 +1077,19 @@ msgid ""
 "Please return to the Tomboy Preferences window and press Save to start "
 "synchronizing."
 msgstr ""
+"Eşzamanlamayı başlatmak için lütfen Tomboy Tercihleri penceresine geri dönün "
+"ve Kaydet'e basın."
 
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:221
-#, fuzzy
 #| msgid "Connected. Click Save to start synchronizing"
 msgid "Connected. Press Save to start synchronizing"
-msgstr "Bağlandı. Eşzamanlamanın başlaması için Kaydet'e tıklayın"
+msgstr "Bağlandı. Eşzamanlamayı başlatmak için Kaydet'e basın"
 
 #. Translators: The user must take action in their web browser to continue the authorization process
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:227
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:239
 msgid "Authorizing in browser (Press to reset connection)"
-msgstr ""
+msgstr "Tarayıcıda yetkilendirme (Bağlantıyı sıfırlamak için basın)"
 
 #. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
@@ -1106,13 +1105,11 @@ msgstr "Tüm Notları Ara"
 #. if (new_notebook != null)
 #. object_collection.AddObject(new_notebook);
 #: ../Tomboy/JumpListManager.cs:106
-#| msgid "Create _New Note"
 msgid "Create New Note"
 msgstr "Yeni Not Oluştur"
 
 #: ../Tomboy/JumpListManager.cs:136
 #, csharp-format
-#| msgid " (new)"
 msgid "{0} (new)"
 msgstr "{0} (yeni)"
 
@@ -1126,7 +1123,6 @@ msgid "_Window"
 msgstr "_Pencere"
 
 #: ../Tomboy/MacApplication.cs:234
-#| msgid "_Preferences"
 msgid "Preferences..."
 msgstr "Tercihler..."
 
@@ -1268,7 +1264,7 @@ msgid "If you delete a note it is permanently lost."
 msgstr "Eğer bir notu silerseniz kalıcı olarak kaybolacaktır."
 
 #: ../Tomboy/Note.cs:1616
-#, fuzzy, csharp-format
+#, csharp-format
 #| msgid ""
 #| "An error occurred while saving your notes. Please check that you have "
 #| "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
@@ -1279,8 +1275,8 @@ msgid ""
 "details can be found in {1}."
 msgstr ""
 "Notlarınız kaydedilirken bir hata oluştu. Lütfen yeterli boş disk alanınız "
-"olduğunu kontrol edin ve ~/.tomboy üzerinde yeterli haklara sahip olduğunuza "
-"emin olun. Hata ayrıntıları ~/.tomboy.log içerisinde bulunabilir."
+"olduğunu kontrol edin ve {0} üzerinde yeterli haklara sahip olduğunuza "
+"emin olun. Hata ayrıntıları {1} içerisinde bulunabilir."
 
 #: ../Tomboy/Note.cs:1632
 msgid "Error saving note data."
@@ -1438,7 +1434,6 @@ msgid "Rename Note Links?"
 msgstr "Not Bağlantıları Yeniden Adlandırılsın Mı?"
 
 #: ../Tomboy/NoteRenameDialog.cs:56
-#| msgid "_Open Link"
 msgid "_Rename Links"
 msgstr "_Bağlantıları Yeniden Adlandır"
 
@@ -1454,9 +1449,14 @@ msgid ""
 "\n"
 "If you do not rename the links, they will no longer link to anything."
 msgstr ""
+"Diğer notlardaki bağlantıların adları \"<span underline=\"single\">{0}</span>"
+"\"dan "
+"\"<span underline=\"single\">{1}</span>\"a değiştirilsin mi?\n"
+"\n"
+"Eğer bağlantıları yeniden adlandırmazsanız, bundan sonra herhani bir yeri "
+"göstermeyecekler."
 
 #: ../Tomboy/NoteRenameDialog.cs:83
-#| msgid "_Open Link"
 msgid "Rename Links"
 msgstr "Bağlantıları Yeniden Adlandır"
 
@@ -1472,17 +1472,14 @@ msgstr "Tümünü Seç"
 
 #. Translators: This button causes all notes in the list to be unselected
 #: ../Tomboy/NoteRenameDialog.cs:127
-#| msgid "Select an icon..."
 msgid "Select None"
 msgstr "Hiçbirini Seçme"
 
 #: ../Tomboy/NoteRenameDialog.cs:144
-#| msgid "_Advanced..."
 msgid "Ad_vanced"
 msgstr "_Gelişmiş"
 
 #: ../Tomboy/NoteRenameDialog.cs:147
-#| msgid "Close this window"
 msgid "Always show this _window"
 msgstr "Bu _pencereyi herzaman göster"
 
@@ -1683,10 +1680,9 @@ msgstr "Özel _yazı tipi kullan"
 
 #: ../Tomboy/PreferencesDialog.cs:235
 msgid "When renaming a linked note: "
-msgstr ""
+msgstr "Bağlantılı bir notu yeniden adlandırırken: "
 
 #: ../Tomboy/PreferencesDialog.cs:238
-#| msgid "Always ask me what to do."
 msgid "Ask me what to do"
 msgstr "Ne yapılacağını bana sor"
 
@@ -1754,7 +1750,7 @@ msgstr "Yapılandırılamaz"
 
 #: ../Tomboy/PreferencesDialog.cs:512
 msgid "Automaticall_y Sync in Background Every"
-msgstr ""
+msgstr "Arkapland_a Otomatik Olarak Eşzamanlama Sıklığı:"
 
 #. Translators: See above comment for details on
 #. this string.
@@ -1821,9 +1817,9 @@ msgid "Replace my local note with the server's update."
 msgstr "Sunucudaki güncel olaranı ile beni notumu yer değiştir."
 
 #: ../Tomboy/PreferencesDialog.cs:1149
-#| msgid "WARNING: Are you sure?"
-msgid "Are you sure?"
-msgstr "Emin misiniz?"
+#| msgid "Are you sure?"
+msgid "WARNING: Are you sure?"
+msgstr "UYARI: Emin misiniz?"
 
 #: ../Tomboy/PreferencesDialog.cs:1151
 msgid ""
@@ -1848,8 +1844,8 @@ msgstr ""
 "terkar tüm notlarınızı eşzamanlandırmaya zorlanabilirsiniz"
 
 #: ../Tomboy/PreferencesDialog.cs:1244
-msgid "Connection successful"
-msgstr "Bağlantı başarılı"
+msgid "Success! You're connected!"
+msgstr "Başarılı! Bağlandınız!"
 
 #: ../Tomboy/PreferencesDialog.cs:1246
 msgid ""
@@ -1861,29 +1857,34 @@ msgstr ""
 
 #: ../Tomboy/PreferencesDialog.cs:1269
 #, csharp-format
+#| msgid ""
+#| "Sorry, but something went wrong.  Please check your information and try "
+#| "again.  The ~/.tomboy.log might be useful too."
 msgid ""
-"Please check your information and try again.  The log file {0} may contain "
-"more information about the error."
+"Sorry, but something went wrong.  Please check your information and try "
+"again.  The {0} might be useful too."
 msgstr ""
+"Üzgünüz, ancak bir şeyler yanlış gitti. Lütfen bilgilerinizi kontrol edip "
+"tekrar deneyin. {0} da faydalı olabilir."
 
-#: ../Tomboy/PreferencesDialog.cs:1281
-#| msgid "Error connecting :("
-msgid "Error connecting"
-msgstr "Bağlanırken hata oluştu"
+#: ../Tomboy/PreferencesDialog.cs:1282
+#| msgid "Error connecting"
+msgid "Error connecting :("
+msgstr "Bağlanırken hata oluştu :("
 
-#: ../Tomboy/PreferencesDialog.cs:1357
+#: ../Tomboy/PreferencesDialog.cs:1358
 msgid "Version:"
 msgstr "Sürüm:"
 
-#: ../Tomboy/PreferencesDialog.cs:1364
+#: ../Tomboy/PreferencesDialog.cs:1365
 msgid "Author:"
 msgstr "Yazan:"
 
-#: ../Tomboy/PreferencesDialog.cs:1371
+#: ../Tomboy/PreferencesDialog.cs:1372
 msgid "Copyright:"
 msgstr "Telif Hakkı:"
 
-#: ../Tomboy/PreferencesDialog.cs:1377
+#: ../Tomboy/PreferencesDialog.cs:1378
 msgid "Add-in Dependencies:"
 msgstr "Eklenti Bağımlılıkları:"
 
@@ -1891,43 +1892,37 @@ msgstr "Eklenti Bağımlılıkları:"
 msgid "_Search:"
 msgstr "_Ara:"
 
-#: ../Tomboy/RecentChanges.cs:334
+#: ../Tomboy/RecentChanges.cs:331
 msgid "Note"
 msgstr "Not"
 
-#: ../Tomboy/RecentChanges.cs:356
+#: ../Tomboy/RecentChanges.cs:353
 msgid "Last Changed"
 msgstr "Son Değiştirilme"
 
-#: ../Tomboy/RecentChanges.cs:487
+#: ../Tomboy/RecentChanges.cs:484
 msgid "Matches"
 msgstr "Eşleşmeler"
 
-#: ../Tomboy/RecentChanges.cs:538
-#| msgid "{0} match"
-#| msgid_plural "{0} matches"
-msgid "Title match"
-msgstr "Başlık eşleşmesi"
-
-#: ../Tomboy/RecentChanges.cs:541
+#: ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} eşleşme"
 
-#: ../Tomboy/RecentChanges.cs:555
+#: ../Tomboy/RecentChanges.cs:549
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Toplam: {0} not"
 
-#: ../Tomboy/RecentChanges.cs:566
+#: ../Tomboy/RecentChanges.cs:560
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Eşleşmeler: {0} not"
 
-#: ../Tomboy/RecentChanges.cs:702
+#: ../Tomboy/RecentChanges.cs:696
 msgid "Notes"
 msgstr "Notlar"
 
@@ -1951,9 +1946,6 @@ msgstr ""
 "Muhammet Kara <muhammet.k@gmail.com>"
 
 #: ../Tomboy/Tomboy.cs:414
-#| msgid ""
-#| "Copyright © 2004-2007 Alex Graveley\n"
-#| "Copyright © 2004-2009 Others\n"
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2010 Others\n"
@@ -2406,30 +2398,28 @@ msgstr ""
 "etc/init.d/boot.local içerisine \"modprbe fuse\" ekleyin ya da /etc/modules "
 "içerisine \"fuse\" ekleyin."
 
+#~ msgid "SSH"
+#~ msgstr "SSH"
+
+#~ msgid "WebDAV"
+#~ msgstr "WebDAV"
+
+#~ msgid "Connection successful"
+#~ msgstr "Bağlantı başarılı"
+
+#~| msgid "{0} match"
+#~| msgid_plural "{0} matches"
+#~ msgid "Title match"
+#~ msgstr "Başlık eşleşmesi"
+
 #~ msgid "_Browse..."
 #~ msgstr "_Göz at..."
-
-#~ msgid "SSH (sshfs FUSE)"
-#~ msgstr "SSH (sshfs FUSE)"
-
-#~ msgid "WebDAV (wdfs FUSE)"
-#~ msgstr "WebDAV (wdfs FUSE)"
 
 #~ msgid "Click Here After Authorizing"
 #~ msgstr "Yetkilendirmeden Sonra Buraya Tıklayın"
 
 #~ msgid "Processing..."
 #~ msgstr "İşleniyor..."
-
-#~ msgid "Success! You're connected!"
-#~ msgstr "Başarılı! Bağlandınız!"
-
-#~ msgid ""
-#~ "Sorry, but something went wrong.  Please check your information and try "
-#~ "again.  The ~/.tomboy.log might be useful too."
-#~ msgstr ""
-#~ "Üzgünüz, ancak bir şey yanlış gitti. Lütfen bilgilerinizi kontrol edip "
-#~ "tekrar deneyin. ~/.tomboy.log da faydalı olabilir."
 
 #~ msgid "D-BUS remote control disabled.\n"
 #~ msgstr "D-BUS uzaktan kumandası kapalı.\n"
